@@ -1,4 +1,5 @@
 import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, MeshBuilder } from "@babylonjs/core";
+import { Player } from "./Player";
 
 export class Test {
     scene : Scene;
@@ -14,17 +15,13 @@ export class Test {
 
     createScene() : Scene {
         const scene = new Scene(this.engine);
-        const camera = new FreeCamera("camera", new Vector3(0, 5, 0), this.scene);
-        camera.attachControl();
 
         const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), this.scene);
         hemiLight.intensity = 0.5;
 
         const ground = MeshBuilder.CreateGround("ground", {width:10, height:10}, this.scene);   
 
-        const ball = MeshBuilder.CreateSphere("ball", {diameter:1}, this.scene);
-
-        ball.position.y = 1;
+        const player = new Player(scene, this.engine);
         return scene;
     }
 }
