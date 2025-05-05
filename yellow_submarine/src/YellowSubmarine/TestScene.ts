@@ -1,4 +1,4 @@
-import { Scene, Engine, Vector3, HemisphericLight, Texture, ShaderMaterial, MeshBuilder} from "@babylonjs/core";
+import { Scene, Engine, Vector3, HemisphericLight, Texture, ShaderMaterial, MeshBuilder, StandardMaterial, CubeTexture} from "@babylonjs/core";
 import { Player } from "./Player";
 
 export class Test {
@@ -44,6 +44,27 @@ export class Test {
         }, scene);
 
         waterPlane.material = shaderMaterial;
+
+
+        //Skybox
+        const skybox = MeshBuilder.CreateBox("skyBox", {size:2000}, scene);
+        skybox.infiniteDistance = true;
+
+        const skyboxMaterial = new StandardMaterial("skyBoxMaterial", scene);
+        skyboxMaterial.backFaceCulling = false; 
+        skyboxMaterial.disableLighting = true;
+
+        skyboxMaterial.reflectionTexture = CubeTexture.CreateFromImages([
+            "/textures/skybox/nz.png", //1
+            "/textures/skybox/py.png", //2
+            "/textures/skybox/px.png", //3
+            "/textures/skybox/pz.png", //4
+            "/textures/skybox/ny.png", //5
+            "/textures/skybox/nx.png", //6
+          ], scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+
+        skybox.material = skyboxMaterial;
 
         const player = new Player(scene, this.engine);
         return scene;
