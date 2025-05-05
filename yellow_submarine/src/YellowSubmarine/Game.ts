@@ -1,50 +1,36 @@
-import {Engine} from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
+import {Engine, Scene} from "@babylonjs/core";
+import {Sea} from "@/YellowSubmarine/Sea"
 
 export class Game {
-    private _world : World;
-    private readonly _engine : Engine;
+
+    private static _WorldScene : Scene;
+    private static _Engine : Engine;
+
+    public static get WorldScene(): Scene {
+        return this._WorldScene;
+    }
+    public static get Engine(): Engine {
+        return this._Engine;
+    }
+
+    private _sea : Sea | null = null;
 
     constructor(canvas: HTMLCanvasElement){
-        this._engine = new Engine(canvas, true);
+        Game._Engine = new Engine(canvas, true);
         Engine.ShadersRepository = "../shaders/";
-        this._world = new World(this._engine);
-        this._engine.runRenderLoop(() => {
-            this._world.scene.render();
+        Game._WorldScene = new Scene(Game._Engine);
+        this._sea = this.createSea();
+        Game._Engine.runRenderLoop(() => {
+            Game._WorldScene.render();
         })
     }
 
-
-/*    createWorldScene() : Scene {
-        const scene = new Scene(this._engine);
-
-        const shaderMaterial = new ShaderMaterial("waterShader", scene, {
-            vertex: "water",
-            fragment: "water"
-        }, {
-            attributes: ["position", "uv"],
-            uniforms: ["worldViewProjection", "time"],
-            samplers: ["noiseTexture"]
-        });
-
-        const noiseTexture = new Texture("/textures/noiseTexture.png", scene);
-        shaderMaterial.setTexture("noiseTexture", noiseTexture);
-
-        let time = 0;
-        scene.registerBeforeRender(() => {
-            time += this._engine.getDeltaTime() * 0.0008;
-            shaderMaterial.setFloat("time", time);
-        });
-
-        const waterPlane = MeshBuilder.CreateGround("waterPlane", {
-            width: 20,
-            height: 20,
-            subdivisions: 64
-        }, scene);
-
-        waterPlane.material = shaderMaterial;
-
+    private createSea() : Sea{
+        return  new Sea();
+/*
         const player = new Submarine(scene, this._engine);
         return scene;
-    }*/
+*/
+    }
+
 }

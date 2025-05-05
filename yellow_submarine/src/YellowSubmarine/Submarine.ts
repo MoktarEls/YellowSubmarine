@@ -12,11 +12,11 @@ import {
 
 export class Submarine {
 
-    private mesh : Mesh;
-    private scene : Scene;
-    private camera : FollowCamera;
+    private _mesh : Mesh;
+    private _scene : Scene;
+    private _camera : FollowCamera;
 
-    //Physics
+    //Water movement
     private sensitivity = 0.05;
     private speed = 10;
     private velocity = new Vector3(0, 0, 0);
@@ -32,19 +32,19 @@ export class Submarine {
     private inputMap : Record<string, boolean>;
 
     constructor(scene : Scene, engine : Engine) {
-        this.scene = scene;
-        this.mesh = MeshBuilder.CreateTiledBox("player", { height: 2, width: 4 }, scene);
-        this.mesh.position = new Vector3(0, 0, 0);
+        this._scene = scene;
+        this._mesh = MeshBuilder.CreateBox("player", { width: 2, depth: 4 }, scene);
+        this._mesh.position = new Vector3(0, 0, 0);
 
-        this.camera = new FollowCamera("camera", new Vector3(0, 5, -10), scene);
-        this.camera.lockedTarget = this.mesh;
-        this.camera.radius = 10;
-        this.camera.heightOffset = 3;
+        this._camera = new FollowCamera("camera", new Vector3(0, 5, -10), scene);
+        this._camera.lockedTarget = this._mesh;
+        this._camera.radius = 10;
+        this._camera.heightOffset = 3;
 
         this.inputMap = {};
         this.setControls();
-        this.camera.attachControl(false);
-        this.camera.inputs.clear();
+        this._camera.attachControl(false);
+        this._camera.inputs.clear();
 
         const canvas = engine.getRenderingCanvas();
         if (canvas) {
@@ -56,17 +56,17 @@ export class Submarine {
             });
         }
 
-        this.scene.onPointerObservable.add((pointerInfo) => {
+        this._scene.onPointerObservable.add((pointerInfo) => {
             if (this.isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
                 const event = pointerInfo.event as PointerEvent;
                 const deltaX = event.movementX;
                 const deltaY = event.movementY;
 
-                this.camera.rotationOffset += deltaX * this.sensitivity;
-                this.camera.heightOffset += deltaY * this.sensitivity;
+                this._camera.rotationOffset += deltaX * this.sensitivity;
+                this._camera.heightOffset += deltaY * this.sensitivity;
 
                 // Limites pour éviter des angles extrêmes
-                this.camera.heightOffset = Math.max(1, Math.min(10, this.camera.heightOffset));
+                this._camera.heightOffset = Math.max(1, Math.min(10, this._camera.heightOffset));
             }
         });
         scene.onBeforeRenderObservable.add(() => this.update());
@@ -83,43 +83,43 @@ export class Submarine {
     }
 
     private update() {
-        const deltaTime = this.scene.getEngine().getDeltaTime() / 1000;
+        const deltaTime = this._scene.getEngine().getDeltaTime() / 1000;
 
 // Step 1: Calculate wanted forward direction (on XZ plane)
-        this.wantedForward = this.camera.getFrontPosition(1).subtract(this.mesh.position);
+        this.wantedForward = this._camera.getFrontPosition(1).subtract(this._mesh.position);
         this.wantedForward.y = 0;
         this.wantedForward.normalize();
 
 // Step 2: Smoothly rotate toward wantedForward
-        const currentForward = this.mesh.forward.clone();
+        const currentForward = this._mesh.forward.clone();
         currentForward.y = 0;
         currentForward.normalize();
 
 // Get rotation quaternion from current to target direction
-        const currentRotation = Quaternion.FromEulerAngles(this.mesh.rotation.x, this.mesh.rotation.y, this.mesh.rotation.z);
+        const currentRotation = Quaternion.FromEulerAngles(this._mesh.rotation.x, this._mesh.rotation.y, this._mesh.rotation.z);
         const targetRotation = Quaternion.FromLookDirectionLH(this.wantedForward, Vector3.Up());
 
 // Slerp between current and target rotation for smooth turning
         const rotationSpeed = 5; // Adjust to your needs
         const newRotation = Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * deltaTime);
 
-        this.mesh.rotationQuaternion = newRotation;
+        this._mesh.rotationQuaternion = newRotation;
 
 // === Movement (no changes needed here) ===
         //const wantedRight = Vector3.Cross(Axis.Y, this.wantedForward).normalize();
         const moveDirection = new Vector3(0, 0, 0);
 
         if (this.inputMap["ArrowUp"] || this.inputMap["z"]) {
-            moveDirection.subtractInPlace(this.mesh.forward);
+            moveDirection.subtractInPlace(this._mesh.forward);
         }
         if (this.inputMap["ArrowDown"] || this.inputMap["s"]) {
-            moveDirection.addInPlace(this.mesh.forward);
+            moveDirection.addInPlace(this._mesh.forward);
         }
         if (this.inputMap["ArrowLeft"] || this.inputMap["q"]) {
-            moveDirection.addInPlace(this.mesh.right);
+            moveDirection.addInPlace(this._mesh.right);
         }
         if (this.inputMap["ArrowRight"] || this.inputMap["d"]) {
-            moveDirection.subtractInPlace(this.mesh.right);
+            moveDirection.subtractInPlace(this._mesh.right);
         }
     
         if (moveDirection.length() > 0) {
@@ -129,7 +129,7 @@ export class Submarine {
     
         this.velocity = this.velocity.scale(this.friction);
     
-        this.mesh.position.addInPlace(this.velocity.scale(this.speed * deltaTime));
+        this._mesh.position.addInPlace(this.velocity.scale(this.speed * deltaTime));
     }
     
 }
