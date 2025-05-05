@@ -6,7 +6,7 @@ export class Sea{
     constructor() {
         const shaderMaterial = this.createSeaShaderMaterial();
 
-        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.WorldScene);
+        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
         shaderMaterial.setTexture("noiseTexture", noiseTexture);
 
         this.setTimeFloatInShader(shaderMaterial);
@@ -18,14 +18,14 @@ export class Sea{
 
     private setTimeFloatInShader(shaderMaterial: ShaderMaterial) {
         let time = 0;
-        Game.WorldScene.registerBeforeRender(() => {
-            time += Game.Engine.getDeltaTime() * 0.0008;
+        Game.worldScene.registerBeforeRender(() => {
+            time += Game.engine.getDeltaTime() * 0.0008;
             shaderMaterial.setFloat("time", time);
         });
     }
 
     private createSeaShaderMaterial() {
-        return new ShaderMaterial("waterShader", Game.WorldScene, {
+        return new ShaderMaterial("waterShader", Game.worldScene, {
         vertex: "water",
         fragment: "water"
         }, {
@@ -40,6 +40,6 @@ export class Sea{
             width: 20,
             height: 20,
             subdivisions: 64
-        }, Game.WorldScene);
+        }, Game.worldScene);
     }
 }

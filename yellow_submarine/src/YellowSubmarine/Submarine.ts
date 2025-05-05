@@ -35,17 +35,17 @@ export class Submarine {
     constructor() {
         this._mesh = this.createMesh();
         this._submarineCamera = new SubmarineCamera("camera", new Vector3(0, 5, -10), this);
-        Game.WorldScene.onBeforeRenderObservable.add(() => this.update());
+        Game.worldScene.onBeforeRenderObservable.add(() => this.update());
     }
 
     private createMesh() : Mesh{
-        const mesh = MeshBuilder.CreateBox("player", { width: 2, depth: 4 }, Game.WorldScene);
+        const mesh = MeshBuilder.CreateBox("player", { width: 2, depth: 4 }, Game.worldScene);
         mesh.position = new Vector3(0, 0, 0);
         return mesh;
     }
 
     private update() {
-        const deltaTime = Game.Engine.getDeltaTime() / 1000;
+        const deltaTime = Game.engine.getDeltaTime() / 1000;
 
 // Step 1: Calculate wanted forward direction (on XZ plane)
         this.wantedForward = this._submarineCamera.camera.getFrontPosition(1).subtract(this._mesh.position);

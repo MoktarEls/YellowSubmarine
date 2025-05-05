@@ -17,12 +17,12 @@ export class SubmarineCamera {
     private _sensitivity = 1.0;
 
     constructor(name: string, position: Vector3, private _submarine: Submarine) {
-        this._camera = new FollowCamera(name, position, Game.WorldScene, _submarine.mesh);
+        this._camera = new FollowCamera(name, position, Game.worldScene, _submarine.mesh);
         this._camera.lockedTarget = this._submarine.mesh;
         this._camera.radius = 10;
         this._camera.heightOffset = 3;
 
-        const canvas = Game.Engine.getRenderingCanvas();
+        const canvas = Game.engine.getRenderingCanvas();
         if (canvas) {
             canvas.addEventListener("click", () => {
                 canvas.requestPointerLock();
@@ -32,7 +32,7 @@ export class SubmarineCamera {
             });
         }
 
-        Game.WorldScene.onPointerObservable.add((pointerInfo) => {
+        Game.worldScene.onPointerObservable.add((pointerInfo) => {
             if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
                 const event = pointerInfo.event as PointerEvent;
                 const deltaX = event.movementX;

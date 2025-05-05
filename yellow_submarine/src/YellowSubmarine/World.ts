@@ -1,31 +1,33 @@
-import {Engine, HemisphericLight, MeshBuilder, Scene, ShaderMaterial, Texture, Vector3} from "@babylonjs/core";
+import {
+    CubeTexture,
+    Engine,
+    HemisphericLight,
+    MeshBuilder,
+    Scene,
+    ShaderMaterial,
+    StandardMaterial,
+    Texture,
+    Vector3
+} from "@babylonjs/core";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class World{
 
-    private _scene: Scene;
-    private _engine: Engine;
-    private _submarine: Submarine | null = null;
-
-    public get scene(): Scene {
-        return this._scene;
-    }
-
-    constructor(engine: Engine) {
-        this._engine = engine;
-        this._scene = new Scene(this._engine);
+    constructor() {
         this.createHemisphericLight();
         this.createSea();
         this.createSubmarine();
+        this.createSkyBox();
     }
 
     private createHemisphericLight(){
-        const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), this._scene);
+        const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), Game.worldScene);
         hemiLight.intensity = 0.5;
     }
 
     private createSea() {
-        const shaderMaterial = new ShaderMaterial("waterShader", this._scene, {
+        const shaderMaterial = new ShaderMaterial("waterShader", Game.worldScene, {
             vertex: "water",
             fragment: "water"
         }, {
@@ -34,12 +36,12 @@ export class World{
             samplers: ["noiseTexture"]
         });
 
-        const noiseTexture = new Texture("/textures/noiseTexture.png", this._scene);
+        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
         shaderMaterial.setTexture("noiseTexture", noiseTexture);
 
         let time = 0;
-        this._scene.registerBeforeRender(() => {
-            time += this._engine.getDeltaTime() * 0.0008;
+        Game.worldScene.registerBeforeRender(() => {
+            time += Game.engine.getDeltaTime() * 0.0008;
             shaderMaterial.setFloat("time", time);
         });
 
@@ -47,12 +49,33 @@ export class World{
             width: 20,
             height: 20,
             subdivisions: 64
-        }, this._scene);
+        }, Game.worldScene);
 
         waterPlane.material = shaderMaterial;
     }
 
     private createSubmarine() {
-        this._submarine = new Submarine();
+        new Submarine();
+    }
+
+    private createSkyBox() {
+        const skybox = MeshBuilder.CreateBox("skyBox", {size:2000}, Game.worldScene);
+        skybox.infiniteDistance = true;
+
+        const skyboxMaterial = new StandardMaterial("skyBoxMaterial", Game.worldScene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.disableLighting = true;
+
+        skyboxMaterial.reflectionTexture = CubeTexture.CreateFromImages([
+            "/textures/skybox/nz.png", //1
+            "/textures/skybox/py.png", //2
+            "/textures/skybox/px.png", //3
+            "/textures/skybox/pz.png", //4
+            "/textures/skybox/ny.png", //5
+            "/textures/skybox/nx.png", //6
+        ], Game.worldScene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+
+        skybox.material = skyboxMaterial;
     }
 }

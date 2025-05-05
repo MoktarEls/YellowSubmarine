@@ -1,39 +1,27 @@
 import {Engine, Scene} from "@babylonjs/core";
-import {Sea} from "@/YellowSubmarine/Sea"
-import {Submarine} from "@/YellowSubmarine/Submarine";
+import {World} from "@/YellowSubmarine/World";
 
 export class Game {
 
-    private static _WorldScene : Scene;
-    private static _Engine : Engine;
+    private _world: World;
+    private static _worldScene: Scene;
+    private static _engine : Engine;
 
-    public static get WorldScene(): Scene {
-        return this._WorldScene;
+    public static get worldScene(): Scene {
+        return this._worldScene;
     }
-    public static get Engine(): Engine {
-        return this._Engine;
+    public static get engine(): Engine {
+        return this._engine;
     }
-
-    private _sea : Sea;
-    private _submarine : Submarine;
 
     constructor(canvas: HTMLCanvasElement){
-        Game._Engine = new Engine(canvas, true);
+        Game._engine = new Engine(canvas, true);
+        Game._worldScene = new Scene(Game.engine)
         Engine.ShadersRepository = "../shaders/";
-        Game._WorldScene = new Scene(Game._Engine);
-        this._sea = this.createSea();
-        this._submarine = this.createSubmarine();
-        Game._Engine.runRenderLoop(() => {
-            Game._WorldScene.render();
+        this._world = new World();
+        Game._engine.runRenderLoop(() => {
+            Game.worldScene.render();
         })
     }
 
-    private createSea() : Sea{
-        return new Sea();
-    }
-
-
-    private createSubmarine() {
-        return new Submarine();
-    }
 }
