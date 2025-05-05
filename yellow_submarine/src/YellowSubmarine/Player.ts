@@ -24,7 +24,7 @@ export class Player {
         this.scene = scene;
         this.engine = engine;
         this.mesh = MeshBuilder.CreateBox("player", { size: 2 }, scene);
-        this.mesh.position = new Vector3(0, 1, 0);
+        this.mesh.position = new Vector3(0, 0, 0);
 
         this.camera = new FollowCamera("camera", new Vector3(0, 5, -10), scene);
         this.camera.lockedTarget = this.mesh;
