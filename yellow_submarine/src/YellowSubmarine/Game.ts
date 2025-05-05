@@ -1,5 +1,4 @@
-import { Scene, Engine, Texture, ShaderMaterial, MeshBuilder} from "@babylonjs/core";
-import { Submarine } from "@/YellowSubmarine/Submarine";
+import {Engine} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
 
 export class Game {
@@ -7,7 +6,6 @@ export class Game {
     private readonly _engine : Engine;
 
     constructor(canvas: HTMLCanvasElement){
-
         this._engine = new Engine(canvas, true);
         Engine.ShadersRepository = "../shaders/";
         this._world = new World(this._engine);
@@ -17,7 +15,7 @@ export class Game {
     }
 
 
-    createWorldScene() : Scene {
+/*    createWorldScene() : Scene {
         const scene = new Scene(this._engine);
 
         const shaderMaterial = new ShaderMaterial("waterShader", scene, {
@@ -48,5 +46,5 @@ export class Game {
 
         const player = new Submarine(scene, this._engine);
         return scene;
-    }
+    }*/
 }

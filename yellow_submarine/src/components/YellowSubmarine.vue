@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Test } from '@/YellowSubmarine/Game';
+import { Game } from '@/YellowSubmarine/Game';
 
 export default defineComponent({
   name: 'YellowSubmarine',
@@ -15,7 +15,7 @@ export default defineComponent({
   },
   mounted() {
       const canvas = document.querySelector("canvas")!;
-      new Test(canvas);
+      new Game(canvas);
   },
 });
 </script>

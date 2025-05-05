@@ -1,9 +1,11 @@
 import {Engine, HemisphericLight, MeshBuilder, Scene, ShaderMaterial, Texture, Vector3} from "@babylonjs/core";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class World{
 
     private _scene: Scene;
     private _engine: Engine;
+    private _submarine: Submarine | null = null;
 
     public get scene(): Scene {
         return this._scene;
@@ -12,16 +14,17 @@ export class World{
     constructor(engine: Engine) {
         this._engine = engine;
         this._scene = new Scene(this._engine);
-        this.CreateHemisphericLight();
-        this.CreateSea();
+        this.createHemisphericLight();
+        this.createSea();
+        this.createSubmarine();
     }
 
-    private CreateHemisphericLight(){
+    private createHemisphericLight(){
         const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), this._scene);
         hemiLight.intensity = 0.5;
     }
 
-    private CreateSea() {
+    private createSea() {
         const shaderMaterial = new ShaderMaterial("waterShader", this._scene, {
             vertex: "water",
             fragment: "water"
@@ -47,5 +50,9 @@ export class World{
         }, this._scene);
 
         waterPlane.material = shaderMaterial;
+    }
+
+    private createSubmarine() {
+        this._submarine = new Submarine(this._scene, this._engine);
     }
 }

@@ -1,5 +1,4 @@
 import {
-    Axis,
     Engine,
     FollowCamera,
     Mesh,
