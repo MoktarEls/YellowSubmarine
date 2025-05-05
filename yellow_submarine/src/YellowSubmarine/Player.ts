@@ -1,4 +1,4 @@
-import { Axis, Engine, FollowCamera, Mesh, MeshBuilder, Scene, Vector3 } from "@babylonjs/core";
+import { Axis, Engine, FollowCamera, Mesh, MeshBuilder, Scene, Vector3, PointerEventTypes } from "@babylonjs/core";
 
 
 export class Player {
@@ -7,12 +7,16 @@ export class Player {
     private engine : Engine;
     private mesh : Mesh;
     private camera : FollowCamera;
+    private sensitivity = 0.05;
 
     //Physics
     private speed = 50;
     private velocity = new Vector3(0, 0, 0);
     private acceleration = 0.02;
     private friction = 0.9;
+
+    //Le joueur a cliqué sur le canvas
+    private isPointerLocked = false;
 
     private inputMap : Record<string, boolean>;
 
@@ -31,7 +35,32 @@ export class Player {
         this.inputMap = {};
         this.setControls();
         this.camera.attachControl(false);
+        this.camera.inputs.clear();
 
+        const canvas = engine.getRenderingCanvas();
+        if (canvas) {
+            canvas.addEventListener("click", () => {
+                canvas.requestPointerLock();
+            });
+            document.addEventListener("pointerlockchange", () => {
+                this.isPointerLocked = document.pointerLockElement === canvas;
+            });
+        }
+
+        this.scene.onPointerObservable.add((pointerInfo) => {
+            if (this.isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
+                const event = pointerInfo.event as PointerEvent;
+                console.log("deltaX", event.movementX);
+                const deltaX = event.movementX;
+                const deltaY = event.movementY;
+
+                this.camera.rotationOffset += deltaX * this.sensitivity;
+                this.camera.heightOffset += deltaY * this.sensitivity;
+
+                // Limites pour éviter des angles extrêmes
+                this.camera.heightOffset = Math.max(1, Math.min(10, this.camera.heightOffset));
+            }
+        });
         scene.onBeforeRenderObservable.add(() => this.update());
     }
 
@@ -44,7 +73,6 @@ export class Player {
             this.inputMap[event.key] = false;
         });
     }
-    
 
     private update() {
         const deltaTime = this.scene.getEngine().getDeltaTime() / 1000;
