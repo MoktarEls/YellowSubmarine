@@ -1,11 +1,11 @@
-import {Matrix, Mesh, MeshBuilder, Quaternion, Vector3} from "@babylonjs/core";
+import {Matrix, Mesh, MeshBuilder, Quaternion, Scalar, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {Game} from "@/YellowSubmarine/Game";
 
 
 export class Submarine {
 
-    private _mesh: Mesh;
+    private readonly _mesh: Mesh;
     private _testForwardMesh: Mesh = MeshBuilder.CreateSphere("testForwardMesh");
     private _testUpwardMesh: Mesh = MeshBuilder.CreateSphere("testUpwardMesh");
     private _testRightMesh: Mesh = MeshBuilder.CreateSphere("testRightMesh");
@@ -16,14 +16,7 @@ export class Submarine {
 
     private _submarineCamera: SubmarineCamera;
 
-    //Movement
-    private _maxSpeed = 10;
-    private _currentVelocity = new Vector3(0, 0, 0);
-    private _acceleration = 0.01;
-
-    private _rotationMaxSpeed = 10;
-    private _currentRotationSpeed = 0;
-    private _rotationAcceleration = 0.01;
+    private _rotationLerpingFactor = 3.0;
 
     constructor() {
         this._mesh = this.createMesh();
@@ -54,9 +47,16 @@ export class Submarine {
         Matrix.FromXYZAxesToRef(wantedRight, wantedUp, wantedForward, wantedRotationMatrix);
 
         const wantedRotation= Quaternion.FromRotationMatrix(wantedRotationMatrix);
-        const currentRotation = Quaternion.FromEulerVector(this.mesh.rotation);
+        const currentRotation = this.mesh.absoluteRotationQuaternion;
 
-        this.mesh.rotationQuaternion = Quaternion.Slerp(currentRotation, wantedRotation, deltaTimeInSec * this._rotationAcceleration);
+        const wantedYRotation = wantedRotation.toEulerAngles().y;
+        const currentYRotation = currentRotation.toEulerAngles().y;
+
+
+        const newRotation = Quaternion.Slerp(currentRotation, wantedRotation, deltaTimeInSec * this._rotationLerpingFactor)
+
+        this.mesh.rotation = newRotation.toEulerAngles();
+
     }
 
 }
