@@ -38,8 +38,8 @@ export class Test {
         });
 
         const waterPlane = MeshBuilder.CreateGround("waterPlane", {
-            width: 200,
-            height: 200,
+            width: 20,
+            height: 20,
             subdivisions: 64
         }, scene);
 

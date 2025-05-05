@@ -10,10 +10,10 @@ export class Player {
     private sensitivity = 0.05;
 
     //Physics
-    private speed = 50;
+    private speed = 10;
     private velocity = new Vector3(0, 0, 0);
-    private acceleration = 0.02;
-    private friction = 0.9;
+    private acceleration = 0.01;
+    private friction = 0.99;
 
     //Le joueur a cliqué sur le canvas
     private isPointerLocked = false;
