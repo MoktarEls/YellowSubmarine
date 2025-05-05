@@ -9,15 +9,16 @@ import {
     Quaternion
 } from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
+import {Game} from "@/YellowSubmarine/Game";
 
 
 export class Submarine {
 
+    private _mesh : Mesh;
     public get mesh(): Mesh {
         return this._mesh;
     }
 
-    private _mesh : Mesh;
     private _submarineCamera : SubmarineCamera;
 
     //Movement
@@ -29,68 +30,25 @@ export class Submarine {
     private wantedForward:Vector3 = Vector3.Forward();
     private rotationSpeed = 1.0;
 
-    //Le joueur a cliqué sur le canvas
     private isPointerLocked = false;
 
-    private inputMap : Record<string, boolean>;
-
     constructor() {
-        this._submarineCamera = new SubmarineCamera(this);
-
-        this._mesh = MeshBuilder.CreateBox("player", { width: 2, depth: 4 }, scene);
-        this._mesh.position = new Vector3(0, 0, 0);
-
-        this._submarineCamera = new FollowCamera("camera", new Vector3(0, 5, -10), scene);
-        this._submarineCamera.lockedTarget = this._mesh;
-        this._submarineCamera.radius = 10;
-        this._submarineCamera.heightOffset = 3;
-
-        this.inputMap = {};
-        this.setControls();
-        this._submarineCamera.attachControl(false);
-        this._submarineCamera.inputs.clear();
-
-        const canvas = engine.getRenderingCanvas();
-        if (canvas) {
-            canvas.addEventListener("click", () => {
-                canvas.requestPointerLock();
-            });
-            document.addEventListener("pointerlockchange", () => {
-                this.isPointerLocked = document.pointerLockElement === canvas;
-            });
-        }
-
-        this._scene.onPointerObservable.add((pointerInfo) => {
-            if (this.isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
-                const event = pointerInfo.event as PointerEvent;
-                const deltaX = event.movementX;
-                const deltaY = event.movementY;
-
-                this._submarineCamera.rotationOffset += deltaX * this.sensitivity;
-                this._submarineCamera.heightOffset += deltaY * this.sensitivity;
-
-                // Limites pour éviter des angles extrêmes
-                this._submarineCamera.heightOffset = Math.max(1, Math.min(10, this._submarineCamera.heightOffset));
-            }
-        });
-        scene.onBeforeRenderObservable.add(() => this.update());
+        this._mesh = this.createMesh();
+        this._submarineCamera = new SubmarineCamera("camera", new Vector3(0, 5, -10), this);
+        Game.WorldScene.onBeforeRenderObservable.add(() => this.update());
     }
 
-    private setControls() {
-        window.addEventListener("keydown", (event) => {
-            this.inputMap[event.key] = true;
-        });
-
-        window.addEventListener("keyup", (event) => {
-            this.inputMap[event.key] = false;
-        });
+    private createMesh() : Mesh{
+        const mesh = MeshBuilder.CreateBox("player", { width: 2, depth: 4 }, Game.WorldScene);
+        mesh.position = new Vector3(0, 0, 0);
+        return mesh;
     }
 
     private update() {
-        const deltaTime = this._scene.getEngine().getDeltaTime() / 1000;
+        const deltaTime = Game.Engine.getDeltaTime() / 1000;
 
 // Step 1: Calculate wanted forward direction (on XZ plane)
-        this.wantedForward = this._submarineCamera.getFrontPosition(1).subtract(this._mesh.position);
+        this.wantedForward = this._submarineCamera.camera.getFrontPosition(1).subtract(this._mesh.position);
         this.wantedForward.y = 0;
         this.wantedForward.normalize();
 
@@ -113,16 +71,16 @@ export class Submarine {
         //const wantedRight = Vector3.Cross(Axis.Y, this.wantedForward).normalize();
         const moveDirection = new Vector3(0, 0, 0);
 
-        if (this.inputMap["ArrowUp"] || this.inputMap["z"]) {
+        if (this._submarineCamera.keyInputMap["ArrowUp"] || this._submarineCamera.keyInputMap["z"]) {
             moveDirection.subtractInPlace(this._mesh.forward);
         }
-        if (this.inputMap["ArrowDown"] || this.inputMap["s"]) {
+        if (this._submarineCamera.keyInputMap["ArrowDown"] || this._submarineCamera.keyInputMap["s"]) {
             moveDirection.addInPlace(this._mesh.forward);
         }
-        if (this.inputMap["ArrowLeft"] || this.inputMap["q"]) {
+        if (this._submarineCamera.keyInputMap["ArrowLeft"] || this._submarineCamera.keyInputMap["q"]) {
             moveDirection.addInPlace(this._mesh.right);
         }
-        if (this.inputMap["ArrowRight"] || this.inputMap["d"]) {
+        if (this._submarineCamera.keyInputMap["ArrowRight"] || this._submarineCamera.keyInputMap["d"]) {
             moveDirection.subtractInPlace(this._mesh.right);
         }
     

@@ -53,6 +53,6 @@ export class World{
     }
 
     private createSubmarine() {
-        this._submarine = new Submarine(this._scene, this._engine);
+        this._submarine = new Submarine();
     }
 }
