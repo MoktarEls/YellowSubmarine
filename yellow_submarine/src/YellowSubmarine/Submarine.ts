@@ -1,6 +1,7 @@
-import {Matrix, Mesh, MeshBuilder, Quaternion, Scalar, Vector3} from "@babylonjs/core";
+import {Matrix, Mesh, MeshBuilder, Quaternion, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {Game} from "@/YellowSubmarine/Game";
+import {World} from "@/YellowSubmarine/World";
 
 
 export class Submarine {
@@ -21,13 +22,13 @@ export class Submarine {
     constructor() {
         this._mesh = this.createMesh();
         this._submarineCamera = new SubmarineCamera(this);
-        Game.worldScene.onBeforeRenderObservable.add(() => {
+        World.scene.onBeforeRenderObservable.add(() => {
             this.update(Game.engine.getDeltaTime() / 1000);
         });
     }
 
     private createMesh(): Mesh {
-        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, Game.worldScene);
+        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, World.scene);
         mesh.position = new Vector3(0, 0, 0);
         return mesh;
     }

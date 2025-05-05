@@ -1,6 +1,7 @@
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {Angle, ArcRotateCamera, Camera, PointerEventTypes, Vector3} from "@babylonjs/core";
+import {Angle, ArcRotateCamera, Camera, PointerEventTypes} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {World} from "@/YellowSubmarine/World";
 
 export class SubmarineCamera {
     get camera(): Camera {
@@ -28,7 +29,7 @@ export class SubmarineCamera {
             });
         }
 
-        Game.worldScene.onPointerObservable.add((pointerInfo) => {
+        World.scene.onPointerObservable.add((pointerInfo) => {
             if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
                 const event = pointerInfo.event as PointerEvent;
                 const deltaTimeInSec = Game.engine.getDeltaTime() / 1000;

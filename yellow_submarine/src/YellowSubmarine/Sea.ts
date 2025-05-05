@@ -1,12 +1,13 @@
 import {MeshBuilder, ShaderMaterial, Texture} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {World} from "@/YellowSubmarine/World";
 
 export class Sea{
 
     constructor() {
         const shaderMaterial = this.createSeaShaderMaterial();
 
-        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
+        const noiseTexture = new Texture("/textures/noiseTexture.png", World.scene);
         shaderMaterial.setTexture("noiseTexture", noiseTexture);
 
         this.setTimeFloatInShader(shaderMaterial);
@@ -18,14 +19,14 @@ export class Sea{
 
     private setTimeFloatInShader(shaderMaterial: ShaderMaterial) {
         let time = 0;
-        Game.worldScene.registerBeforeRender(() => {
+        World.scene.registerBeforeRender(() => {
             time += Game.engine.getDeltaTime() * 0.0008;
             shaderMaterial.setFloat("time", time);
         });
     }
 
     private createSeaShaderMaterial() {
-        return new ShaderMaterial("waterShader", Game.worldScene, {
+        return new ShaderMaterial("waterShader", World.scene, {
         vertex: "water",
         fragment: "water"
         }, {
@@ -40,6 +41,6 @@ export class Sea{
             width: 20,
             height: 20,
             subdivisions: 64
-        }, Game.worldScene);
+        }, World.scene);
     }
 }
