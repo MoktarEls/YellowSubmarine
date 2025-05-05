@@ -1,5 +1,6 @@
 import {Engine, Scene} from "@babylonjs/core";
 import {Sea} from "@/YellowSubmarine/Sea"
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class Game {
 
@@ -13,24 +14,26 @@ export class Game {
         return this._Engine;
     }
 
-    private _sea : Sea | null = null;
+    private _sea : Sea;
+    private _submarine : Submarine;
 
     constructor(canvas: HTMLCanvasElement){
         Game._Engine = new Engine(canvas, true);
         Engine.ShadersRepository = "../shaders/";
         Game._WorldScene = new Scene(Game._Engine);
         this._sea = this.createSea();
+        this._submarine = this.createSubmarine();
         Game._Engine.runRenderLoop(() => {
             Game._WorldScene.render();
         })
     }
 
     private createSea() : Sea{
-        return  new Sea();
-/*
-        const player = new Submarine(scene, this._engine);
-        return scene;
-*/
+        return new Sea();
     }
 
+
+    private createSubmarine() {
+        return new Submarine();
+    }
 }
