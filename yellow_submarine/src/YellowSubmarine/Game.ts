@@ -1,23 +1,24 @@
-import { Scene, Engine, Vector3, HemisphericLight, Texture, ShaderMaterial, MeshBuilder} from "@babylonjs/core";
-import { Player } from "./Player";
+import { Scene, Engine, Texture, ShaderMaterial, MeshBuilder} from "@babylonjs/core";
+import { Submarine } from "@/YellowSubmarine/Submarine";
+import {World} from "@/YellowSubmarine/World";
 
-export class Test {
-    scene : Scene;
-    engine : Engine;
-    constructor(private canvas : HTMLCanvasElement){
-        this.engine = new Engine(this.canvas, true);
-        this.scene = this.createScene();
+export class Game {
+    private _world : World;
+    private readonly _engine : Engine;
+
+    constructor(canvas: HTMLCanvasElement){
+
+        this._engine = new Engine(canvas, true);
         Engine.ShadersRepository = "../shaders/";
-        this.engine.runRenderLoop(() => {
-            this.scene.render();
+        this._world = new World(this._engine);
+        this._engine.runRenderLoop(() => {
+            this._world.scene.render();
         })
     }
 
-    createScene() : Scene {
-        const scene = new Scene(this.engine);
 
-        const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), this.scene);
-        hemiLight.intensity = 0.5;
+    createWorldScene() : Scene {
+        const scene = new Scene(this._engine);
 
         const shaderMaterial = new ShaderMaterial("waterShader", scene, {
             vertex: "water",
@@ -33,7 +34,7 @@ export class Test {
 
         let time = 0;
         scene.registerBeforeRender(() => {
-            time += this.engine.getDeltaTime() * 0.0008;
+            time += this._engine.getDeltaTime() * 0.0008;
             shaderMaterial.setFloat("time", time);
         });
 
@@ -45,7 +46,7 @@ export class Test {
 
         waterPlane.material = shaderMaterial;
 
-        const player = new Player(scene, this.engine);
+        const player = new Submarine(scene, this._engine);
         return scene;
     }
 }

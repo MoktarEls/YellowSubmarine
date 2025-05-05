@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Test } from '@/YellowSubmarine/TestScene';
+import { Test } from '@/YellowSubmarine/Game';
 
 export default defineComponent({
   name: 'YellowSubmarine',
