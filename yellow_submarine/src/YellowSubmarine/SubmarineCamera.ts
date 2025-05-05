@@ -1,27 +1,22 @@
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {FollowCamera, PointerEventTypes, Vector3} from "@babylonjs/core";
+import {Angle, ArcRotateCamera, Camera, PointerEventTypes, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class SubmarineCamera {
-    get keyInputMap(): { [p: string]: boolean } {
-        return this._keyInputMap;
-    }
-    get camera(): FollowCamera {
+    get camera(): Camera {
         return this._camera;
     }
 
-    private _keyInputMap : {[key:string]: boolean} = {};
-
-    private _camera : FollowCamera;
-    private _sensitivity = 0.05;
+    private readonly _camera : ArcRotateCamera;
+    private _keyInputMap: { [key: string]: boolean } = {};
+    private _horizontalSensitivity = 0.05;
+    private _verticalSensitivity = 0.05;
     private _isPointerLocked = false;
 
-    constructor(name: string, position: Vector3, private _submarine: Submarine) {
-        this._camera = new FollowCamera(name, position, Game.worldScene, _submarine.mesh);
-        this.camera.lockedTarget = this._submarine.mesh;
-        this.camera.radius = 10;
-        this.camera.heightOffset = 3;
-        this.camera.rotationOffset = 180;
+    constructor(private _submarine: Submarine) {
+        this._camera = new ArcRotateCamera("submarineCamera", 1, Angle.FromDegrees(100).radians(), 20, this._submarine.mesh.position );
+        this._camera.lowerBetaLimit = Angle.FromDegrees(55).radians();
+        this._camera.upperBetaLimit = Angle.FromDegrees(80).radians();
 
         const canvas = Game.engine.getRenderingCanvas();
         if (canvas) {
@@ -36,14 +31,13 @@ export class SubmarineCamera {
         Game.worldScene.onPointerObservable.add((pointerInfo) => {
             if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
                 const event = pointerInfo.event as PointerEvent;
+                const deltaTimeInSec = Game.engine.getDeltaTime() / 1000;
                 const deltaX = event.movementX;
                 const deltaY = event.movementY;
 
-                this.camera.rotationOffset += deltaX * this._sensitivity;
-                this.camera.heightOffset += deltaY * this._sensitivity;
+                this._camera.alpha -= deltaX * this._horizontalSensitivity * deltaTimeInSec;
+                this._camera.beta -= deltaY * this._verticalSensitivity * deltaTimeInSec;
 
-                // Limites pour éviter des angles extrêmes
-                this.camera.heightOffset = Math.max(1, Math.min(10, this.camera.heightOffset));
             }
         });
         this.setControls();

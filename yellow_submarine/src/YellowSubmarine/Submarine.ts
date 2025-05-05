@@ -1,4 +1,4 @@
-import {Mesh, MeshBuilder, Quaternion, Vector3} from "@babylonjs/core";
+import {Matrix, Mesh, MeshBuilder, Quaternion, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {Game} from "@/YellowSubmarine/Game";
 
@@ -7,6 +7,8 @@ export class Submarine {
 
     private _mesh: Mesh;
     private _testForwardMesh: Mesh = MeshBuilder.CreateSphere("testForwardMesh");
+    private _testUpwardMesh: Mesh = MeshBuilder.CreateSphere("testUpwardMesh");
+    private _testRightMesh: Mesh = MeshBuilder.CreateSphere("testRightMesh");
 
     public get mesh(): Mesh {
         return this._mesh;
@@ -15,19 +17,20 @@ export class Submarine {
     private _submarineCamera: SubmarineCamera;
 
     //Movement
-    private speed = 10;
-    private velocity = new Vector3(0, 0, 0);
-    private acceleration = 0.01;
-    private friction = 0.99;
+    private _maxSpeed = 10;
+    private _currentVelocity = new Vector3(0, 0, 0);
+    private _acceleration = 0.01;
 
-    private rotationSpeed = 1.0;
-
-    private isPointerLocked = false;
+    private _rotationMaxSpeed = 10;
+    private _currentRotationSpeed = 0;
+    private _rotationAcceleration = 0.01;
 
     constructor() {
         this._mesh = this.createMesh();
-        this._submarineCamera = new SubmarineCamera("camera", new Vector3(0, 5, -10), this);
-        Game.worldScene.onBeforeRenderObservable.add(() => this.update());
+        this._submarineCamera = new SubmarineCamera(this);
+        Game.worldScene.onBeforeRenderObservable.add(() => {
+            this.update(Game.engine.getDeltaTime() / 1000);
+        });
     }
 
     private createMesh(): Mesh {
@@ -36,44 +39,24 @@ export class Submarine {
         return mesh;
     }
 
-    private update() {
-        const deltaTime = Game.engine.getDeltaTime() / 1000;
+    private update(deltaTimeInSec: number) {
 
-        // Step 1: Calculate wanted forward direction (on XZ plane)
-        const wantedForward = this._submarineCamera.camera.getDirection(Vector3.Forward())
+        const wantedForward = this._submarineCamera.camera.getDirection(Vector3.Forward());
         wantedForward.y = 0;
         wantedForward.normalize();
+        const wantedUp = Vector3.Up();
+        const wantedRight = wantedUp.cross(wantedForward);
 
         this._testForwardMesh.position = this.mesh.position.add(wantedForward.scale(5));
+        this._testUpwardMesh.position = this.mesh.position.add(wantedUp.scale(5));
+        this._testRightMesh.position = this.mesh.position.add(wantedRight.scale(5));
+        const wantedRotationMatrix = new Matrix();
+        Matrix.FromXYZAxesToRef(wantedRight, wantedUp, wantedForward, wantedRotationMatrix);
 
-        // Step 2: Smoothly rotate toward wantedForward
-        const currentForward = this.mesh.forward.clone();
-        currentForward.y = 0;
-        currentForward.normalize();
+        const wantedRotation= Quaternion.FromRotationMatrix(wantedRotationMatrix);
+        const currentRotation = Quaternion.FromEulerVector(this.mesh.rotation);
 
-        const moveDirection = new Vector3(0, 0, 0);
-
-        if (this._submarineCamera.keyInputMap["ArrowUp"] || this._submarineCamera.keyInputMap["z"]) {
-            moveDirection.addInPlace(this._mesh.forward);
-        }
-        if (this._submarineCamera.keyInputMap["ArrowDown"] || this._submarineCamera.keyInputMap["s"]) {
-            moveDirection.subtractInPlace(this._mesh.forward);
-        }
-        if (this._submarineCamera.keyInputMap["ArrowLeft"] || this._submarineCamera.keyInputMap["q"]) {
-            moveDirection.subtractInPlace(this._mesh.right);
-        }
-        if (this._submarineCamera.keyInputMap["ArrowRight"] || this._submarineCamera.keyInputMap["d"]) {
-            moveDirection.addInPlace(this._mesh.right);
-        }
-
-        if (moveDirection.length() > 0) {
-            moveDirection.normalize();
-            this.velocity = this.velocity.add(moveDirection.scale(this.acceleration));
-        }
-
-        this.velocity = this.velocity.scale(this.friction);
-
-        this._mesh.position.addInPlace(this.velocity.scale(this.speed * deltaTime));
+        this.mesh.rotationQuaternion = Quaternion.Slerp(currentRotation, wantedRotation, deltaTimeInSec * this._rotationAcceleration);
     }
 
 }
