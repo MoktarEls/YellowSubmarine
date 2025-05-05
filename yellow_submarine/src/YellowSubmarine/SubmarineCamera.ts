@@ -13,14 +13,15 @@ export class SubmarineCamera {
     private _keyInputMap : {[key:string]: boolean} = {};
 
     private _camera : FollowCamera;
+    private _sensitivity = 0.05;
     private _isPointerLocked = false;
-    private _sensitivity = 1.0;
 
     constructor(name: string, position: Vector3, private _submarine: Submarine) {
         this._camera = new FollowCamera(name, position, Game.worldScene, _submarine.mesh);
-        this._camera.lockedTarget = this._submarine.mesh;
-        this._camera.radius = 10;
-        this._camera.heightOffset = 3;
+        this.camera.lockedTarget = this._submarine.mesh;
+        this.camera.radius = 10;
+        this.camera.heightOffset = 3;
+        this.camera.rotationOffset = 180;
 
         const canvas = Game.engine.getRenderingCanvas();
         if (canvas) {
@@ -38,16 +39,16 @@ export class SubmarineCamera {
                 const deltaX = event.movementX;
                 const deltaY = event.movementY;
 
-                this._camera.rotationOffset += deltaX * this._sensitivity;
-                this._camera.heightOffset += deltaY * this._sensitivity;
+                this.camera.rotationOffset += deltaX * this._sensitivity;
+                this.camera.heightOffset += deltaY * this._sensitivity;
 
                 // Limites pour éviter des angles extrêmes
-                this._camera.heightOffset = Math.max(1, Math.min(10, this._camera.heightOffset));
+                this.camera.heightOffset = Math.max(1, Math.min(10, this.camera.heightOffset));
             }
         });
         this.setControls();
-        this._camera.attachControl(false);
-        this._camera.inputs.clear();
+        this.camera.attachControl(false);
+        this.camera.inputs.clear();
 
     }
 
