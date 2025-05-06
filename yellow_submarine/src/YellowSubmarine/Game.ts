@@ -9,15 +9,16 @@ export class Game{
     }
 
     public static get scene(): Scene {
-        return this._scene;
+        return this._world;
     }
 
-    private static _scene: World;
+    private static _world: World;
     private static _gameEngine: GameEngine;
 
     constructor(canvas: HTMLCanvasElement) {
         Game._gameEngine = new GameEngine(canvas);
-        Game._scene = new World(Game._gameEngine);
+        Game._world = new World();
+        Game._world.initialize();
     }
 
     public static registerUpdateAction(
@@ -25,7 +26,7 @@ export class Game{
         context?: any
     ){
         const boundAction = context ? action.bind(context) : action;
-        this._scene.onBeforeRenderObservable.add(() => {
+        this.scene.onBeforeRenderObservable.add(() => {
             boundAction(GameEngine.getDeltaTimeInSeconds());
         })
     }
