@@ -1,6 +1,6 @@
 import {GroundMesh, MeshBuilder} from "@babylonjs/core";
-import {WorldOld} from "@/YellowSubmarine/WorldOld";
 import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
+import {World} from "@/YellowSubmarine/World";
 
 export class Sea extends GroundMesh{
 
@@ -11,7 +11,7 @@ export class Sea extends GroundMesh{
                 width: 20,
                 height: 20,
                 subdivisions: 64
-            }, WorldOld.scene)
+            }, World.instance)
         );
         this.material = new SeaShaderMaterial();
     }
