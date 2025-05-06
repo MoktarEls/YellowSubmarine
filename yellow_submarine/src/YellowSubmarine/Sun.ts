@@ -88,6 +88,10 @@ export class Sun{
         return new Vector3(color.r, color.g, color.b).scale(this._hemiLight.intensity);
     }
 
+    public getPosition(): Vector3 {
+        return this._sun.position;
+    }
+
     private configMaterials(){
         const sunMaterial = new StandardMaterial("sunMat", Game.worldScene);
         sunMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
