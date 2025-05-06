@@ -23,8 +23,8 @@ export class World{
 
     private readonly _sun : Sun;
 
-    constructor() {
-        World._scene = new Scene(Game.engine)
+    constructor(scene: Scene) {
+        World._scene = scene;
         World._scene.actionManager = new ActionManager();
         this._sun = this.createSun();
     }
@@ -47,6 +47,10 @@ export class World{
 
     private createSubmarine() {
         new Submarine();
+    }
+
+    private createSun(): Sun {
+        return new Sun();
     }
 
     public getSun(): Sun{

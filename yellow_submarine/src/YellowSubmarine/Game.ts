@@ -10,7 +10,7 @@ export class Game {
 
 
     public static get worldScene(): Scene {
-        return World.scene;
+        return this._worldScene;
     }
     public static get engine(): Engine {
         return this._engine;
@@ -26,8 +26,9 @@ export class Game {
     constructor(canvas: HTMLCanvasElement){
         Game._canvas = canvas;
         Game._engine = new Engine(canvas, true);
+        Game._worldScene = new Scene(Game._engine);
         Engine.ShadersRepository = "../shaders/";
-        Game._world = new World();
+        Game._world = new World(Game._worldScene);
         Game._world.initialize();
 
         const shader = new ShaderMaterial('shader', Game._worldScene, {

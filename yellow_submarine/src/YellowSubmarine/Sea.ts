@@ -26,7 +26,7 @@ export class Sea{
     }
 
     private createSeaShaderMaterial() {
-        return new ShaderMaterial("waterShader", World.scene, {
+        const shaderMaterial = new ShaderMaterial("waterShader", World.scene, {
         vertex: "water",
         fragment: "water"
         }, {
@@ -34,6 +34,7 @@ export class Sea{
             uniforms: ["worldViewProjection", "time"],
             samplers: ["noiseTexture"]
         });
+
         const sun = Game.world.getSun();
         const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
         shaderMaterial.setTexture("noiseTexture", noiseTexture);
