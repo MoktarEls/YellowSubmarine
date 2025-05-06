@@ -5,8 +5,8 @@ import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class World extends Scene{
-    static get sun(): Sun {
-        return this._sun;
+    public static get sun(): Sun {
+        return World._instance._sun;
     }
 
     public static get instance(): World {
@@ -15,21 +15,18 @@ export class World extends Scene{
 
     private static _instance: World;
 
-    private static _sun: Sun;
-    private static _sea: Sea;
-    private static _submarine: Submarine;
+    private _sun: Sun;
+    private _sea: Sea;
+    private _submarine: Submarine;
 
     constructor(
         options?: SceneOptions,
     ) {
         super(Game.engine, options);
         World._instance = this;
-    }
-
-    public initialize(): void {
-        World._sun = new Sun();
-        World._sea = new Sea();
-        World._submarine = new Submarine();
+        this._sun = new Sun();
+        this._sea = new Sea();
+        this._submarine = new Submarine();
     }
 
 }
