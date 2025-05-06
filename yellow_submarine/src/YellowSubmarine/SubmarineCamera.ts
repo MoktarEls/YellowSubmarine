@@ -1,5 +1,13 @@
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {Angle, ArcRotateCamera, Camera, PointerEventTypes} from "@babylonjs/core";
+import {
+    ActionManager,
+    Angle,
+    ArcRotateCamera,
+    Camera,
+    ExecuteCodeAction, Matrix,
+    PointerEventTypes, Quaternion, Scalar,
+    Vector3
+} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 
@@ -8,17 +16,61 @@ export class SubmarineCamera {
         return this._camera;
     }
 
-    private readonly _camera : ArcRotateCamera;
-    private _keyInputMap: { [key: string]: boolean } = {};
-    private _horizontalSensitivity = 0.05;
-    private _verticalSensitivity = 0.05;
+    private readonly _camera: ArcRotateCamera;
+    private _horizontalSensitivity = 5;
+    private _verticalSensitivity = 5;
+    private _cameraRotationLerpFactor = 3;
+    private _cameraMovementLerpFactor = 3;
+    private _cameraCurrentTargetPosition = Vector3.Zero();
+
+    private _wantedRadius = 15;
+    private _currentWantedAlpha = Angle.FromDegrees(0).radians();
+    private _currentWantedBeta = Angle.FromDegrees(45).radians();
+    private _lowerBetaLimit = Angle.FromDegrees(30).radians();
+    private _upperBetaLimit = Angle.FromDegrees(85).radians();
+
     private _isPointerLocked = false;
 
     constructor(private _submarine: Submarine) {
-        this._camera = new ArcRotateCamera("submarineCamera", 1, Angle.FromDegrees(100).radians(), 20, this._submarine.mesh.position );
-        this._camera.lowerBetaLimit = Angle.FromDegrees(55).radians();
-        this._camera.upperBetaLimit = Angle.FromDegrees(80).radians();
+        this._camera = new ArcRotateCamera("submarineCamera", this._currentWantedAlpha, Angle.FromDegrees(this._currentWantedBeta).radians(), this._wantedRadius, Vector3.Zero());
 
+        this.setRadius(this._wantedRadius);
+        this.setAlpha(this._currentWantedAlpha);
+        this.setBeta(this._currentWantedBeta);
+
+        this.handlePointerLocking();
+        this.handleCameraRotation();
+        this.handleUpdate();
+    }
+
+    public xzRotationQuaternion(): Quaternion {
+        const wantedForward = this.camera.getDirection(Vector3.Forward());
+        wantedForward.y = 0;
+        wantedForward.normalize();
+        const wantedUp = Vector3.Up();
+        const wantedRight = wantedUp.cross(wantedForward);
+
+        const wantedRotationMatrix = new Matrix();
+        Matrix.FromXYZAxesToRef(wantedRight, wantedUp, wantedForward, wantedRotationMatrix);
+        return Quaternion.FromRotationMatrix(wantedRotationMatrix);
+    }
+
+    private handleCameraRotation() {
+        World.scene.onPointerObservable.add((pointerInfo) => {
+            if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
+                const event = pointerInfo.event as PointerEvent;
+                const canvas = Game.canvas;
+                const deltaX = event.movementX/canvas.width;
+                const deltaY = event.movementY/canvas.height;
+
+                this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
+                this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
+                this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._lowerBetaLimit, this._upperBetaLimit);
+            }
+        });
+    }
+
+    private handlePointerLocking() {
         const canvas = Game.engine.getRenderingCanvas();
         if (canvas) {
             canvas.addEventListener("click", () => {
@@ -28,33 +80,48 @@ export class SubmarineCamera {
                 this._isPointerLocked = document.pointerLockElement === canvas;
             });
         }
+    }
 
-        World.scene.onPointerObservable.add((pointerInfo) => {
-            if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
-                const event = pointerInfo.event as PointerEvent;
-                const deltaTimeInSec = Game.engine.getDeltaTime() / 1000;
-                const deltaX = event.movementX;
-                const deltaY = event.movementY;
+    private handleUpdate() {
+        World.scene.actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnEveryFrameTrigger, () => {
+            this.update(Game.engine.getDeltaTime() / 1000);
+        }))
+    }
 
-                this._camera.alpha -= deltaX * this._horizontalSensitivity * deltaTimeInSec;
-                this._camera.beta -= deltaY * this._verticalSensitivity * deltaTimeInSec;
+    private update(deltaTimeInSec: number) {
+        this.followSubmarine(deltaTimeInSec);
+        this.updateCameraRotation(deltaTimeInSec);
+    }
 
-            }
-        });
-        this.setControls();
-        this.camera.attachControl(false);
-        this.camera.inputs.clear();
+    private followSubmarine(deltaTimeInSec: number) {
+        this._camera.target = this._submarine.mesh.position;
+    }
+
+    private updateCameraRotation(deltaTimeInSec: number) {
+        const nextAlpha = Scalar.LerpAngle(this._camera.alpha, this._currentWantedAlpha, deltaTimeInSec * this._cameraRotationLerpFactor);
+        const nextBeta = Scalar.LerpAngle(this._camera.beta, this._currentWantedBeta, deltaTimeInSec * this._cameraRotationLerpFactor);
+        this.setAlpha(nextAlpha);
+        this.setBeta(nextBeta);
 
     }
 
-    private setControls() {
-        window.addEventListener("keydown", (event) => {
-            this._keyInputMap[event.key] = true;
-        });
-        window.addEventListener("keyup", (event) => {
-            this._keyInputMap[event.key] = false;
-        });
+    private setRadius(radius: number) {
+        this._camera.radius = radius;
+        this._camera.lowerRadiusLimit = radius;
+        this._camera.upperRadiusLimit = radius;
     }
 
+    private setAlpha(alpha: number) {
+        this._camera.alpha = alpha;
+        this._camera.lowerAlphaLimit = alpha;
+        this._camera.upperAlphaLimit = alpha;
+    }
+
+    private setBeta(beta: number) {
+        beta = Scalar.Clamp(beta, this._lowerBetaLimit, this._upperBetaLimit);
+        this._camera.beta = beta;
+        this._camera.lowerBetaLimit = beta;
+        this._camera.upperBetaLimit = beta;
+    }
 
 }

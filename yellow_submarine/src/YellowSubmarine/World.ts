@@ -1,4 +1,5 @@
 import {
+    ActionManager,
     CubeTexture,
     HemisphericLight,
     MeshBuilder,
@@ -21,6 +22,7 @@ export class World{
 
     constructor() {
         World._scene = new Scene(Game.engine)
+        World._scene.actionManager = new ActionManager();
     }
 
     public initialize() {
