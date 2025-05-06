@@ -13,7 +13,6 @@ import {MouseMovementEventManager} from "@/YellowSubmarine/MouseMovementEventMan
 
 export class SubmarineCamera extends ArcRotateCamera {
 
-
     constructor(
         private _submarine: Submarine,
         private _currentWantedAlpha = Angle.FromDegrees(-90).radians(),
