@@ -31,7 +31,7 @@ export class KeyboardEventManager {
             this._keyDownActions.set(key, new Set());
         }
         this._keyDownActions.get(key)?.add(boundAction);
-        return boundAction; // ← important pour pouvoir unregister plus tard
+        return boundAction;
     }
 
     public static unregisterKeyDown(key: string, action: KeyAction) {
