@@ -14,8 +14,8 @@ export class World{
     private readonly _sun : Sun;
 
     constructor() {
-        this._sun = this.createSun();
         this.createSubmarine();
+        this._sun = this.createSun();
         //this.createSkyBox();
     }
 

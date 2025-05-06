@@ -48,18 +48,26 @@ export class Sun{
     }
 
     private createLight():DirectionalLight{
-        const light = new DirectionalLight("sunLight", new Vector3(-1, -2, 1), Game.worldScene);
-        light.intensity = 1.0;
+        let direction = new Vector3(0, 0, 0);
+        if (Game.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(Game.worldScene.activeCamera.position).normalize();
+        }
+        const light = new DirectionalLight("sunLight", direction.negate(), Game.worldScene);
+        light.intensity = 1;
         light.shadowEnabled = true;
         light.position = this._sun.position;
-        light.diffuse = new Color3(1.0, 1.0, 0.9);
-        light.specular = new Color3(1.0, 1.0, 0.9);
+        light.diffuse = new Color3(1.0, 1.0, 1.0);
+        light.specular = new Color3(1.0, 1.0, 1.0);
         return light;
     }
 
     private createHemiLight() : HemisphericLight{
-        const light = new HemisphericLight("sunLight", new Vector3(-1, -2, 1), Game.worldScene);
-        light.intensity = 1;
+        let direction = new Vector3(0, 0, 0);
+        if (Game.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(Game.worldScene.activeCamera.position).normalize();
+        }
+        const light = new HemisphericLight("sunLight", direction, Game.worldScene);
+        light.intensity = 0.8;
         light.diffuse = new Color3(1.0, 1.0, 1.0);
         light.shadowEnabled = false;
 
