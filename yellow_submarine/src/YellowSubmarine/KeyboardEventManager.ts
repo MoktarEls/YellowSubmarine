@@ -1,17 +1,16 @@
-import { KeyboardEventTypes, KeyboardInfo, Scene } from "@babylonjs/core";
+import { KeyboardEventTypes, KeyboardInfo } from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 type KeyAction = (state: boolean) => void;
 
 export class KeyboardEventManager {
-    private static _scene: Scene;
 
     private static _keyStateMap: Map<string, boolean> = new Map();
     private static _keyDownActions: Map<string, Set<KeyAction>> = new Map();
     private static _keyUpActions: Map<string, Set<KeyAction>> = new Map();
 
-    constructor(scene: Scene) {
-        KeyboardEventManager._scene = scene;
-        scene.onKeyboardObservable.add((kbInfo: KeyboardInfo) => {
+    constructor() {
+        Game.world.onKeyboardObservable.add((kbInfo: KeyboardInfo) => {
             const eventKey = kbInfo.event.code;
             if (kbInfo.type === KeyboardEventTypes.KEYDOWN) {
                 if (!KeyboardEventManager._keyStateMap.get(eventKey)) {

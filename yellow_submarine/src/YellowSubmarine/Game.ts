@@ -3,6 +3,10 @@ import {GameEngine} from "@/YellowSubmarine/GameEngine";
 
 export class Game{
 
+    public static get world(): World {
+        return this._world;
+    }
+
     private static _world: World;
     private static _gameEngine: GameEngine;
 
