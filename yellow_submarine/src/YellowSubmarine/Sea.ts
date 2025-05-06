@@ -1,4 +1,4 @@
-import {GroundMesh, MeshBuilder, Scene} from "@babylonjs/core";
+import {GroundMesh, MeshBuilder} from "@babylonjs/core";
 import {WorldOld} from "@/YellowSubmarine/WorldOld";
 import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
 
