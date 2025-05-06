@@ -1,125 +1,89 @@
-import {Submarine} from "@/YellowSubmarine/Submarine";
+import {SubmarineOld} from "@/YellowSubmarine/SubmarineOld";
 import {
     ActionManager,
     Angle,
     ArcRotateCamera,
-    Camera,
-    ExecuteCodeAction, Matrix,
-    PointerEventTypes, Quaternion, Scalar,
+    ExecuteCodeAction,
+    Scalar,
     Vector3
 } from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
+import {GameOld} from "@/YellowSubmarine/GameOld";
+import {WorldOld} from "@/YellowSubmarine/WorldOld";
+import {MouseMovementEventManager} from "@/YellowSubmarine/MouseMovementEventManager";
 
-export class SubmarineCamera {
-    get camera(): Camera {
-        return this._camera;
-    }
+export class SubmarineCamera extends ArcRotateCamera {
 
-    private readonly _camera: ArcRotateCamera;
-    private _horizontalSensitivity = 5;
-    private _verticalSensitivity = 5;
-    private _cameraRotationLerpFactor = 3;
 
-    private _wantedRadius = 15;
-    private _currentWantedAlpha = Angle.FromDegrees(-90).radians();
-    private _currentWantedBeta = Angle.FromDegrees(45).radians();
-    private _lowerBetaLimit = Angle.FromDegrees(30).radians();
-    private _upperBetaLimit = Angle.FromDegrees(85).radians();
+    constructor(
+        private _submarine: SubmarineOld,
+        private _currentWantedAlpha = Angle.FromDegrees(-90).radians(),
+        private _currentWantedBeta = Angle.FromDegrees(45).radians(),
+        private _lowerBetaLimit = Angle.FromDegrees(30).radians(),
+        private _upperBetaLimit = Angle.FromDegrees(85).radians(),
+        private _wantedRadius = 15,
+        private _horizontalSensitivity = 5,
+        private _verticalSensitivity = 5,
+        private _cameraRotationLerpFactor = 3,
+    ) {
+        super("submarineCamera", _currentWantedAlpha, Angle.FromDegrees(_currentWantedBeta).radians(), _wantedRadius, Vector3.Zero());
 
-    private _isPointerLocked = false;
+        this.setWantedRadius(_wantedRadius);
+        this.setWantedAlpha(_currentWantedAlpha);
+        this.setWantedBeta(_currentWantedBeta);
 
-    constructor(private _submarine: Submarine) {
-        this._camera = new ArcRotateCamera("submarineCamera", this._currentWantedAlpha, Angle.FromDegrees(this._currentWantedBeta).radians(), this._wantedRadius, Vector3.Zero());
-
-        this.setRadius(this._wantedRadius);
-        this.setAlpha(this._currentWantedAlpha);
-        this.setBeta(this._currentWantedBeta);
-
-        this.handlePointerLocking();
         this.handleCameraRotation();
         this.handleUpdate();
     }
 
-    public xzRotationQuaternion(): Quaternion {
-        const wantedForward = this.camera.getDirection(Vector3.Forward());
-        wantedForward.y = 0;
-        wantedForward.normalize();
-        const wantedUp = Vector3.Up();
-        const wantedRight = wantedUp.cross(wantedForward);
-
-        const wantedRotationMatrix = new Matrix();
-        Matrix.FromXYZAxesToRef(wantedRight, wantedUp, wantedForward, wantedRotationMatrix);
-        return Quaternion.FromRotationMatrix(wantedRotationMatrix);
-    }
-
     private handleCameraRotation() {
-        World.scene.onPointerObservable.add((pointerInfo) => {
-            if (this._isPointerLocked && pointerInfo.type === PointerEventTypes.POINTERMOVE) {
-                const event = pointerInfo.event as PointerEvent;
-                const canvas = Game.canvas;
-                const deltaX = event.movementX/canvas.width;
-                const deltaY = event.movementY/canvas.height;
-
-                this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
-                this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
-                this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._lowerBetaLimit, this._upperBetaLimit);
-            }
-        });
+        MouseMovementEventManager.registerMouseMovement((deltaX, deltaY) => {
+            this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
+            this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
+            this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._lowerBetaLimit, this._upperBetaLimit);
+        })
     }
 
-    private handlePointerLocking() {
-        const canvas = Game.engine.getRenderingCanvas();
-        if (canvas) {
-            canvas.addEventListener("click", () => {
-                canvas.requestPointerLock();
-            });
-            document.addEventListener("pointerlockchange", () => {
-                this._isPointerLocked = document.pointerLockElement === canvas;
-            });
-        }
-    }
 
     private handleUpdate() {
-        World.scene.actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnEveryFrameTrigger, () => {
-            this.update(Game.engine.getDeltaTime() / 1000);
+        WorldOld.scene.actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnEveryFrameTrigger, () => {
+            this.updateSubmarineCamera(GameOld.engine.getDeltaTime() / 1000);
         }))
     }
 
-    private update(deltaTimeInSec: number) {
-        this.followSubmarine(deltaTimeInSec);
+    private updateSubmarineCamera(deltaTimeInSec: number) {
+        this.followSubmarine();
         this.updateCameraRotation(deltaTimeInSec);
     }
 
-    private followSubmarine(deltaTimeInSec: number) {
-        this._camera.target = this._submarine.mesh.position;
+    private followSubmarine() {
+        this.target = this._submarine.mesh.position;
     }
 
     private updateCameraRotation(deltaTimeInSec: number) {
-        const nextAlpha = Scalar.LerpAngle(this._camera.alpha, this._currentWantedAlpha, deltaTimeInSec * this._cameraRotationLerpFactor);
-        const nextBeta = Scalar.LerpAngle(this._camera.beta, this._currentWantedBeta, deltaTimeInSec * this._cameraRotationLerpFactor);
-        this.setAlpha(nextAlpha);
-        this.setBeta(nextBeta);
+        const nextAlpha = Scalar.LerpAngle(this.alpha, this._currentWantedAlpha, deltaTimeInSec * this._cameraRotationLerpFactor);
+        const nextBeta = Scalar.LerpAngle(this.beta, this._currentWantedBeta, deltaTimeInSec * this._cameraRotationLerpFactor);
+        this.setWantedAlpha(nextAlpha);
+        this.setWantedBeta(nextBeta);
 
     }
 
-    private setRadius(radius: number) {
-        this._camera.radius = radius;
-        this._camera.lowerRadiusLimit = radius;
-        this._camera.upperRadiusLimit = radius;
+    private setWantedRadius(radius: number) {
+        this.radius = radius;
+        this.lowerRadiusLimit = radius;
+        this.upperRadiusLimit = radius;
     }
 
-    private setAlpha(alpha: number) {
-        this._camera.alpha = alpha;
-        this._camera.lowerAlphaLimit = alpha;
-        this._camera.upperAlphaLimit = alpha;
+    private setWantedAlpha(alpha: number) {
+        this.alpha = alpha;
+        this.lowerAlphaLimit = alpha;
+        this.upperAlphaLimit = alpha;
     }
 
-    private setBeta(beta: number) {
+    private setWantedBeta(beta: number) {
         beta = Scalar.Clamp(beta, this._lowerBetaLimit, this._upperBetaLimit);
-        this._camera.beta = beta;
-        this._camera.lowerBetaLimit = beta;
-        this._camera.upperBetaLimit = beta;
+        this.beta = beta;
+        this.lowerBetaLimit = beta;
+        this.upperBetaLimit = beta;
     }
 
 }
