@@ -5,6 +5,9 @@ import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class World extends Scene{
+    static get sun(): Sun {
+        return this._sun;
+    }
 
     public static get instance(): World {
         return this._instance;
