@@ -117,6 +117,9 @@ export class Submarine {
     }
 
     private updateRotation(deltaTimeInSec: number) {
+        if(!this.isMovementInputPressed()){
+            return;
+        }
         const currentRotation = this.mesh.absoluteRotationQuaternion;
         const targetRotation = this._submarineCamera.xzRotationQuaternion();
         const inputsInducedRotation = this.calculateRotationFromInputs(this.getMovementInputsVector());
