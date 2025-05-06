@@ -20,11 +20,9 @@ export class SubmarineCamera {
     private _horizontalSensitivity = 5;
     private _verticalSensitivity = 5;
     private _cameraRotationLerpFactor = 3;
-    private _cameraMovementLerpFactor = 3;
-    private _cameraCurrentTargetPosition = Vector3.Zero();
 
     private _wantedRadius = 15;
-    private _currentWantedAlpha = Angle.FromDegrees(0).radians();
+    private _currentWantedAlpha = Angle.FromDegrees(-90).radians();
     private _currentWantedBeta = Angle.FromDegrees(45).radians();
     private _lowerBetaLimit = Angle.FromDegrees(30).radians();
     private _upperBetaLimit = Angle.FromDegrees(85).radians();
