@@ -1,5 +1,5 @@
 import {Scene} from "@babylonjs/core";
-import {GameOld} from "@/YellowSubmarine/GameOld";
+import {Game} from "@/YellowSubmarine/Game";
 
 type MouseMovementAction = (
     movementX: number,
@@ -30,17 +30,18 @@ export class MouseMovementEventManager {
 
     private static activateMouseMovementEventTrigger(){
         this._scene.onPointerObservable.add((pointerInfo) => {
+
             const event = pointerInfo.event as PointerEvent;
             const movementX = event.movementX;
             const movementY = event.movementY;
-            if(movementX !== 0 || movementY !== 0){
+            if( (movementX !== 0 || movementY !== 0) && this._isPointerLocked){
                 this.notifyMouseMovement(movementX, movementY);
             }
         })
     }
 
     private static handlePointerLocking() {
-        const canvas = GameOld.engine.getRenderingCanvas();
+        const canvas = Game.engine.getRenderingCanvas();
         if (canvas) {
             canvas.addEventListener("click", () => {
                 canvas.requestPointerLock();

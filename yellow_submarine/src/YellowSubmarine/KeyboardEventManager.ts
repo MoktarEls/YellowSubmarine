@@ -10,7 +10,7 @@ export class KeyboardEventManager {
     private static _keyUpActions: Map<string, Set<KeyAction>> = new Map();
 
     constructor() {
-        Game.world.onKeyboardObservable.add((kbInfo: KeyboardInfo) => {
+        Game.scene.onKeyboardObservable.add((kbInfo: KeyboardInfo) => {
             const eventKey = kbInfo.event.code;
             if (kbInfo.type === KeyboardEventTypes.KEYDOWN) {
                 if (!KeyboardEventManager._keyStateMap.get(eventKey)) {
