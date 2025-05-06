@@ -12,10 +12,6 @@ export class GameEngine extends Engine{
         GameEngine._instance = this;
     }
 
-    static get instance(): GameEngine {
-        return this._instance;
-    }
-
     public static getDeltaTimeInSeconds(): number {
         return this._instance.getDeltaTime() / 1000;
     }
