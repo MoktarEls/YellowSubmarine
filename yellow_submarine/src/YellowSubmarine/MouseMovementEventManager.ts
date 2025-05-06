@@ -12,8 +12,8 @@ export class MouseMovementEventManager {
     private static _mouseMovementActions: Set<MouseMovementAction> = new Set();
     private static _isPointerLocked = false;
 
-    constructor(scene: Scene) {
-        MouseMovementEventManager._scene = scene;
+    constructor() {
+        MouseMovementEventManager._scene = Game.scene;
         MouseMovementEventManager.handlePointerLocking();
         MouseMovementEventManager.activateMouseMovementEventTrigger();
     }
