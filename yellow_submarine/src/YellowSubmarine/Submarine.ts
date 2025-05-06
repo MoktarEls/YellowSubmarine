@@ -17,9 +17,9 @@ export class Submarine {
     private _currentMovementSpeed = 0;
     private _acceleration = 3;
 
-    private _rotationSpeed = Angle.FromDegrees(60).radians();
+    private _rotationSpeed = Angle.FromDegrees(90).radians();
     private _currentRotationSpeed = 0;
-    private _rotationAcceleration = Angle.FromDegrees(45).radians();
+    private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
     public get mesh(): Mesh {
         return this._mesh;
