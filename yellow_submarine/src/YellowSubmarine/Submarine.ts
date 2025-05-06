@@ -15,10 +15,11 @@ export class Submarine {
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
-    private _acceleration = 1;
-    private _decceleration = 4;
+    private _acceleration = 3;
 
     private _rotationSpeed = Angle.FromDegrees(60).radians();
+    private _currentRotationSpeed = 0;
+    private _rotationAcceleration = Angle.FromDegrees(45).radians();
 
     public get mesh(): Mesh {
         return this._mesh;
@@ -74,93 +75,43 @@ export class Submarine {
 
     private update(deltaTimeInSec: number) {
         this._testMesh.position = this.mesh.position.add(this.mesh.forward.scale(3));
+        this.updateRotationSpeed(deltaTimeInSec);
         this.updateMovementSpeed(deltaTimeInSec);
         this.updateRotation(deltaTimeInSec);
         this.updatePosition(deltaTimeInSec);
     }
-    
-    private updateMovementSpeed(deltaTimeInSec: number) {
-        if(this.isMovementInputPressed()){
-            this._currentMovementSpeed += deltaTimeInSec * this._acceleration;
-        }
-        else{
-            this._currentMovementSpeed -= deltaTimeInSec * this._decceleration;
-        }
-        this._currentMovementSpeed = Scalar.Clamp(this._currentMovementSpeed,0,this._movementSpeed);
 
-    }
+    private updateRotationSpeed(deltaTimeInSec: number) {
+        let rotationSpeedTarget = 0;
 
-    private isMovementInputPressed(){
-        return this._isForwardPressed || this._isBackwardPressed || this._isRightPressed || this._isLeftPressed;
-    }
-
-    private getMovementInputsVector() {
-        const movementInputVector = Vector3.Zero();
-        if(this._isForwardPressed){
-            movementInputVector.addInPlace(Vector3.Forward());
-        }
-        if(this._isBackwardPressed){
-            movementInputVector.addInPlace(Vector3.Backward());
-        }
         if(this._isRightPressed){
-            movementInputVector.addInPlace(Vector3.Right());
+            rotationSpeedTarget += this._rotationSpeed;
         }
         if(this._isLeftPressed){
-            movementInputVector.addInPlace(Vector3.Left());
+            rotationSpeedTarget -= this._rotationSpeed;
         }
 
-        if(movementInputVector !== Vector3.Zero()){
-            return movementInputVector.normalize();
-        }
-        return Vector3.Zero();
+        this._currentRotationSpeed = Scalar.MoveTowards(this._currentRotationSpeed, rotationSpeedTarget, deltaTimeInSec * this._rotationAcceleration);
+    }
 
+    private updateMovementSpeed(deltaTimeInSec: number) {
+        let targetMovementSpeed = 0;
+        if(this._isForwardPressed){
+            targetMovementSpeed += this._movementSpeed;
+        }
+        if(this._isBackwardPressed){
+            targetMovementSpeed -= this._movementSpeed;
+        }
+        this._currentMovementSpeed = Scalar.MoveTowards(this._currentMovementSpeed, targetMovementSpeed, deltaTimeInSec * this._acceleration);
     }
 
     private updateRotation(deltaTimeInSec: number) {
-        if(!this.isMovementInputPressed()){
-            return;
-        }
-        const currentRotation = this.mesh.absoluteRotationQuaternion;
-        const targetRotation = this._submarineCamera.xzRotationQuaternion();
-        const inputsInducedRotation = this.calculateRotationFromInputs(this.getMovementInputsVector());
-        const finalTargetRotation = targetRotation.multiply(inputsInducedRotation);
-        this.mesh.rotation = Quaternion.Slerp(currentRotation, finalTargetRotation, deltaTimeInSec * this._rotationSpeed).toEulerAngles();
+        this.mesh.rotation.y = this.mesh.rotation.y + deltaTimeInSec * this._currentRotationSpeed;
     }
 
     private updatePosition(deltaTimeInSec: number) {
         this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
     }
 
-    private calculateRotationFromInputs(movementInputsVector: Vector3) {
-        if(movementInputsVector.length() == 0){
-            return Quaternion.Identity();
-        }
 
-        const angle = Math.atan2(movementInputsVector.x, movementInputsVector.z);
-        return Quaternion.FromEulerAngles(0, angle,0);
-
-
-    }
-
-    private stepTowardsAngle(current: number, target: number, maxStep: number): number {
-        const PI = Math.PI;
-        const TWO_PI = 2 * PI;
-
-        // Calcule la différence dans l'intervalle [-PI, PI]
-        let delta = target - current;
-        if (delta > PI) delta -= TWO_PI;
-        if (delta < -PI) delta += TWO_PI;
-
-        // Limite le déplacement au pas maximal
-        const step = Math.abs(delta) < maxStep ? delta : Math.sign(delta) * maxStep;
-
-        // Retourne l'angle avancé
-        let result = current + step;
-
-        // Remet dans [-PI, PI]
-        if (result > PI) result -= TWO_PI;
-        if (result < -PI) result += TWO_PI;
-
-        return result;
-    }
 }
