@@ -124,11 +124,7 @@ export class Submarine {
         const targetRotation = this._submarineCamera.xzRotationQuaternion();
         const inputsInducedRotation = this.calculateRotationFromInputs(this.getMovementInputsVector());
         const finalTargetRotation = targetRotation.multiply(inputsInducedRotation);
-
-        const currentEulerRotation = currentRotation.toEulerAngles();
-        const finalTargetEulerRotation = finalTargetRotation.toEulerAngles();
-        const nextYRotation = this.stepTowardsAngle(currentEulerRotation.y, finalTargetEulerRotation.y, deltaTimeInSec * this._rotationSpeed);
-        this.mesh.rotation.y = nextYRotation;
+        this.mesh.rotation = Quaternion.Slerp(currentRotation, finalTargetRotation, deltaTimeInSec * this._rotationSpeed).toEulerAngles();
     }
 
     private updatePosition(deltaTimeInSec: number) {
