@@ -4,12 +4,13 @@ import {
     HemisphericLight,
     MeshBuilder,
     Scene,
-    ShaderMaterial,
     StandardMaterial,
     Texture,
     Vector3
 } from "@babylonjs/core";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Sun} from "@/YellowSubmarine/Sun";
+import {Sea} from "@/YellowSubmarine/Sea";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class World{
@@ -20,16 +21,19 @@ export class World{
         return this._scene;
     }
 
+    private readonly _sun : Sun;
+
     constructor() {
         World._scene = new Scene(Game.engine)
         World._scene.actionManager = new ActionManager();
+        this._sun = this.createSun();
     }
 
     public initialize() {
         this.createHemisphericLight();
         this.createSea();
         this.createSubmarine();
-        this.createSkyBox();
+        //this.createSkyBox();
     }
 
     private createHemisphericLight(){
@@ -38,35 +42,15 @@ export class World{
     }
 
     private createSea() {
-        const shaderMaterial = new ShaderMaterial("waterShader", World.scene, {
-            vertex: "water",
-            fragment: "water"
-        }, {
-            attributes: ["position", "uv"],
-            uniforms: ["worldViewProjection", "time"],
-            samplers: ["noiseTexture"]
-        });
-
-        const noiseTexture = new Texture("/textures/noiseTexture.png", World.scene);
-        shaderMaterial.setTexture("noiseTexture", noiseTexture);
-
-        let time = 0;
-        World.scene.registerBeforeRender(() => {
-            time += Game.engine.getDeltaTime() * 0.0008;
-            shaderMaterial.setFloat("time", time);
-        });
-
-        const waterPlane = MeshBuilder.CreateGround("waterPlane", {
-            width: 20,
-            height: 20,
-            subdivisions: 64
-        }, World.scene);
-
-        waterPlane.material = shaderMaterial;
+        new Sea();
     }
 
     private createSubmarine() {
         new Submarine();
+    }
+
+    public getSun(): Sun{
+        return this._sun;
     }
 
     private createSkyBox() {

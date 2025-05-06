@@ -1,4 +1,4 @@
-import {MeshBuilder, ShaderMaterial, Texture} from "@babylonjs/core";
+import {MeshBuilder, ShaderMaterial, Texture, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 
@@ -30,10 +30,23 @@ export class Sea{
         vertex: "water",
         fragment: "water"
         }, {
-        attributes: ["position", "uv"],
-        uniforms: ["worldViewProjection", "time"],
-        samplers: ["noiseTexture"]
+            attributes: ["position", "uv"],
+            uniforms: ["worldViewProjection", "time"],
+            samplers: ["noiseTexture"]
         });
+        const sun = Game.world.getSun();
+        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
+        shaderMaterial.setTexture("noiseTexture", noiseTexture);
+
+        console.log("Light Direction: ", sun.getLightDirection());
+        console.log("Light Color: ", sun.getLightColor());
+        console.log("Ambient Color: ", sun.getAmbientColor());
+
+        shaderMaterial.setVector3("lightDirection", sun.getLightDirection());
+        shaderMaterial.setVector3("lightColor", sun.getLightColor());
+        shaderMaterial.setVector3("ambientColor", sun.getAmbientColor());
+        shaderMaterial.alpha = 0.6;
+        return shaderMaterial;
     }
 
     private createWaterPlane() {
