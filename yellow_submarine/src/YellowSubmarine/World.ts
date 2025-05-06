@@ -1,10 +1,11 @@
 import {
-    CubeTexture,
+    Color3,
+    CubeTexture, DirectionalLight,
     Engine,
-    HemisphericLight,
+    HemisphericLight, Mesh,
     MeshBuilder,
     Scene,
-    ShaderMaterial,
+    ShaderMaterial, ShadowGenerator,
     StandardMaterial,
     Texture,
     Vector3
@@ -15,15 +16,52 @@ import {Game} from "@/YellowSubmarine/Game";
 export class World{
 
     constructor() {
-        this.createHemisphericLight();
+        this.createSunLight();
         this.createSea();
         this.createSubmarine();
         this.createSkyBox();
     }
 
-    private createHemisphericLight(){
-        const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), Game.worldScene);
+    private createSunLight() {
+        const sun = MeshBuilder.CreateSphere("sun", {
+            diameter: 40,
+            segments: 32
+        }, Game.worldScene);
+        sun.position = new Vector3(1000, 100, -1000);
+        sun.infiniteDistance = true;
+        sun.isPickable = false;
+
+        const sunMaterial = new StandardMaterial("sunMat", Game.worldScene);
+        sunMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
+        sunMaterial.diffuseColor = Color3.Black();
+        sunMaterial.specularColor = Color3.Black();
+
+        sun.material = sunMaterial;
+
+        const halo = MeshBuilder.CreateSphere("sunHalo", {
+            diameter: 46,
+            segments: 32
+        }, Game.worldScene);
+        halo.position = sun.position.clone();
+        halo.infiniteDistance = true;
+        halo.isPickable = false;
+
+        const haloMaterial = new StandardMaterial("haloMat", Game.worldScene);
+        haloMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
+        haloMaterial.diffuseColor = Color3.Black();
+        haloMaterial.specularColor = Color3.Black();
+        haloMaterial.alpha = 0.6
+
+        halo.material = haloMaterial;
+
+        const light = new DirectionalLight("sunLight", new Vector3(-1, -2, 1), Game.worldScene);
+        light.position = sun.position.clone();
+        light.intensity = 1.0;
+        light.shadowEnabled = true;
+
+        const hemiLight = new HemisphericLight("hemiLight", new Vector3(-1, -2, 1), Game.worldScene);
         hemiLight.intensity = 0.5;
+        hemiLight.shadowEnabled = false;
     }
 
     private createSea() {
@@ -59,7 +97,7 @@ export class World{
     }
 
     private createSkyBox() {
-        const skybox = MeshBuilder.CreateBox("skyBox", {size:2000}, Game.worldScene);
+        const skybox = MeshBuilder.CreateBox("skyBox", {size:10000}, Game.worldScene);
         skybox.infiniteDistance = true;
 
         const skyboxMaterial = new StandardMaterial("skyBoxMaterial", Game.worldScene);
