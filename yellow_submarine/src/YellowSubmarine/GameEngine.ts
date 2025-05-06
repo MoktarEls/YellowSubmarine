@@ -7,7 +7,9 @@ export class GameEngine extends Engine{
     constructor(canvasOrContext: Nullable<HTMLCanvasElement | OffscreenCanvas | WebGLRenderingContext | WebGL2RenderingContext>,
                 antialias?: boolean,
                 options?: EngineOptions,
-                adaptToDeviceRatio?: boolean) {
+                adaptToDeviceRatio?: boolean
+    )
+    {
         super(canvasOrContext, antialias, options, adaptToDeviceRatio);
         GameEngine._instance = this;
     }

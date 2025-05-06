@@ -5,20 +5,23 @@ import {Engine, Scene} from "@babylonjs/core";
 export class Game{
 
     public static get engine(): Engine {
-        return this._gameEngine;
+        return Game._instance._gameEngine;
     }
 
     public static get scene(): Scene {
-        return this._world;
+        return Game._instance._world;
     }
 
-    private static _world: World;
-    private static _gameEngine: GameEngine;
+    private static _instance: Game;
+
+    private _world: World;
+    private _gameEngine: GameEngine;
 
     constructor(canvas: HTMLCanvasElement) {
-        Game._gameEngine = new GameEngine(canvas);
-        Game._world = new World();
-        Game._world.initialize();
+        Game._instance = this;
+        this._gameEngine = new GameEngine(canvas);
+        this._world = new World();
+        this._world.initialize();
     }
 
     public static registerUpdateAction(
