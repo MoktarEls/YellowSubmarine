@@ -1,4 +1,4 @@
-import {SubmarineOld} from "@/YellowSubmarine/SubmarineOld";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 import {
     ActionManager,
     Angle,
@@ -15,7 +15,7 @@ export class SubmarineCamera extends ArcRotateCamera {
 
 
     constructor(
-        private _submarine: SubmarineOld,
+        private _submarine: Submarine,
         private _currentWantedAlpha = Angle.FromDegrees(-90).radians(),
         private _currentWantedBeta = Angle.FromDegrees(45).radians(),
         private _lowerBetaLimit = Angle.FromDegrees(30).radians(),

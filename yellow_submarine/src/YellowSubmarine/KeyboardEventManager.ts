@@ -1,6 +1,6 @@
 import { KeyboardEventTypes, KeyboardInfo, Scene } from "@babylonjs/core";
 
-type KeyAction = () => void;
+type KeyAction = (state: boolean) => void;
 
 export class KeyboardEventManager {
     private static _scene: Scene;
@@ -57,11 +57,11 @@ export class KeyboardEventManager {
 
     private notifyKeyDown(key: string) {
         const actions = KeyboardEventManager._keyDownActions.get(key);
-        actions?.forEach(action => action());
+        actions?.forEach(action => action(true));
     }
 
     private notifyKeyUp(key: string) {
         const actions = KeyboardEventManager._keyUpActions.get(key);
-        actions?.forEach(action => action());
+        actions?.forEach(action => action(false));
     }
 }

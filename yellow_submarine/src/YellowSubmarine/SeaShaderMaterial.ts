@@ -1,16 +1,15 @@
-import {ShaderMaterial, Texture} from "@babylonjs/core";
+import {IShaderMaterialOptions, IShaderPath, Scene, ShaderMaterial, Texture} from "@babylonjs/core";
 
 export class SeaShaderMaterial extends ShaderMaterial{
 
-    constructor() {
-        super("waterShader", WorldOld.scene, {
-            vertex: "water",
-            fragment: "water"
-        }, {
-            attributes: ["position", "uv"],
-            uniforms: ["worldViewProjection", "time"],
-            samplers: ["noiseTexture"]
-        });
+    constructor(
+        name: string,
+        scene: Scene,
+        shaderPath: IShaderPath | string,
+        options?: Partial<IShaderMaterialOptions>,
+        storeEffectOnSubMeshes?: boolean,
+    ) {
+        super(name, scene, shaderPath, options, storeEffectOnSubMeshes);
 
         const sun = GameOld.world.getSun();
         const noiseTexture = new Texture("/textures/noiseTexture.png", GameOld.worldScene);
