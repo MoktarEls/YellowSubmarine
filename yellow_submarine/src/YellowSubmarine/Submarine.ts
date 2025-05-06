@@ -1,17 +1,12 @@
-import {ActionManager, Angle, ExecuteCodeAction, Mesh, MeshBuilder, Quaternion, Scalar, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, MeshBuilder, Scalar, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
+import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World"
+import {World} from "@/YellowSubmarine/World";
 
 export class Submarine {
-
     private readonly _mesh: Mesh;
     private _testMesh = MeshBuilder.CreateSphere("testMesh");
-
-    private _isForwardPressed = false;
-    private _isBackwardPressed = false;
-    private _isRightPressed = false;
-    private _isLeftPressed = false;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -30,45 +25,11 @@ export class Submarine {
     constructor() {
         this._mesh = this.createMesh();
         this._submarineCamera = new SubmarineCamera(this);
-        World.scene.onBeforeRenderObservable.add(() => {
-            this.update(Game.engine.getDeltaTime() / 1000);
-        });
-        World.scene.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnKeyDownTrigger, (actionEvent) => {
-                if(actionEvent.sourceEvent.key === "z"){
-                    this._isForwardPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "s"){
-                    this._isBackwardPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "q"){
-                    this._isLeftPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "d"){
-                    this._isRightPressed = true;
-                }
-            })
-        )
-        World.scene.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnKeyUpTrigger, (actionEvent) => {
-                if(actionEvent.sourceEvent.key === "z"){
-                    this._isForwardPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "s"){
-                    this._isBackwardPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "q"){
-                    this._isLeftPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "d"){
-                    this._isRightPressed = false;
-                }
-            })
-        )
+        Game.registerUpdateAction(this.update, this);
     }
 
     private createMesh(): Mesh {
-        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, World.scene);
+        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, World.instance);
         mesh.position = new Vector3(0, 0, 0);
         return mesh;
     }
@@ -84,10 +45,10 @@ export class Submarine {
     private updateRotationSpeed(deltaTimeInSec: number) {
         let rotationSpeedTarget = 0;
 
-        if(this._isRightPressed){
+        if(this.isRightPressed()){
             rotationSpeedTarget += this._rotationSpeed;
         }
-        if(this._isLeftPressed){
+        if(this.isLeftPressed()){
             rotationSpeedTarget -= this._rotationSpeed;
         }
 
@@ -96,10 +57,10 @@ export class Submarine {
 
     private updateMovementSpeed(deltaTimeInSec: number) {
         let targetMovementSpeed = 0;
-        if(this._isForwardPressed){
+        if(this.isForwardPressed()){
             targetMovementSpeed += this._movementSpeed;
         }
-        if(this._isBackwardPressed){
+        if(this.isBackwardPressed()){
             targetMovementSpeed -= this._movementSpeed;
         }
         this._currentMovementSpeed = Scalar.MoveTowards(this._currentMovementSpeed, targetMovementSpeed, deltaTimeInSec * this._acceleration);
@@ -111,6 +72,22 @@ export class Submarine {
 
     private updatePosition(deltaTimeInSec: number) {
         this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
+    }
+
+    private isForwardPressed() {
+        return KeyboardEventManager.isKeyPressed("z");
+    }
+
+    private isBackwardPressed() {
+        return KeyboardEventManager.isKeyPressed("s");
+    }
+
+    private isRightPressed() {
+        return KeyboardEventManager.isKeyPressed("d");
+    }
+
+    private isLeftPressed() {
+        return KeyboardEventManager.isKeyPressed("q");
     }
 
 
