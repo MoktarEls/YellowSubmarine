@@ -7,8 +7,7 @@ import {
     StandardMaterial,
     Vector3
 } from "@babylonjs/core";
-
-import {Game} from "@/YellowSubmarine/Game";
+import {GameOld} from "@/YellowSubmarine/GameOld";
 
 export class Sun{
 
@@ -29,7 +28,7 @@ export class Sun{
         const sun = MeshBuilder.CreateSphere("sun", {
             diameter: 40,
             segments: 32
-        }, Game.worldScene);
+        }, GameOld.worldScene);
         sun.infiniteDistance = true;
         sun.isPickable = false;
         sun.position = new Vector3(1000, 200, -1000);
@@ -40,7 +39,7 @@ export class Sun{
         const halo = MeshBuilder.CreateSphere("sunHalo", {
             diameter: 44,
             segments: 32
-        }, Game.worldScene);
+        }, GameOld.worldScene);
         halo.infiniteDistance = true;
         halo.isPickable = false;
         halo.position = this._sun.position;
@@ -49,10 +48,10 @@ export class Sun{
 
     private createLight():DirectionalLight{
         let direction = new Vector3(0, 0, 0);
-        if (Game.worldScene.activeCamera) {
-            direction = this._sun.position.subtract(Game.worldScene.activeCamera.position).normalize();
+        if (GameOld.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(GameOld.worldScene.activeCamera.position).normalize();
         }
-        const light = new DirectionalLight("sunLight", direction.negate(), Game.worldScene);
+        const light = new DirectionalLight("sunLight", direction.negate(), GameOld.worldScene);
         light.intensity = 1;
         light.shadowEnabled = true;
         light.position = this._sun.position;
@@ -63,10 +62,10 @@ export class Sun{
 
     private createHemiLight() : HemisphericLight{
         let direction = new Vector3(0, 0, 0);
-        if (Game.worldScene.activeCamera) {
-            direction = this._sun.position.subtract(Game.worldScene.activeCamera.position).normalize();
+        if (GameOld.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(GameOld.worldScene.activeCamera.position).normalize();
         }
-        const light = new HemisphericLight("sunLight", direction, Game.worldScene);
+        const light = new HemisphericLight("sunLight", direction, GameOld.worldScene);
         light.intensity = 0.8;
         light.diffuse = new Color3(1.0, 1.0, 1.0);
         light.shadowEnabled = false;
@@ -93,13 +92,13 @@ export class Sun{
     }
 
     private configMaterials(){
-        const sunMaterial = new StandardMaterial("sunMat", Game.worldScene);
+        const sunMaterial = new StandardMaterial("sunMat", GameOld.worldScene);
         sunMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         sunMaterial.diffuseColor = Color3.Black();
         sunMaterial.specularColor = Color3.Black();
         this._sun.material = sunMaterial;
 
-        const haloMaterial = new StandardMaterial("haloMat", Game.worldScene);
+        const haloMaterial = new StandardMaterial("haloMat", GameOld.worldScene);
         haloMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         haloMaterial.diffuseColor = Color3.Black();
         haloMaterial.specularColor = Color3.Black();
