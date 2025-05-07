@@ -30,7 +30,7 @@ export class SubmarineCamera {
         private _wantedRadius = 25,
         private _horizontalSensitivity = 5,
         private _verticalSensitivity = 5,
-        private _cameraRotationLerpFactor = 3,
+        private _cameraRotationLerpFactor = 20,
     ) {
         this._arcRotateCamera = new ArcRotateCamera("submarineCamera", _currentWantedAlpha, Angle.FromDegrees(_currentWantedBeta).radians(), _wantedRadius, Vector3.Zero());
         SubmarineCamera._instance = this;
@@ -59,7 +59,7 @@ export class SubmarineCamera {
         MouseMovementEventManager.registerMouseMovement((deltaX, deltaY) => {
             this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
             this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
-            // this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
+            this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
         })
     }
 
@@ -110,7 +110,7 @@ export class SubmarineCamera {
     }
 
     private setWantedBeta(beta: number) {
-        // beta = Scalar.Clamp(beta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
+        beta = Scalar.Clamp(beta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
         this.arcRotateCamera.beta = beta;
         this.arcRotateCamera.lowerBetaLimit = beta;
         this.arcRotateCamera.upperBetaLimit = beta;
