@@ -33,6 +33,7 @@
             waterMaterial.colorBlendFactor = 0.3;
             waterMaterial.bumpHeight = 0.01;
             waterMaterial.waveLength = 0.1;
+            waterMaterial.alpha = 0.3;
 
             waterMaterial.addToRenderList(this._world.sun.sunMesh);
             waterMaterial.addToRenderList(this._world.sun.haloMesh);
