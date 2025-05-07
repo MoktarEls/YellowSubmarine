@@ -18,8 +18,6 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh : Mesh;
 
-    private _testMesh ;
-
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
     private _acceleration = 3;
@@ -32,15 +30,12 @@ export class Submarine {
 
     constructor(private _world: World) {
         this._mesh = new Mesh("");
-        this._testMesh = new Mesh("");
         Submarine._instance = this;
         this._submarineCamera = new SubmarineCamera(this);
     }
 
     public async init() {
         this._mesh = await this.createMesh(this._world.scene)
-        this._testMesh = MeshBuilder.CreateSphere("testMesh", {}, this._world.scene);
-        this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
         this._submarineCamera.init();
         Game.registerUpdateAction(this.update, this);
     }
@@ -55,7 +50,6 @@ export class Submarine {
     }
 
     private update(deltaTimeInSec: number) {
-        this._testMesh.position = this.mesh.position.add(this.mesh.forward.scale(3));
         this.updateRotationSpeed(deltaTimeInSec);
         this.updateMovementSpeed(deltaTimeInSec);
         this.updateRotation(deltaTimeInSec);
@@ -87,7 +81,7 @@ export class Submarine {
     }
 
     private updateRotation(deltaTimeInSec: number) {
-        this.mesh.rotation.y = this.mesh.rotation.y + deltaTimeInSec * this._currentRotationSpeed;
+        this.mesh.rotateAround(this.mesh.position, Vector3.Up(), deltaTimeInSec * this._currentRotationSpeed);
     }
 
     private updatePosition(deltaTimeInSec: number) {
