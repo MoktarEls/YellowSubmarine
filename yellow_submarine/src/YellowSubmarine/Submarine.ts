@@ -1,9 +1,9 @@
 import {Angle, Mesh, MeshBuilder, Scalar, Scene, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
-import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
+import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
-import {CartoonShaderMaterial} from "@/YellowSubmarine/CartoonShaderMaterial";
 import {World} from "@/YellowSubmarine/World";
+import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 
 export class Submarine {
     public get mesh(): Mesh {
