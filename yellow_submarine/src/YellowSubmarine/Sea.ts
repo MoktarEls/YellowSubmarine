@@ -2,6 +2,7 @@
     import {WaterMaterial} from "@babylonjs/materials";
     //import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
     import {World} from "@/YellowSubmarine/World";
+    import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
 
     export class Sea {
 
@@ -18,10 +19,10 @@
                 {
                     width: 512,
                     height: 512,
-                    subdivisions: 128
                 },
                 this._world.scene
             );
+
             const waterMaterial = new WaterMaterial("seaMaterial", this._world.scene, new Vector2(512,512));
             waterMaterial.bumpTexture = new Texture("/textures/noiseTexture.png", this._world.scene);
 
@@ -37,6 +38,8 @@
             waterMaterial.addToRenderList(this._world.sun.haloMesh);
             waterMaterial.addToRenderList(this._world.skybox.mesh);
             waterMaterial.addToRenderList(this._world.submarine.mesh);
+
+            // const waterMaterial = SeaShaderMaterial.shaderMaterial;
 
             this._groundMesh.material = waterMaterial;
         }

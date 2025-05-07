@@ -1,4 +1,4 @@
-import {Scene, SceneOptions} from "@babylonjs/core";
+import {Camera, Scene, SceneOptions} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {Sun} from "@/YellowSubmarine/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
@@ -7,6 +7,9 @@ import {SkyBox} from "@/YellowSubmarine/SkyBox";
 import {TestObject} from "@/YellowSubmarine/TestObject";
 
 export class World {
+
+
+
     public get skybox(): SkyBox {
         return this._skybox;
     }
@@ -23,8 +26,8 @@ export class World {
         return this._submarine;
     }
 
-    public static get scene(): Scene {
-        return this.instance.scene;
+    public static get camera(): Camera {
+        return this.instance.submarine.submarineCamera.camera;
     }
 
     public static get sun(): Sun {
@@ -41,7 +44,7 @@ export class World {
     private _sun: Sun;
     private _sea: Sea;
     private _submarine: Submarine;
-    private _object: TestObject;
+    //private _object: TestObject;
     private _skybox: SkyBox;
 
     constructor(
@@ -54,7 +57,7 @@ export class World {
         this._skybox = new SkyBox(this);
         this._submarine = new Submarine(this);
         this._sea = new Sea(this);
-        this._object = new TestObject(this);
+        //this._object = new TestObject(this);
     }
 
     public init(): void {
@@ -62,7 +65,6 @@ export class World {
         this._skybox.init();
         this._submarine.init();
         this._sea.init();
-        this._object.init();
     }
 
 }

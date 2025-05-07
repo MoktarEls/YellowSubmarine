@@ -5,18 +5,15 @@ import {
     Mesh,
     MeshBuilder, Scene,
     StandardMaterial,
-    Vector3,
-    GlowLayer
+    Vector3
 } from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
-import {Game} from "@/YellowSubmarine/Game";
 
 export class Sun{
-
-    public get haloMesh(): Mesh {
+    get haloMesh(): Mesh {
         return this._haloMesh;
     }
-    public get sunMesh(): Mesh {
+    get sunMesh(): Mesh {
         return this._sunMesh;
     }
 
@@ -123,8 +120,5 @@ export class Sun{
         haloMaterial.specularColor = Color3.Black();
         haloMaterial.alpha = 0.5;
         this._haloMesh.material = haloMaterial;
-
-        const godRays = new GlowLayer("godRays", Game.scene);
-        godRays.intensity = 1;
     }
 }

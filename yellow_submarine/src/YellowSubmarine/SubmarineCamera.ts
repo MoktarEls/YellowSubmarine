@@ -1,9 +1,13 @@
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {Angle, ArcRotateCamera, Quaternion, Scalar, Vector3} from "@babylonjs/core";
+import {Angle, ArcRotateCamera, Camera, Quaternion, Scalar, Vector3} from "@babylonjs/core";
 import {MouseMovementEventManager} from "@/YellowSubmarine/event managers/MouseMovementEventManager";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class SubmarineCamera {
+
+    public get camera(): Camera {
+        return this.arcRotateCamera;
+    }
 
     private get arcRotateCamera(): ArcRotateCamera {
         return this._arcRotateCamera;
@@ -55,7 +59,7 @@ export class SubmarineCamera {
         MouseMovementEventManager.registerMouseMovement((deltaX, deltaY) => {
             this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
             this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
-            this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
+            // this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
         })
     }
 
@@ -106,7 +110,7 @@ export class SubmarineCamera {
     }
 
     private setWantedBeta(beta: number) {
-        beta = Scalar.Clamp(beta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
+        // beta = Scalar.Clamp(beta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
         this.arcRotateCamera.beta = beta;
         this.arcRotateCamera.lowerBetaLimit = beta;
         this.arcRotateCamera.upperBetaLimit = beta;

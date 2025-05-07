@@ -5,8 +5,12 @@ import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import "@babylonjs/loaders/glTF"
+import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
 
 export class Submarine {
+    get submarineCamera(): SubmarineCamera {
+        return this._submarineCamera;
+    }
     public get mesh(): Mesh {
         return this._mesh;
     }
@@ -37,6 +41,10 @@ export class Submarine {
     public async init() {
         this._mesh = await this.createMesh(this._world.scene)
         this._submarineCamera.init();
+
+        SeaShaderMaterial.addFoamToMesh(this._mesh);
+        SeaShaderMaterial.addRefractionToMesh(this._mesh);
+
         Game.registerUpdateAction(this.update, this);
     }
 
