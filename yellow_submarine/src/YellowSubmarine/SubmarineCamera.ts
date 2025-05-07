@@ -1,10 +1,5 @@
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {
-    Angle,
-    ArcRotateCamera,
-    Scalar,
-    Vector3
-} from "@babylonjs/core";
+import {Angle, ArcRotateCamera, Quaternion, Scalar, Vector3} from "@babylonjs/core";
 import {MouseMovementEventManager} from "@/YellowSubmarine/event managers/MouseMovementEventManager";
 import {Game} from "@/YellowSubmarine/Game";
 
@@ -17,13 +12,18 @@ export class SubmarineCamera {
     private static _instance: SubmarineCamera;
     private _arcRotateCamera: ArcRotateCamera;
 
+    private _currentTargetPosition: Vector3 = Vector3.Zero();
+    private _lerpFactor = 2;
+    private _distanceThreshold = 0.1;
+    private _localOffset = new Vector3(0, 2, -3);
+
     constructor(
         private _submarine: Submarine,
         private _currentWantedAlpha = Angle.FromDegrees(-90).radians(),
         private _currentWantedBeta = Angle.FromDegrees(45).radians(),
         private _currentLowerBetaLimit = Angle.FromDegrees(30).radians(),
         private _currentUpperBetaLimit = Angle.FromDegrees(85).radians(),
-        private _wantedRadius = 15,
+        private _wantedRadius = 25,
         private _horizontalSensitivity = 5,
         private _verticalSensitivity = 5,
         private _cameraRotationLerpFactor = 3,
@@ -43,6 +43,14 @@ export class SubmarineCamera {
         return;
     }
 
+    private getCameraRotation(): Quaternion{
+        const forwardAxis = this._arcRotateCamera.getFrontPosition(1);
+        forwardAxis.y = 0;
+        forwardAxis.normalize();
+
+        return Quaternion.FromLookDirectionLH(forwardAxis, Vector3.Up());
+    }
+
     private enableCameraRotation() {
         MouseMovementEventManager.registerMouseMovement((deltaX, deltaY) => {
             this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
@@ -57,12 +65,24 @@ export class SubmarineCamera {
     }
 
     private updateSubmarineCamera(deltaTimeInSec: number) {
+        this.updateCurrentTargetPosition(deltaTimeInSec);
         this.followSubmarine();
         this.updateCameraRotation(deltaTimeInSec);
     }
 
+    private updateCurrentTargetPosition(deltaTimeInSec: number) {
+        if(Vector3.Distance(this.arcRotateCamera.target, this.getFinalTargetPosition()) >= this._distanceThreshold){
+            this._currentTargetPosition = Vector3.Lerp(this.arcRotateCamera.target, this.getFinalTargetPosition(), deltaTimeInSec * this._lerpFactor);
+        }
+    }
+
+    private getFinalTargetPosition(){
+        const submarinePosition = this._submarine.mesh.position;
+        return submarinePosition.add(this._localOffset.rotateByQuaternionAroundPointToRef(this.getCameraRotation(), Vector3.Zero(), Vector3.Zero()));
+    }
+
     private followSubmarine() {
-        this.arcRotateCamera.target = this._submarine.mesh.position;
+        this.arcRotateCamera.target = this._currentTargetPosition;
     }
 
     private updateCameraRotation(deltaTimeInSec: number) {
