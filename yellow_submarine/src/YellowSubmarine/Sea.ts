@@ -1,19 +1,26 @@
-import {GroundMesh, MeshBuilder} from "@babylonjs/core";
+import {Mesh, MeshBuilder, Scene} from "@babylonjs/core";
 import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
-import {World} from "@/YellowSubmarine/World";
 
-export class Sea extends GroundMesh{
+export class Sea {
 
-    constructor() {
-        super("seaGroundMesh");
-        this._copySource(
-            MeshBuilder.CreateGround("waterPlane", {
+    private static _instance: Sea;
+    private _groundMesh: Mesh;
+
+    constructor(private _worldScene: Scene) {
+        this._groundMesh = new Mesh("");
+    }
+
+    public init(): void {
+        MeshBuilder.CreateGround(
+            "waterPlane",
+            {
                 width: 20,
                 height: 20,
                 subdivisions: 64
-            }, World.instance)
+            },
+            this._worldScene
         );
-        this.material = new SeaShaderMaterial();
+        this._groundMesh.material = new SeaShaderMaterial().shaderMaterial;
     }
 
 }

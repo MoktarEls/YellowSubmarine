@@ -1,11 +1,17 @@
 import {ShaderMaterial, Texture} from "@babylonjs/core";
-import {WorldOld} from "@/YellowSubmarine/WorldOld";
-import {GameOld} from "@/YellowSubmarine/GameOld";
+import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
 
-export class SeaShaderMaterial extends ShaderMaterial{
+export class SeaShaderMaterial {
+
+    public get shaderMaterial(): ShaderMaterial {
+        return this._shaderMaterial;
+    }
+
+    private _shaderMaterial: ShaderMaterial;
 
     constructor() {
-        super("waterShader", WorldOld.scene, {
+        this._shaderMaterial = new ShaderMaterial("waterShader", World.scene, {
             vertex: "water",
             fragment: "water"
         }, {
@@ -14,26 +20,26 @@ export class SeaShaderMaterial extends ShaderMaterial{
             samplers: ["noiseTexture"]
         });
 
-        const sun = GameOld.world.getSun();
-        const noiseTexture = new Texture("/textures/noiseTexture.png", GameOld.worldScene);
-        this.setTexture("noiseTexture", noiseTexture);
+        const sun = World.sun;
+        const noiseTexture = new Texture("/textures/noiseTexture.png", World.scene);
+        this._shaderMaterial.setTexture("noiseTexture", noiseTexture);
 
         console.log("Light Direction: ", sun.getLightDirection());
         console.log("Light Color: ", sun.getLightColor());
         console.log("Ambient Color: ", sun.getAmbientColor());
 
-        this.setVector3("lightDirection", sun.getLightDirection());
-        this.setVector3("lightColor", sun.getLightColor());
-        this.setVector3("ambientColor", sun.getAmbientColor());
-        this.alpha = 0.6;
+        this._shaderMaterial.setVector3("lightDirection", sun.getLightDirection());
+        this._shaderMaterial.setVector3("lightColor", sun.getLightColor());
+        this._shaderMaterial.setVector3("ambientColor", sun.getAmbientColor());
+        this._shaderMaterial.alpha = 0.6;
         this.setTimeFloatInShader();
     }
 
     private setTimeFloatInShader() {
         let time = 0;
-        WorldOld.scene.registerBeforeRender(() => {
-            time += GameOld.engine.getDeltaTime() * 0.0008;
-            this.setFloat("time", time);
+        Game.registerUpdateAction((deltaTimeInSeconds) => {
+            time += deltaTimeInSeconds * 1000 * 0.0008;
+            this._shaderMaterial.setFloat("time", time);
         });
     }
 

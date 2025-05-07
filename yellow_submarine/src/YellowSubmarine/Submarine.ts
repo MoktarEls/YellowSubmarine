@@ -1,11 +1,16 @@
-import {Angle, Mesh, MeshBuilder, Scalar, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, MeshBuilder, Scalar, Scene, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
 
 export class Submarine {
-    private readonly _mesh: Mesh;
+    public get mesh(): Mesh {
+        return this._mesh;
+    }
+
+    private static _instance: Submarine;
+    private _mesh : Mesh;
+
     private _testMesh = MeshBuilder.CreateSphere("testMesh");
 
     private _movementSpeed = 5;
@@ -16,20 +21,22 @@ export class Submarine {
     private _currentRotationSpeed = 0;
     private _rotationAcceleration = Angle.FromDegrees(45).radians();
 
-    public get mesh(): Mesh {
-        return this._mesh;
-    }
-
     private _submarineCamera: SubmarineCamera;
 
-    constructor() {
-        this._mesh = this.createMesh();
+    constructor(private _worldScene: Scene) {
+        this._mesh = new Mesh("");
+        Submarine._instance = this;
         this._submarineCamera = new SubmarineCamera(this);
+    }
+
+    public init(){
+        this._mesh = this.createMesh(this._worldScene)
+        this._submarineCamera.init();
         Game.registerUpdateAction(this.update, this);
     }
 
-    private createMesh(): Mesh {
-        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, World.instance);
+    private createMesh(scene: Scene): Mesh {
+        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, scene);
         mesh.position = new Vector3(0, 0, 0);
         return mesh;
     }

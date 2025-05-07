@@ -1,12 +1,12 @@
 <template>
   <div>
-    <canvas></canvas>
+    <canvas id="mainCanvas"></canvas>
 </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Game } from '@/YellowSubmarine/Game';
+import {Game} from "@/YellowSubmarine/Game";
 
 export default defineComponent({
   name: 'YellowSubmarine',
@@ -14,8 +14,10 @@ export default defineComponent({
     msg: String,
   },
   mounted() {
-      const canvas = document.querySelector("canvas")!;
-      new Game(canvas);
+      const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
+      console.log(canvas);
+      const game = new Game(canvas);
+      game.init();
   },
 });
 </script>

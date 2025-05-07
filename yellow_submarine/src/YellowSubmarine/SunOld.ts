@@ -3,65 +3,56 @@ import {
     DirectionalLight,
     HemisphericLight,
     Mesh,
-    MeshBuilder, Scene,
+    MeshBuilder,
     StandardMaterial,
     Vector3
 } from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
 
-export class Sun{
+import {GameOld} from "@/YellowSubmarine/GameOld";
 
-    private static _instance: Sun;
+export class SunOld {
 
-    private _sun : Mesh
-    private _halo : Mesh
+    private _sun : Mesh;
+    private _halo : Mesh;
     private _light : DirectionalLight
     private _hemiLight : HemisphericLight
 
-    constructor(private _scene: Scene) {
-        Sun._instance = this;
-        this._sun = new Mesh("");
-        this._halo = new Mesh("");
-        this._light = new DirectionalLight("", Vector3.Down());
-        this._hemiLight = new HemisphericLight("", Vector3.Down());
-    }
-
-    public init(){
-        this._sun = this.createSun(this._scene);
-        this._halo = this.createHalo(this._scene);
-        this._light = this.createLight(this._scene);
-        this._hemiLight = this.createHemiLight(this._scene);
+    constructor() {
+        this._sun = this.createSun();
+        this._halo = this.createHalo();
+        this._light = this.createLight();
+        this._hemiLight = this.createHemiLight();
         this.configMaterials();
     }
 
-    private createSun(scene: Scene): Mesh {
+    private createSun(): Mesh {
         const sun = MeshBuilder.CreateSphere("sun", {
             diameter: 40,
             segments: 32
-        }, scene);
+        }, GameOld.worldScene);
         sun.infiniteDistance = true;
         sun.isPickable = false;
         sun.position = new Vector3(1000, 200, -1000);
         return sun;
     }
 
-    private createHalo(scene: Scene): Mesh{
+    private createHalo(): Mesh{
         const halo = MeshBuilder.CreateSphere("sunHalo", {
             diameter: 44,
             segments: 32
-        }, scene);
+        }, GameOld.worldScene);
         halo.infiniteDistance = true;
         halo.isPickable = false;
         halo.position = this._sun.position;
         return halo;
     }
 
-    private createLight(scene: Scene):DirectionalLight{
+    private createLight():DirectionalLight{
         let direction = new Vector3(0, 0, 0);
-        if (scene.activeCamera) {
-            direction = this._sun.position.subtract(scene.activeCamera.position).normalize();
+        if (GameOld.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(GameOld.worldScene.activeCamera.position).normalize();
         }
-        const light = new DirectionalLight("sunLight", direction.negate(), scene);
+        const light = new DirectionalLight("sunLight", direction.negate(), GameOld.worldScene);
         light.intensity = 1;
         light.shadowEnabled = true;
         light.position = this._sun.position;
@@ -70,12 +61,12 @@ export class Sun{
         return light;
     }
 
-    private createHemiLight(scene: Scene) : HemisphericLight{
+    private createHemiLight() : HemisphericLight{
         let direction = new Vector3(0, 0, 0);
-        if (scene.activeCamera) {
-            direction = this._sun.position.subtract(scene.activeCamera.position).normalize();
+        if (GameOld.worldScene.activeCamera) {
+            direction = this._sun.position.subtract(GameOld.worldScene.activeCamera.position).normalize();
         }
-        const light = new HemisphericLight("sunLight", direction, scene);
+        const light = new HemisphericLight("sunLight", direction, GameOld.worldScene);
         light.intensity = 0.8;
         light.diffuse = new Color3(1.0, 1.0, 1.0);
         light.shadowEnabled = false;
@@ -102,13 +93,13 @@ export class Sun{
     }
 
     private configMaterials(){
-        const sunMaterial = new StandardMaterial("sunMat", this._scene);
+        const sunMaterial = new StandardMaterial("sunMat", GameOld.worldScene);
         sunMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         sunMaterial.diffuseColor = Color3.Black();
         sunMaterial.specularColor = Color3.Black();
         this._sun.material = sunMaterial;
 
-        const haloMaterial = new StandardMaterial("haloMat", this._scene);
+        const haloMaterial = new StandardMaterial("haloMat", GameOld.worldScene);
         haloMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         haloMaterial.diffuseColor = Color3.Black();
         haloMaterial.specularColor = Color3.Black();
