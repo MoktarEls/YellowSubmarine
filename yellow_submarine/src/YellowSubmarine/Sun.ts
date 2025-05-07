@@ -5,9 +5,11 @@ import {
     Mesh,
     MeshBuilder, Scene,
     StandardMaterial,
-    Vector3
+    Vector3,
+    GlowLayer
 } from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class Sun{
 
@@ -114,5 +116,8 @@ export class Sun{
         haloMaterial.specularColor = Color3.Black();
         haloMaterial.alpha = 0.5;
         this._halo.material = haloMaterial;
+
+        const godRays = new GlowLayer("godRays", Game.scene);
+        godRays.intensity = 1;
     }
 }
