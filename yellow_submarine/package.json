@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@babylonjs/core": "^7.51.2",
-    "babylonjs-loaders": "^8.6.1",
+    "@babylonjs/loaders": "^7.51.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {

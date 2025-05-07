@@ -4,6 +4,7 @@ import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEve
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import "@babylonjs/loaders/glTF"
 
 export class Submarine {
     public get mesh(): Mesh {
