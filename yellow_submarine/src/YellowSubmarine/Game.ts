@@ -1,59 +1,83 @@
-import {Color3, Engine, Scene, ShaderMaterial, Vector3} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
+import {GameEngine} from "@/YellowSubmarine/GameEngine";
+import {Engine, Scene} from "@babylonjs/core";
+import {MouseMovementEventManager} from "@/YellowSubmarine/MouseMovementEventManager";
+import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 
-export class Game {
+export class Game{
 
-    private static _world: World;
-    private static _worldScene: Scene;
-    private static _engine : Engine;
-    private static _canvas: HTMLCanvasElement;
-
-
-    public static get worldScene(): Scene {
-        return this._worldScene;
+    public get scene(): Scene {
+        return this._world.scene;
     }
+
+    public get engine(): Engine {
+        return this._gameEngine.engine;
+    }
+
     public static get engine(): Engine {
-        return this._engine;
-    }
-    public static get canvas(): HTMLCanvasElement {
-        return this._canvas;
+        return Game._instance.engine;
     }
 
-    public static get world(): World {
-        return this._world;
+    public static get scene(): Scene {
+        return Game._instance.scene;
     }
 
-    constructor(canvas: HTMLCanvasElement){
-        Game._canvas = canvas;
-        Game._engine = new Engine(canvas, true);
-        Game._worldScene = new Scene(Game._engine);
-        Engine.ShadersRepository = "../shaders/";
-        Game._world = new World(Game._worldScene);
-        Game._world.initialize();
+    private static _instance: Game;
 
-        const shader = new ShaderMaterial('shader', Game._worldScene, {
-            vertex : "shader",
-            fragment : "shader",
-        }, {
-            attributes: ['position', 'normal', 'uv'],
-            uniforms: ['world', 'worldView', 'worldViewProjection'],
-        })
+    private _world: World;
+    private _gameEngine: GameEngine;
+    private _mouseMovementEventManager: MouseMovementEventManager;
+    private _keyboardEventManager: KeyboardEventManager;
 
-        shader.setVector3('vLightPosition', Game._world.getSun().getPosition());
-        shader.setVector3('vColor', new Vector3(0.5, 0.5, 0.5));
+    private _isPointerLocked = false;
 
-        Game._worldScene.meshes.forEach(mesh => {
-            if (!(mesh.name === "sun" || mesh.name === "sunHalo" || mesh.name === "waterPlane")) {
-                mesh.material = shader;
-                console.log(mesh.name);
-                //shader.setTexture('textureSampler', mesh.material.diffuseTexture);
-            }
-        })
+    constructor(private _canvas: HTMLCanvasElement) {
+        Game._instance = this;
+        this._mouseMovementEventManager = new MouseMovementEventManager(Game._instance);
+        this._keyboardEventManager = new KeyboardEventManager(Game._instance);
+        this._gameEngine = new GameEngine(Game._instance, _canvas);
+        this._world = new World(Game._instance);
+    }
 
-        Game._engine.runRenderLoop(() => {
-            World.scene.render()
+    public init(){
+        this.handlePointerLocking(this._canvas);
+        this._mouseMovementEventManager.init();
+        this._keyboardEventManager.init();
+        this._gameEngine.init();
+        this._world.init();
+        this.startRendering()
+    }
+
+    private startRendering(){
+        this.engine.runRenderLoop(() => {
+            this.scene.render();
         })
     }
 
+
+    public static registerUpdateAction(
+        action: (deltaTimeInSeconds: number) => void,
+        context?: any
+    ){
+        const boundAction = context ? action.bind(context) : action;
+        this.scene.onBeforeRenderObservable.add(() => {
+            boundAction(GameEngine.getDeltaTimeInSeconds());
+        })
+    }
+
+    public isPointerLocked(): boolean {
+        return this._isPointerLocked;
+    }
+
+    private handlePointerLocking(canvas: HTMLCanvasElement) {
+        if (canvas) {
+            canvas.addEventListener("click", () => {
+                canvas.requestPointerLock();
+            });
+            document.addEventListener("pointerlockchange", () => {
+                this._isPointerLocked = document.pointerLockElement === canvas;
+            });
+        }
+    }
 
 }

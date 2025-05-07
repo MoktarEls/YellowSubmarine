@@ -1,12 +1,13 @@
 <template>
   <div>
-    <canvas></canvas>
+    <canvas id="mainCanvas"></canvas>
 </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Game } from '@/YellowSubmarine/Game';
+import {Game} from "@/YellowSubmarine/Game";
+import {Engine} from "@babylonjs/core";
 
 export default defineComponent({
   name: 'YellowSubmarine',
@@ -14,8 +15,10 @@ export default defineComponent({
     msg: String,
   },
   mounted() {
-      const canvas = document.querySelector("canvas")!;
-      new Game(canvas);
+      const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
+      Engine.ShadersRepository = "../shaders/";
+      const game = new Game(canvas);
+      game.init();
   },
 });
 </script>

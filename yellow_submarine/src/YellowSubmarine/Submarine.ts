@@ -1,17 +1,19 @@
-import {ActionManager, Angle, ExecuteCodeAction, Mesh, MeshBuilder, Quaternion, Scalar, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, MeshBuilder, Scalar, Scene, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
+import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World"
+import {CartoonShaderMaterial} from "@/YellowSubmarine/CartoonShaderMaterial";
+import {World} from "@/YellowSubmarine/World";
 
 export class Submarine {
+    public get mesh(): Mesh {
+        return this._mesh;
+    }
 
-    private readonly _mesh: Mesh;
-    private _testMesh = MeshBuilder.CreateSphere("testMesh");
+    private static _instance: Submarine;
+    private _mesh : Mesh;
 
-    private _isForwardPressed = false;
-    private _isBackwardPressed = false;
-    private _isRightPressed = false;
-    private _isLeftPressed = false;
+    private _testMesh ;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -21,55 +23,27 @@ export class Submarine {
     private _currentRotationSpeed = 0;
     private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
-    public get mesh(): Mesh {
-        return this._mesh;
-    }
-
     private _submarineCamera: SubmarineCamera;
 
-    constructor() {
-        this._mesh = this.createMesh();
+    constructor(private _world: World) {
+        this._mesh = new Mesh("");
+        this._testMesh = new Mesh("");
+        Submarine._instance = this;
         this._submarineCamera = new SubmarineCamera(this);
-        World.scene.onBeforeRenderObservable.add(() => {
-            this.update(Game.engine.getDeltaTime() / 1000);
-        });
-        World.scene.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnKeyDownTrigger, (actionEvent) => {
-                if(actionEvent.sourceEvent.key === "z"){
-                    this._isForwardPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "s"){
-                    this._isBackwardPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "q"){
-                    this._isLeftPressed = true;
-                }
-                if(actionEvent.sourceEvent.key === "d"){
-                    this._isRightPressed = true;
-                }
-            })
-        )
-        World.scene.actionManager.registerAction(
-            new ExecuteCodeAction(ActionManager.OnKeyUpTrigger, (actionEvent) => {
-                if(actionEvent.sourceEvent.key === "z"){
-                    this._isForwardPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "s"){
-                    this._isBackwardPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "q"){
-                    this._isLeftPressed = false;
-                }
-                if(actionEvent.sourceEvent.key === "d"){
-                    this._isRightPressed = false;
-                }
-            })
-        )
     }
 
-    private createMesh(): Mesh {
-        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, World.scene);
+    public init(){
+        this._mesh = this.createMesh(this._world.scene)
+        this._testMesh = MeshBuilder.CreateSphere("testMesh", {}, this._world.scene);
+        this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
+        this._submarineCamera.init();
+        Game.registerUpdateAction(this.update, this);
+    }
+
+    private createMesh(scene: Scene): Mesh {
+        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, scene);
         mesh.position = new Vector3(0, 0, 0);
+        mesh.material = new CartoonShaderMaterial().shaderMaterial;
         return mesh;
     }
 
@@ -84,10 +58,10 @@ export class Submarine {
     private updateRotationSpeed(deltaTimeInSec: number) {
         let rotationSpeedTarget = 0;
 
-        if(this._isRightPressed){
+        if(this.isRightPressed()){
             rotationSpeedTarget += this._rotationSpeed;
         }
-        if(this._isLeftPressed){
+        if(this.isLeftPressed()){
             rotationSpeedTarget -= this._rotationSpeed;
         }
 
@@ -96,10 +70,10 @@ export class Submarine {
 
     private updateMovementSpeed(deltaTimeInSec: number) {
         let targetMovementSpeed = 0;
-        if(this._isForwardPressed){
+        if(this.isForwardPressed()){
             targetMovementSpeed += this._movementSpeed;
         }
-        if(this._isBackwardPressed){
+        if(this.isBackwardPressed()){
             targetMovementSpeed -= this._movementSpeed;
         }
         this._currentMovementSpeed = Scalar.MoveTowards(this._currentMovementSpeed, targetMovementSpeed, deltaTimeInSec * this._acceleration);
@@ -111,6 +85,22 @@ export class Submarine {
 
     private updatePosition(deltaTimeInSec: number) {
         this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
+    }
+
+    private isForwardPressed() {
+        return KeyboardEventManager.isKeyPressed("z");
+    }
+
+    private isBackwardPressed() {
+        return KeyboardEventManager.isKeyPressed("s");
+    }
+
+    private isRightPressed() {
+        return KeyboardEventManager.isKeyPressed("d");
+    }
+
+    private isLeftPressed() {
+        return KeyboardEventManager.isKeyPressed("q");
     }
 
 

@@ -1,60 +1,27 @@
-import {MeshBuilder, ShaderMaterial, Texture, Vector3} from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
+import {Mesh, MeshBuilder, Scene} from "@babylonjs/core";
+import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
 import {World} from "@/YellowSubmarine/World";
 
-export class Sea{
+export class Sea {
 
-    constructor() {
-        const shaderMaterial = this.createSeaShaderMaterial();
+    private static _instance: Sea;
+    private _groundMesh: Mesh;
 
-        const noiseTexture = new Texture("/textures/noiseTexture.png", World.scene);
-        shaderMaterial.setTexture("noiseTexture", noiseTexture);
-
-        this.setTimeFloatInShader(shaderMaterial);
-
-        const waterPlane = this.createWaterPlane();
-
-        waterPlane.material = shaderMaterial;
+    constructor(private _world: World) {
+        this._groundMesh = new Mesh("");
     }
 
-    private setTimeFloatInShader(shaderMaterial: ShaderMaterial) {
-        let time = 0;
-        World.scene.registerBeforeRender(() => {
-            time += Game.engine.getDeltaTime() * 0.0008;
-            shaderMaterial.setFloat("time", time);
-        });
+    public init(): void {
+        this._groundMesh = MeshBuilder.CreateGround(
+            "waterPlane",
+            {
+                width: 20,
+                height: 20,
+                subdivisions: 64
+            },
+            this._world.scene
+        );
+        this._groundMesh.material = new SeaShaderMaterial().shaderMaterial;
     }
 
-    private createSeaShaderMaterial() {
-        const shaderMaterial = new ShaderMaterial("waterShader", World.scene, {
-        vertex: "water",
-        fragment: "water"
-        }, {
-            attributes: ["position", "uv"],
-            uniforms: ["worldViewProjection", "time"],
-            samplers: ["noiseTexture"]
-        });
-
-        const sun = Game.world.getSun();
-        const noiseTexture = new Texture("/textures/noiseTexture.png", Game.worldScene);
-        shaderMaterial.setTexture("noiseTexture", noiseTexture);
-
-        console.log("Light Direction: ", sun.getLightDirection());
-        console.log("Light Color: ", sun.getLightColor());
-        console.log("Ambient Color: ", sun.getAmbientColor());
-
-        shaderMaterial.setVector3("lightDirection", sun.getLightDirection());
-        shaderMaterial.setVector3("lightColor", sun.getLightColor());
-        shaderMaterial.setVector3("ambientColor", sun.getAmbientColor());
-        shaderMaterial.alpha = 0.6;
-        return shaderMaterial;
-    }
-
-    private createWaterPlane() {
-        return MeshBuilder.CreateGround("waterPlane", {
-            width: 20,
-            height: 20,
-            subdivisions: 64
-        }, World.scene);
-    }
 }

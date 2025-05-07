@@ -1,80 +1,48 @@
-import {
-    ActionManager,
-    CubeTexture,
-    HemisphericLight,
-    MeshBuilder,
-    Scene,
-    StandardMaterial,
-    Texture,
-    Vector3
-} from "@babylonjs/core";
-import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Scene, SceneOptions} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 import {Sun} from "@/YellowSubmarine/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
-import {Game} from "@/YellowSubmarine/Game";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
-export class World{
-
-    private static _scene: Scene;
-
-    public static get scene(): Scene {
+export class World {
+    public get scene(): Scene {
         return this._scene;
     }
 
-    private readonly _sun : Sun;
-
-    constructor(scene: Scene) {
-        World._scene = scene;
-        World._scene.actionManager = new ActionManager();
-        this._sun = this.createSun();
+    public static get scene(): Scene {
+        return this.instance.scene;
     }
 
-    public initialize() {
-        this.createHemisphericLight();
-        this.createSea();
-        this.createSubmarine();
-        //this.createSkyBox();
+    public static get sun(): Sun {
+        return <Sun>this.instance._sun;
     }
 
-    private createHemisphericLight(){
-        const hemiLight = new HemisphericLight("hemiLight", new Vector3(0, 1, 0), World.scene);
-        hemiLight.intensity = 0.5;
+    private static get instance(): World {
+        return this._instance;
     }
 
-    private createSea() {
-        new Sea();
+    private static _instance: World;
+    private _scene: Scene;
+
+    private _sun: Sun;
+    private _sea: Sea;
+    private _submarine: Submarine;
+
+    constructor(
+        private _game: Game,
+        options?: SceneOptions,
+    ) {
+        this._scene = new Scene(_game.engine, options);
+        World._instance = this;
+        this._sun = new Sun(this);
+        this._sea = new Sea(this);
+        this._submarine = new Submarine(this);
     }
 
-    private createSubmarine() {
-        new Submarine();
+    public init(): void {
+        this._sun.init();
+        this._sea.init();
+        this._submarine.init();
     }
 
-    private createSun(): Sun {
-        return new Sun();
-    }
-
-    public getSun(): Sun{
-        return this._sun;
-    }
-
-    private createSkyBox() {
-        const skybox = MeshBuilder.CreateBox("skyBox", {size:2000}, World.scene);
-        skybox.infiniteDistance = true;
-
-        const skyboxMaterial = new StandardMaterial("skyBoxMaterial", World.scene);
-        skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.disableLighting = true;
-
-        skyboxMaterial.reflectionTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/nz.png", //1
-            "/textures/skybox/py.png", //2
-            "/textures/skybox/px.png", //3
-            "/textures/skybox/pz.png", //4
-            "/textures/skybox/ny.png", //5
-            "/textures/skybox/nx.png", //6
-        ], World.scene);
-        skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
-
-        skybox.material = skyboxMaterial;
-    }
 }
