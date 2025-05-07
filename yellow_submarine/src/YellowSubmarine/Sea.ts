@@ -11,7 +11,7 @@ export class Sea {
     }
 
     public init(): void {
-        MeshBuilder.CreateGround(
+        this._groundMesh = MeshBuilder.CreateGround(
             "waterPlane",
             {
                 width: 20,
