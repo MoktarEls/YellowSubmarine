@@ -3,6 +3,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Sun} from "@/YellowSubmarine/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {TestObject} from "@/YellowSubmarine/TestObject";
 
 export class World {
     public get scene(): Scene {
@@ -27,6 +28,7 @@ export class World {
     private _sun: Sun;
     private _sea: Sea;
     private _submarine: Submarine;
+    private _object: TestObject;
 
     constructor(
         private _game: Game,
@@ -37,12 +39,14 @@ export class World {
         this._sun = new Sun(this);
         this._sea = new Sea(this);
         this._submarine = new Submarine(this);
+        this._object = new TestObject(this);
     }
 
     public init(): void {
         this._sun.init();
         this._sea.init();
         this._submarine.init();
+        this._object.init();
     }
 
 }
