@@ -5,7 +5,7 @@ import {
     Scalar,
     Vector3
 } from "@babylonjs/core";
-import {MouseMovementEventManager} from "@/YellowSubmarine/MouseMovementEventManager";
+import {MouseMovementEventManager} from "@/YellowSubmarine/event managers/MouseMovementEventManager";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class SubmarineCamera {

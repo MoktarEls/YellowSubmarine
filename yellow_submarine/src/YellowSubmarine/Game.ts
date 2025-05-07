@@ -1,8 +1,8 @@
 import {World} from "@/YellowSubmarine/World";
 import {GameEngine} from "@/YellowSubmarine/GameEngine";
 import {Engine, Scene} from "@babylonjs/core";
-import {MouseMovementEventManager} from "@/YellowSubmarine/MouseMovementEventManager";
-import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
+import {MouseMovementEventManager} from "@/YellowSubmarine/event managers/MouseMovementEventManager";
+import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEventManager";
 
 export class Game{
 

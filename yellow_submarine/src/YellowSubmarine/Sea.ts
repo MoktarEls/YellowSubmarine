@@ -1,5 +1,5 @@
 import {Mesh, MeshBuilder, Scene} from "@babylonjs/core";
-import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
+import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
 import {World} from "@/YellowSubmarine/World";
 
 export class Sea {
