@@ -1,3 +1,4 @@
+/*
 import {ShaderMaterial, Texture} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
@@ -43,4 +44,4 @@ export class SeaShaderMaterial {
         });
     }
 
-}
+}*/

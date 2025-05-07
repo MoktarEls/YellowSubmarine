@@ -3,11 +3,24 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Sun} from "@/YellowSubmarine/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {SkyBox} from "@/YellowSubmarine/SkyBox";
 import {TestObject} from "@/YellowSubmarine/TestObject";
 
 export class World {
+    public get skybox(): SkyBox {
+        return this._skybox;
+    }
+
     public get scene(): Scene {
         return this._scene;
+    }
+
+    public get sun(): Sun{
+        return this._sun;
+    }
+
+    public get submarine(): Submarine{
+        return this._submarine;
     }
 
     public static get scene(): Scene {
@@ -15,7 +28,7 @@ export class World {
     }
 
     public static get sun(): Sun {
-        return <Sun>this.instance._sun;
+        return <Sun>this.instance.sun;
     }
 
     private static get instance(): World {
@@ -29,6 +42,7 @@ export class World {
     private _sea: Sea;
     private _submarine: Submarine;
     private _object: TestObject;
+    private _skybox: SkyBox;
 
     constructor(
         private _game: Game,
@@ -37,15 +51,17 @@ export class World {
         this._scene = new Scene(_game.engine, options);
         World._instance = this;
         this._sun = new Sun(this);
-        this._sea = new Sea(this);
+        this._skybox = new SkyBox(this);
         this._submarine = new Submarine(this);
+        this._sea = new Sea(this);
         this._object = new TestObject(this);
     }
 
     public init(): void {
         this._sun.init();
-        this._sea.init();
+        this._skybox.init();
         this._submarine.init();
+        this._sea.init();
         this._object.init();
     }
 
