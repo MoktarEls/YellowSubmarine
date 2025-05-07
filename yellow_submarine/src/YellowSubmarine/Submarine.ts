@@ -10,6 +10,10 @@ export class Submarine {
         return this._mesh;
     }
 
+    public static get instance(): Submarine {
+        return this._instance;
+    }
+
     private static _instance: Submarine;
     private _mesh : Mesh;
 
