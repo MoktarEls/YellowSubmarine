@@ -2,6 +2,7 @@ import {Angle, Mesh, MeshBuilder, Scalar, Scene, Vector3} from "@babylonjs/core"
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
+import {CartoonShaderMaterial} from "@/YellowSubmarine/CartoonShaderMaterial";
 
 export class Submarine {
     public get mesh(): Mesh {
@@ -25,6 +26,7 @@ export class Submarine {
 
     constructor(private _worldScene: Scene) {
         this._mesh = new Mesh("");
+        this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
         Submarine._instance = this;
         this._submarineCamera = new SubmarineCamera(this);
     }
@@ -38,6 +40,7 @@ export class Submarine {
     private createMesh(scene: Scene): Mesh {
         const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, scene);
         mesh.position = new Vector3(0, 0, 0);
+        mesh.material = new CartoonShaderMaterial().shaderMaterial;
         return mesh;
     }
 
