@@ -1,9 +1,10 @@
-import {Angle, Mesh, MeshBuilder, Scalar, Scene, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, MeshBuilder, Scalar, Scene, SceneLoader, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import "@babylonjs/loaders/glTF"
 
 export class Submarine {
     public get mesh(): Mesh {
@@ -36,16 +37,18 @@ export class Submarine {
         this._submarineCamera = new SubmarineCamera(this);
     }
 
-    public init(){
-        this._mesh = this.createMesh(this._world.scene)
+    public async init() {
+        this._mesh = await this.createMesh(this._world.scene)
         this._testMesh = MeshBuilder.CreateSphere("testMesh", {}, this._world.scene);
         this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
         this._submarineCamera.init();
         Game.registerUpdateAction(this.update, this);
     }
 
-    private createMesh(scene: Scene): Mesh {
-        const mesh = MeshBuilder.CreateBox("player", {width: 2, depth: 4}, scene);
+    private async createMesh(scene: Scene): Promise<Mesh> {
+        const result = await SceneLoader.ImportMeshAsync("", "models/", "submarine.glb", scene);
+        const mesh = result.meshes[0] as Mesh;
+        mesh.name = "player";
         mesh.position = new Vector3(0, 0, 0);
         mesh.material = new CartoonShaderMaterial().shaderMaterial;
         return mesh;
