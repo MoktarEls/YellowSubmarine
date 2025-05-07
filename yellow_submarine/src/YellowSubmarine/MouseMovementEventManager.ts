@@ -38,8 +38,8 @@ export class MouseMovementEventManager {
         this.scene.onPointerObservable.add((pointerInfo) => {
 
             const event = pointerInfo.event as PointerEvent;
-            const movementX = event.movementX;
-            const movementY = event.movementY;
+            const movementX = event.movementX/window.screen.width;
+            const movementY = event.movementY/window.screen.height;
             if( (movementX !== 0 || movementY !== 0) && this._game.isPointerLocked()){
                 this.notifyMouseMovement(movementX, movementY);
             }

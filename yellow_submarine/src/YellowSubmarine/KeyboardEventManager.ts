@@ -17,7 +17,7 @@ export class KeyboardEventManager {
 
     public init(): void {
         this.scene.onKeyboardObservable.add((kbInfo: KeyboardInfo) => {
-            const eventKey = kbInfo.event.code;
+            const eventKey = kbInfo.event.key;
             if (kbInfo.type === KeyboardEventTypes.KEYDOWN) {
                 if (!this._keyStateMap.get(eventKey)) {
                     this._keyStateMap.set(eventKey, true);

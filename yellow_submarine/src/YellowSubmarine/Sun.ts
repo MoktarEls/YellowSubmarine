@@ -18,7 +18,7 @@ export class Sun{
     private _light : DirectionalLight
     private _hemiLight : HemisphericLight
 
-    constructor(private _scene: Scene) {
+    constructor(private _world: World) {
         Sun._instance = this;
         this._sun = new Mesh("");
         this._halo = new Mesh("");
@@ -27,11 +27,11 @@ export class Sun{
     }
 
     public init(){
-        this._sun = this.createSun(this._scene);
-        this._halo = this.createHalo(this._scene);
-        this._light = this.createLight(this._scene);
-        this._hemiLight = this.createHemiLight(this._scene);
-        this.configMaterials();
+        this._sun = this.createSun(this._world.scene);
+        this._halo = this.createHalo(this._world.scene);
+        this._light = this.createLight(this._world.scene);
+        this._hemiLight = this.createHemiLight(this._world.scene);
+        this.configMaterials(this._world.scene);
     }
 
     private createSun(scene: Scene): Mesh {
@@ -101,14 +101,14 @@ export class Sun{
         return this._sun.position;
     }
 
-    private configMaterials(){
-        const sunMaterial = new StandardMaterial("sunMat", this._scene);
+    private configMaterials(scene: Scene){
+        const sunMaterial = new StandardMaterial("sunMat", scene);
         sunMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         sunMaterial.diffuseColor = Color3.Black();
         sunMaterial.specularColor = Color3.Black();
         this._sun.material = sunMaterial;
 
-        const haloMaterial = new StandardMaterial("haloMat", this._scene);
+        const haloMaterial = new StandardMaterial("haloMat", scene);
         haloMaterial.emissiveColor = new Color3(1.0, 1.0, 1.0);
         haloMaterial.diffuseColor = Color3.Black();
         haloMaterial.specularColor = Color3.Black();

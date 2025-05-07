@@ -1,12 +1,13 @@
 import {Mesh, MeshBuilder, Scene} from "@babylonjs/core";
 import {SeaShaderMaterial} from "@/YellowSubmarine/SeaShaderMaterial";
+import {World} from "@/YellowSubmarine/World";
 
 export class Sea {
 
     private static _instance: Sea;
     private _groundMesh: Mesh;
 
-    constructor(private _worldScene: Scene) {
+    constructor(private _world: World) {
         this._groundMesh = new Mesh("");
     }
 
@@ -18,7 +19,7 @@ export class Sea {
                 height: 20,
                 subdivisions: 64
             },
-            this._worldScene
+            this._world.scene
         );
         this._groundMesh.material = new SeaShaderMaterial().shaderMaterial;
     }

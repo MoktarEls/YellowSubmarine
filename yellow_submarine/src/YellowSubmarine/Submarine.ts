@@ -3,6 +3,7 @@ import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {KeyboardEventManager} from "@/YellowSubmarine/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/CartoonShaderMaterial";
+import {World} from "@/YellowSubmarine/World";
 
 export class Submarine {
     public get mesh(): Mesh {
@@ -12,7 +13,7 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh : Mesh;
 
-    private _testMesh = MeshBuilder.CreateSphere("testMesh");
+    private _testMesh ;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -24,15 +25,17 @@ export class Submarine {
 
     private _submarineCamera: SubmarineCamera;
 
-    constructor(private _worldScene: Scene) {
+    constructor(private _world: World) {
         this._mesh = new Mesh("");
-        this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
+        this._testMesh = new Mesh("");
         Submarine._instance = this;
         this._submarineCamera = new SubmarineCamera(this);
     }
 
     public init(){
-        this._mesh = this.createMesh(this._worldScene)
+        this._mesh = this.createMesh(this._world.scene)
+        this._testMesh = MeshBuilder.CreateSphere("testMesh", {}, this._world.scene);
+        this._testMesh.material = new CartoonShaderMaterial().shaderMaterial;
         this._submarineCamera.init();
         Game.registerUpdateAction(this.update, this);
     }

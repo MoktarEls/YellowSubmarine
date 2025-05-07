@@ -34,9 +34,9 @@ export class World {
     ) {
         this._scene = new Scene(_game.engine, options);
         World._instance = this;
-        this._sun = new Sun(this._scene);
-        this._sea = new Sea(this._scene);
-        this._submarine = new Submarine(this._scene);
+        this._sun = new Sun(this);
+        this._sea = new Sea(this);
+        this._submarine = new Submarine(this);
     }
 
     public init(): void {

@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {Game} from "@/YellowSubmarine/Game";
+import {Engine} from "@babylonjs/core";
 
 export default defineComponent({
   name: 'YellowSubmarine',
@@ -15,7 +16,7 @@ export default defineComponent({
   },
   mounted() {
       const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
-      console.log(canvas);
+      Engine.ShadersRepository = "../shaders/";
       const game = new Game(canvas);
       game.init();
   },
