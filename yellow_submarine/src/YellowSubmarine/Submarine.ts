@@ -42,9 +42,6 @@ export class Submarine {
         this._mesh = await this.createMesh(this._world.scene)
         this._submarineCamera.init();
 
-        SeaShaderMaterial.addFoamToMesh(this._mesh);
-        SeaShaderMaterial.addRefractionToMesh(this._mesh);
-
         Game.registerUpdateAction(this.update, this);
     }
 

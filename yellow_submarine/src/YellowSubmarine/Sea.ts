@@ -19,11 +19,12 @@
                 {
                     width: 512,
                     height: 512,
+                    subdivisions: 64,
                 },
                 this._world.scene
             );
 
-            const waterMaterial = new WaterMaterial("seaMaterial", this._world.scene, new Vector2(512,512));
+            /*const waterMaterial = new WaterMaterial("seaMaterial", this._world.scene, new Vector2(512,512));
             waterMaterial.bumpTexture = new Texture("/textures/noiseTexture.png", this._world.scene);
 
             waterMaterial.windForce = -15;
@@ -38,9 +39,9 @@
             waterMaterial.addToRenderList(this._world.sun.sunMesh);
             waterMaterial.addToRenderList(this._world.sun.haloMesh);
             waterMaterial.addToRenderList(this._world.skybox.mesh);
-            waterMaterial.addToRenderList(this._world.submarine.mesh);
+            waterMaterial.addToRenderList(this._world.submarine.mesh);*/
 
-            // const waterMaterial = SeaShaderMaterial.shaderMaterial;
+            const waterMaterial = SeaShaderMaterial.material;
 
             this._groundMesh.material = waterMaterial;
         }

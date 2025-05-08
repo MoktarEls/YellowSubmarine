@@ -19,7 +19,7 @@ export class SubmarineCamera {
     private _currentTargetPosition: Vector3 = Vector3.Zero();
     private _lerpFactor = 2;
     private _distanceThreshold = 0.1;
-    private _localOffset = new Vector3(0, 2, -3);
+    private _localOffset = new Vector3(0, 2, 0);
 
     constructor(
         private _submarine: Submarine,
