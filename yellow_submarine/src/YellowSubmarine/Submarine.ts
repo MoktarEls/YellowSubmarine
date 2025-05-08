@@ -1,4 +1,4 @@
-import {Angle, Mesh, MeshBuilder, Scalar, Scene, SceneLoader, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, MeshBuilder, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
@@ -50,7 +50,8 @@ export class Submarine {
         const mesh = result.meshes[0] as Mesh;
         mesh.name = "player";
         mesh.position = new Vector3(0, 0, 0);
-        mesh.material = new CartoonShaderMaterial().shaderMaterial;
+        // mesh.material = new CartoonShaderMaterial().shaderMaterial;
+        mesh.material = new StandardMaterial("submarineMesh", scene);
         return mesh;
     }
 

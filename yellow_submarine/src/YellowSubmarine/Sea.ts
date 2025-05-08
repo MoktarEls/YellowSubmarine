@@ -17,9 +17,9 @@
             this._groundMesh = MeshBuilder.CreateGround(
                 "waterPlane",
                 {
-                    width: 512,
-                    height: 512,
-                    subdivisions: 64,
+                    width: 10,
+                    height: 10,
+                    subdivisions: 2,
                 },
                 this._world.scene
             );
@@ -41,9 +41,8 @@
             waterMaterial.addToRenderList(this._world.skybox.mesh);
             waterMaterial.addToRenderList(this._world.submarine.mesh);*/
 
-            const waterMaterial = SeaShaderMaterial.material;
-
-            this._groundMesh.material = waterMaterial;
+            this._groundMesh.material = SeaShaderMaterial.material;
+            // SeaShaderMaterial.applyToMesh(this._groundMesh);
         }
 
     }
