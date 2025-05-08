@@ -1,7 +1,7 @@
 import {
     AbstractMesh, Angle, Color3,
     Color4, DepthRenderer, Engine, GeometryBufferRenderer,
-    Material, MultiRenderTarget, Nullable, RenderTargetTexture, Scene,
+    Material, MultiRenderTarget, Nullable, ReflectionProbe, RenderTargetTexture, Scene,
     ShaderMaterial, StandardMaterial, Texture, Vector2, Vector3, Vector4
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
@@ -16,6 +16,9 @@ export class SeaShaderMaterial{
     private _depthMap: RenderTargetTexture;
     private _geometryBufferRenderer: Nullable<GeometryBufferRenderer>;
     private _gBuffer: Nullable<MultiRenderTarget> = null;
+    private _renderListPredicate: (mesh: AbstractMesh) => boolean;
+    private _reflectionProbe: ReflectionProbe;
+    private _reflectionCube: RenderTargetTexture;
 
 
     private constructor() {
@@ -36,7 +39,8 @@ export class SeaShaderMaterial{
 
         this._depthRenderer = scene.enableDepthRenderer(camera, false, undefined, undefined, true);
         this._depthMap = this._depthRenderer.getDepthMap();
-        this._depthMap.renderListPredicate = (m) => m.material !== this._material;
+        this._renderListPredicate = (m) => m.material !== this._material;
+        this._depthMap.renderListPredicate = this._renderListPredicate;
 
         this._material.setVector4("depthShallowColor", new Vector4(0.325, 0.807, 0.971, 0.725));
         this._material.setVector4("depthDeepColor", new Vector4(0.086, 0.407, 1, 0.749));
@@ -44,7 +48,7 @@ export class SeaShaderMaterial{
         this._material.setTexture("linearDepthTexture", this._depthMap);
         this._material.setVector4("surfaceNoiseST", new Vector4(1, 4, 0, 0));
         this._material.setTexture("surfaceNoiseTexture", new Texture("/textures/PerlinNoise.png"));
-        this._material.setFloat("surfaceNoiseCutoff", 0.9);
+        this._material.setFloat("surfaceNoiseCutoff", 0.777);
         this._material.setFloat("foamMaxDistance", 0.4);
         this._material.setFloat("foamMinDistance", 0.04);
         this._material.setVector2("surfaceNoiseScroll", new Vector2(0.03, 0.03));
@@ -57,9 +61,15 @@ export class SeaShaderMaterial{
         if(this._geometryBufferRenderer != null) {
             this._geometryBufferRenderer.enableNormal;
             this._gBuffer = this._geometryBufferRenderer.getGBuffer();
+            this._gBuffer.renderListPredicate = this._renderListPredicate
             const cameraNormalTexture = this._gBuffer.textures[GeometryBufferRenderer.NORMAL_TEXTURE_TYPE];
             this._material.setTexture("cameraNormalTexture", cameraNormalTexture);
         }
+
+        this._reflectionProbe = new ReflectionProbe("seaShaderReflectionProbe", 2048, scene);
+        this._reflectionProbe.renderList = [World.sun.sunMesh, World.sun.haloMesh];
+        this._reflectionCube = this._reflectionProbe.cubeTexture;
+        this._material.setTexture("reflectionSampler", this._reflectionCube);
 
         let time = 0;
         Game.registerUpdateAction((deltaTimeInSeconds) => {

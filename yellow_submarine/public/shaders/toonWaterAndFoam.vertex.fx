@@ -17,6 +17,10 @@ varying vec2 vNoiseUV;
 varying vec2 vDistortUV;
 varying vec3 vViewNormal;
 
+varying vec3 vWorldPos;
+varying vec3 vWorldNormal;
+varying vec3 vCameraPosition;
+
 void main(void){
     vScreenPosition = projection * view * world * vec4(position,1.0);
     vUv = uv;
@@ -24,8 +28,12 @@ void main(void){
     vDistortUV = vUv * surfaceDistortionST.xy + surfaceDistortionST.zw;
 
     mat3 normalMatrix = transpose(inverse(mat3(world)));
-    vec3 worldNormal = normalize(normalMatrix * normal);
-    vViewNormal = normalize(view * vec4(worldNormal, 0.0)).xyz;
+    vec3 vWorldNormal = normalize(normalMatrix * normal);
+    vViewNormal = normalize(view * vec4(vWorldNormal, 0.0)).xyz;
+
+    vec4 worldPos = world * vec4(position,1.0);
+    vWorldPos    = worldPos.xyz;
+    vCameraPosition = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
 
     gl_Position = vScreenPosition;
 }

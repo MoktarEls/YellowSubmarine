@@ -8,6 +8,7 @@ uniform sampler2D linearDepthTexture;
 uniform sampler2D surfaceNoiseTexture;
 uniform sampler2D surfaceDistortionTexture;
 uniform sampler2D cameraNormalTexture;
+uniform samplerCube reflectionSampler;
 
 uniform float surfaceNoiseCutoff;
 uniform float foamMaxDistance;
@@ -22,6 +23,14 @@ varying vec2 vUv;
 varying vec2 vNoiseUV;
 varying vec2 vDistortUV;
 varying vec3 vViewNormal;
+
+varying vec3 vWorldPos;
+varying vec3 vWorldNormal;
+varying vec3 vCameraPosition;
+
+float remap(float value, float inMin, float inMax, float outMin, float outMax) {
+    return outMin + (value - inMin) * (outMax - outMin) / (inMax - inMin);
+}
 
 void main(void){
     vec2 screenUv = (vScreenPosition.xy / vScreenPosition.w) * 0.5 + 0.5;
@@ -46,5 +55,16 @@ void main(void){
     float l_surfaceNoiseCutoff = foamDepthDifference01 * surfaceNoiseCutoff;
     float surfaceNoise = surfaceNoiseSample > l_surfaceNoiseCutoff ? 1.0 : 0.0;
 
-    gl_FragColor = waterColor + surfaceNoise;
+    vec3 viewDir = normalize(vCameraPosition - vWorldPos);
+    vec3 reflectDir = reflect(-viewDir, normalize(vWorldNormal));
+
+    vec4 reflectColor = textureCube(reflectionSampler, reflectDir);
+
+    vec4 toonColor = waterColor + surfaceNoise;
+
+    float reflectionNormalDot = 1.0 - abs(dot(vViewNormal, viewDir));
+
+    float reflectionFactor = remap(reflectionNormalDot,0.0, 1.0, 0.0, 0.4);
+
+    gl_FragColor = mix(toonColor, reflectColor, reflectionFactor);
 }
