@@ -23,7 +23,7 @@ export class SeaShaderMaterial{
         const camera = World.camera;
 
         this._material = new ShaderMaterial("seaShaderMaterial", scene,{
-            vertex: "water", fragment: "water",
+            vertex: "toonWaterAndFoam", fragment: "toonWaterAndFoam",
         },{
             attributes: ["position", "normal", "uv"],
             uniforms: ["world","view","projection","depthShallowColor", "depthDeepColor", "depthMaximumDistance",
