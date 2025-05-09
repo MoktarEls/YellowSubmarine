@@ -66,7 +66,7 @@ export class SeaShaderMaterial{
             this._material.setTexture("cameraNormalTexture", cameraNormalTexture);
         }
 
-        this._reflectionProbe = new ReflectionProbe("seaShaderReflectionProbe", 2048, scene);
+        this._reflectionProbe = new ReflectionProbe("seaShaderReflectionProbe", 512, scene);
         this._reflectionProbe.renderList = [World.sun.sunMesh, World.sun.haloMesh];
         this._reflectionCube = this._reflectionProbe.cubeTexture;
         this._material.setTexture("reflectionSampler", this._reflectionCube);

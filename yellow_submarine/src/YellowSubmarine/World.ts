@@ -34,6 +34,10 @@ export class World {
         return <Sun>this.instance.sun;
     }
 
+    public static get skybox(){
+        return this.instance.skybox;
+    }
+
     private static get instance(): World {
         return this._instance;
     }
