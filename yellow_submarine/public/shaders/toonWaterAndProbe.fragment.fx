@@ -62,7 +62,7 @@ void main(void){
 
     vec4 toonColor = waterColor + surfaceNoise;
 
-    float reflectionNormalDot = 1.0 - abs(dot(vViewNormal, viewDir));
+    float reflectionNormalDot = 1.0 - abs(dot(vViewNormal, vec3(0.0,0.0,1.0) ) );
 
     float reflectionFactor = remap(reflectionNormalDot,0.0, 1.0, 0.0, 0.4);
 

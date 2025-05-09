@@ -1,8 +1,9 @@
     import {Color3, Mesh, MeshBuilder, Texture, Vector2, Vector3} from "@babylonjs/core";
     import {WaterMaterial} from "@babylonjs/materials";
-    //import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
+    //import {ToonWaterAndProbeMaterial} from "@/YellowSubmarine/shader material/ToonWaterAndProbeMaterial";
     import {World} from "@/YellowSubmarine/World";
-    import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
+    import {ToonWaterAndProbeMaterial} from "@/YellowSubmarine/shader material/ToonWaterAndProbeMaterial";
+    import {ToonWaterMaterial} from "@/YellowSubmarine/shader material/ToonWaterMaterial";
 
     export class Sea {
 
@@ -41,8 +42,9 @@
             waterMaterial.addToRenderList(this._world.skybox.mesh);
             waterMaterial.addToRenderList(this._world.submarine.mesh);*/
 
-            this._groundMesh.material = SeaShaderMaterial.material;
-            // SeaShaderMaterial.applyToMesh(this._groundMesh);
+            this._groundMesh.material = ToonWaterAndProbeMaterial.material;
+            // this._groundMesh.material = ToonWaterMaterial.material;
+            // ToonWaterAndProbeMaterial.applyToMesh(this._groundMesh);
         }
 
     }

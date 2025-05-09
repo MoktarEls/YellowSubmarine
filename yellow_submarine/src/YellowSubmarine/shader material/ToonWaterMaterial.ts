@@ -1,32 +1,31 @@
 import {
-    AbstractMesh, Angle, Color3,
-    Color4, DepthRenderer, Engine, GeometryBufferRenderer,
-    Material, MultiRenderTarget, Nullable, ReflectionProbe, RenderTargetTexture, Scene,
-    ShaderMaterial, StandardMaterial, Texture, Vector2, Vector3, Vector4
+    AbstractMesh, DepthRenderer, GeometryBufferRenderer,
+    MultiRenderTarget, Nullable, RenderTargetTexture, Scene,
+    ShaderMaterial, Texture, Vector2, Vector4
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 
-export class SeaShaderMaterial{
+export class ToonWaterMaterial {
 
-    private static _instance: SeaShaderMaterial;
+    private static _instance: ToonWaterMaterial;
 
-    private _material: ShaderMaterial;
+    protected _scene: Scene;
+    protected _material: ShaderMaterial;
     private _depthRenderer: DepthRenderer;
     private _depthMap: RenderTargetTexture;
     private _geometryBufferRenderer: Nullable<GeometryBufferRenderer>;
     private _gBuffer: Nullable<MultiRenderTarget> = null;
     private _renderListPredicate: (mesh: AbstractMesh) => boolean;
-    private _reflectionProbe: ReflectionProbe;
-    private _reflectionCube: RenderTargetTexture;
 
-
-    private constructor() {
-        const scene = Game.scene;
+    protected constructor() {
+        this._scene = Game.scene;
         const camera = World.camera;
 
-        this._material = new ShaderMaterial("seaShaderMaterial", scene,{
-            vertex: "toonWaterAndFoam", fragment: "toonWaterAndFoam",
+        console.log("ToonWaterAndProbeMaterial");
+        console.log("Var : " + this.shaderMaterialName);
+        this._material = new ShaderMaterial("toonWaterMaterial", this._scene,{
+            vertex: this.shaderMaterialName, fragment: this.shaderMaterialName,
         },{
             attributes: ["position", "normal", "uv"],
             uniforms: ["world","view","projection","depthShallowColor", "depthDeepColor", "depthMaximumDistance",
@@ -37,7 +36,7 @@ export class SeaShaderMaterial{
         });
 
 
-        this._depthRenderer = scene.enableDepthRenderer(camera, false, undefined, undefined, true);
+        this._depthRenderer = this._scene.enableDepthRenderer(camera, false, undefined, undefined, true);
         this._depthMap = this._depthRenderer.getDepthMap();
         this._renderListPredicate = (m) => m.material !== this._material;
         this._depthMap.renderListPredicate = this._renderListPredicate;
@@ -57,7 +56,7 @@ export class SeaShaderMaterial{
         this._material.setTexture("surfaceDistortionTexture", new Texture("/textures/WaterDistortion.png"));
         this._material.disableDepthWrite = true;
 
-        this._geometryBufferRenderer = scene.enableGeometryBufferRenderer();
+        this._geometryBufferRenderer = this._scene.enableGeometryBufferRenderer();
         if(this._geometryBufferRenderer != null) {
             this._geometryBufferRenderer.enableNormal;
             this._gBuffer = this._geometryBufferRenderer.getGBuffer();
@@ -65,11 +64,6 @@ export class SeaShaderMaterial{
             const cameraNormalTexture = this._gBuffer.textures[GeometryBufferRenderer.NORMAL_TEXTURE_TYPE];
             this._material.setTexture("cameraNormalTexture", cameraNormalTexture);
         }
-
-        this._reflectionProbe = new ReflectionProbe("seaShaderReflectionProbe", 512, scene);
-        this._reflectionProbe.renderList = [World.sun.sunMesh, World.sun.haloMesh];
-        this._reflectionCube = this._reflectionProbe.cubeTexture;
-        this._material.setTexture("reflectionSampler", this._reflectionCube);
 
         let time = 0;
         Game.registerUpdateAction((deltaTimeInSeconds) => {
@@ -81,7 +75,7 @@ export class SeaShaderMaterial{
 
     public static get instance(){
         if(this._instance == null){
-            this._instance = new SeaShaderMaterial();
+            this._instance = new this();
         }
         return this._instance;
     }
@@ -89,5 +83,7 @@ export class SeaShaderMaterial{
     public static get material(){
         return this.instance._material;
     }
+
+    protected get shaderMaterialName(){ return "toonWater"; }
 
 }

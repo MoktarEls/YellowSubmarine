@@ -5,7 +5,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import "@babylonjs/loaders/glTF"
-import {SeaShaderMaterial} from "@/YellowSubmarine/shader material/SeaShaderMaterial";
+import {ToonWaterAndProbeMaterial} from "@/YellowSubmarine/shader material/ToonWaterAndProbeMaterial";
 
 export class Submarine {
     get submarineCamera(): SubmarineCamera {
