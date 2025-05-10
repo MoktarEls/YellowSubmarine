@@ -1,9 +1,9 @@
 # Games on Web 2025 Participation -- Dreamland
 
 ## Members : 
--ABOUDOU Omar
--BELKADI Oscar
--EL SHERIF Moktar
+- ABOUDOU Omar
+- BELKADI Oscar
+- EL SHERIF Moktar
 
 ## Description : 
 
