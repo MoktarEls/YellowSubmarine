@@ -1,25 +1,16 @@
 import {Camera, Scene, SceneOptions} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {Sun} from "@/YellowSubmarine/Sun";
+import {Sun} from "@/YellowSubmarine/sky system/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {SkyBox} from "@/YellowSubmarine/SkyBox";
+import {SkyBox} from "@/YellowSubmarine/sky system/SkyBox";
 import {TestObject} from "@/YellowSubmarine/TestObject";
+import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 export class World {
 
-
-
-    public get skybox(): SkyBox {
-        return this._skybox;
-    }
-
     public get scene(): Scene {
         return this._scene;
-    }
-
-    public get sun(): Sun{
-        return this._sun;
     }
 
     public get submarine(): Submarine{
@@ -31,11 +22,7 @@ export class World {
     }
 
     public static get sun(): Sun {
-        return <Sun>this.instance.sun;
-    }
-
-    public static get skybox(){
-        return this.instance.skybox;
+        return <Sun>this.instance._sky.sun;
     }
 
     private static get instance(): World {
@@ -44,12 +31,11 @@ export class World {
 
     private static _instance: World;
     private _scene: Scene;
-
-    private _sun: Sun;
+    private _sky : Sky;
     private _sea: Sea;
     private _submarine: Submarine;
     //private _object: TestObject;
-    private _skybox: SkyBox;
+
 
     constructor(
         private _game: Game,
@@ -57,16 +43,14 @@ export class World {
     ) {
         this._scene = new Scene(_game.engine, options);
         World._instance = this;
-        this._sun = new Sun(this);
-        this._skybox = new SkyBox(this);
+        this._sky = new Sky(this);
         this._submarine = new Submarine(this);
         this._sea = new Sea(this);
         //this._object = new TestObject(this);
     }
 
     public init(): void {
-        this._sun.init();
-        this._skybox.init();
+        this._sky.init();
         this._submarine.init();
         this._sea.init();
     }
