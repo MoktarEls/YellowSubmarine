@@ -31,7 +31,7 @@ export class World {
 
     private static _instance: World;
     private _scene: Scene;
-    private _sky : Sky;
+    _sky : Sky;
     private _sea: Sea;
     private _submarine: Submarine;
     //private _object: TestObject;

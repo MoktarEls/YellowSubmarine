@@ -12,13 +12,12 @@ import {World} from "@/YellowSubmarine/World";
 
 export abstract class CelestialBody {
 
-    static _instance: CelestialBody;
     private _bodyMesh : Mesh
     private _haloMesh : Mesh
     private _light : DirectionalLight
 
     // Physics Characteristic
-    public get _position(): Vector3{
+    public get _defaultPosition(): Vector3{
         return new Vector3(1000, 200, -1000);
     }
     public get _diameter(): number {
@@ -39,14 +38,11 @@ export abstract class CelestialBody {
         return new Color3(1.0, 1.0, 1.0);
     }
     public get _direction(): Vector3{
-        if (this._world.scene.activeCamera) {
-            return this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
-        }
-        return new Vector3(0, 0, 0);
+        this.light.direction = this._bodyMesh.position.subtract(new Vector3(0, 0, 0)).normalize();
+        return this._bodyMesh.position.subtract(new Vector3(0, 0, 0)).normalize();
     }
 
-    constructor(protected _world: World){
-        CelestialBody._instance = this;
+    constructor(public _world: World){
         this._bodyMesh = new Mesh("");
         this._haloMesh = new Mesh("");
         this._light = new DirectionalLight("", Vector3.Down());
@@ -66,7 +62,7 @@ export abstract class CelestialBody {
         }, scene);
         body.infiniteDistance = true;
         body.isPickable = false;
-        body.position = this._position;
+        body.position = this._defaultPosition;
         return body;
     }
 
@@ -77,7 +73,7 @@ export abstract class CelestialBody {
         }, scene);
         halo.infiniteDistance = true;
         halo.isPickable = false;
-        halo.position = this._position;
+        halo.position = this._defaultPosition;
         return halo;
     }
 
@@ -89,7 +85,7 @@ export abstract class CelestialBody {
         const light = new DirectionalLight("sunLight", direction.negate(), scene);
         light.intensity = this._intensity;
         light.shadowEnabled = true;
-        light.position = this._position;
+        light.position = this._defaultPosition;
         light.diffuse = this._diffuse;
         light.specular = this._specular;
         const glowLayer = new GlowLayer("", scene);
@@ -112,11 +108,6 @@ export abstract class CelestialBody {
         this._haloMesh.material = haloMaterial;
     }
 
-
-    public static get instance(): CelestialBody {
-        return this._instance;
-    }
-
     public get bodyMesh(): Mesh {
         return this._bodyMesh;
     }
@@ -127,5 +118,13 @@ export abstract class CelestialBody {
 
     public get light(): DirectionalLight {
         return this._light;
+    }
+
+    public get position(): Vector3 {
+        return this.bodyMesh.position;
+    }
+    public set position(position: Vector3){
+        this._bodyMesh.position = position;
+        this._haloMesh.position = position;
     }
 }

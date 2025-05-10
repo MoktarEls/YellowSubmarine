@@ -15,8 +15,8 @@ import {HemisphericCelestialBody} from "@/YellowSubmarine/sky system/Hemispheric
 export class Moon extends HemisphericCelestialBody {
 
     // Physics Characteristic
-    public override get _position(): Vector3{
-        return new Vector3(1000, 200, -1000);
+    public override get _defaultPosition(): Vector3{
+        return new Vector3(1000, 200, 1000);
     }
     public override get _diameter(): number {
         return 40;

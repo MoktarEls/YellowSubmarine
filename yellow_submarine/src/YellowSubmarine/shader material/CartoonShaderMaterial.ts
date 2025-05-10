@@ -18,7 +18,7 @@ export class CartoonShaderMaterial {
             uniforms: ['world', 'worldView', 'worldViewProjection'],
         })
 
-        this.shaderMaterial.setVector3('vLightPosition', World.sun._position);
+        this.shaderMaterial.setVector3('vLightPosition', World.sun._defaultPosition);
         this.shaderMaterial.setVector3('vColor', new Vector3(0.5, 0.5, 0.5));
     }
 

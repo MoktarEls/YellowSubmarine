@@ -24,7 +24,7 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
     private createHemiLight(scene: Scene) : HemisphericLight{
         let direction = new Vector3(0, 0, 0);
         if (scene.activeCamera) {
-            direction = this._position.subtract(scene.activeCamera.position).normalize();
+            direction = this._defaultPosition.subtract(scene.activeCamera.position).normalize();
         }
         const light = new HemisphericLight("sunLight", direction, scene);
         light.intensity = 0.8;
