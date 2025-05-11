@@ -32,7 +32,11 @@ export class SkyBox {
             fragment: "sky",
         }, {
             attributes: ["position"],
-            uniforms: ["worldViewProjection", "sunDirection", "dayTopColor", "dayBottomColor", "sunsetColor", "horizonPower"],
+            uniforms: [
+                "worldViewProjection", "sunDirection", "sunElevation",
+                "dayTopColor", "dayBottomColor", "sunsetColor", "nightColor",
+                "horizonPower"
+            ],
         });
 
         material.backFaceCulling = false;
@@ -41,12 +45,13 @@ export class SkyBox {
         // Set initial color parameters
         material.setColor3("dayTopColor", new Color3(0.2, 0.5, 0.9));      // Bleu clair
         material.setColor3("dayBottomColor", new Color3(0.8, 0.9, 1.0));   // Bleu pastel
-        material.setColor3("sunsetColor", new Color3(1.0, 0.4, 0.1));      // Rouge/orange du coucher du soleil
-        material.setFloat("horizonPower", 0);                             // Force du dégradé entre jour/nuit
+        material.setColor3("sunsetColor", new Color3(1.0, 0.2, 0.1));      // Rouge/orange du coucher du soleil
+        material.setColor3("nightColor", new Color3(0.005, 0.01, 0.02));
 
         this._world.scene.onBeforeRenderObservable.add(() => {
             const sunDir = this._world._sky.sun._direction;
             material.setVector3("sunDirection", sunDir);
+            material.setFloat("sunElevation", sunDir.y);
         });
     }
 

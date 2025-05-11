@@ -7,32 +7,41 @@ import {Game} from "@/YellowSubmarine/Game";
 export class DayNightCycle {
     
     private _sun : Sun;
-    //private _moon : Moon;
+    private _moon : Moon;
     
     constructor(sky : Sky) {
         this._sun = sky.sun;
-        //this._moon = sky.moon;
+        this._moon = sky.moon;
 
         let time = 0;
 
         sky._world.scene.onBeforeRenderObservable.add(() => {
-            time += Game.engine.getDeltaTime() * 0.0001;
+            time += Game.engine.getDeltaTime() * 0.00001;
             if (time > 1) time = 0;
 
-            this.updateSun(time);
+            this.updateBody(time);
         });
     }
 
-    public updateSun(time: number): void {
+    public updateBody(time: number): void {
+        const sunAngle = time * 2.0 * Math.PI;
+        const moonAngle = (time * 2.0 * Math.PI) / 1.5 + Math.PI;
 
-        const angle = time * 2.0 * Math.PI;
-        const radius = this._sun._defaultPosition.x;
+        const sunRadius = this._sun._defaultPosition.length();
+        const moonRadius = this._moon._defaultPosition.length();
 
-        const x = radius * Math.cos(angle);
-        const y = radius * Math.sin(angle)
-        const z = 0;
+        const inclination = Math.PI / 6;
 
-        this._sun.position = new Vector3(x, y, z);
-        this._sun._direction;
+        const sunX = sunRadius * Math.cos(sunAngle);
+        const sunY = sunRadius * Math.sin(sunAngle) * Math.sin(inclination);
+        const sunZ = sunRadius * Math.sin(sunAngle) * Math.cos(inclination);
+
+        const moonInclination = Math.PI / 8;
+        const moonX = moonRadius * Math.cos(moonAngle);
+        const moonY = moonRadius * Math.sin(moonAngle) * Math.sin(moonInclination);
+        const moonZ = moonRadius * Math.sin(moonAngle) * Math.cos(moonInclination);
+
+        this._sun.position = new Vector3(sunX, sunY, sunZ);
+        this._moon.position = new Vector3(moonX, moonY, moonZ);
     }
 }

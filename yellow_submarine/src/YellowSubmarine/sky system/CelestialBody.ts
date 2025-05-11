@@ -12,8 +12,8 @@ import {World} from "@/YellowSubmarine/World";
 
 export abstract class CelestialBody {
 
-    private _bodyMesh : Mesh
-    private _haloMesh : Mesh
+    protected _bodyMesh : Mesh
+    protected _haloMesh : Mesh
     private _light : DirectionalLight
 
     // Physics Characteristic
@@ -126,8 +126,10 @@ export abstract class CelestialBody {
     public get position(): Vector3 {
         return this.bodyMesh.position;
     }
+
     public set position(position: Vector3){
         this._bodyMesh.position = position;
         this._haloMesh.position = position;
+        this.light.position = position;
     }
 }

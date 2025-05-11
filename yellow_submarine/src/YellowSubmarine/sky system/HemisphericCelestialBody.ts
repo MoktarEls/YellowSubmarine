@@ -27,13 +27,10 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
             direction = this._defaultPosition.subtract(scene.activeCamera.position).normalize();
         }
         const light = new HemisphericLight("sunLight", direction, scene);
-        light.intensity = 0;
+        light.intensity = 0.8;
         light.diffuse = this._diffuse;
         light.shadowEnabled = false;
 
         return light;
     }
-
-
-
 }
