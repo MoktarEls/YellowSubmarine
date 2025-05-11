@@ -4,37 +4,67 @@
 precision highp float;
 
 uniform vec3 sunDirection;
-uniform vec3 dayTopColor;
-uniform vec3 dayBottomColor;
-uniform vec3 sunsetColor;
-uniform float horizonPower;
-uniform float sunElevation;
-uniform vec3 nightColor;
+uniform float timeOfDay;
 
-out vec4 glFragColor;
+uniform vec3 dayTop;
+uniform vec3 dayBottom;
+
+uniform vec3 sunsetTop;
+uniform vec3 sunsetBottom;
+
+uniform vec3 nightStartTop;
+uniform vec3 nightStartBottom;
+
+uniform vec3 nightTop;
+uniform vec3 nightBottom;
+
+uniform vec3 dawnTop;
+uniform vec3 dawnBottom;
 
 in vec3 vDirection;
+out vec4 glFragColor;
+
+vec3 getSkyGradient(float t, float timeOfDay){
+
+    vec3 topColor;
+    vec3 bottomColor;
+
+    if (timeOfDay < 0.20) {
+        float f = smoothstep(0.00, 0.20, timeOfDay);
+        topColor = mix(nightTop, dawnTop, f);
+        bottomColor = mix(nightBottom, dawnBottom, f);
+
+    } else if (timeOfDay < 0.30) {
+        float f = smoothstep(0.20, 0.30, timeOfDay);
+        topColor = mix(dawnTop, dayTop, f);
+        bottomColor = mix(dawnBottom, dayBottom, f);
+
+    } else if (timeOfDay < 0.70) {
+        float f = smoothstep(0.30, 0.70, timeOfDay);
+        topColor = dayTop;
+        bottomColor = dayBottom;
+
+    } else if (timeOfDay < 0.80) {
+        float f = smoothstep(0.70, 0.80, timeOfDay);
+        topColor = mix(dayTop, sunsetTop, f);
+        bottomColor = mix(dayBottom, sunsetBottom, f);
+
+    } else {
+        float f = smoothstep(0.80, 1.00, timeOfDay);
+        topColor = mix(sunsetTop, nightTop, f);
+        bottomColor = mix(sunsetBottom, nightBottom, f);
+    }
+
+    return mix(bottomColor, topColor, 1.0 - t); // Inversé pour cube
+}
 
 void main(void) {
     float viewY = clamp(vDirection.y, -1.0, 1.0);
     float t = (viewY + 1.0) / 2.0;
 
-    // Dégradés jour et nuit
-    vec3 gradientDay = mix(dayBottomColor, dayTopColor, t);
-    vec3 gradientSunset = mix(sunsetColor, dayTopColor, t);
-    vec3 gradientNight = nightColor;
+    t = pow(1.0 - t, 0.7);
 
-    float horizon = abs(viewY);
-    vec3 skyColor = mix(gradientSunset, gradientDay, smoothstep(0.0, horizonPower, horizon));
-
-    // Influence du coucher/lever du soleil
-    float sunsetIntensity = 1.0 - clamp(sunElevation * 4.0, 0.0, 1.0); // Plus progressif
-    skyColor = mix(skyColor, sunsetColor, sunsetIntensity * 0.3); // Plus subtil
-
-    // Transition vers la nuit
-    float nightFactor = clamp(-sunElevation * 3.0, 0.0, 1.0); // Passe à 1 quand le soleil est bien sous l'horizon
-    vec3 finalColor = mix(skyColor, gradientNight, nightFactor);
-
-    glFragColor = vec4(finalColor, 1.0);
+    vec3 color = getSkyGradient(1.0 - t, timeOfDay);
+    glFragColor = vec4(color, 1.0);
 }
 

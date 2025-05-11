@@ -3,8 +3,6 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Sun} from "@/YellowSubmarine/sky system/Sun";
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {SkyBox} from "@/YellowSubmarine/sky system/SkyBox";
-import {TestObject} from "@/YellowSubmarine/TestObject";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 export class World {
@@ -34,7 +32,6 @@ export class World {
     _sky : Sky;
     private _sea: Sea;
     private _submarine: Submarine;
-    //private _object: TestObject;
 
 
     constructor(
@@ -46,7 +43,6 @@ export class World {
         this._sky = new Sky(this);
         this._submarine = new Submarine(this);
         this._sea = new Sea(this);
-        //this._object = new TestObject(this);
     }
 
     public init(): void {

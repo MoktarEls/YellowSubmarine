@@ -3,11 +3,9 @@ import {
     Color3,
     Mesh,
     MeshBuilder,
-    Scene,
-    ShaderMaterial, StandardMaterial, Vector3,
+    ShaderMaterial
 } from "@babylonjs/core";
-import {Sun} from "@/YellowSubmarine/sky system/Sun";
-import {Game} from "@/YellowSubmarine/Game";
+
 
 export class SkyBox {
 
@@ -33,26 +31,46 @@ export class SkyBox {
         }, {
             attributes: ["position"],
             uniforms: [
-                "worldViewProjection", "sunDirection", "sunElevation",
-                "dayTopColor", "dayBottomColor", "sunsetColor", "nightColor",
-                "horizonPower"
+                "worldViewProjection", "timeOfDay",
+                "dayTop", "dayBottom",
+                "sunsetTop", "sunsetBottom",
+                "nightStartTop", "nightStartBottom",
+                "nightTop", "nightBottom",
+                "dawnTop", "dawnBottom"
             ],
         });
 
         material.backFaceCulling = false;
         this._mesh.material = material;
 
-        // Set initial color parameters
-        material.setColor3("dayTopColor", new Color3(0.2, 0.5, 0.9));      // Bleu clair
-        material.setColor3("dayBottomColor", new Color3(0.8, 0.9, 1.0));   // Bleu pastel
-        material.setColor3("sunsetColor", new Color3(1.0, 0.2, 0.1));      // Rouge/orange du coucher du soleil
-        material.setColor3("nightColor", new Color3(0.08, 0.13, 0.22));
+        this.initColors(material);
 
         this._world.scene.onBeforeRenderObservable.add(() => {
-            const sunDir = this._world._sky.sun._direction;
-            material.setVector3("sunDirection", sunDir);
-            material.setFloat("sunElevation", sunDir.y);
+            const secondsInCycle = 30;
+            const time = performance.now() / 1000;
+            const timeOfDay = (time % secondsInCycle) / secondsInCycle;
+            material.setFloat("timeOfDay", timeOfDay);
         });
+    }
+
+    private initColors(material: ShaderMaterial): void {
+
+        material.setColor3("dayTop", new Color3(0.2, 0.5, 0.9));        // Bleu ciel
+        material.setColor3("dayBottom", new Color3(0.8, 0.9, 1.0));     // Presque blanc
+
+        material.setColor3("sunsetTop", new Color3(0.2, 0.3, 0.6));     // Bleu foncé atténué
+        material.setColor3("sunsetBottom", new Color3(1.0, 0.4, 0.1));  // Orange vif
+
+        material.setColor3("nightStartTop", new Color3(0.1, 0.05, 0.2));    // Violet sombre
+        material.setColor3("nightStartBottom", new Color3(0.02, 0.02, 0.1)); // Bleu nuit
+
+        material.setColor3("nightTop", new Color3(0.01, 0.01, 0.08));       // Presque noir
+        material.setColor3("nightBottom", new Color3(0.02, 0.03, 0.12));    // Très sombre, mais un poil plus clair
+
+        material.setColor3("dawnTop", new Color3(1.0, 0.5, 0.3));        // Orange rosé
+        material.setColor3("dawnBottom", new Color3(0.3, 0.4, 0.7));     // Bleu froid qui revient
+
+
     }
 
 
