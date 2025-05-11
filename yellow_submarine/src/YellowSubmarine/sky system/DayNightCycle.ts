@@ -7,16 +7,16 @@ import {Game} from "@/YellowSubmarine/Game";
 export class DayNightCycle {
     
     private _sun : Sun;
-    private _moon : Moon;
+    //private _moon : Moon;
     
     constructor(sky : Sky) {
         this._sun = sky.sun;
-        this._moon = sky.moon;
+        //this._moon = sky.moon;
 
         let time = 0;
 
         sky._world.scene.onBeforeRenderObservable.add(() => {
-            time += Game.engine.getDeltaTime() * 0.00001;
+            time += Game.engine.getDeltaTime() * 0.0001;
             if (time > 1) time = 0;
 
             this.updateSun(time);

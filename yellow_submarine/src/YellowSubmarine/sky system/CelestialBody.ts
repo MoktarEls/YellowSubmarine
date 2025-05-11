@@ -20,6 +20,7 @@ export abstract class CelestialBody {
     public get _defaultPosition(): Vector3{
         return new Vector3(1000, 200, -1000);
     }
+
     public get _diameter(): number {
         return 40;
     }
@@ -38,8 +39,10 @@ export abstract class CelestialBody {
         return new Color3(1.0, 1.0, 1.0);
     }
     public get _direction(): Vector3{
-        this.light.direction = this._bodyMesh.position.subtract(new Vector3(0, 0, 0)).normalize();
-        return this._bodyMesh.position.subtract(new Vector3(0, 0, 0)).normalize();
+        if(this._world.scene.activeCamera){
+            this.light.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
+        }
+        return this.light.direction;
     }
 
     constructor(public _world: World){

@@ -25,24 +25,28 @@ export class SkyBox {
     public init(){
         this._mesh = MeshBuilder.CreateBox("skyBox", { size: 10000 }, this._world.scene);
         this._mesh.infiniteDistance = true;
+        this._mesh.isPickable = false;
 
-        const _mat = new StandardMaterial("skyMat", this._world.scene);
-        _mat.backFaceCulling = false;
-        _mat.disableLighting = true;
-        _mat.specularColor = Color3.Black();
-        this._mesh.material = _mat;
+        const material = new ShaderMaterial("skyShader", this._world.scene, {
+            vertex: "sky",
+            fragment: "sky",
+        }, {
+            attributes: ["position"],
+            uniforms: ["worldViewProjection", "sunDirection", "dayTopColor", "dayBottomColor", "sunsetColor", "horizonPower"],
+        });
+
+        material.backFaceCulling = false;
+        this._mesh.material = material;
+
+        // Set initial color parameters
+        material.setColor3("dayTopColor", new Color3(0.2, 0.5, 0.9));      // Bleu clair
+        material.setColor3("dayBottomColor", new Color3(0.8, 0.9, 1.0));   // Bleu pastel
+        material.setColor3("sunsetColor", new Color3(1.0, 0.4, 0.1));      // Rouge/orange du coucher du soleil
+        material.setFloat("horizonPower", 0);                             // Force du dégradé entre jour/nuit
 
         this._world.scene.onBeforeRenderObservable.add(() => {
-            const up       = new Vector3(0, 1, 0);
-            const sunDir           = this._world._sky.sun._direction;
-            const t        = Math.min(Math.max(Vector3.Dot(up, sunDir), 0), 1);
-
-            const nightCol = new Color3(0.02, 0.02, 0.1);
-            const dayCol   = new Color3(0.5, 0.7, 1.0);
-
-            _mat.diffuseColor = Color3.Lerp(nightCol, dayCol, t);
-            _mat.emissiveColor = _mat.diffuseColor;
-
+            const sunDir = this._world._sky.sun._direction;
+            material.setVector3("sunDirection", sunDir);
         });
     }
 
