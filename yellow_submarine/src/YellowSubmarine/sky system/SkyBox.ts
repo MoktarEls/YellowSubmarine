@@ -46,7 +46,7 @@ export class SkyBox {
         material.setColor3("dayTopColor", new Color3(0.2, 0.5, 0.9));      // Bleu clair
         material.setColor3("dayBottomColor", new Color3(0.8, 0.9, 1.0));   // Bleu pastel
         material.setColor3("sunsetColor", new Color3(1.0, 0.2, 0.1));      // Rouge/orange du coucher du soleil
-        material.setColor3("nightColor", new Color3(0.005, 0.01, 0.02));
+        material.setColor3("nightColor", new Color3(0.08, 0.13, 0.22));
 
         this._world.scene.onBeforeRenderObservable.add(() => {
             const sunDir = this._world._sky.sun._direction;
