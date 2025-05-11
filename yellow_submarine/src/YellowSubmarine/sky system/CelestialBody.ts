@@ -38,12 +38,6 @@ export abstract class CelestialBody {
     public get _emissiveColor(): Color3 {
         return new Color3(1.0, 1.0, 1.0);
     }
-    public get _direction(): Vector3{
-        if(this._world.scene.activeCamera){
-            this.light.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
-        }
-        return this.light.direction;
-    }
 
     constructor(public _world: World){
         this._bodyMesh = new Mesh("");
@@ -92,7 +86,7 @@ export abstract class CelestialBody {
         light.diffuse = this._diffuse;
         light.specular = this._specular;
         const glowLayer = new GlowLayer("", scene);
-        glowLayer.intensity = 0.6;
+        glowLayer.intensity = 0.3;
         return light;
     }
 

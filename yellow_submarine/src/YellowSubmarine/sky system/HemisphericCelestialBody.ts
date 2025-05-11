@@ -10,6 +10,14 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
         return new Color3(1.0, 1.0, 1.0);
     }
 
+    public get _direction(): Vector3{
+        if(this._world.scene.activeCamera){
+            this.light.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
+            this._hemiLight.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
+        }
+        return this.light.direction;
+    }
+
     constructor(_world: World) {
         super(_world);
         this._hemiLight = new HemisphericLight("", Vector3.Down());
