@@ -22,8 +22,6 @@ export class ToonWaterMaterial {
         this._scene = Game.scene;
         const camera = World.camera;
 
-        console.log("ToonWaterAndProbeMaterial");
-        console.log("Var : " + this.shaderMaterialName);
         this._material = new ShaderMaterial("toonWaterMaterial", this._scene,{
             vertex: this.shaderMaterialName, fragment: this.shaderMaterialName,
         },{
