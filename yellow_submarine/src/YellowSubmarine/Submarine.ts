@@ -2,6 +2,7 @@ import {Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
+import {Player} from "@/YellowSubmarine/Player";
 
 export class Submarine {
     get submarineCamera(): SubmarineCamera {
@@ -90,19 +91,19 @@ export class Submarine {
     }
 
     private isForwardPressed() {
-        return KeyboardEventManager.isKeyPressed("z");
+        return Player.instance.isMoveForwardPressed();
     }
 
     private isBackwardPressed() {
-        return KeyboardEventManager.isKeyPressed("s");
+        return Player.instance.isMoveBackwardPressed();
     }
 
     private isRightPressed() {
-        return KeyboardEventManager.isKeyPressed("d");
+        return Player.instance.isTurnRightPressed();
     }
 
     private isLeftPressed() {
-        return KeyboardEventManager.isKeyPressed("q");
+        return Player.instance.isTurnLeftPressed();
     }
 
 
