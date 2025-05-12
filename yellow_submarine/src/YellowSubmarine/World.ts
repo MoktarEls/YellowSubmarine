@@ -50,7 +50,7 @@ export class World {
     private _skybox: SkyBox;
 
     constructor(
-        private _game: Game,
+        private _game: Scene,
         options?: SceneOptions,
     ) {
         this._scene = new Scene(_game.engine, options);
