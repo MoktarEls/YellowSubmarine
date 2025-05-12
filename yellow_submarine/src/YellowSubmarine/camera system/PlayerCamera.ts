@@ -1,28 +1,22 @@
-import {Submarine} from "@/YellowSubmarine/Submarine";
-import {Angle, ArcRotateCamera, Camera, Quaternion, Scalar, Vector3} from "@babylonjs/core";
-import {MouseMovementEventManager} from "@/YellowSubmarine/event managers/MouseMovementEventManager";
+import {AbstractMesh, Angle, ArcRotateCamera, Quaternion, Scalar, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {Player} from "@/YellowSubmarine/Player";
 
-export class SubmarineCamera {
-
-    public get camera(): Camera {
-        return this.arcRotateCamera;
-    }
+export class PlayerCamera {
 
     private get arcRotateCamera(): ArcRotateCamera {
         return this._arcRotateCamera;
     }
 
-    private static _instance: SubmarineCamera;
     private _arcRotateCamera: ArcRotateCamera;
 
     private _currentTargetPosition: Vector3 = Vector3.Zero();
     private _lerpFactor = 2;
     private _distanceThreshold = 0.1;
     private _localOffset = new Vector3(0, 2, 0);
+    private _followTarget: AbstractMesh | null = null;
 
     constructor(
-        private _submarine: Submarine,
         private _currentWantedAlpha = Angle.FromDegrees(-90).radians(),
         private _currentWantedBeta = Angle.FromDegrees(45).radians(),
         private _currentLowerBetaLimit = Angle.FromDegrees(30).radians(),
@@ -33,18 +27,20 @@ export class SubmarineCamera {
         private _cameraRotationLerpFactor = 20,
     ) {
         this._arcRotateCamera = new ArcRotateCamera("submarineCamera", _currentWantedAlpha, Angle.FromDegrees(_currentWantedBeta).radians(), _wantedRadius, Vector3.Zero());
-        SubmarineCamera._instance = this;
         this.setWantedRadius(this._wantedRadius);
         this.setWantedAlpha(this._currentWantedAlpha);
         this.setWantedBeta(this._currentWantedBeta);
-    }
-
-    public init() {
-        this._submarine.mesh.getScene().addCamera(this._arcRotateCamera);
-
+        Game.scene.addCamera(this._arcRotateCamera);
         this.enableCameraRotation();
         this.registerUpdate();
-        return;
+    }
+
+    public followMesh(followTarget: AbstractMesh | null) {
+        this._followTarget = followTarget;
+    }
+
+    public stopFollowingMesh(){
+        this._followTarget = null;
     }
 
     private getCameraRotation(): Quaternion{
@@ -56,16 +52,18 @@ export class SubmarineCamera {
     }
 
     private enableCameraRotation() {
-        MouseMovementEventManager.registerMouseMovement((deltaX, deltaY) => {
-            this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - deltaX * this._horizontalSensitivity, 1);
-            this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - deltaY * this._verticalSensitivity, 1);
+        Player.instance.onCameraRotationObservable.add((eventData) => {
+            this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - eventData.movementX * this._horizontalSensitivity, 1);
+            this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - eventData.movementY * this._verticalSensitivity, 1);
             this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
         })
     }
 
 
     private registerUpdate() {
-        Game.registerUpdateAction(this.updateSubmarineCamera, this);
+        Game.scene.onBeforeRenderObservable.add( (eventData) => {
+            this.updateSubmarineCamera(Game.engine.getDeltaTime() / 1000);
+        });
     }
 
     private updateSubmarineCamera(deltaTimeInSec: number) {
@@ -81,7 +79,7 @@ export class SubmarineCamera {
     }
 
     private getFinalTargetPosition(){
-        const submarinePosition = this._submarine.mesh.position;
+        const submarinePosition = this._followTarget == null ? this._arcRotateCamera.target : this._followTarget.position;
         return submarinePosition.add(this._localOffset.rotateByQuaternionAroundPointToRef(this.getCameraRotation(), Vector3.Zero(), Vector3.Zero()));
     }
 

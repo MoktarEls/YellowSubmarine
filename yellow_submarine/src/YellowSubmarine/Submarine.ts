@@ -1,11 +1,11 @@
 import {Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
-import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
+import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 
 export class Submarine {
-    get submarineCamera(): SubmarineCamera {
+    get submarineCamera(): PlayerCamera {
         return this._submarineCamera;
     }
     public get mesh(): Mesh {
@@ -27,12 +27,12 @@ export class Submarine {
     private _currentRotationSpeed = 0;
     private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
-    private _submarineCamera!: SubmarineCamera;
+    private _submarineCamera!: PlayerCamera;
 
     constructor() {
         Submarine._instance = this;
         this.createMesh(Game.scene).then( () => {
-                this._submarineCamera = new SubmarineCamera(this);
+                this._submarineCamera = new PlayerCamera(this);
             }
         );
 

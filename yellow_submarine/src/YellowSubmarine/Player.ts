@@ -1,15 +1,19 @@
-import {Submarine} from "@/YellowSubmarine/Submarine";
-import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
-import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
-import {KeyboardEventTypes, KeyboardInfo} from "@babylonjs/core";
+import {KeyboardEventTypes, Observable} from "@babylonjs/core";
+
+type CameraRotationInfo = {movementX: number, movementY: number};
 
 export class Player {
 
     private static _instance: Player;
+    private _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
 
     public static get instance() {
         return this._instance;
+    }
+
+    public get onCameraRotationObservable(){
+        return this._onCameraRotationObservable;
     }
 
     private _isForwardPressed = false;
@@ -20,6 +24,7 @@ export class Player {
     constructor() {
         Player._instance = this;
         this.registerKeyboardInputs();
+        this.registerMouseMovementInputs();
     }
 
     public isMoveForwardPressed(): boolean {
@@ -57,4 +62,14 @@ export class Player {
         } );
     }
 
+    private registerMouseMovementInputs() {
+        const scene = Game.scene;
+        scene.onPointerObservable.add((pointerInfo) => {
+
+            const event = pointerInfo.event as PointerEvent;
+            const movementX = event.movementX/window.screen.width;
+            const movementY = event.movementY/window.screen.height;
+            this._onCameraRotationObservable.notifyObservers({movementX, movementY});
+        })
+    }
 }
