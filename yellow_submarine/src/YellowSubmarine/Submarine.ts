@@ -5,9 +5,7 @@ import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 
 export class Submarine {
-    get submarineCamera(): PlayerCamera {
-        return this._submarineCamera;
-    }
+
     public get mesh(): Mesh {
         return this._mesh;
     }
@@ -31,14 +29,9 @@ export class Submarine {
 
     constructor() {
         Submarine._instance = this;
-        this.createMesh(Game.scene).then( () => {
-                this._submarineCamera = new PlayerCamera(this);
-            }
-        );
-
-        // TODO : Make submarine a physics object instead
+        this.createMesh(Game.scene);
         Game.scene.onBeforeRenderObservable.add(() => {
-
+            this.update(Game.engine.getDeltaTime() / 1000);
         })
     }
 
