@@ -13,7 +13,7 @@ export class SkyBox {
     }
 
     public init(){
-        this._mesh = this.createSkybox(this._world.scene);
+        this._mesh = this.createSkybox(this._scene);
     }
 
     private createSkybox(scene: Scene) {
