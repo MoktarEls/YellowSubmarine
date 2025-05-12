@@ -33,11 +33,11 @@ export class Sun{
     }
 
     public init(){
-        this._sunMesh = this.createSun(this._world.scene);
-        this._haloMesh = this.createHalo(this._world.scene);
-        this._light = this.createLight(this._world.scene);
-        this._hemiLight = this.createHemiLight(this._world.scene);
-        this.configMaterials(this._world.scene);
+        this._sunMesh = this.createSun(this._scene);
+        this._haloMesh = this.createHalo(this._scene);
+        this._light = this.createLight(this._scene);
+        this._hemiLight = this.createHemiLight(this._scene);
+        this.configMaterials(this._scene);
     }
 
     private createSun(scene: Scene): Mesh {
