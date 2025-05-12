@@ -64,8 +64,8 @@ export class ToonWaterMaterial {
         }
 
         let time = 0;
-        Game.registerUpdateAction((deltaTimeInSeconds) => {
-            time += deltaTimeInSeconds * 0.01;
+        Game.scene.onBeforeRenderObservable.add(() => {
+            time += (Game.engine.getDeltaTime()/1000) * 0.01;
             this._material.setFloat("time", time);
         })
 
