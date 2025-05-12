@@ -20,7 +20,7 @@ export class ToonWaterMaterial {
 
     protected constructor() {
         this._scene = Game.scene;
-        const camera = World.camera;
+        const camera = this._scene.activeCamera;
 
         this._material = new ShaderMaterial("toonWaterMaterial", this._scene,{
             vertex: this.shaderMaterialName, fragment: this.shaderMaterialName,

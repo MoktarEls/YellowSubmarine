@@ -1,5 +1,6 @@
 import {World} from "@/YellowSubmarine/World";
 import {Engine, Scene} from "@babylonjs/core";
+import {Player} from "@/YellowSubmarine/Player";
 
 export class Game{
 
@@ -8,33 +9,23 @@ export class Game{
     private _scene: Scene;
     private _engine: Engine;
     private _world: World;
+    private _player: Player;
     private _isPointerLocked = false;
 
-    public get scene(): Scene {
-        return this._scene;
-    }
-
-    public get engine(): Engine{
-        return this._engine;
-    }
-
     public static get engine(): Engine {
-        return Game._instance.engine;
+        return Game._instance._engine;
     }
 
     public static get scene(): Scene {
-        return Game._instance.scene;
+        return Game._instance._scene;
     }
 
     constructor(private _canvas: HTMLCanvasElement) {
         Game._instance = this;
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
-        this.engine.runRenderLoop(() => {
-            this.scene.render();
-        })
-        this._world = new World(this._scene);
-
+        this._world = new World();
+        this._player = new Player();
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 _canvas.requestPointerLock();
@@ -43,7 +34,9 @@ export class Game{
                 this._isPointerLocked = document.pointerLockElement === _canvas;
             });
         }
-
+        this._engine.runRenderLoop(() => {
+            this._scene.render();
+        })
     }
 
 

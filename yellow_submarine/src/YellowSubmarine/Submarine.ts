@@ -1,11 +1,7 @@
-import {Angle, Mesh, MeshBuilder, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
+import {Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
 import {SubmarineCamera} from "@/YellowSubmarine/SubmarineCamera";
-import {KeyboardEventManager} from "@/YellowSubmarine/event managers/KeyboardEventManager";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
-import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import "@babylonjs/loaders/glTF"
-import {ToonWaterAndProbeMaterial} from "@/YellowSubmarine/shader material/ToonWaterAndProbeMaterial";
 
 export class Submarine {
     get submarineCamera(): SubmarineCamera {
@@ -20,7 +16,7 @@ export class Submarine {
     }
 
     private static _instance: Submarine;
-    private _mesh : Mesh;
+    private _mesh! : Mesh;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -30,29 +26,28 @@ export class Submarine {
     private _currentRotationSpeed = 0;
     private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
-    private _submarineCamera: SubmarineCamera;
+    private _submarineCamera!: SubmarineCamera;
 
-    constructor(private _world: World) {
-        this._mesh = new Mesh("");
+    constructor() {
         Submarine._instance = this;
-        this._submarineCamera = new SubmarineCamera(this);
+        this.createMesh(Game.scene).then( () => {
+                this._submarineCamera = new SubmarineCamera(this);
+            }
+        );
+
+        // TODO : Make submarine a physics object instead
+        Game.scene.onBeforeRenderObservable.add(() => {
+
+        })
     }
 
-    public async init() {
-        this._mesh = await this.createMesh(this._world.scene)
-        this._submarineCamera.init();
-
-        Game.registerUpdateAction(this.update, this);
-    }
-
-    private async createMesh(scene: Scene): Promise<Mesh> {
+    private async createMesh(scene: Scene) {
         const result = await SceneLoader.ImportMeshAsync("", "models/", "submarine.glb", scene);
-        const mesh = result.meshes[0] as Mesh;
-        mesh.name = "player";
-        mesh.position = new Vector3(0, 0, 0);
+        this._mesh = result.meshes[0] as Mesh;
+        this._mesh.name = "submarine";
+        this._mesh.position = new Vector3(0, 0, 0);
+        this._mesh.material = new StandardMaterial("submarineMaterial", scene);
         // mesh.material = new CartoonShaderMaterial().shaderMaterial;
-        mesh.material = new StandardMaterial("submarineMesh", scene);
-        return mesh;
     }
 
     private update(deltaTimeInSec: number) {
