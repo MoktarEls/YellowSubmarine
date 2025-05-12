@@ -13,10 +13,10 @@ export class Sky{
         return this._instance;
     }
 
-    constructor(private _scene: Scene) {
+    constructor() {
         Sky._instance = this;
         // TODO : Add moon and daynight cycle
-        this._sun = new Sun(_scene);
-        this._skybox = new SkyBox(_scene);
+        this._sun = new Sun();
+        this._skybox = new SkyBox();
     }
 }

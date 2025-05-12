@@ -1,5 +1,6 @@
 import {World} from "@/YellowSubmarine/World";
 import {Color3, CubeTexture, Mesh, MeshBuilder, Scene, StandardMaterial, Texture} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class SkyBox {
     public get mesh(): Mesh {
@@ -8,12 +9,8 @@ export class SkyBox {
 
     private _mesh: Mesh;
 
-    constructor(private _scene: Scene) {
-        this._mesh = new Mesh("");
-    }
-
-    public init(){
-        this._mesh = this.createSkybox(this._scene);
+    constructor() {
+        this._mesh = this.createSkybox(Game.scene);
     }
 
     private createSkybox(scene: Scene) {

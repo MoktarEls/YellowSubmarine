@@ -8,6 +8,7 @@ import {
     Vector3
 } from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class Sun{
     get haloMesh(): Mesh {
@@ -24,7 +25,7 @@ export class Sun{
     private _light : DirectionalLight
     private _hemiLight : HemisphericLight
 
-    constructor(private _scene: Scene) {
+    constructor() {
         Sun._instance = this;
         this._sunMesh = new Mesh("");
         this._haloMesh = new Mesh("");
@@ -33,11 +34,11 @@ export class Sun{
     }
 
     public init(){
-        this._sunMesh = this.createSun(this._scene);
-        this._haloMesh = this.createHalo(this._scene);
-        this._light = this.createLight(this._scene);
-        this._hemiLight = this.createHemiLight(this._scene);
-        this.configMaterials(this._scene);
+        this._sunMesh = this.createSun(Game.scene);
+        this._haloMesh = this.createHalo(Game.scene);
+        this._light = this.createLight(Game.scene);
+        this._hemiLight = this.createHemiLight(Game.scene);
+        this.configMaterials(Game.scene);
     }
 
     private createSun(scene: Scene): Mesh {
