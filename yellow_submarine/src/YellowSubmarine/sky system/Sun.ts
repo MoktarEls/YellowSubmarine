@@ -24,7 +24,7 @@ export class Sun{
     private _light : DirectionalLight
     private _hemiLight : HemisphericLight
 
-    constructor(private _world: World) {
+    constructor(private _scene: Scene) {
         Sun._instance = this;
         this._sunMesh = new Mesh("");
         this._haloMesh = new Mesh("");

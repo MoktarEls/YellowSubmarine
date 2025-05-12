@@ -8,7 +8,7 @@ export class SkyBox {
 
     private _mesh: Mesh;
 
-    constructor(private _world: World) {
+    constructor(private _scene: Scene) {
         this._mesh = new Mesh("");
     }
 
