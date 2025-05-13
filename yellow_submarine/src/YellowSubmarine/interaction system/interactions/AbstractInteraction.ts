@@ -17,7 +17,7 @@ export abstract class AbstractInteraction {
     }
 
     public makeUnavailable(){
-        InteractionManager.instance.removeAvailableInteraction();
+        InteractionManager.instance.removeAvailableInteraction(this);
     }
 
     public abstract executeInteraction(): void;

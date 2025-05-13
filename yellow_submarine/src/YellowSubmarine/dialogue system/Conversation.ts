@@ -1,9 +1,12 @@
 ﻿import {Observable} from "@babylonjs/core";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
+import {NPC} from "@/YellowSubmarine/NPC";
 
 
 export class Conversation {
+
+    private _npc?: NPC;
 
     public onDialogueStart: Observable<AbstractDialogueNode> = new Observable();
     public onConversationStart: Observable<Conversation> = new Observable();
@@ -12,6 +15,14 @@ export class Conversation {
     private _nextInteraction: NextDialogueInteraction = new NextDialogueInteraction(this);
     private _currentNode: AbstractDialogueNode | undefined = undefined;
     private _rootNode: AbstractDialogueNode | undefined = undefined;
+
+    public get npc(): NPC | undefined{
+        return this._npc;
+    }
+
+    public set npc(npc: NPC | undefined) {
+        this._npc = npc;
+    }
 
     public get root(){
         return this._rootNode;
@@ -44,6 +55,9 @@ export class Conversation {
         }
     }
 
+    public get currentDialogue(): AbstractDialogueNode | undefined{
+        return this._currentNode;
+    }
 
 
 }

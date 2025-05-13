@@ -38,7 +38,7 @@ export class Game{
         this._playerCamera = new PlayerCamera();
         this._world = new World();
         this._player = new Player();
-        this._uiManager = new UIManager(this._world.submarine.mesh);
+        this._uiManager = new UIManager();
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 _canvas.requestPointerLock();

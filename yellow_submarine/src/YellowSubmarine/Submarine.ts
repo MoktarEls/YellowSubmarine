@@ -33,29 +33,11 @@ export class Submarine {
     private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
     private _submarineCamera!: PlayerCamera;
+    public meshCreationPromise: Promise<AbstractMesh>;
 
     constructor() {
         Submarine._instance = this;
-        this.createMesh(Game.scene).then(() => {
-
-            const detectionZone = new SphericDetectionZone(10, true);
-            detectionZone.zone.position = new Vector3(0, 0, 20);
-            detectionZone.addMeshToDetect(this.mesh);
-
-            const conversation = new Conversation();
-            const dialog1 = new SimpleDialogueNode();
-            dialog1.text = "Salut !";
-            const dialog2 = new SimpleDialogueNode();
-            dialog2.text = "c 10 balle";
-
-            dialog1.nextNode = dialog2;
-            conversation.root = dialog1;
-
-            const start = new StartConversationInteraction(conversation);
-            detectionZone.onMeshEnter.add( () => start.makeAvailable());
-            detectionZone.onMeshExit.add(() => start.makeUnavailable());
-
-        });
+        this.meshCreationPromise = this.createMesh(Game.scene);
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(Game.engine.getDeltaTime() / 1000);
         })
@@ -68,6 +50,7 @@ export class Submarine {
         this._mesh.position = new Vector3(0, 0, 0);
         this._mesh.material = new StandardMaterial("submarineMaterial", scene);
         PlayerCamera.instance.followMesh(this._mesh);
+        return this._mesh;
         // mesh.material = new CartoonShaderMaterial().shaderMaterial;
     }
 

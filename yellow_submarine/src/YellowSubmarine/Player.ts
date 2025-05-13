@@ -28,7 +28,6 @@ export class Player {
 
     constructor() {
         Player._instance = this;
-        PlayerCamera.instance.followMesh(World.submarine.mesh);
         Player.registerKeyboardInputs();
         Player.registerMouseMovementInputs();
         Player.registerInteractionActivation();

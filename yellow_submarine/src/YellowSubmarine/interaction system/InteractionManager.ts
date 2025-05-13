@@ -35,17 +35,18 @@ export class InteractionManager{
     public addAvailableInteraction(interaction: AbstractInteraction){
         this._interactionArray.push(interaction);
         this._currentInteraction = interaction;
-        console.log(interaction);
+        this.onInteractionAvailable.notifyObservers(interaction);
     }
 
-    public removeAvailableInteraction(){
-        this._interactionArray.pop();
+    public removeAvailableInteraction(interaction: AbstractInteraction){
+        this._interactionArray.splice(this._interactionArray.indexOf(interaction), 1);
 
         if(this._interactionArray.length > 0){
             this._currentInteraction = this._interactionArray[this._interactionArray.length - 1];
         } else {
             this._currentInteraction = undefined;
         }
+        this.onInteractionUnavailable.notifyObservers(interaction);
     }
 
     public get currentInteraction(): AbstractInteraction | undefined{

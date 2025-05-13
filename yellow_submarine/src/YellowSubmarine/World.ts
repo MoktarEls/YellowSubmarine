@@ -1,6 +1,7 @@
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
+import {NPC} from "@/YellowSubmarine/NPC";
 
 export class World {
     private _sky: Sky;
@@ -27,6 +28,7 @@ export class World {
         this._sky = new Sky();
         this._sea = new Sea();
         this._submarine = new Submarine();
+        const npc = new NPC();
         // TODO : Islands
 
     }

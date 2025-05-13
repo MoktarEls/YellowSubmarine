@@ -3,12 +3,15 @@ import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 
 export class NextDialogueInteraction extends AbstractInteraction{
 
+    public get conversation(){
+        return this._conversation;
+    }
+
     constructor(private _conversation:Conversation) {
         super("Space");
     }
 
     executeInteraction(): void {
-        console.log("Next !");
         this._conversation.next();
     }
 
