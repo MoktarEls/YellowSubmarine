@@ -13,6 +13,10 @@ export class Sky{
         return this._instance;
     }
 
+    public static get sun(){
+        return this._instance._sun;
+    }
+
     constructor() {
         Sky._instance = this;
         // TODO : Add moon and daynight cycle

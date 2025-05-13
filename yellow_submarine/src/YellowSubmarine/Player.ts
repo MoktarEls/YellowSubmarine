@@ -8,48 +8,47 @@ type CameraRotationInfo = {movementX: number, movementY: number};
 export class Player {
 
     private static _instance: Player;
-    private _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
+    private static _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
 
     public static get instance() {
         return this._instance;
     }
 
-    public get onCameraRotationObservable(){
+    public static get onCameraRotationObservable(){
         return this._onCameraRotationObservable;
     }
 
-    private _isForwardPressed = false;
-    private _isBackwardPressed = false;
-    private _isLeftPressed = false;
-    private _isRightPressed = false;
+    private static _isForwardPressed = false;
+    private static _isBackwardPressed = false;
+    private static _isLeftPressed = false;
+    private static _isRightPressed = false;
 
-    private _playerCamera: PlayerCamera;
+    private static _playerCamera: PlayerCamera;
 
     constructor() {
         Player._instance = this;
-        this._playerCamera = new PlayerCamera();
-        this._playerCamera.followMesh(World.submarine.mesh);
-        this.registerKeyboardInputs();
-        this.registerMouseMovementInputs();
+        PlayerCamera.instance.followMesh(World.submarine.mesh);
+        Player.registerKeyboardInputs();
+        Player.registerMouseMovementInputs();
     }
 
-    public isMoveForwardPressed(): boolean {
+    public static isMoveForwardPressed(): boolean {
         return this._isForwardPressed;
     }
 
-    public isMoveBackwardPressed(): boolean {
+    public static isMoveBackwardPressed(): boolean {
         return this._isBackwardPressed;
     }
 
-    public isTurnLeftPressed(): boolean {
+    public static isTurnLeftPressed(): boolean {
         return this._isLeftPressed;
     }
 
-    public isTurnRightPressed(): boolean {
+    public static isTurnRightPressed(): boolean {
         return this._isRightPressed;
     }
 
-    private registerKeyboardInputs(){
+    private static registerKeyboardInputs(){
         const scene = Game.scene;
         scene.onKeyboardObservable.add( (eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
@@ -68,7 +67,7 @@ export class Player {
         } );
     }
 
-    private registerMouseMovementInputs() {
+    private static registerMouseMovementInputs() {
         const scene = Game.scene;
         scene.onPointerObservable.add((pointerInfo) => {
 

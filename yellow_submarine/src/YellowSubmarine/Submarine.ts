@@ -6,7 +6,7 @@ import {Player} from "@/YellowSubmarine/Player";
 
 export class Submarine {
 
-    public get mesh(): Mesh {
+    public get mesh(): Mesh |  null{
         return this._mesh;
     }
 
@@ -15,7 +15,7 @@ export class Submarine {
     }
 
     private static _instance: Submarine;
-    private _mesh! : Mesh;
+    private _mesh : Mesh | null = null;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -41,6 +41,7 @@ export class Submarine {
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);
         this._mesh.material = new StandardMaterial("submarineMaterial", scene);
+        PlayerCamera.instance.followMesh(this._mesh);
         // mesh.material = new CartoonShaderMaterial().shaderMaterial;
     }
 
@@ -76,27 +77,31 @@ export class Submarine {
     }
 
     private updateRotation(deltaTimeInSec: number) {
-        this.mesh.rotateAround(this.mesh.position, Vector3.Up(), deltaTimeInSec * this._currentRotationSpeed);
+        if(this.mesh !== null){
+            this.mesh.rotateAround(this.mesh.position, Vector3.Up(), deltaTimeInSec * this._currentRotationSpeed);
+        }
     }
 
     private updatePosition(deltaTimeInSec: number) {
-        this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
+        if(this.mesh !== null){
+            this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
+        }
     }
 
     private isForwardPressed() {
-        return Player.instance.isMoveForwardPressed();
+        return Player.isMoveForwardPressed();
     }
 
     private isBackwardPressed() {
-        return Player.instance.isMoveBackwardPressed();
+        return Player.isMoveBackwardPressed();
     }
 
     private isRightPressed() {
-        return Player.instance.isTurnRightPressed();
+        return Player.isTurnRightPressed();
     }
 
     private isLeftPressed() {
-        return Player.instance.isTurnLeftPressed();
+        return Player.isTurnLeftPressed();
     }
 
 

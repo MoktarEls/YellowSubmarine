@@ -4,6 +4,12 @@ import {Player} from "@/YellowSubmarine/Player";
 
 export class PlayerCamera {
 
+    private static _instance: PlayerCamera;
+
+    public static get instance(): PlayerCamera {
+        return this._instance;
+    }
+
     private get arcRotateCamera(): ArcRotateCamera {
         return this._arcRotateCamera;
     }
@@ -26,6 +32,7 @@ export class PlayerCamera {
         private _verticalSensitivity = 5,
         private _cameraRotationLerpFactor = 20,
     ) {
+        PlayerCamera._instance = this;
         this._arcRotateCamera = new ArcRotateCamera("submarineCamera", _currentWantedAlpha, Angle.FromDegrees(_currentWantedBeta).radians(), _wantedRadius, Vector3.Zero());
         this.setWantedRadius(this._wantedRadius);
         this.setWantedAlpha(this._currentWantedAlpha);
@@ -48,7 +55,7 @@ export class PlayerCamera {
     }
 
     private enableCameraRotation() {
-        Player.instance.onCameraRotationObservable.add((eventData) => {
+        Player.onCameraRotationObservable.add((eventData) => {
             this._currentWantedAlpha = Scalar.LerpAngle(this._currentWantedAlpha, this._currentWantedAlpha - eventData.movementX * this._horizontalSensitivity, 1);
             this._currentWantedBeta = Scalar.LerpAngle(this._currentWantedBeta, this._currentWantedBeta - eventData.movementY * this._verticalSensitivity, 1);
             this._currentWantedBeta = Scalar.Clamp(this._currentWantedBeta, this._currentLowerBetaLimit, this._currentUpperBetaLimit);
@@ -57,7 +64,7 @@ export class PlayerCamera {
 
 
     private registerUpdate() {
-        Game.scene.onBeforeRenderObservable.add( (eventData) => {
+        Game.scene.onBeforeRenderObservable.add( () => {
             this.updateSubmarineCamera(Game.engine.getDeltaTime() / 1000);
         });
     }
@@ -75,8 +82,13 @@ export class PlayerCamera {
     }
 
     private getFinalTargetPosition(){
-        const submarinePosition = this._followTarget == null ? this._arcRotateCamera.target : this._followTarget.position;
-        return submarinePosition.add(this._localOffset.rotateByQuaternionAroundPointToRef(this.getCameraRotation(), Vector3.Zero(), Vector3.Zero()));
+        if(this._followTarget != null){
+            const submarinePosition = this._followTarget.position;
+            return submarinePosition.add(this._localOffset.rotateByQuaternionAroundPointToRef(this.getCameraRotation(), Vector3.Zero(), Vector3.Zero()));
+        }
+        else{
+            return this.arcRotateCamera.target;
+        }
     }
 
     private followSubmarine() {
