@@ -18,7 +18,6 @@ export default defineComponent({
       const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
       Engine.ShadersRepository = "../shaders/";
       const game = new Game(canvas);
-      game.init();
   },
 });
 </script>
