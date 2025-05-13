@@ -9,6 +9,7 @@ import {
     Vector3
 } from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class CelestialBody {
 
@@ -39,17 +40,11 @@ export abstract class CelestialBody {
         return new Color3(1.0, 1.0, 1.0);
     }
 
-    constructor(public _world: World){
-        this._bodyMesh = new Mesh("");
-        this._haloMesh = new Mesh("");
-        this._light = new DirectionalLight("", Vector3.Down());
-    }
-
-    public init(){
-        this._bodyMesh = this.createBody(this._world.scene);
-        this._haloMesh = this.createHalo(this._world.scene);
-        this._light = this.createLight(this._world.scene);
-        this.configMaterials(this._world.scene);
+    constructor(){
+        this._bodyMesh = this.createBody(Game.scene);
+        this._haloMesh = this.createHalo(Game.scene);
+        this._light = this.createLight(Game.scene);
+        this.configMaterials(Game.scene);
     }
 
     private createBody(scene: Scene) : Mesh{

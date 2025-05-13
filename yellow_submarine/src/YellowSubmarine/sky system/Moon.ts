@@ -36,7 +36,7 @@ export class Moon extends HemisphericCelestialBody {
         return new Color3(1.0, 1.0, 1.0);
     }
 
-    constructor(_world: World) {
-        super(_world);
+    constructor() {
+        super();
     }
 }

@@ -1,6 +1,7 @@
 import {CelestialBody} from "@/YellowSubmarine/sky system/CelestialBody";
 import {Color3, HemisphericLight, Scene, Vector3} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class HemisphericCelestialBody extends CelestialBody{
 
@@ -10,23 +11,22 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
         return new Color3(1.0, 1.0, 1.0);
     }
 
+    public getPosition(){
+        return this._bodyMesh.position;
+    }
+
     public get _direction(): Vector3{
-        if(this._world.scene.activeCamera){
-            this.light.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
-            this._hemiLight.direction = this._bodyMesh.position.subtract(this._world.scene.activeCamera.position).normalize();
+        if(Game.scene.activeCamera){
+            this.light.direction = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
+            this._hemiLight.direction = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
         }
         return this.light.direction;
     }
 
-    constructor(_world: World) {
-        super(_world);
-        this._hemiLight = new HemisphericLight("", Vector3.Down());
-    }
-
-    public init(){
-        super.init();
-        this._hemiLight = this.createHemiLight(this._world.scene);
-        this.configMaterials(this._world.scene);
+    constructor() {
+        super();
+        this._hemiLight = this.createHemiLight(Game.scene);
+        this.configMaterials(Game.scene);
     }
 
     private createHemiLight(scene: Scene) : HemisphericLight{

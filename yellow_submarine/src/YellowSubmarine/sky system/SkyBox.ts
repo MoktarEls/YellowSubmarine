@@ -5,6 +5,7 @@ import {
     MeshBuilder,
     ShaderMaterial
 } from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 
 export class SkyBox {

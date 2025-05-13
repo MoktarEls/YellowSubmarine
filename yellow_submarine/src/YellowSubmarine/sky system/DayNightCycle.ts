@@ -15,7 +15,7 @@ export class DayNightCycle {
 
         let time = 0;
 
-        sky._world.scene.onBeforeRenderObservable.add(() => {
+        Game.scene.onBeforeRenderObservable.add(() => {
             time += Game.engine.getDeltaTime() * 0.00001;
             if (time > 1) time = 0;
 
