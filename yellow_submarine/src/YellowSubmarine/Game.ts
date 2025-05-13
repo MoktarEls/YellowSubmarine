@@ -3,6 +3,7 @@ import {Engine, Scene} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
 export class Game{
 
@@ -15,6 +16,7 @@ export class Game{
     private _isPointerLocked = false;
     private _playerCamera: PlayerCamera;
     private _interactionManager: InteractionManager;
+    private _uiManager: UIManager;
 
     public static get engine(): Engine {
         return Game._instance._engine;
@@ -22,6 +24,10 @@ export class Game{
 
     public static get scene(): Scene {
         return Game._instance._scene;
+    }
+
+    public static get uiManager(): UIManager {
+        return Game._instance._uiManager;
     }
 
     constructor(private _canvas: HTMLCanvasElement) {
@@ -32,6 +38,7 @@ export class Game{
         this._playerCamera = new PlayerCamera();
         this._world = new World();
         this._player = new Player();
+        this._uiManager = new UIManager(this._world.submarine.mesh);
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 _canvas.requestPointerLock();
