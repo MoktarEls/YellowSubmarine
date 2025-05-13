@@ -10,6 +10,7 @@ export class InteractionManager{
         return this._instance;
     }
 
+    private _interactionArray: Array<AbstractInteraction> = new Array<AbstractInteraction>();
     private _currentInteraction?: AbstractInteraction;
 
     public onInteractionAvailable: Observable<AbstractInteraction>;
@@ -32,12 +33,19 @@ export class InteractionManager{
     }
 
     public addAvailableInteraction(interaction: AbstractInteraction){
+        this._interactionArray.push(interaction);
         this._currentInteraction = interaction;
         console.log(interaction);
     }
 
     public removeAvailableInteraction(){
-        this._currentInteraction = undefined;
+        this._interactionArray.pop();
+
+        if(this._interactionArray.length > 0){
+            this._currentInteraction = this._interactionArray[this._interactionArray.length - 1];
+        } else {
+            this._currentInteraction = undefined;
+        }
     }
 
     public get currentInteraction(): AbstractInteraction | undefined{
