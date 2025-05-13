@@ -5,6 +5,11 @@ import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 import {LoggerInteraction} from "@/YellowSubmarine/interaction system/interactions/LoggerInteraction";
+import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
+import {
+    StartConversationInteraction
+} from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 
 export class Submarine {
 
@@ -31,7 +36,26 @@ export class Submarine {
 
     constructor() {
         Submarine._instance = this;
-        this.createMesh(Game.scene);
+        this.createMesh(Game.scene).then(() => {
+
+            const detectionZone = new SphericDetectionZone(10, true);
+            detectionZone.zone.position = new Vector3(0, 0, 20);
+            detectionZone.addMeshToDetect(this.mesh);
+
+            const conversation = new Conversation();
+            const dialog1 = new SimpleDialogueNode();
+            dialog1.text = "Salut !";
+            const dialog2 = new SimpleDialogueNode();
+            dialog2.text = "c 10 balle";
+
+            dialog1.nextNode = dialog2;
+            conversation.root = dialog1;
+
+            const start = new StartConversationInteraction(conversation);
+            detectionZone.onMeshEnter.add( () => start.makeAvailable());
+            detectionZone.onMeshExit.add(() => start.makeUnavailable());
+
+        });
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(Game.engine.getDeltaTime() / 1000);
         })

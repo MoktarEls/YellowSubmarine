@@ -1,8 +1,6 @@
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
-import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
-import {Vector3} from "@babylonjs/core";
 
 export class World {
     private _sky: Sky;

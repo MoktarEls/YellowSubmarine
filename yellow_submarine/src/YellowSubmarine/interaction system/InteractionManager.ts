@@ -33,6 +33,7 @@ export class InteractionManager{
 
     public addAvailableInteraction(interaction: AbstractInteraction){
         this._currentInteraction = interaction;
+        console.log(interaction);
     }
 
     public removeAvailableInteraction(){
