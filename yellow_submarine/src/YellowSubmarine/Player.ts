@@ -1,5 +1,7 @@
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes, Observable} from "@babylonjs/core";
+import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
+import {World} from "@/YellowSubmarine/World";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
@@ -21,8 +23,12 @@ export class Player {
     private _isLeftPressed = false;
     private _isRightPressed = false;
 
+    private _playerCamera: PlayerCamera;
+
     constructor() {
         Player._instance = this;
+        this._playerCamera = new PlayerCamera();
+        this._playerCamera.followMesh(World.submarine.mesh);
         this.registerKeyboardInputs();
         this.registerMouseMovementInputs();
     }

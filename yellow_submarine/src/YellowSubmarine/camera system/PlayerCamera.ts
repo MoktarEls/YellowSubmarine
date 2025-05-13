@@ -39,10 +39,6 @@ export class PlayerCamera {
         this._followTarget = followTarget;
     }
 
-    public stopFollowingMesh(){
-        this._followTarget = null;
-    }
-
     private getCameraRotation(): Quaternion{
         const forwardAxis = this._arcRotateCamera.getFrontPosition(1);
         forwardAxis.y = 0;
