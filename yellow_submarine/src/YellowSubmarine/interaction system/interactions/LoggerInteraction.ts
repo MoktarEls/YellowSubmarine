@@ -3,7 +3,7 @@ import {AbstractInteraction} from "@/YellowSubmarine/interaction system/interact
 export class LoggerInteraction extends AbstractInteraction {
 
     constructor(private _msg: string) {
-        super("l");
+        super("KeyL");
     }
 
     executeInteraction(): void {

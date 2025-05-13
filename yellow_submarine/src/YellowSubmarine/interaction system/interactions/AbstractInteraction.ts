@@ -2,11 +2,11 @@ import {InteractionManager} from "@/YellowSubmarine/interaction system/Interacti
 
 export abstract class AbstractInteraction {
 
-    public get key(): string {
-        return this._key;
+    public get code(): string {
+        return this._code;
     }
 
-    constructor(private _key: string) {}
+    constructor(private _code: string) {}
 
     public makeAvailable(){
         InteractionManager.instance.addAvailableInteraction(this);

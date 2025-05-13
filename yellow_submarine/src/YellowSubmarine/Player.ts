@@ -82,11 +82,11 @@ export class Player {
 
     private static registerInteractionActivation() {
         InteractionManager.instance.onInteractionAvailable.add( (interaction) => {
-            console.log("Interaction available : " + interaction.key);
+            console.log("Interaction available : " + interaction.code);
         });
 
         InteractionManager.instance.onInteractionUnavailable.add( (interaction) => {
-            console.log("Interaction unavailable : " + interaction.key);
+            console.log("Interaction unavailable : " + interaction.code);
         });
     }
 }

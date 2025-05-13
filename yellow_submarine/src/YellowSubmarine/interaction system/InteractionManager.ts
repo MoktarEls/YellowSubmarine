@@ -24,7 +24,7 @@ export class InteractionManager{
             if(
                 eventData.type === KeyboardEventTypes.KEYDOWN &&
                 this._currentInteraction &&
-                eventData.event.key === this._currentInteraction.key
+                eventData.event.code === this._currentInteraction.code
             ) {
                 this.executeInteraction();
             }
