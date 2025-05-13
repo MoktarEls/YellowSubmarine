@@ -2,6 +2,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes, Observable} from "@babylonjs/core";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {World} from "@/YellowSubmarine/World";
+import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
@@ -30,6 +31,7 @@ export class Player {
         PlayerCamera.instance.followMesh(World.submarine.mesh);
         Player.registerKeyboardInputs();
         Player.registerMouseMovementInputs();
+        Player.registerInteractionActivation();
     }
 
     public static isMoveForwardPressed(): boolean {
@@ -76,5 +78,15 @@ export class Player {
             const movementY = event.movementY/window.screen.height;
             this._onCameraRotationObservable.notifyObservers({movementX, movementY});
         })
+    }
+
+    private static registerInteractionActivation() {
+        InteractionManager.instance.onInteractionAvailable.add( (interaction) => {
+            console.log("Interaction available : " + interaction.key);
+        });
+
+        InteractionManager.instance.onInteractionUnavailable.add( (interaction) => {
+            console.log("Interaction unavailable : " + interaction.key);
+        });
     }
 }

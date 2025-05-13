@@ -4,6 +4,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
+import {LoggerInteraction} from "@/YellowSubmarine/interaction system/interactions/LoggerInteraction";
 
 export class Submarine {
 

@@ -2,6 +2,7 @@ import {World} from "@/YellowSubmarine/World";
 import {Engine, Scene} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
+import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
 export class Game{
 
@@ -13,6 +14,7 @@ export class Game{
     private _player: Player;
     private _isPointerLocked = false;
     private _playerCamera: PlayerCamera;
+    private _interactionManager: InteractionManager;
 
     public static get engine(): Engine {
         return Game._instance._engine;
@@ -26,6 +28,7 @@ export class Game{
         Game._instance = this;
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
+        this._interactionManager = new InteractionManager();
         this._playerCamera = new PlayerCamera();
         this._world = new World();
         this._player = new Player();
