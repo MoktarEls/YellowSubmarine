@@ -1,12 +1,13 @@
-import {Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
+import {AbstractMesh, Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
+import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 
 export class Submarine {
 
-    public get mesh(): Mesh |  null{
+    public get mesh(): AbstractMesh{
         return this._mesh;
     }
 
@@ -15,7 +16,7 @@ export class Submarine {
     }
 
     private static _instance: Submarine;
-    private _mesh : Mesh | null = null;
+    private _mesh !: AbstractMesh;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -77,13 +78,13 @@ export class Submarine {
     }
 
     private updateRotation(deltaTimeInSec: number) {
-        if(this.mesh !== null){
+        if(this.mesh){
             this.mesh.rotateAround(this.mesh.position, Vector3.Up(), deltaTimeInSec * this._currentRotationSpeed);
         }
     }
 
     private updatePosition(deltaTimeInSec: number) {
-        if(this.mesh !== null){
+        if(this.mesh){
             this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
         }
     }
