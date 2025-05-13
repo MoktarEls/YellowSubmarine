@@ -1,4 +1,3 @@
-import {World} from "@/YellowSubmarine/World";
 import {
     Color3,
     Mesh,
