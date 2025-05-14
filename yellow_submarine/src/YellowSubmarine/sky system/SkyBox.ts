@@ -1,8 +1,8 @@
 import {
-    Color3,
+    Color3, CubeTexture,
     Mesh,
     MeshBuilder,
-    ShaderMaterial
+    ShaderMaterial, StandardMaterial, Texture
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
@@ -20,6 +20,25 @@ export class SkyBox {
         this._mesh.infiniteDistance = true;
         this._mesh.isPickable = false;
 
+        const material = new StandardMaterial("skyBoxMaterial", Game.scene);
+
+        material.backFaceCulling = false;
+        material.disableLighting = true;
+
+        material.reflectionTexture = CubeTexture.CreateFromImages([
+            "/textures/skybox/px.png",
+            "/textures/skybox/pz.png",
+            "/textures/skybox/py.png",
+            "/textures/skybox/nx.png",
+            "/textures/skybox/nz.png",
+            "/textures/skybox/ny.png"
+        ], Game.scene);
+
+        material.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+        this._mesh.material = material;
+
+
+/*
         const material = new ShaderMaterial("skyShader", Game.scene, {
             vertex: "sky",
             fragment: "sky",
@@ -45,7 +64,7 @@ export class SkyBox {
             const timeOfDay = (time % secondsInCycle) / secondsInCycle;
             material.setFloat("timeOfDay", timeOfDay);
         });
-
+*/
     }
 
     private initColors(material: ShaderMaterial): void {
