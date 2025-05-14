@@ -4,8 +4,9 @@ import {AbstractMesh} from "@babylonjs/core";
 
 export class StartConversationInteraction extends WorldInteraction{
 
-    public get conversation(): Conversation{
-        return this._conversation;
+
+    public get description(): string {
+        return `Talk to ${this._conversation.npc?.name}`;
     }
 
     constructor(private _conversation: Conversation) {
@@ -14,6 +15,7 @@ export class StartConversationInteraction extends WorldInteraction{
 
     executeInteraction(): void {
         this._conversation.startConversation();
+        this.makeUnavailable();
     }
 
     get mesh(): AbstractMesh | undefined {

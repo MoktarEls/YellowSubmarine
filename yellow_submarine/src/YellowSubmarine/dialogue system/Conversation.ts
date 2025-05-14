@@ -62,8 +62,8 @@ export class Conversation {
         }
     }
 
-    public get currentDialogue(): AbstractDialogueNode | undefined{
-        return this._currentNode;
+    public isInProgress(): boolean {
+        return !!this._currentNode;
     }
 
 

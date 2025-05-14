@@ -17,7 +17,7 @@ export class NPC{
     private _name = "BOB";
     private _mesh: AbstractMesh;
     private _conversation?: Conversation;
-    private _conversationInteraction?: StartConversationInteraction;
+    private _startConversationInteraction?: StartConversationInteraction;
     private _playerDetectionZone: MeshDetectionZone;
 
     constructor() {
@@ -31,13 +31,13 @@ export class NPC{
         this._playerDetectionZone = new SphericDetectionZone(3, true);
         this._playerDetectionZone.zone.parent = this._mesh;
         this._playerDetectionZone.onMeshEnter.add( () => {
-            if(this._conversationInteraction){
-                this._conversationInteraction.makeAvailable();
+            if(this._startConversationInteraction && !this._conversation?.isInProgress()){
+                this._startConversationInteraction.makeAvailable();
             }
         } );
         this._playerDetectionZone.onMeshExit.add( () => {
-            if(this._conversationInteraction){
-                this._conversationInteraction.makeUnavailable();
+            if(this._startConversationInteraction){
+                this._startConversationInteraction.makeUnavailable();
             }
         } );
         World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
@@ -70,12 +70,12 @@ export class NPC{
 
     public set conversation(conversation: Conversation | undefined) {
         if(conversation !== undefined) {
-            this._conversationInteraction = new StartConversationInteraction(conversation);
+            this._startConversationInteraction = new StartConversationInteraction(conversation);
             this._conversation = conversation;
             this._conversation.npc = this;
         }
         else{
-            this._conversationInteraction = undefined;
+            this._startConversationInteraction = undefined;
             if(this._conversation){
                 this._conversation.npc = undefined;
             }

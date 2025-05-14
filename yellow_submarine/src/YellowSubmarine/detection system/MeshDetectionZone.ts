@@ -22,7 +22,8 @@ export class MeshDetectionZone {
     }
 
     public addMeshToDetect(mesh : AbstractMesh) : void {
-        this._meshToDetect.set(mesh, this.checkDetection(mesh))
+        this._meshToDetect.set(mesh, false);
+        this.checkAll();
     }
 
     private checkDetection(mesh : AbstractMesh) : boolean {

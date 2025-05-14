@@ -14,7 +14,7 @@ export class DialogueInteractionUI extends UI<DialogueInteraction> {
         Conversation.onAnyDialogueStart.add((dialog) => this._textBlock.text = dialog.text);
     }
 
-    get controlNode(): Control {
+    public get controlNode(): Control {
         return this._textBlock;
     }
 

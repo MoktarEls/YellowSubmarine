@@ -3,6 +3,8 @@ import {AbstractMesh} from "@babylonjs/core";
 
 export abstract class WorldInteraction extends AbstractInteraction{
 
+    public abstract get description(): string
+
     public abstract get mesh():AbstractMesh | undefined;
 
 }

@@ -39,18 +39,19 @@ export class InteractionManager{
     }
 
     public removeAvailableInteraction(interaction: AbstractInteraction){
+        if(!this._interactionArray.includes(interaction)){
+            return;
+        }
+
         this._interactionArray.splice(this._interactionArray.indexOf(interaction), 1);
 
         if(this._interactionArray.length > 0){
+            console.log("Rearranging interactions")
             this._currentInteraction = this._interactionArray[this._interactionArray.length - 1];
         } else {
             this._currentInteraction = undefined;
         }
         this.onInteractionUnavailable.notifyObservers(interaction);
-    }
-
-    public get currentInteraction(): AbstractInteraction | undefined{
-        return this._currentInteraction;
     }
 
     public executeInteraction(){
