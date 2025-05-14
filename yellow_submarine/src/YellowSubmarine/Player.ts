@@ -1,15 +1,15 @@
 import {Game} from "@/YellowSubmarine/Game";
-import {KeyboardEventTypes, Observable} from "@babylonjs/core";
+import {KeyboardEventTypes, KeyboardInfo, Observable} from "@babylonjs/core";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
-import {World} from "@/YellowSubmarine/World";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
 export class Player {
 
+
     private static _instance: Player;
     private static _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
+    private static _onPlayerPressedAKey: Observable<KeyboardInfo> = new Observable();
 
     public static get instance() {
         return this._instance;
@@ -17,6 +17,10 @@ export class Player {
 
     public static get onCameraRotationObservable(){
         return this._onCameraRotationObservable;
+    }
+
+    public static get onPlayerPressedAKey(): Observable<KeyboardInfo> {
+        return this._onPlayerPressedAKey;
     }
 
     private static _isForwardPressed = false;
@@ -30,7 +34,6 @@ export class Player {
         Player._instance = this;
         Player.registerKeyboardInputs();
         Player.registerMouseMovementInputs();
-        Player.registerInteractionActivation();
     }
 
     public static isMoveForwardPressed(): boolean {
@@ -52,18 +55,21 @@ export class Player {
     private static registerKeyboardInputs(){
         const scene = Game.scene;
         scene.onKeyboardObservable.add( (eventData) => {
-            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if(eventData.event.key === "z"){
-                this._isForwardPressed = state;
-            }
-            else if(eventData.event.key === "s"){
-                this._isBackwardPressed = state;
-            }
-            else if(eventData.event.key === "q"){
-                this._isLeftPressed = state;
-            }
-            else if(eventData.event.key === "d"){
-                this._isRightPressed = state;
+            if(Game.isGameFocused){
+                const state = eventData.type === KeyboardEventTypes.KEYDOWN;
+                if(eventData.event.key === "z"){
+                    this._isForwardPressed = state;
+                }
+                else if(eventData.event.key === "s"){
+                    this._isBackwardPressed = state;
+                }
+                else if(eventData.event.key === "q"){
+                    this._isLeftPressed = state;
+                }
+                else if(eventData.event.key === "d"){
+                    this._isRightPressed = state;
+                }
+                this.onPlayerPressedAKey.notifyObservers(eventData);
             }
         } );
     }
@@ -71,21 +77,13 @@ export class Player {
     private static registerMouseMovementInputs() {
         const scene = Game.scene;
         scene.onPointerObservable.add((pointerInfo) => {
-
-            const event = pointerInfo.event as PointerEvent;
-            const movementX = event.movementX/window.screen.width;
-            const movementY = event.movementY/window.screen.height;
-            this._onCameraRotationObservable.notifyObservers({movementX, movementY});
+            if(Game.isGameFocused){
+                const event = pointerInfo.event as PointerEvent;
+                const movementX = event.movementX/window.screen.width;
+                const movementY = event.movementY/window.screen.height;
+                this._onCameraRotationObservable.notifyObservers({movementX, movementY});
+            }
         })
     }
 
-    private static registerInteractionActivation() {
-        InteractionManager.instance.onInteractionAvailable.add( (interaction) => {
-            console.log("Interaction available : " + interaction.code);
-        });
-
-        InteractionManager.instance.onInteractionUnavailable.add( (interaction) => {
-            console.log("Interaction unavailable : " + interaction.code);
-        });
-    }
 }

@@ -1,5 +1,5 @@
 import {World} from "@/YellowSubmarine/World";
-import {Engine, Scene} from "@babylonjs/core";
+import {Engine, Observable, Scene} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
@@ -9,11 +9,13 @@ export class Game{
 
     private static _instance: Game;
 
+    public static onGameFocusChange: Observable<boolean> = new Observable<boolean>();
+
     private _scene: Scene;
     private _engine: Engine;
     private _world: World;
     private _player: Player;
-    private _isPointerLocked = false;
+    private _isGameFocused = false;
     private _playerCamera: PlayerCamera;
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
@@ -30,6 +32,10 @@ export class Game{
         return Game._instance._uiManager;
     }
 
+    public static get isGameFocused(): boolean {
+        return Game._instance._isGameFocused;
+    }
+
     constructor(private _canvas: HTMLCanvasElement) {
         Game._instance = this;
         this._engine = new Engine(this._canvas);
@@ -41,16 +47,25 @@ export class Game{
         this._uiManager = new UIManager();
         if (_canvas) {
             _canvas.addEventListener("click", () => {
-                _canvas.requestPointerLock();
+                if(!this._isGameFocused) {
+                    _canvas.requestPointerLock();
+                }
             });
             document.addEventListener("pointerlockchange", () => {
-                this._isPointerLocked = document.pointerLockElement === _canvas;
+                this.updateFocusState(document.pointerLockElement === _canvas);
             });
         }
         this._engine.runRenderLoop(() => {
             this._scene.render();
         })
         window.addEventListener("resize", () => this._engine.resize() );
+    }
+
+    private updateFocusState(state: boolean) {
+        if(state != this._isGameFocused){
+            this._isGameFocused = state;
+            Game.onGameFocusChange.notifyObservers(this._isGameFocused);
+        }
     }
 
 

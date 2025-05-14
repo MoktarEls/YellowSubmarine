@@ -1,6 +1,6 @@
 import {AbstractInteraction} from "@/YellowSubmarine/interaction system/interactions/AbstractInteraction";
 import {KeyboardEventTypes, Observable} from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
+import {Player} from "@/YellowSubmarine/Player";
 
 export class InteractionManager{
 
@@ -20,7 +20,7 @@ export class InteractionManager{
         InteractionManager._instance = this;
         this.onInteractionAvailable = new Observable<AbstractInteraction>();
         this.onInteractionUnavailable = new Observable<AbstractInteraction>();
-        Game.scene.onKeyboardObservable.add( (eventData) => {
+        Player.onPlayerPressedAKey.add( (eventData) => {
 
             if(
                 eventData.type === KeyboardEventTypes.KEYDOWN &&
