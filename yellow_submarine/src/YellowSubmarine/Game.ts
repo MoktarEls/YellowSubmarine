@@ -50,6 +50,7 @@ export class Game{
         this._engine.runRenderLoop(() => {
             this._scene.render();
         })
+        window.addEventListener("resize", () => this._engine.resize() );
     }
 
 
