@@ -8,6 +8,10 @@ export class Conversation {
 
     private _npc?: NPC;
 
+    public static onAnyDialogueStart:Observable<AbstractDialogueNode> = new Observable();
+    public static onAnyConversationStart: Observable<Conversation> = new Observable();
+    public static onAnyConversationEnd: Observable<Conversation> = new Observable();
+
     public onDialogueStart: Observable<AbstractDialogueNode> = new Observable();
     public onConversationStart: Observable<Conversation> = new Observable();
     public onConversationEnd: Observable<Conversation> = new Observable();
@@ -35,12 +39,14 @@ export class Conversation {
         this._currentNode = node;
         this._currentNode.execute();
         this.onDialogueStart.notifyObservers(node);
+        Conversation.onAnyDialogueStart.notifyObservers(node);
     }
 
     public startConversation(): void {
         this._currentNode = this.root;
-        this.enterNode(<AbstractDialogueNode>this._currentNode);
         this.onConversationStart.notifyObservers(this);
+        Conversation.onAnyConversationStart.notifyObservers(this);
+        this.enterNode(<AbstractDialogueNode>this._currentNode);
         this._nextInteraction.makeAvailable();
     }
 
@@ -52,6 +58,7 @@ export class Conversation {
             this._currentNode = undefined;
             this._nextInteraction.makeUnavailable();
             this.onConversationEnd.notifyObservers(this);
+            Conversation.onAnyConversationEnd.notifyObservers(this);
         }
     }
 
