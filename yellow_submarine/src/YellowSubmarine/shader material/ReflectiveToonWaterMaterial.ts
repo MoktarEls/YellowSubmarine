@@ -42,7 +42,7 @@ export class ReflectiveToonWaterMaterial {
 
         this._material.setVector4("depthShallowColor", new Vector4(0.325, 0.807, 0.971, 0.725));
         this._material.setVector4("depthDeepColor", new Vector4(0.086, 0.407, 1, 0.749));
-        this._material.setFloat("depthMaximumDistance", 40.0);
+        this._material.setFloat("depthMaximumDistance", 10.0);
         this._material.setTexture("linearDepthTexture", this._depthMap);
         this._material.setVector4("surfaceNoiseST", new Vector4(1, 4, 0, 0));
         this._material.setTexture("surfaceNoiseTexture", new Texture("/textures/PerlinNoise.png"));
