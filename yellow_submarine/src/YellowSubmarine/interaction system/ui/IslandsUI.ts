@@ -1,7 +1,5 @@
-﻿import {IslandInteraction} from "@/YellowSubmarine/interaction system/interactions/IslandInteraction";
-import {UI} from "@/YellowSubmarine/ui system/UI";
+﻿import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, TextBlock} from "@babylonjs/gui";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
 export class IslandsUI extends UI{
 
@@ -14,25 +12,30 @@ export class IslandsUI extends UI{
     constructor() {
         super();
         this._textBlock = new TextBlock();
-        InteractionManager.instance.onInteractionAvailable.add( (interaction) => {
-            if(interaction instanceof IslandInteraction) {
-                this.show(interaction);
-            }
-        })
     }
 
-    private show(interaction: IslandInteraction) {
+    public show(name: string, discovered: boolean) {
+
         this._textBlock.isVisible = true;
-        this._textBlock.text = interaction.name;
+        this._textBlock.text = name;
 
-        this._textBlock.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-        this._textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-        this._textBlock.paddingLeft = "20px";
-        this._textBlock.paddingBottom = "20px";
+        if(discovered) {
+            this._textBlock.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+            this._textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            this._textBlock.paddingLeft = "20px";
+            this._textBlock.paddingBottom = "20px";
+            this._textBlock.color = "white";
+            this._textBlock.fontSize = "24px";
+            this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 
-        this._textBlock.color = "white";
-        this._textBlock.fontSize = "24px";
-        this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+        } else {
+            this._textBlock.color = "white";
+            this._textBlock.fontSize = "48px";
+            this._textBlock.fontStyle = "bold";
+            this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+            this._textBlock.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+            this._textBlock.paddingTop = "30px";
+        }
 
         setTimeout(() => {
             this._textBlock.isVisible = false;

@@ -1,48 +1,43 @@
 ﻿import {AbstractMesh, Mesh, SceneLoader, StandardMaterial, Vector3,} from "@babylonjs/core";
-import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {Game} from "@/YellowSubmarine/Game";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 import {NPC} from "@/YellowSubmarine/NPC";
-import {IslandInteraction} from "@/YellowSubmarine/interaction system/interactions/IslandInteraction";
 import {World} from "@/YellowSubmarine/World";
+import {AbstractKeyZone} from "@/YellowSubmarine/KeyZone/AbstractKeyZone";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
-export class Island {
+export class Island extends AbstractKeyZone{
 
-    private _name = "Dolphin Island !";
     private _mesh!: AbstractMesh;
-    private _islandInteraction: IslandInteraction;
-    private _islandDetectionZone!: MeshDetectionZone;
     private _npc: NPC;
 
     constructor(){
 
+        super("Dolphin island",
+            false,
+            new SphericDetectionZone(20, true));
+
         this._npc = new NPC();
-        this._islandInteraction = new IslandInteraction(this._name);
 
         this.createMesh().then( () => {
-            this._islandDetectionZone = new SphericDetectionZone(20, true);
-            this._islandDetectionZone.zone.parent = this._mesh;
+            this._detectionZone.zone.parent = this._mesh;
 
-            this._islandDetectionZone.onMeshEnter.add( () => {
-                if(this._islandInteraction)
-                    this._islandInteraction.makeAvailable();
-            });
+            this.detectionZone.onMeshEnter.add( () => {
+                UIManager.instance.islandUI.show(this._name, this.discovered);
 
-            this._islandDetectionZone.onMeshExit.add( () => {
-                if(this._islandDetectionZone)
-                    this._islandInteraction.makeUnavailable();
+                if(!this._discovered){
+                    this._discovered = true;
+                }
+
             });
 
             World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
-                this._islandDetectionZone.addMeshToDetect(mesh);
+                this.detectionZone.addMeshToDetect(mesh);
             })
         });
 
     }
 
-    public get name(): string {
-        return this._name;
-    }
 
     public set name(value: string) {
         this._name = value;

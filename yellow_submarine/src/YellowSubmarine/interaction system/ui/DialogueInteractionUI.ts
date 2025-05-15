@@ -1,5 +1,4 @@
-﻿import {DialogueInteraction} from "@/YellowSubmarine/interaction system/interactions/DialogueInteraction";
-import {UI} from "@/YellowSubmarine/ui system/UI";
+﻿import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, TextBlock} from "@babylonjs/gui";
 import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 
