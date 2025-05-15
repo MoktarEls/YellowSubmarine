@@ -3,7 +3,7 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, TextBlock} from "@babylonjs/gui";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
-export class WorldInteractionUI extends UI<WorldInteraction>{
+export class WorldInteractionUI extends UI{
 
     private _textBlock: TextBlock;
 

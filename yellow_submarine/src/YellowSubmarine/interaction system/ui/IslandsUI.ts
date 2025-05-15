@@ -3,7 +3,7 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, TextBlock} from "@babylonjs/gui";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
-export class IslandsUI extends UI<IslandInteraction>{
+export class IslandsUI extends UI{
 
     private _textBlock: TextBlock;
 
