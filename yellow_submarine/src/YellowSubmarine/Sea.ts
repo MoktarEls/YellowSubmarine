@@ -19,8 +19,7 @@
                 },
                 Game.scene
             );
-            // this._groundMesh.material = ToonWaterAndProbeMaterial.material;
-            this._groundMesh.material = ReflectiveToonWaterMaterial.instance.material;
+            this._groundMesh.material = ReflectiveToonWaterMaterial.material;
         }
 
     }
