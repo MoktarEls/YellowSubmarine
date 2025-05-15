@@ -9,7 +9,7 @@ export class Sky{
     private static _instance: Sky;
 
     private _sun : Sun;
-    // private _moon : Moon;
+    private _moon : Moon;
     private _skybox : SkyBox;
     private _dayNightCycle: DayNightCycle;
 
@@ -20,7 +20,7 @@ export class Sky{
     constructor() {
         Sky._instance = this;
         this._sun = new Sun();
-        //this._moon = new Moon();
+        this._moon = new Moon();
         this._skybox = new SkyBox();
         this._dayNightCycle = new DayNightCycle(this);
     }
@@ -45,13 +45,13 @@ export class Sky{
         this._skybox = value;
     }
 
-/*    public get moon(): Moon {
+    public get moon(): Moon {
         return this._moon;
     }
 
     public set moon(value: Moon) {
         this._moon = value;
-    }*/
+    }
 
     public get dayNightCycle(): DayNightCycle {
         return this._dayNightCycle;
