@@ -1,6 +1,7 @@
     import {Mesh, MeshBuilder} from "@babylonjs/core";
     import {ToonWaterAndProbeMaterial} from "@/YellowSubmarine/shader material/ToonWaterAndProbeMaterial";
     import {Game} from "@/YellowSubmarine/Game";
+    import {ReflectiveToonWaterMaterial} from "@/YellowSubmarine/shader material/ReflectiveToonWaterMaterial";
 
     export class Sea {
 
@@ -18,7 +19,8 @@
                 },
                 Game.scene
             );
-            this._groundMesh.material = ToonWaterAndProbeMaterial.material;
+            // this._groundMesh.material = ToonWaterAndProbeMaterial.material;
+            this._groundMesh.material = ReflectiveToonWaterMaterial.instance.material;
         }
 
     }

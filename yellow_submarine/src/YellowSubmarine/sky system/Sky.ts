@@ -18,6 +18,7 @@ export class Sky{
     }
 
     constructor() {
+        Sky._instance = this;
         this._sun = new Sun();
         this._moon = new Moon();
         this._skybox = new SkyBox();

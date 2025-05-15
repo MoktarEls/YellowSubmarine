@@ -20,6 +20,10 @@ export class Game{
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
 
+    public static get canvas(){
+        return this._instance._canvas;
+    }
+
     public static get engine(): Engine {
         return Game._instance._engine;
     }

@@ -9,6 +9,14 @@ import {Game} from "@/YellowSubmarine/Game";
 
 export class SkyBox {
 
+
+
+    private static _instance: SkyBox;
+
+    public static get instance(): SkyBox {
+        return this._instance;
+    }
+
     public get mesh(): Mesh {
         return this._mesh;
     }
@@ -16,6 +24,7 @@ export class SkyBox {
     private _mesh: Mesh;
 
     constructor() {
+        SkyBox._instance = this;
         this._mesh = MeshBuilder.CreateBox("skyBox", { size: 10000 }, Game.scene);
         this._mesh.infiniteDistance = true;
         this._mesh.isPickable = false;
