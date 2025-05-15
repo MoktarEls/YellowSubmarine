@@ -2,19 +2,15 @@
 
 export class AbstractKeyZone {
 
-    protected _name: string;
     protected _discovered: boolean;
     protected _detectionZone: MeshDetectionZone;
+    protected _disabled = false;
 
-    constructor(name: string, discovered: boolean, detectionZone: MeshDetectionZone) {
-        this._name = name;
+    constructor(discovered: boolean, detectionZone: MeshDetectionZone) {
         this._discovered = discovered;
         this._detectionZone = detectionZone;
     }
 
-    public get name(): string {
-        return this._name;
-    }
 
     public get discovered(): boolean {
         return this._discovered;

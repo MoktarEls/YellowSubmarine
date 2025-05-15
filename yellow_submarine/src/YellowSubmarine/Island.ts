@@ -3,10 +3,10 @@ import {Game} from "@/YellowSubmarine/Game";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 import {NPC} from "@/YellowSubmarine/NPC";
 import {World} from "@/YellowSubmarine/World";
-import {AbstractKeyZone} from "@/YellowSubmarine/KeyZone/AbstractKeyZone";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
+import {IslandKeyZone} from "@/YellowSubmarine/KeyZone/IslandKeyZone";
 
-export class Island extends AbstractKeyZone{
+export class Island extends IslandKeyZone{
 
     private _mesh!: AbstractMesh;
     private _npc: NPC;
@@ -24,7 +24,6 @@ export class Island extends AbstractKeyZone{
 
             this.detectionZone.onMeshEnter.add( () => {
                 UIManager.instance.islandUI.show(this._name, this.discovered);
-
                 if(!this._discovered){
                     this._discovered = true;
                 }
