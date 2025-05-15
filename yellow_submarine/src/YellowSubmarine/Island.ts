@@ -1,4 +1,4 @@
-﻿import {AbstractMesh, MeshBuilder, Vector3} from "@babylonjs/core";
+﻿import {AbstractMesh, Mesh, SceneLoader, StandardMaterial, Vector3,} from "@babylonjs/core";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {Game} from "@/YellowSubmarine/Game";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
@@ -8,10 +8,10 @@ import {World} from "@/YellowSubmarine/World";
 
 export class Island {
 
-    private _mesh: AbstractMesh;
-    private _name = "Daulphin Island !";
+    private _name = "Dolphin Island !";
+    private _mesh!: AbstractMesh;
     private _islandInteraction: IslandInteraction;
-    private _islandDetectionZone: MeshDetectionZone;
+    private _islandDetectionZone!: MeshDetectionZone;
     private _npc: NPC;
 
     constructor(){
@@ -19,30 +19,24 @@ export class Island {
         this._npc = new NPC();
         this._islandInteraction = new IslandInteraction(this._name);
 
-        this._mesh = MeshBuilder.CreateBox("island", {
-            height: 20,
-            width: 10,
-            depth: 10,
-        }, Game.scene);
+        this.createMesh().then( () => {
+            this._islandDetectionZone = new SphericDetectionZone(20, true);
+            this._islandDetectionZone.zone.parent = this._mesh;
 
-        this._mesh.position = new Vector3(0, 0, -50);
+            this._islandDetectionZone.onMeshEnter.add( () => {
+                if(this._islandInteraction)
+                    this._islandInteraction.makeAvailable();
+            });
 
-        this._islandDetectionZone = new SphericDetectionZone(20, true);
-        this._islandDetectionZone.zone.parent = this._mesh;
+            this._islandDetectionZone.onMeshExit.add( () => {
+                if(this._islandDetectionZone)
+                    this._islandInteraction.makeUnavailable();
+            });
 
-        this._islandDetectionZone.onMeshEnter.add( () => {
-            if(this._islandInteraction)
-                this._islandInteraction.makeAvailable();
+            World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
+                this._islandDetectionZone.addMeshToDetect(mesh);
+            })
         });
-
-        this._islandDetectionZone.onMeshExit.add( () => {
-            if(this._islandDetectionZone)
-                this._islandInteraction.makeUnavailable();
-        });
-
-        World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
-            this._islandDetectionZone.addMeshToDetect(mesh);
-        })
 
     }
 
@@ -56,6 +50,14 @@ export class Island {
 
     public get npc(): NPC {
         return this._npc;
+    }
+
+    private async createMesh() {
+        const result = await SceneLoader.ImportMeshAsync("", "models/", "dolphinIsland.glb", Game.scene);
+        this._mesh = result.meshes[0] as Mesh;
+        this._mesh.name = "dolphinIsland";
+        this._mesh.position = new Vector3(0,0, -30)
+        this._mesh.material = new StandardMaterial("submarineMaterial", Game.scene);
     }
 
 }
