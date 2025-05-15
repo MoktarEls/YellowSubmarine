@@ -1,5 +1,6 @@
 ﻿import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, TextBlock} from "@babylonjs/gui";
+import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 
 export class IslandsUI extends UI{
 
@@ -12,14 +13,15 @@ export class IslandsUI extends UI{
     constructor() {
         super();
         this._textBlock = new TextBlock();
+        KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.show(keyzone))
     }
 
-    public show(name: string, discovered: boolean) {
+    public show(keyzone: KeyZone) {
 
         this._textBlock.isVisible = true;
-        this._textBlock.text = name;
+        this._textBlock.text = keyzone.name;
 
-        if(discovered) {
+        if(keyzone.discovered) {
             this._textBlock.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
             this._textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             this._textBlock.paddingLeft = "20px";
