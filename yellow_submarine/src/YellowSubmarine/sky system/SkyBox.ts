@@ -5,13 +5,15 @@ import {
     ShaderMaterial, StandardMaterial, Texture
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 
 export class SkyBox {
 
-
-
     private static _instance: SkyBox;
+    private _daySkyboxTexture: CubeTexture;
+    private _nightSkyboxTexture: CubeTexture;
+    private _shaderMaterial: ShaderMaterial;
 
     public static get instance(): SkyBox {
         return this._instance;
@@ -29,12 +31,19 @@ export class SkyBox {
         this._mesh.infiniteDistance = true;
         this._mesh.isPickable = false;
 
-        const material = new StandardMaterial("skyBoxMaterial", Game.scene);
+        this._shaderMaterial = new ShaderMaterial("skyboxMaterial", Game.scene, {
+            vertex: "skyboxShader", fragment: "skyboxShader",
+        },{
+            attributes: ["position", "uv"],
+            uniforms: ["worldViewProjection", "timeOfTheDay"],
+            samplers: ["daySkyboxTexture", "nightSkyboxTexture"],
+        })
 
-        material.backFaceCulling = false;
-        material.disableLighting = true;
+        Game.scene.onBeforeRenderObservable.add(() => {
+            this._shaderMaterial.setFloat("timeOfTheDay", Sky.instance.dayNightCycle.timeOfTheDay);
+        })
 
-        material.reflectionTexture = CubeTexture.CreateFromImages([
+        this._daySkyboxTexture = CubeTexture.CreateFromImages([
             "/textures/skybox/day/px.png",
             "/textures/skybox/day/pz.png",
             "/textures/skybox/day/py.png",
@@ -42,9 +51,22 @@ export class SkyBox {
             "/textures/skybox/day/nz.png",
             "/textures/skybox/day/ny.png"
         ], Game.scene);
+        this._daySkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
+        this._nightSkyboxTexture = CubeTexture.CreateFromImages([
+            "/textures/skybox/night/px.png",
+            "/textures/skybox/night/pz.png",
+            "/textures/skybox/night/py.png",
+            "/textures/skybox/night/nx.png",
+            "/textures/skybox/night/nz.png",
+            "/textures/skybox/night/ny.png"
+        ], Game.scene);
+        this._nightSkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
-        material.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
-        this._mesh.material = material;
+        this._shaderMaterial.setTexture("daySkyboxTexture", this._daySkyboxTexture);
+        this._shaderMaterial.setTexture("nightSkyboxTexture", this._nightSkyboxTexture);
+        this._shaderMaterial.backFaceCulling = false;
+
+        this._mesh.material = this._shaderMaterial;
 
 
 /*

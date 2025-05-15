@@ -6,12 +6,12 @@ import {World} from "@/YellowSubmarine/World";
 import {DayNightCycle} from "@/YellowSubmarine/sky system/DayNightCycle";
 
 export class Sky{
-
     private static _instance: Sky;
 
     private _sun : Sun;
-    private _moon : Moon;
+    // private _moon : Moon;
     private _skybox : SkyBox;
+    private _dayNightCycle: DayNightCycle;
 
     public static get instance(): Sky{
         return this._instance;
@@ -20,9 +20,9 @@ export class Sky{
     constructor() {
         Sky._instance = this;
         this._sun = new Sun();
-        this._moon = new Moon();
+        //this._moon = new Moon();
         this._skybox = new SkyBox();
-        new DayNightCycle(this);
+        this._dayNightCycle = new DayNightCycle(this);
     }
 
     public get sun(): Sun {
@@ -45,12 +45,16 @@ export class Sky{
         this._skybox = value;
     }
 
-    public get moon(): Moon {
+/*    public get moon(): Moon {
         return this._moon;
     }
 
     public set moon(value: Moon) {
         this._moon = value;
+    }*/
+
+    public get dayNightCycle(): DayNightCycle {
+        return this._dayNightCycle;
     }
 
 }

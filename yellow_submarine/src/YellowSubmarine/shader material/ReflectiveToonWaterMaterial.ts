@@ -32,6 +32,7 @@ export class ReflectiveToonWaterMaterial {
                 "surfaceDistortionAmount", "screensize"],
             samplers: ["linearDepthTexture", "surfaceNoiseTexture","surfaceDistortionTexture","reflectionTexture"],
             needAlphaBlending: true,
+            needAlphaTesting: true,
         });
 
 

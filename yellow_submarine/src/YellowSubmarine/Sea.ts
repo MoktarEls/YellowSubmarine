@@ -13,8 +13,8 @@
             this._groundMesh = MeshBuilder.CreateGround(
                 "waterPlane",
                 {
-                    width: 1,
-                    height: 1,
+                    width: 512,
+                    height: 512,
                     subdivisions: 64,
                 },
                 Game.scene
