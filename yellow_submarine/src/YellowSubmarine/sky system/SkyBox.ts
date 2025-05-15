@@ -35,12 +35,12 @@ export class SkyBox {
         material.disableLighting = true;
 
         material.reflectionTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/px.png",
-            "/textures/skybox/pz.png",
-            "/textures/skybox/py.png",
-            "/textures/skybox/nx.png",
-            "/textures/skybox/nz.png",
-            "/textures/skybox/ny.png"
+            "/textures/skybox/day/px.png",
+            "/textures/skybox/day/pz.png",
+            "/textures/skybox/day/py.png",
+            "/textures/skybox/day/nx.png",
+            "/textures/skybox/day/nz.png",
+            "/textures/skybox/day/ny.png"
         ], Game.scene);
 
         material.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
@@ -57,7 +57,7 @@ export class SkyBox {
                 "worldViewProjection", "timeOfDay",
                 "dayTop", "dayBottom",
                 "sunsetTop", "sunsetBottom",
-                "nightTop", "nightBottom",
+                "dayTop", "nightBottom",
                 "dawnTop", "dawnBottom"
             ],
         });
