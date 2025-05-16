@@ -43,7 +43,13 @@ float adjustableSmoothstep(float x, float k) {
 void main(void){
     vec3 viewDir = normalize(vCameraWorldPosition - vWorldPos);
     vec2 screenUv = (vScreenPosition.xy / vScreenPosition.w) * 0.5 + 0.5;
-    float existingDepthLinear = texture2D(linearDepthTexture, screenUv).r;
+
+    vec2 waveUVOffset = texture2D(surfaceDistortionTexture, (gl_FragCoord.xy / screensize) + 8.0 * time).xy * 2.0 - 1.0;
+
+    float waveUVOffsetAmount = 0.02;
+
+
+    float existingDepthLinear = texture2D(linearDepthTexture, (gl_FragCoord.xy / screensize) ).r;
     float depthDifference = existingDepthLinear - vScreenPosition.w;
     float waterDepthDifference01 = clamp( depthDifference / depthMaximumDistance ,0.0, 1.0);
     vec4 waterColor = mix(depthShallowColor, depthDeepColor, waterDepthDifference01);
@@ -52,7 +58,7 @@ void main(void){
 
     vec2 noiseUV = vec2(
         (vNoiseUV.x + time + surfaceNoiseScroll.x) + distortSample.x,
-        (vNoiseUV.xy + time + surfaceNoiseScroll.y) + distortSample.y
+        (vNoiseUV.y + time + surfaceNoiseScroll.y) + distortSample.y
     );
     float surfaceNoiseSample = texture2D(surfaceNoiseTexture, noiseUV).r;
 
@@ -64,7 +70,7 @@ void main(void){
     float l_surfaceNoiseCutoff = foamDepthDifference01 * surfaceNoiseCutoff;
     float surfaceNoise = surfaceNoiseSample > l_surfaceNoiseCutoff ? 1.0 : 0.0;
 
-    vec4 reflectionColor = texture2D(reflectionTexture, (gl_FragCoord.xy / screensize) );
+    vec4 reflectionColor = texture2D(reflectionTexture, (gl_FragCoord.xy / screensize) + ( waveUVOffset * waveUVOffsetAmount ) );
 
     gl_FragColor = mix(waterColor, reflectionColor, 0.75) + surfaceNoise;
     /* vec4 nonLitColor = mix(waterColor, reflectionColor, 1.0) + surfaceNoise;
