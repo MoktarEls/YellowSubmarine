@@ -48,7 +48,6 @@ void main(void){
 
     float waveUVOffsetAmount = 0.02;
 
-
     float existingDepthLinear = texture2D(linearDepthTexture, (gl_FragCoord.xy / screensize) ).r;
     float depthDifference = existingDepthLinear - vScreenPosition.w;
     float waterDepthDifference01 = clamp( depthDifference / depthMaximumDistance ,0.0, 1.0);
@@ -73,23 +72,6 @@ void main(void){
     vec4 reflectionColor = texture2D(reflectionTexture, (gl_FragCoord.xy / screensize) + ( waveUVOffset * waveUVOffsetAmount ) );
 
     gl_FragColor = mix(waterColor, reflectionColor, 0.75) + surfaceNoise;
-    /* vec4 nonLitColor = mix(waterColor, reflectionColor, 1.0) + surfaceNoise;
 
-    float shiftedtime = timeOfTheDay + 0.25;
-
-    if(shiftedtime > 1.0){
-        shiftedtime -= 1.0;
-    }
-
-    float nightFactor = abs(0.5 - shiftedtime) * 2.0;
-
-    float easedFactor = adjustableSmoothstep(nightFactor, 0.5);
-
-    float dayBrightness = 1.0;
-    float nightBrightness = 0.6;
-
-    float brightness = mix(dayBrightness, nightBrightness, easedFactor);
-
-    gl_FragColor = vec4( nonLitColor.xyz, 1.0 ); */
 
 }
