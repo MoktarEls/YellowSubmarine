@@ -57,9 +57,8 @@ export class ReflectiveToonWaterMaterial {
         Game.scene.onBeforeRenderObservable.add(() => {
             this._material.setFloat("timeOfTheDay", Sky.instance.dayNightCycle.timeOfTheDay);
         })
-        const canvas = Game.canvas;
-        this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height));
-        canvas.addEventListener("resize", () => this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height)) );
+        this._material.setVector2("screensize", new Vector2(window.innerWidth, window.innerHeight));
+        window.addEventListener("resize", () => this._material.setVector2("screensize", new Vector2(window.innerWidth, window.innerHeight)) );
         const mirrorTexture = new MirrorTexture("mirrorTexture", 1024, Game.scene, true);
         mirrorTexture.mirrorPlane = Plane.FromPositionAndNormal(Vector3.Zero(), Vector3.Down());
         mirrorTexture.renderListPredicate = (m) => m.material !== this._material;
