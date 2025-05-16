@@ -44,21 +44,21 @@ export class SkyBox {
         })
 
         this._daySkyboxTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/day/px.png",
-            "/textures/skybox/day/pz.png",
-            "/textures/skybox/day/py.png",
-            "/textures/skybox/day/nx.png",
-            "/textures/skybox/day/nz.png",
-            "/textures/skybox/day/ny.png"
+            "/textures/skybox/alternate day/px.png",
+            "/textures/skybox/alternate day/pz.png",
+            "/textures/skybox/alternate day/py.png",
+            "/textures/skybox/alternate day/nx.png",
+            "/textures/skybox/alternate day/nz.png",
+            "/textures/skybox/alternate day/ny.png"
         ], Game.scene);
         this._daySkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
         this._nightSkyboxTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/night/px.png",
-            "/textures/skybox/night/pz.png",
-            "/textures/skybox/night/py.png",
-            "/textures/skybox/night/nx.png",
-            "/textures/skybox/night/nz.png",
-            "/textures/skybox/night/ny.png"
+            "/textures/skybox/alternate night/px.png",
+            "/textures/skybox/alternate night/pz.png",
+            "/textures/skybox/alternate night/py.png",
+            "/textures/skybox/alternate night/nx.png",
+            "/textures/skybox/alternate night/nz.png",
+            "/textures/skybox/alternate night/ny.png"
         ], Game.scene);
         this._nightSkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
