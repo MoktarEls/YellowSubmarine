@@ -9,6 +9,7 @@ uniform sampler2D surfaceNoiseTexture;
 uniform sampler2D surfaceDistortionTexture;
 uniform sampler2D cameraNormalTexture;
 uniform sampler2D reflectionTexture;
+uniform float timeOfTheDay;
 
 uniform float surfaceNoiseCutoff;
 uniform float foamMaxDistance;
@@ -31,6 +32,12 @@ varying vec3 vWorldNormal;
 
 float remap(float value, float inMin, float inMax, float outMin, float outMax) {
     return outMin + (value - inMin) * (outMax - outMin) / (inMax - inMin);
+}
+
+float adjustableSmoothstep(float x, float k) {
+    float t = x - 0.5;
+        float exponent = mix(1.0, 0.0, k); // k ∈ [0, 1]
+        return 0.5 + sign(t) * pow(abs(2.0 * t), exponent) * 0.5;
 }
 
 void main(void){
@@ -57,9 +64,26 @@ void main(void){
     float l_surfaceNoiseCutoff = foamDepthDifference01 * surfaceNoiseCutoff;
     float surfaceNoise = surfaceNoiseSample > l_surfaceNoiseCutoff ? 1.0 : 0.0;
 
-    vec4 reflectionColor = 0.5 + 0.5 * texture2D(reflectionTexture, (gl_FragCoord.xy / screensize) );
+    vec4 reflectionColor = texture2D(reflectionTexture, (gl_FragCoord.xy / screensize) );
 
-    gl_FragColor = mix(waterColor, reflectionColor, 0.8) + surfaceNoise;
+    gl_FragColor = mix(waterColor, reflectionColor, 0.75) + surfaceNoise;
+    /* vec4 nonLitColor = mix(waterColor, reflectionColor, 1.0) + surfaceNoise;
 
+    float shiftedtime = timeOfTheDay + 0.25;
+
+    if(shiftedtime > 1.0){
+        shiftedtime -= 1.0;
+    }
+
+    float nightFactor = abs(0.5 - shiftedtime) * 2.0;
+
+    float easedFactor = adjustableSmoothstep(nightFactor, 0.5);
+
+    float dayBrightness = 1.0;
+    float nightBrightness = 0.6;
+
+    float brightness = mix(dayBrightness, nightBrightness, easedFactor);
+
+    gl_FragColor = vec4( nonLitColor.xyz, 1.0 ); */
 
 }

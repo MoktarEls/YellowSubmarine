@@ -1,10 +1,11 @@
 import {
-    AbstractMesh, DepthRenderer, GeometryBufferRenderer, MirrorTexture,
+    AbstractMesh, DepthRenderer, GeometryBufferRenderer, Material, MirrorTexture,
     MultiRenderTarget, Nullable, Plane, RenderTargetTexture, Scene,
-    ShaderMaterial, Texture, Vector2, Vector3, Vector4
+    ShaderMaterial, StandardMaterial, Texture, Vector2, Vector3, Vector4
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
+import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 export class ReflectiveToonWaterMaterial {
 
@@ -29,10 +30,9 @@ export class ReflectiveToonWaterMaterial {
             attributes: ["position", "normal", "uv"],
             uniforms: ["world","view","projection","depthShallowColor", "depthDeepColor", "depthMaximumDistance",
                 "surfaceNoiseST", "surfaceNoiseCutoff", "foamMaxDistance", "foamMinDistance", "surfaceNoiseScroll", "time", "surfaceDistortionST",
-                "surfaceDistortionAmount", "screensize"],
+                "surfaceDistortionAmount", "screensize", "timeOfTheDay"],
             samplers: ["linearDepthTexture", "surfaceNoiseTexture","surfaceDistortionTexture","reflectionTexture"],
             needAlphaBlending: true,
-            needAlphaTesting: true,
         });
 
 
@@ -54,12 +54,15 @@ export class ReflectiveToonWaterMaterial {
         this._material.setVector4("surfaceDistortionST", new Vector4(1,1,0,0));
         this._material.setFloat("surfaceDistortionAmount", 0.27);
         this._material.setTexture("surfaceDistortionTexture", new Texture("/textures/WaterDistortion.png"));
+        Game.scene.onBeforeRenderObservable.add(() => {
+            this._material.setFloat("timeOfTheDay", Sky.instance.dayNightCycle.timeOfTheDay);
+        })
         const canvas = Game.canvas;
         this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height));
         canvas.addEventListener("resize", () => this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height)) );
-        const mirrorTexture = new MirrorTexture("mirrorTexture", 512, Game.scene, true);
+        const mirrorTexture = new MirrorTexture("mirrorTexture", 1024, Game.scene, true);
         mirrorTexture.mirrorPlane = Plane.FromPositionAndNormal(Vector3.Zero(), Vector3.Down());
-        mirrorTexture.renderListPredicate = () => true;
+        mirrorTexture.renderListPredicate = (m) => m.material !== this._material;
         this._material.setTexture("reflectionTexture", mirrorTexture);
         Game.scene.customRenderTargets.push(mirrorTexture);
         this._material.disableDepthWrite = true;
@@ -78,6 +81,23 @@ export class ReflectiveToonWaterMaterial {
             time += (Game.engine.getDeltaTime()/1000) * 0.01;
             this._material.setFloat("time", time);
         })
+
+        /*this._material = new ShaderMaterial("mirror", Game.scene, {
+            vertex: "mirror", fragment: "mirror"
+        },{
+            attributes: ["position", "normal", "uv"],
+            uniforms: ["worldViewProjection", "screensize"],
+            samplers: ["mirrorSampler"]
+        })
+
+        const mirrorTexture = new MirrorTexture("mirrorTex",512, Game.scene);
+        mirrorTexture.mirrorPlane = Plane.FromPositionAndNormal(Vector3.Zero(), Vector3.Down());
+        mirrorTexture.renderListPredicate = (m) => m.material !== this._material;
+        this._material.setTexture("mirrorSampler", mirrorTexture);
+        const canvas = Game.canvas;
+        this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height));
+        canvas.addEventListener("resize", () => this._material.setVector2("screensize", new Vector2(canvas.width, canvas.height)) );
+        Game.scene.customRenderTargets.push(mirrorTexture);*/
 
     }
 
