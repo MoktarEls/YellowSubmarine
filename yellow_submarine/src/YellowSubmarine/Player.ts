@@ -12,7 +12,7 @@ export class Player {
     private static _instance: Player;
     private static _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
     private static _onPlayerPressedAKey: Observable<KeyboardInfo> = new Observable();
-    private static _playerCameraParameter: CameraConfiguration = new CameraConfiguration();
+    private static _playerCameraConfiguration: CameraConfiguration = new CameraConfiguration();
     private static _horizontalCameraSensitivity = 5;
     private static _verticalCameraSensitivity = 5;
 
@@ -29,8 +29,8 @@ export class Player {
         return this._onPlayerPressedAKey;
     }
 
-    public static get playerCameraParameter(): CameraConfiguration {
-        return this._playerCameraParameter;
+    public static get playerCameraConfiguration(): CameraConfiguration {
+        return this._playerCameraConfiguration;
     }
 
     private static _isForwardPressed = false;
@@ -98,23 +98,23 @@ export class Player {
 
     private static initializeCameraParameter() {
         Submarine.instance.meshCreationPromise.then((mesh) => {
-            this._playerCameraParameter.target = mesh;
-            this._playerCameraParameter.distanceFromTarget = 25;
-            this._playerCameraParameter.currentLowerBetaLimit = Angle.FromDegrees(30).radians();
-            this._playerCameraParameter.currentUpperBetaLimit = Angle.FromDegrees(85).radians();
-            this._playerCameraParameter.wantedAlpha = Angle.FromDegrees(-90).radians();
-            this._playerCameraParameter.wantedBeta = Angle.FromDegrees(45).radians();
-            ConfigurableCamera.instance.cameraParameter = this._playerCameraParameter;
+            this._playerCameraConfiguration.target = mesh;
+            this._playerCameraConfiguration.distanceFromTarget = 25;
+            this._playerCameraConfiguration.currentLowerBetaLimit = Angle.FromDegrees(30).radians();
+            this._playerCameraConfiguration.currentUpperBetaLimit = Angle.FromDegrees(85).radians();
+            this._playerCameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
+            this._playerCameraConfiguration.wantedBeta = Angle.FromDegrees(45).radians();
+            ConfigurableCamera.instance.cameraConfiguration = this._playerCameraConfiguration;
         })
     }
 
     private static updateCameraParameter(movementX: number, movementY: number) {
-        this._playerCameraParameter.wantedAlpha = Scalar.LerpAngle(this._playerCameraParameter.wantedBeta, this._playerCameraParameter.wantedAlpha - movementX * this._horizontalCameraSensitivity, 1);
-        this._playerCameraParameter.wantedBeta = Scalar.LerpAngle(this._playerCameraParameter.wantedBeta, this._playerCameraParameter.wantedBeta - movementY * this._verticalCameraSensitivity, 1);
+        this._playerCameraConfiguration.wantedAlpha = Scalar.LerpAngle(this._playerCameraConfiguration.wantedBeta, this._playerCameraConfiguration.wantedAlpha - movementX * this._horizontalCameraSensitivity, 1);
+        this._playerCameraConfiguration.wantedBeta = Scalar.LerpAngle(this._playerCameraConfiguration.wantedBeta, this._playerCameraConfiguration.wantedBeta - movementY * this._verticalCameraSensitivity, 1);
 
     }
 
     private static isCurrentCamera(){
-        return ConfigurableCamera.instance.cameraParameter == this._playerCameraParameter;
+        return ConfigurableCamera.instance.cameraConfiguration == this._playerCameraConfiguration;
     }
 }

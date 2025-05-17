@@ -2,6 +2,8 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
 import {NPC} from "@/YellowSubmarine/NPC";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {Player} from "@/YellowSubmarine/Player";
 
 
 export class Conversation {
@@ -48,6 +50,10 @@ export class Conversation {
         Conversation.onAnyConversationStart.notifyObservers(this);
         this.enterNode(<AbstractDialogueNode>this._currentNode);
         this._nextInteraction.makeAvailable();
+        const cameraConfiguration = this._npc?.cameraConfiguration
+        if(cameraConfiguration) {
+            ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
+        }
     }
 
     public next(): void {
@@ -55,11 +61,16 @@ export class Conversation {
         if (nextNode) {
             this.enterNode(nextNode);
         } else {
-            this._currentNode = undefined;
-            this._nextInteraction.makeUnavailable();
-            this.onConversationEnd.notifyObservers(this);
-            Conversation.onAnyConversationEnd.notifyObservers(this);
+            this.endConversation();
         }
+    }
+
+    private endConversation() {
+        this._currentNode = undefined;
+        this._nextInteraction.makeUnavailable();
+        this.onConversationEnd.notifyObservers(this);
+        Conversation.onAnyConversationEnd.notifyObservers(this);
+        ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
     }
 
     public isInProgress(): boolean {

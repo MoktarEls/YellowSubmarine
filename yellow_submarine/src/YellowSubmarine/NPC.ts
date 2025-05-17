@@ -8,8 +8,14 @@ import {
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {World} from "@/YellowSubmarine/World";
+import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {Player} from "@/YellowSubmarine/Player";
 
 export class NPC{
+    get cameraConfiguration(): CameraConfiguration {
+        return this._cameraConfiguration;
+    }
     get mesh(): AbstractMesh {
         return this._mesh;
     }
@@ -19,6 +25,7 @@ export class NPC{
     private _conversation?: Conversation;
     private _startConversationInteraction?: StartConversationInteraction;
     private _playerDetectionZone: MeshDetectionZone;
+    private _cameraConfiguration: CameraConfiguration;
 
     constructor() {
         this._mesh = MeshBuilder.CreateBox("npcBody", {
@@ -27,6 +34,11 @@ export class NPC{
             depth: 1,
         },Game.scene);
         this._mesh.position = new Vector3(-10, 0, -2);
+
+        this._cameraConfiguration = new CameraConfiguration();
+        this._cameraConfiguration.target = this._mesh;
+        this._cameraConfiguration.distanceFromTarget = 10;
+        this._cameraConfiguration.offset = Vector3.Up().scale(2);
 
         this._playerDetectionZone = new SphericDetectionZone(3, true);
         this._playerDetectionZone.zone.parent = this._mesh;
