@@ -1,7 +1,7 @@
 import {World} from "@/YellowSubmarine/World";
 import {Engine, Observable, Scene} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
-import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
@@ -16,7 +16,7 @@ export class Game{
     private _world: World;
     private _player: Player;
     private _isGameFocused = false;
-    private _playerCamera: PlayerCamera;
+    private _camera: ConfigurableCamera;
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
 
@@ -45,7 +45,7 @@ export class Game{
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
         this._interactionManager = new InteractionManager();
-        this._playerCamera = new PlayerCamera();
+        this._camera = new ConfigurableCamera();
         this._world = new World();
         this._player = new Player();
         this._uiManager = new UIManager();
