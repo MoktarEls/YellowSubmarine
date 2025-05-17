@@ -1,7 +1,7 @@
 ﻿import {Observable} from "@babylonjs/core";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
-import {NPC} from "@/YellowSubmarine/NPC";
+import {NPC} from "@/YellowSubmarine/npcs/NPC";
 
 
 export class Conversation {
