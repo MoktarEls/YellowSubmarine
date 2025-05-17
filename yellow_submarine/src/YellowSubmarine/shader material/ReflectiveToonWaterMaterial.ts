@@ -36,7 +36,7 @@ export class ReflectiveToonWaterMaterial {
         });
 
 
-        this._depthRenderer = this._scene.enableDepthRenderer(camera, false, undefined, undefined, true);
+        this._depthRenderer = this._scene.enableDepthRenderer(undefined, false, undefined, undefined, true);
         this._depthMap = this._depthRenderer.getDepthMap();
         this._renderListPredicate = (m) => m.material !== this._material;
         this._depthMap.renderListPredicate = this._renderListPredicate;

@@ -1,15 +1,16 @@
-import {AbstractMesh, Angle, Mesh, Scalar, Scene, SceneLoader, StandardMaterial, Vector3} from "@babylonjs/core";
-import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
+import {
+    AbstractMesh,
+    Angle,
+    Mesh,
+    Scalar,
+    Scene,
+    SceneLoader,
+    StandardMaterial,
+    Vector3
+} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
-import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
-import {LoggerInteraction} from "@/YellowSubmarine/interaction system/interactions/LoggerInteraction";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-import {
-    StartConversationInteraction
-} from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 
 export class Submarine {
 
@@ -32,7 +33,6 @@ export class Submarine {
     private _currentRotationSpeed = 0;
     private _rotationAcceleration = Angle.FromDegrees(60).radians();
 
-    private _submarineCamera!: PlayerCamera;
     public meshCreationPromise: Promise<AbstractMesh>;
 
     constructor() {
@@ -49,7 +49,6 @@ export class Submarine {
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);
         this._mesh.material = new StandardMaterial("submarineMaterial", scene);
-        PlayerCamera.instance.followMesh(this._mesh);
         return this._mesh;
         // mesh.material = new CartoonShaderMaterial().shaderMaterial;
     }

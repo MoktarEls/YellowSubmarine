@@ -1,6 +1,8 @@
 import {Game} from "@/YellowSubmarine/Game";
-import {KeyboardEventTypes, KeyboardInfo, Observable} from "@babylonjs/core";
-import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
+import {Angle, KeyboardEventTypes, KeyboardInfo, Observable, Scalar} from "@babylonjs/core";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
@@ -10,6 +12,10 @@ export class Player {
     private static _instance: Player;
     private static _onCameraRotationObservable: Observable<CameraRotationInfo> = new Observable();
     private static _onPlayerPressedAKey: Observable<KeyboardInfo> = new Observable();
+    private static _playerCameraParameter: CameraConfiguration = new CameraConfiguration();
+    private static _horizontalCameraSensitivity = 5;
+    private static _verticalCameraSensitivity = 5;
+
 
     public static get instance() {
         return this._instance;
@@ -23,15 +29,18 @@ export class Player {
         return this._onPlayerPressedAKey;
     }
 
+    public static get playerCameraParameter(): CameraConfiguration {
+        return this._playerCameraParameter;
+    }
+
     private static _isForwardPressed = false;
     private static _isBackwardPressed = false;
     private static _isLeftPressed = false;
     private static _isRightPressed = false;
 
-    private static _playerCamera: PlayerCamera;
-
     constructor() {
         Player._instance = this;
+        Player.initializeCameraParameter();
         Player.registerKeyboardInputs();
         Player.registerMouseMovementInputs();
     }
@@ -82,8 +91,30 @@ export class Player {
                 const movementX = event.movementX/window.screen.width;
                 const movementY = event.movementY/window.screen.height;
                 this._onCameraRotationObservable.notifyObservers({movementX, movementY});
+                this.updateCameraParameter(movementX, movementY);
             }
         })
     }
 
+    private static initializeCameraParameter() {
+        Submarine.instance.meshCreationPromise.then((mesh) => {
+            this._playerCameraParameter.target = mesh;
+            this._playerCameraParameter.distanceFromTarget = 25;
+            this._playerCameraParameter.currentLowerBetaLimit = Angle.FromDegrees(30).radians();
+            this._playerCameraParameter.currentUpperBetaLimit = Angle.FromDegrees(85).radians();
+            this._playerCameraParameter.wantedAlpha = Angle.FromDegrees(-90).radians();
+            this._playerCameraParameter.wantedBeta = Angle.FromDegrees(45).radians();
+            ConfigurableCamera.instance.cameraParameter = this._playerCameraParameter;
+        })
+    }
+
+    private static updateCameraParameter(movementX: number, movementY: number) {
+        this._playerCameraParameter.wantedAlpha = Scalar.LerpAngle(this._playerCameraParameter.wantedBeta, this._playerCameraParameter.wantedAlpha - movementX * this._horizontalCameraSensitivity, 1);
+        this._playerCameraParameter.wantedBeta = Scalar.LerpAngle(this._playerCameraParameter.wantedBeta, this._playerCameraParameter.wantedBeta - movementY * this._verticalCameraSensitivity, 1);
+
+    }
+
+    private static isCurrentCamera(){
+        return ConfigurableCamera.instance.cameraParameter == this._playerCameraParameter;
+    }
 }
