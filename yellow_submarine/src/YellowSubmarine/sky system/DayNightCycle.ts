@@ -15,7 +15,7 @@ export class DayNightCycle {
         this._moon = sky.moon;
 
         Game.scene.onBeforeRenderObservable.add(() => {
-            this._time += Game.engine.getDeltaTime() * 0.0001;
+            this._time += Game.engine.getDeltaTime() * 0.00001;
             if (this._time > 1) this._time -= 1;
 
             this.updateBody(this._time);
