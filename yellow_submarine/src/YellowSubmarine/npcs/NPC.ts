@@ -1,4 +1,4 @@
-﻿import {AbstractMesh} from "@babylonjs/core";
+﻿import {AbstractMesh, TransformNode} from "@babylonjs/core";
 import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {
@@ -13,6 +13,7 @@ export class NPC{
     private _conversation?: Conversation;
     private _startConversationInteraction?: StartConversationInteraction;
     private _playerDetectionZone?: MeshDetectionZone;
+    private _transformNode: TransformNode = new TransformNode("npcTransform");
 
     public get name(): string {
         return this._name;
@@ -23,19 +24,29 @@ export class NPC{
 
     public set mesh(value: AbstractMesh | undefined) {
         this._mesh = value;
+        if(this._mesh) {
+            this._mesh.parent = this._transformNode;
+        }
     }
     public get mesh(): AbstractMesh | undefined {
         return this._mesh;
     }
 
 
+    public set transformNode(value: TransformNode) {
+        this._transformNode = value;
+    }
+
+    public get transformNode(): TransformNode {
+        return this._transformNode;
+    }
+
+
     public set detectionZone(value: MeshDetectionZone | undefined ) {
         this._playerDetectionZone = value;
-        if(this._mesh) {
-            if(this._playerDetectionZone) {
-                this._playerDetectionZone.zone.parent = this._mesh;
-                this.setSignals();
-            }
+        if(this._playerDetectionZone) {
+            this._playerDetectionZone.zone.parent = this._transformNode;
+            this.setSignals();
         }
     }
     public get detectionZone(): MeshDetectionZone | undefined {

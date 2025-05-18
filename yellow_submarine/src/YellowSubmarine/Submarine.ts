@@ -3,13 +3,6 @@ import {PlayerCamera} from "@/YellowSubmarine/camera system/PlayerCamera";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
-import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
-import {LoggerInteraction} from "@/YellowSubmarine/interaction system/interactions/LoggerInteraction";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-import {
-    StartConversationInteraction
-} from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 
 export class Submarine {
 
@@ -44,7 +37,7 @@ export class Submarine {
     }
 
     private async createMesh(scene: Scene) {
-        const result = await SceneLoader.ImportMeshAsync("", "models/", "submarine.glb", scene);
+        const result = await SceneLoader.ImportMeshAsync("", "models/objects/", "submarine.glb", scene);
         this._mesh = result.meshes[0] as Mesh;
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);

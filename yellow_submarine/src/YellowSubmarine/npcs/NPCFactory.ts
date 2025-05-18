@@ -1,17 +1,17 @@
 ﻿import {NPC} from "@/YellowSubmarine/npcs/NPC";
-import {LoadAssetContainerAsync, MeshBuilder, SceneLoader, Vector3} from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
 import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
+import {Utils} from "@/YellowSubmarine/Utils";
 
 export class NPCFactory {
 
     public static async createPedro(): Promise<NPC>{
         const pedro = new NPC();
         pedro.name = "Pedro";
-        const assets = await LoadAssetContainerAsync("/models/characters/pedroBaked.glb", Game.scene);
-        pedro.mesh = assets.meshes[0];
+        Utils.loadMesh("models/characters/pedro.glb").then( (result) => {
+            pedro.mesh = result.meshes[0];
+        });
         pedro.detectionZone = new SphericDetectionZone(3, true);
 
         // for test purpose
