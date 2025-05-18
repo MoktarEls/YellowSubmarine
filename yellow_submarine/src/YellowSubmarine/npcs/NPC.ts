@@ -5,6 +5,9 @@ import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {World} from "@/YellowSubmarine/World";
+import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {Player} from "@/YellowSubmarine/Player";
 
 export class NPC{
 
@@ -13,6 +16,8 @@ export class NPC{
     private _conversation?: Conversation;
     private _startConversationInteraction?: StartConversationInteraction;
     private _playerDetectionZone?: MeshDetectionZone;
+    private _cameraConfiguration?: CameraConfiguration;
+
     private _transformNode: TransformNode = new TransformNode("npcTransform");
 
     public get name(): string {
@@ -32,6 +37,13 @@ export class NPC{
         return this._mesh;
     }
 
+
+    public get cameraConfiguration(): CameraConfiguration | undefined{
+        return this._cameraConfiguration;
+    }
+    public set cameraConfiguration(value: CameraConfiguration | undefined) {
+        this._cameraConfiguration = value;
+    }
 
     public set transformNode(value: TransformNode) {
         this._transformNode = value;
