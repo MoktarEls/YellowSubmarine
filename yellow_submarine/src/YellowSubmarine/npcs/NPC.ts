@@ -9,10 +9,10 @@ import {World} from "@/YellowSubmarine/World";
 export class NPC{
 
     private _name = "undefined";
-    private _mesh!: AbstractMesh;
+    private _mesh?: AbstractMesh;
     private _conversation?: Conversation;
     private _startConversationInteraction?: StartConversationInteraction;
-    private _playerDetectionZone!: MeshDetectionZone;
+    private _playerDetectionZone?: MeshDetectionZone;
 
     public get name(): string {
         return this._name;
@@ -21,43 +21,26 @@ export class NPC{
         this._name = value;
     }
 
-
-    public set mesh(value: AbstractMesh) {
+    public set mesh(value: AbstractMesh | undefined) {
         this._mesh = value;
     }
-    public get mesh(): AbstractMesh {
+    public get mesh(): AbstractMesh | undefined {
         return this._mesh;
     }
 
 
-    public set detectionZone(value: MeshDetectionZone) {
+    public set detectionZone(value: MeshDetectionZone | undefined ) {
         this._playerDetectionZone = value;
         if(this._mesh) {
-            this._playerDetectionZone.zone.parent = this._mesh;
-            this.setSignals();
+            if(this._playerDetectionZone) {
+                this._playerDetectionZone.zone.parent = this._mesh;
+                this.setSignals();
+            }
         }
     }
-    public get detectionZone(): MeshDetectionZone {
+    public get detectionZone(): MeshDetectionZone | undefined {
         return this._playerDetectionZone;
     }
-    private setSignals(): void {
-        this._playerDetectionZone.onMeshEnter.add( () => {
-            if(this._startConversationInteraction && !this._conversation?.isInProgress()){
-                this._startConversationInteraction.makeAvailable();
-            }
-        } );
-
-        this._playerDetectionZone.onMeshExit.add( () => {
-            if(this._startConversationInteraction){
-                this._startConversationInteraction.makeUnavailable();
-            }
-        } );
-
-        World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
-            this._playerDetectionZone.addMeshToDetect(mesh);
-        });
-    }
-
 
     public get conversation(): Conversation | undefined {
         return this._conversation;
@@ -77,6 +60,34 @@ export class NPC{
 
         }
     }
+
+    private setSignals(): void {
+        if(this._playerDetectionZone){
+            this._playerDetectionZone.onMeshEnter.add( () => {
+                if(this._startConversationInteraction && !this._conversation?.isInProgress()){
+                    this._startConversationInteraction.makeAvailable();
+                }
+            } );
+
+            this._playerDetectionZone.onMeshExit.add( () => {
+                if(this._startConversationInteraction){
+                    this._startConversationInteraction.makeUnavailable();
+                }
+            } );
+
+            World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
+                if(this._playerDetectionZone){
+                    this._playerDetectionZone.addMeshToDetect(mesh);
+                }
+            });
+
+        }
+
+
+
+    }
+
+
 
 
 }
