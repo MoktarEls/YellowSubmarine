@@ -1,18 +1,24 @@
 ﻿import {NPC} from "@/YellowSubmarine/npcs/NPC";
-import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
 import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {Utils} from "@/YellowSubmarine/Utils";
+import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 
 export class NPCFactory {
 
     public static async createPedro(): Promise<NPC>{
         const pedro = new NPC();
         pedro.name = "Pedro";
-        Utils.loadMesh("models/characters/pedroTest.glb").then( (result) => {
+        Utils.loadMesh("models/characters/pedro.glb").then( (result) => {
             pedro.mesh = result.meshes[0];
         });
-        pedro.detectionZone = new SphericDetectionZone(3, true);
+        pedro.detectionZone = new CylindricalDetectionZone( {
+            height: 8,
+            diameterTop: 45,
+            diameterBottom: 45,
+        }, true);
+
+        pedro.detectionZone.zone.position.set(0, -11, 0);
 
         // for test purpose
         const conversation = new Conversation();

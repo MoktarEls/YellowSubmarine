@@ -1,5 +1,5 @@
 ﻿import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
-import {SphericDetectionZone} from "@/YellowSubmarine/detection system/SphericDetectionZone";
+import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {TransformNode, Vector3} from "@babylonjs/core";
 import {Utils} from "@/YellowSubmarine/Utils";
 import {NPCFactory} from "@/YellowSubmarine/npcs/NPCFactory";
@@ -11,9 +11,11 @@ export class KeyZoneFactory {
         const island = new KeyZone();
 
         island.name = "Dolphin island";
-        island.detectionZone = new SphericDetectionZone(20, true);
+        island.detectionZone = new SphericalDetectionZone({
+            diameter : 200
+        }, true);
 
-        Utils.loadMesh("models/scenes/islandTest.glb").then((result) => {
+        Utils.loadMesh("models/scenes/dolphinIsland.glb").then((result) => {
             island.mesh = result.meshes[0];
             island.mesh.parent = _transformIsland;
         });
