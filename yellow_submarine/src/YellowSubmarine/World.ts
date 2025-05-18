@@ -1,7 +1,7 @@
 import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
-import {Island} from "@/YellowSubmarine/Island";
+import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
 
 export class World {
     private _sky: Sky;
@@ -28,9 +28,7 @@ export class World {
         this._sky = new Sky();
         this._sea = new Sea();
         this._submarine = new Submarine();
-        const island = new Island();
-        // TODO : Islands
-
+        KeyZoneFactory.createDolphinIsland();
     }
 
 }

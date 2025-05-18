@@ -44,7 +44,7 @@ export class Submarine {
     }
 
     private async createMesh(scene: Scene) {
-        const result = await SceneLoader.ImportMeshAsync("", "models/", "submarine.glb", scene);
+        const result = await SceneLoader.ImportMeshAsync("", "models/objects/", "submarine.glb", scene);
         this._mesh = result.meshes[0] as Mesh;
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);
