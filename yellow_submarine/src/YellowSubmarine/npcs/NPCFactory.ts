@@ -4,7 +4,7 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Vector3} from "@babylonjs/core";
+import {Angle, Vector3} from "@babylonjs/core";
 
 export class NPCFactory {
 
@@ -36,6 +36,7 @@ export class NPCFactory {
         pedro.cameraConfiguration.target = pedro.transformNode;
         pedro.cameraConfiguration.distanceFromTarget = 10;
         pedro.cameraConfiguration.offset = Vector3.Up().scale(2);
+        pedro.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
 
         return pedro;

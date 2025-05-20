@@ -26,6 +26,7 @@ export class KeyZoneFactory {
         });
 
         _transformIsland.position = new Vector3(0, 0, 60);
+        console.log()
 
         return island;
     }

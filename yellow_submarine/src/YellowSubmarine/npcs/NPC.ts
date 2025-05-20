@@ -6,8 +6,6 @@ import {
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {World} from "@/YellowSubmarine/World";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
-import {Player} from "@/YellowSubmarine/Player";
 
 export class NPC{
 
