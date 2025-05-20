@@ -1,0 +1,3354 @@
+{
+  "tags": null,
+  "ignoreAlpha": false,
+  "maxSimultaneousLights": 4,
+  "mode": 0,
+  "forceAlphaBlending": false,
+  "id": "node",
+  "name": "node",
+  "checkReadyOnEveryCall": false,
+  "checkReadyOnlyOnce": false,
+  "state": "",
+  "alpha": 1,
+  "backFaceCulling": false,
+  "cullBackFaces": false,
+  "alphaMode": 2,
+  "_needDepthPrePass": false,
+  "disableDepthWrite": false,
+  "disableColorWrite": false,
+  "forceDepthWrite": false,
+  "depthFunction": 0,
+  "separateCullingPass": true,
+  "fogEnabled": true,
+  "pointSize": 1,
+  "zOffset": 0,
+  "zOffsetUnits": 0,
+  "pointsCloud": false,
+  "fillMode": 0,
+  "editorData": {
+    "locations": [
+      {
+        "blockId": 658700,
+        "x": 440,
+        "y": -1000,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658701,
+        "x": 500,
+        "y": -780,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658702,
+        "x": 640,
+        "y": -400,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658703,
+        "x": -40,
+        "y": -180,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658704,
+        "x": -40,
+        "y": -40,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658705,
+        "x": 160,
+        "y": -560,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658706,
+        "x": 3480,
+        "y": 560,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658707,
+        "x": 3160,
+        "y": 560,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658708,
+        "x": 2840,
+        "y": 500,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658709,
+        "x": 3180,
+        "y": 260,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658710,
+        "x": 2900,
+        "y": 0,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658711,
+        "x": 3040,
+        "y": -360,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658712,
+        "x": 2780,
+        "y": -660,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658713,
+        "x": 2800,
+        "y": -840,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658714,
+        "x": 1120,
+        "y": -480,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658715,
+        "x": 2260,
+        "y": -300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658716,
+        "x": -140,
+        "y": 400,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658717,
+        "x": -520,
+        "y": 400,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658718,
+        "x": -440,
+        "y": 500,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658720,
+        "x": -880,
+        "y": 500,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658721,
+        "x": 1900,
+        "y": -180,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658722,
+        "x": 1540,
+        "y": -180,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658723,
+        "x": 1200,
+        "y": -180,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658724,
+        "x": 640,
+        "y": -200,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658725,
+        "x": -40,
+        "y": 120,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658726,
+        "x": 1200,
+        "y": 280,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658727,
+        "x": 400,
+        "y": 160,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658728,
+        "x": 1500,
+        "y": -20,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658729,
+        "x": 2280,
+        "y": -980,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658730,
+        "x": 1900,
+        "y": -960,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658731,
+        "x": 120,
+        "y": 900,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658732,
+        "x": -140,
+        "y": 900,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658733,
+        "x": -480,
+        "y": 920,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658734,
+        "x": -440,
+        "y": 1020,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658736,
+        "x": 2340,
+        "y": -480,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658737,
+        "x": 1560,
+        "y": -460,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658738,
+        "x": 1480,
+        "y": -360,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658739,
+        "x": 2220,
+        "y": -100,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658740,
+        "x": 2700,
+        "y": 320,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658741,
+        "x": 2020,
+        "y": 440,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658742,
+        "x": 1100,
+        "y": 440,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658743,
+        "x": 640,
+        "y": 540,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658744,
+        "x": 560,
+        "y": 940,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658745,
+        "x": 520,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658746,
+        "x": 180,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658747,
+        "x": -120,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658748,
+        "x": -480,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658749,
+        "x": -440,
+        "y": 1380,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658751,
+        "x": 1680,
+        "y": 480,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658752,
+        "x": 2280,
+        "y": 160,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658753,
+        "x": 2060,
+        "y": 940,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658754,
+        "x": 1520,
+        "y": 1480,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658755,
+        "x": 1580,
+        "y": 1140,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658756,
+        "x": 1180,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658757,
+        "x": 900,
+        "y": 1300,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658758,
+        "x": 1200,
+        "y": 20,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658759,
+        "x": 640,
+        "y": 20,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658760,
+        "x": -40,
+        "y": 240,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658761,
+        "x": 1180,
+        "y": 1120,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658762,
+        "x": 640,
+        "y": 1120,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658763,
+        "x": 900,
+        "y": 1500,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658764,
+        "x": 1880,
+        "y": 120,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658765,
+        "x": 1560,
+        "y": 120,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658766,
+        "x": 1200,
+        "y": 140,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658767,
+        "x": 900,
+        "y": 140,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658768,
+        "x": 360,
+        "y": 1760,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658769,
+        "x": -60,
+        "y": 1760,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658770,
+        "x": -500,
+        "y": 1760,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658771,
+        "x": -440,
+        "y": 1860,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658773,
+        "x": -480,
+        "y": 1660,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658774,
+        "x": -120,
+        "y": 660,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658775,
+        "x": -480,
+        "y": 780,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658776,
+        "x": 3420,
+        "y": -700,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658777,
+        "x": 1440,
+        "y": 840,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658778,
+        "x": 3820,
+        "y": 400,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658779,
+        "x": 2500,
+        "y": -220,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658780,
+        "x": 3360,
+        "y": -440,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658781,
+        "x": 3340,
+        "y": -80,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658782,
+        "x": 2460,
+        "y": 0,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658783,
+        "x": 3380,
+        "y": -1000,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658784,
+        "x": 2540,
+        "y": 1220,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658785,
+        "x": 2800,
+        "y": 960,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658786,
+        "x": 3180,
+        "y": 940,
+        "isCollapsed": false
+      },
+      {
+        "blockId": 658787,
+        "x": 3480,
+        "y": 820,
+        "isCollapsed": false
+      }
+    ],
+    "frames": [],
+    "x": -376.35431645438484,
+    "y": -54.820526895984926,
+    "zoom": 0.44252052299824646
+  },
+  "customType": "BABYLON.NodeMaterial",
+  "outputNodes": [
+    658700,
+    658706,
+    658776,
+    658777,
+    658778,
+    658779,
+    658780,
+    658781,
+    658782,
+    658783,
+    658784
+  ],
+  "blocks": [
+    {
+      "customType": "BABYLON.VertexOutputBlock",
+      "id": 658700,
+      "name": "VertexOutput",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [
+        {
+          "name": "vector",
+          "inputName": "vector",
+          "targetBlockId": 658701,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "customType": "BABYLON.TransformBlock",
+      "id": 658701,
+      "name": "WorldPos * ViewProjectionTransform",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "vector",
+          "inputName": "vector",
+          "targetBlockId": 658702,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "transform",
+          "inputName": "transform",
+          "targetBlockId": 658705,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        },
+        {
+          "name": "xyz"
+        }
+      ],
+      "complementZ": 0,
+      "complementW": 1
+    },
+    {
+      "customType": "BABYLON.TransformBlock",
+      "id": 658702,
+      "name": "WorldPos",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "vector",
+          "inputName": "vector",
+          "targetBlockId": 658703,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "transform",
+          "inputName": "transform",
+          "targetBlockId": 658704,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        },
+        {
+          "name": "xyz"
+        }
+      ],
+      "complementZ": 0,
+      "complementW": 1
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658703,
+      "name": "position",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 8,
+      "mode": 1,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658704,
+      "name": "World",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 128,
+      "mode": 0,
+      "systemValue": 1,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658705,
+      "name": "ViewProjection",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 128,
+      "mode": 0,
+      "systemValue": 4,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.FragmentOutputBlock",
+      "id": 658706,
+      "name": "FragmentOutput",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "rgba"
+        },
+        {
+          "name": "rgb",
+          "inputName": "rgb",
+          "targetBlockId": 658707,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "a",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "glow"
+        }
+      ],
+      "outputs": [],
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "useLogarithmicDepth": false
+    },
+    {
+      "customType": "BABYLON.AddBlock",
+      "id": 658707,
+      "name": "Add",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658708,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658768,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658708,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658709,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.AddBlock",
+      "id": 658709,
+      "name": "Diffuse+Ambient+Specular",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658710,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658740,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658710,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658711,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.AddBlock",
+      "id": 658711,
+      "name": "Diffuse+Ambient",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658712,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658736,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658712,
+      "name": "Scale",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658713,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658721,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.LerpBlock",
+      "id": 658713,
+      "name": "Lerp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658714,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658715,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "gradient",
+          "inputName": "gradient",
+          "targetBlockId": 658729,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658714,
+      "name": "Ambient Light",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 32,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "BABYLON.Color3",
+      "value": [
+        0.39215686274509803,
+        0.39215686274509803,
+        0.39215686274509803
+      ]
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658715,
+      "name": "DIffuse",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658716,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658721,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658716,
+      "name": "Albedo C*T",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658717,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658718,
+          "targetConnectionName": "rgb",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658717,
+      "name": "AlbedoColor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 32,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "BABYLON.Color3",
+      "value": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "customType": "BABYLON.TextureBlock",
+      "id": 658718,
+      "name": "AlbedoTexture",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 3,
+      "inputs": [
+        {
+          "name": "uv",
+          "inputName": "uv",
+          "targetBlockId": 658720,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "source"
+        },
+        {
+          "name": "layer"
+        },
+        {
+          "name": "lod"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rgba"
+        },
+        {
+          "name": "rgb"
+        },
+        {
+          "name": "r"
+        },
+        {
+          "name": "g"
+        },
+        {
+          "name": "b"
+        },
+        {
+          "name": "a"
+        },
+        {
+          "name": "level"
+        }
+      ],
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "fragmentOnly": false,
+      "disableLevelMultiplication": false,
+      "texture": {
+        "tags": null,
+        "url": "",
+        "uOffset": 0,
+        "vOffset": 0,
+        "uScale": 1,
+        "vScale": 1,
+        "uAng": 0,
+        "vAng": 0,
+        "wAng": 0,
+        "uRotationCenter": 0.5,
+        "vRotationCenter": 0.5,
+        "wRotationCenter": 0.5,
+        "homogeneousRotationInUVTransform": false,
+        "isBlocking": true,
+        "name": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAYAAADEVRX7AAAAiXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjaXY7RDcNACEP/maIj+IAzxzhRlEjdoOOX06VK2/dhLAsZ5Hg9T3lMGlS8x2CSKDw9dSszsDCgKdqcpYtrWiundyymyzBHwO9Fv/IP3Th4hkewc+eu1a6HmWlpvSGzFfON/Lq6YdXYX574qZc3STMsUEzryb0AAAoGaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+CiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIKICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICBleGlmOlBpeGVsWERpbWVuc2lvbj0iNTIyIgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iNTIxIgogICB0aWZmOkltYWdlV2lkdGg9IjUyMiIKICAgdGlmZjpJbWFnZUxlbmd0aD0iNTIxIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz7k114aAAAABHNCSVQICAgIfAhkiAAABwpJREFUeNrt1jEBAAAIwzDAv+dhgJsrkdCrnSQFAHAYCQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUJAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQkAAKMAABgFAMAoAAAPFh2CCA4AiRhLAAAAAElFTkSuQmCC",
+        "hasAlpha": false,
+        "getAlphaFromRGB": false,
+        "level": 1,
+        "coordinatesIndex": 0,
+        "optimizeUVAllocation": true,
+        "coordinatesMode": 7,
+        "wrapU": 1,
+        "wrapV": 1,
+        "wrapR": 1,
+        "anisotropicFilteringLevel": 4,
+        "isCube": false,
+        "is3D": false,
+        "is2DArray": false,
+        "gammaSpace": true,
+        "invertZ": false,
+        "lodLevelInAlpha": false,
+        "lodGenerationOffset": 0,
+        "lodGenerationScale": 0,
+        "linearSpecularLOD": false,
+        "isRenderTarget": false,
+        "animations": [],
+        "invertY": false,
+        "samplingMode": 3,
+        "_useSRGBBuffer": false,
+        "internalTextureLabel": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAY",
+        "noMipmap": false
+      }
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658720,
+      "name": "uv",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 4,
+      "mode": 1,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.StepBlock",
+      "id": 658721,
+      "name": "Step",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658722,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "edge",
+          "inputName": "edge",
+          "targetBlockId": 658728,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.DotBlock",
+      "id": 658722,
+      "name": "DiffuseFactor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658723,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658726,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.NormalizeBlock",
+      "id": 658723,
+      "name": "N",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658724,
+          "targetConnectionName": "xyz",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.TransformBlock",
+      "id": 658724,
+      "name": "World normal",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "vector",
+          "inputName": "vector",
+          "targetBlockId": 658725,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "transform",
+          "inputName": "transform",
+          "targetBlockId": 658704,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        },
+        {
+          "name": "xyz"
+        }
+      ],
+      "complementZ": 0,
+      "complementW": 0
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658725,
+      "name": "normal",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 8,
+      "mode": 1,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.NormalizeBlock",
+      "id": 658726,
+      "name": "L",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658727,
+          "targetConnectionName": "direction",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.LightInformationBlock",
+      "id": 658727,
+      "name": "Light information",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [
+        {
+          "name": "worldPosition",
+          "inputName": "worldPosition",
+          "targetBlockId": 658702,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "direction"
+        },
+        {
+          "name": "color"
+        },
+        {
+          "name": "intensity"
+        },
+        {
+          "name": "shadowBias"
+        },
+        {
+          "name": "shadowNormalBias"
+        },
+        {
+          "name": "shadowDepthScale"
+        },
+        {
+          "name": "shadowDepthRange"
+        }
+      ],
+      "lightId": "light #0"
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658728,
+      "name": "0",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": true,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 0
+    },
+    {
+      "customType": "BABYLON.RemapBlock",
+      "id": 658729,
+      "name": "Remap",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658730,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "sourceMin"
+        },
+        {
+          "name": "sourceMax"
+        },
+        {
+          "name": "targetMin"
+        },
+        {
+          "name": "targetMax"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "sourceRange": [
+        0,
+        1
+      ],
+      "targetRange": [
+        0.9,
+        1
+      ]
+    },
+    {
+      "customType": "BABYLON.OneMinusBlock",
+      "id": 658730,
+      "name": "One minus",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658731,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.RemapBlock",
+      "id": 658731,
+      "name": "Remap",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658732,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "sourceMin"
+        },
+        {
+          "name": "sourceMax"
+        },
+        {
+          "name": "targetMin"
+        },
+        {
+          "name": "targetMax"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "sourceRange": [
+        0,
+        1
+      ],
+      "targetRange": [
+        0.04,
+        0.95
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658732,
+      "name": "Metallic F*T",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658733,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658734,
+          "targetConnectionName": "r",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658733,
+      "name": "Metallic Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 1,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 1
+    },
+    {
+      "customType": "BABYLON.TextureBlock",
+      "id": 658734,
+      "name": "MetallicTexture",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 3,
+      "inputs": [
+        {
+          "name": "uv",
+          "inputName": "uv",
+          "targetBlockId": 658720,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "source"
+        },
+        {
+          "name": "layer"
+        },
+        {
+          "name": "lod"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rgba"
+        },
+        {
+          "name": "rgb"
+        },
+        {
+          "name": "r"
+        },
+        {
+          "name": "g"
+        },
+        {
+          "name": "b"
+        },
+        {
+          "name": "a"
+        },
+        {
+          "name": "level"
+        }
+      ],
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "fragmentOnly": false,
+      "disableLevelMultiplication": false,
+      "texture": {
+        "tags": null,
+        "url": "",
+        "uOffset": 0,
+        "vOffset": 0,
+        "uScale": 1,
+        "vScale": 1,
+        "uAng": 0,
+        "vAng": 0,
+        "wAng": 0,
+        "uRotationCenter": 0.5,
+        "vRotationCenter": 0.5,
+        "wRotationCenter": 0.5,
+        "homogeneousRotationInUVTransform": false,
+        "isBlocking": true,
+        "name": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAACAAAAAgACAIAAAA9xURnAAAACXBIWXMAAAsSAAALEgHS3X78AAADt2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSIiIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz48eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjQtYzAwMiAxLjAwMDAwMCwgMDAwMC8wMC8wMC0wMDowMDowMCAgICAgICAgIj48cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+PHhtcDpDcmVhdG9yVG9vbD5TdWJzdGFuY2UgRGVzaWduZXI8L3htcDpDcmVhdG9yVG9vbD48L3JkZjpEZXNjcmlwdGlvbj48cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+PGV4aWY6RXhpZlZlcnNpb24+MDIyMDwvZXhpZjpFeGlmVmVyc2lvbj48ZXhpZjpQaXhlbFhEaW1lbnNpb24+MjA0ODwvZXhpZjpQaXhlbFhEaW1lbnNpb24+PGV4aWY6UGl4ZWxZRGltZW5zaW9uPjIwNDg8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPjwvcmRmOkRlc2NyaXB0aW9uPjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj48dGlmZjpJbWFnZVdpZHRoPjIwNDg8L3RpZmY6SW1hZ2VXaWR0aD48dGlmZjpJbWFnZUxlbmd0aD4yMDQ4PC90aWZmOkltYWdlTGVuZ3RoPjx0aWZmOlhSZXNvbHV0aW9uPjcyPC90aWZmOlhSZXNvbHV0aW9uPjx0aWZmOllSZXNvbHV0aW9uPjcyPC90aWZmOllSZXNvbHV0aW9uPjx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+PC9yZGY6RGVzY3JpcHRpb24+PC9yZGY6UkRGPjwveDp4bXBtZXRhPjw/eHBhY2tldCBlbmQ9InciPz5ORXiIAAAgAElEQVR4AezZwQkAMAwDsRa6/8oJXeNQNrDin+/MHEeAAAECBAgQIECAAAECBAgQIECAAAECBAi0BF4rjjQECBAgQIAAAQIECBAgQIAAAQIECBAgQIDAFzAA6AEBAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQOG6QKwAACAASURBVIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABe3tA3AAAIABJREFUAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECBAgQIECAAAECBAgQIECAAIGggAEg+FSRCBAgQIAAAQIECBAgQIAAAQIECBAgQICAAUAHCBAgQIAAAQIECBAgQIAAAQIECBAgQIBAUMAAEHyqSAQIECBAgAABAgQIECBAgAABAgQIECBAwACgAwQIECBAgAABAgQIECBAgAABAgQIECBAIChgAAg+VSQCBAgQIECAAAECBAgQIECAAAECBAgQIGAA0AECBAgQIECAAAECBAgQIECAAAECBAgQIBAUMAAEnyoSAQIECBAgQIAAAQIECBAgQIAAAQIECBAwAOgAAQIECBAgQIAAAQIECBAgQIAAAQIECBAIChgAgk8ViQABAgQIECBAgAABAgQIECBAgAABAgQIGAB0gAABAgQIECBAgAABAgQIECBAgAABAgQIBAUMAMGnikSAAAECBAgQIECAAAECBAgQIECAAAECBAwAOkCAAAECBAgQIECAAAECBAgQIECAAAECBIICBoDgU0UiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIGAB0gQIAAAQIECBAgQIAAAQIECBAgQIAAAQJBAQNA8KkiESBAgAABAgQIECBAgAABAgQIECBAgAABA4AOECBAgAABAgQIECBAgAABAgQIECBAgACBoIABIPhUkQgQIECAAAECBAgQIECAAAECBAgQIECAgAFABwgQIECAAAECBAgQIECAAAECBAgQIECAQFDAABB8qkgECBAgQIAAAQIECBAgQIAAAQIECBAgQMAAoAMECBAgQIAAAQIECBAgQIAAAQIECBAgQCAoYAAIPlUkAgQIECBAgAABAgQIECBAgAABAgQIECBgANABAgQIECBAgAABAgQIECBAgAABAgQIECAQFDAABJ8qEgECBAgQIECAAAECBAgQIECAAAECBAgQMADoAAECBAgQIECAAAECBAgQIECAAAECBAgQCAoYAIJPFYkAAQIECBAgQIAAAQIECBAgQIAAAQIECBgAdIAAAQIECBAgQIAAAQIECBAgQIAAAQIECAQFDADBp4pEgAABAgQIECBAgAABAgQIECBAgAABAgQMADpAgAABAgQIECBAgAABAgQIECBAgAABAgSCAgaA4FNFIkCAAAECBAgQIECAAAECBAgQIECAAAECBgAdIECAAAECBAgQIECAAAECBAgQIECAAAECQQEDQPCpIhEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQOADhAgQIAAAQIECBAgQIAAAQIECBAgQIAAgaCAASD4VJEIECBAgAABAgQIECBAgAABAgQIECBAgIABQAcIECBAgAABAgQIECBAgAABAgQIECBAgEBQwAAQfKpIBAgQIECAAAECBAgQIECAAAECBAgQIEDAAKADBAgQIECAAAECBAgQIECAAAECBAgQIEAgKGAACD5VJAIECBAgQIAAAQIECBAgQIAAAQIECBAgYADQAQIECBAgQIAAAQIECBAgQIAAAQIECBAgEBQwAASfKhIBAgQIECBAgAABAgQIECBAgAABAgQIEDAA6AABAgQIECBAgAABAgQIECBAgAABAgQIEAgKGACCTxWJAAECBAgQIECAAAECBAgQIECAAAECBAgYAHSAAAECBAgQIECAAAECBAgQIECAAAECBAgEBQwAwaeKRIAAAQIECBAgQIAAAQIECBAgQIAAAQIEDAA6QIAAAQIECBAgQIAAAQIECBAgQIAAAQIEggIGgOBTRSJAgAABAgQIECBAgAABAgQIECBAgAABAgYAHSBAgAABAgQIECBAgAABAgQIECBAgAABAkEBA0DwqSIRIECAAAECBAgQIECAAAECBAgQIECAAAEDgA4QIECAAAECy54d0wAAACAM8+96PpZKoPBBgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwTXquyWAAAgAElEQVQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgHZ6xboAACAASURBVAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgRiz45pAAAAEIb5dz0fSyVQ+BgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGsnV3pQAAIABJREFUAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAAbWETsAAAgAElEQVQBAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIEA9MP1UAAAd5SURBVCBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAgAABAgQIECBAgAABB4ANECBAgAABAgQIECBAgAABAgQIECBAgACBoYADYFiqSAQIECBAgAABAgQIECBAgAABAgQIECBAwAFgAwQIECBAgAABAgQIECBAgAABAgQIECBAYCjgABiWKhIBAgQIECBAgAABAgQIECBAgAABAgQIEHAA2AABAgQIECBAgAABAgQIECBAgAABAgQIEBgKOACGpYpEgAABAgQIECBAgAABAgQIECBAgAABAgQcADZAgAABAgQIECBAgAABAgQIECBAgAABAgSGAg6AYakiESBAgAABAgQIECBAoHboQAAAAAAAyP+1ERIcOHDgwIEDBw4cOACVqSL7b+JZqQAAAABJRU5ErkJggg==",
+        "hasAlpha": false,
+        "getAlphaFromRGB": false,
+        "level": 1,
+        "coordinatesIndex": 0,
+        "optimizeUVAllocation": true,
+        "coordinatesMode": 7,
+        "wrapU": 1,
+        "wrapV": 1,
+        "wrapR": 1,
+        "anisotropicFilteringLevel": 4,
+        "isCube": false,
+        "is3D": false,
+        "is2DArray": false,
+        "gammaSpace": true,
+        "invertZ": false,
+        "lodLevelInAlpha": false,
+        "lodGenerationOffset": 0,
+        "lodGenerationScale": 0,
+        "linearSpecularLOD": false,
+        "isRenderTarget": false,
+        "animations": [],
+        "invertY": false,
+        "samplingMode": 3,
+        "_useSRGBBuffer": false,
+        "internalTextureLabel": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAACAAAAAgACAI",
+        "noMipmap": false
+      }
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658736,
+      "name": "Multiply",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658737,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658716,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658737,
+      "name": "Scale",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658714,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658738,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658738,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658739,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.OneMinusBlock",
+      "id": 658739,
+      "name": "ShadowFactor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658721,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658740,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658741,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658741,
+      "name": "Specular",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658742,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658751,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.LerpBlock",
+      "id": 658742,
+      "name": "Specular Color",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658714,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658743,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "gradient",
+          "inputName": "gradient",
+          "targetBlockId": 658744,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658743,
+      "name": "Scale",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658727,
+          "targetConnectionName": "color",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658727,
+          "targetConnectionName": "intensity",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658744,
+      "name": "Multiply",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658731,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658745,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.OneMinusBlock",
+      "id": 658745,
+      "name": "One minus",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658746,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.RemapBlock",
+      "id": 658746,
+      "name": "Remap",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658747,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "sourceMin"
+        },
+        {
+          "name": "sourceMax"
+        },
+        {
+          "name": "targetMin"
+        },
+        {
+          "name": "targetMax"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "sourceRange": [
+        0,
+        1
+      ],
+      "targetRange": [
+        0.04,
+        0.95
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658747,
+      "name": "Roughness F*T",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658748,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658749,
+          "targetConnectionName": "r",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658748,
+      "name": "Roughness Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 1,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 0
+    },
+    {
+      "customType": "BABYLON.TextureBlock",
+      "id": 658749,
+      "name": "RoughnessTexture",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 3,
+      "inputs": [
+        {
+          "name": "uv",
+          "inputName": "uv",
+          "targetBlockId": 658720,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "source"
+        },
+        {
+          "name": "layer"
+        },
+        {
+          "name": "lod"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rgba"
+        },
+        {
+          "name": "rgb"
+        },
+        {
+          "name": "r"
+        },
+        {
+          "name": "g"
+        },
+        {
+          "name": "b"
+        },
+        {
+          "name": "a"
+        },
+        {
+          "name": "level"
+        }
+      ],
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "fragmentOnly": false,
+      "disableLevelMultiplication": false,
+      "texture": {
+        "tags": null,
+        "url": "",
+        "uOffset": 0,
+        "vOffset": 0,
+        "uScale": 1,
+        "vScale": 1,
+        "uAng": 0,
+        "vAng": 0,
+        "wAng": 0,
+        "uRotationCenter": 0.5,
+        "vRotationCenter": 0.5,
+        "wRotationCenter": 0.5,
+        "homogeneousRotationInUVTransform": false,
+        "isBlocking": true,
+        "name": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAYAAADEVRX7AAAAiXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjaXY7RDcNACEP/maIj+IAzxzhRlEjdoOOX06VK2/dhLAsZ5Hg9T3lMGlS8x2CSKDw9dSszsDCgKdqcpYtrWiundyymyzBHwO9Fv/IP3Th4hkewc+eu1a6HmWlpvSGzFfON/Lq6YdXYX574qZc3STMsUEzryb0AAAoGaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+CiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIKICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICBleGlmOlBpeGVsWERpbWVuc2lvbj0iNTIyIgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iNTIxIgogICB0aWZmOkltYWdlV2lkdGg9IjUyMiIKICAgdGlmZjpJbWFnZUxlbmd0aD0iNTIxIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz7k114aAAAABHNCSVQICAgIfAhkiAAABwpJREFUeNrt1jEBAAAIwzDAv+dhgJsrkdCrnSQFAHAYCQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUJAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQkAAKMAABgFAMAoAAAPFh2CCA4AiRhLAAAAAElFTkSuQmCC",
+        "hasAlpha": false,
+        "getAlphaFromRGB": false,
+        "level": 1,
+        "coordinatesIndex": 0,
+        "optimizeUVAllocation": true,
+        "coordinatesMode": 7,
+        "wrapU": 1,
+        "wrapV": 1,
+        "wrapR": 1,
+        "anisotropicFilteringLevel": 4,
+        "isCube": false,
+        "is3D": false,
+        "is2DArray": false,
+        "gammaSpace": true,
+        "invertZ": false,
+        "lodLevelInAlpha": false,
+        "lodGenerationOffset": 0,
+        "lodGenerationScale": 0,
+        "linearSpecularLOD": false,
+        "isRenderTarget": false,
+        "animations": [],
+        "invertY": false,
+        "samplingMode": 3,
+        "_useSRGBBuffer": false,
+        "internalTextureLabel": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAY",
+        "noMipmap": false
+      }
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658751,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658752,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.AddBlock",
+      "id": 658752,
+      "name": "Add",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658753,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658764,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ClampBlock",
+      "id": 658753,
+      "name": "Clamp",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658754,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    {
+      "customType": "BABYLON.StepBlock",
+      "id": 658754,
+      "name": "Step",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658755,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "edge",
+          "inputName": "edge",
+          "targetBlockId": 658763,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658755,
+      "name": "RimIntensity",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658756,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658761,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.OneMinusBlock",
+      "id": 658756,
+      "name": "1-N.V",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658757,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.DotBlock",
+      "id": 658757,
+      "name": "N.V",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658723,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658758,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.NormalizeBlock",
+      "id": 658758,
+      "name": "V",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658759,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ViewDirectionBlock",
+      "id": 658759,
+      "name": "View direction",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "worldPosition",
+          "inputName": "worldPosition",
+          "targetBlockId": 658724,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "cameraPosition",
+          "inputName": "cameraPosition",
+          "targetBlockId": 658760,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658760,
+      "name": "cameraPosition",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 8,
+      "mode": 0,
+      "systemValue": 7,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false
+    },
+    {
+      "customType": "BABYLON.PowBlock",
+      "id": 658761,
+      "name": "RimFactor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658722,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "power",
+          "inputName": "power",
+          "targetBlockId": 658762,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658762,
+      "name": "Float",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": true,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 0.4
+    },
+    {
+      "customType": "BABYLON.RemapBlock",
+      "id": 658763,
+      "name": "Remap",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658745,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "sourceMin"
+        },
+        {
+          "name": "sourceMax"
+        },
+        {
+          "name": "targetMin"
+        },
+        {
+          "name": "targetMax"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "sourceRange": [
+        0,
+        1
+      ],
+      "targetRange": [
+        -0.3,
+        0.7
+      ]
+    },
+    {
+      "customType": "BABYLON.StepBlock",
+      "id": 658764,
+      "name": "Step",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "value",
+          "inputName": "value",
+          "targetBlockId": 658765,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "edge",
+          "inputName": "edge",
+          "targetBlockId": 658745,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.DotBlock",
+      "id": 658765,
+      "name": "SpecularFactor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658723,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658766,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.NormalizeBlock",
+      "id": 658766,
+      "name": "H",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658767,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.AddBlock",
+      "id": 658767,
+      "name": "Add",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658758,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658726,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.ScaleBlock",
+      "id": 658768,
+      "name": "Emission C*T*F",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658769,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "factor",
+          "inputName": "factor",
+          "targetBlockId": 658773,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658769,
+      "name": "Emission C*T",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658770,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658771,
+          "targetConnectionName": "rgb",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658770,
+      "name": "EmissionColor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 32,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 0,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "BABYLON.Color3",
+      "value": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "customType": "BABYLON.TextureBlock",
+      "id": 658771,
+      "name": "EmissionTexture",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 3,
+      "inputs": [
+        {
+          "name": "uv",
+          "inputName": "uv",
+          "targetBlockId": 658720,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "source"
+        },
+        {
+          "name": "layer"
+        },
+        {
+          "name": "lod"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rgba"
+        },
+        {
+          "name": "rgb"
+        },
+        {
+          "name": "r"
+        },
+        {
+          "name": "g"
+        },
+        {
+          "name": "b"
+        },
+        {
+          "name": "a"
+        },
+        {
+          "name": "level"
+        }
+      ],
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "fragmentOnly": false,
+      "disableLevelMultiplication": false,
+      "texture": {
+        "tags": null,
+        "url": "",
+        "uOffset": 0,
+        "vOffset": 0,
+        "uScale": 1,
+        "vScale": 1,
+        "uAng": 0,
+        "vAng": 0,
+        "wAng": 0,
+        "uRotationCenter": 0.5,
+        "vRotationCenter": 0.5,
+        "wRotationCenter": 0.5,
+        "homogeneousRotationInUVTransform": false,
+        "isBlocking": true,
+        "name": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAYAAADEVRX7AAAAiXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjaXY7RDcNACEP/maIj+IAzxzhRlEjdoOOX06VK2/dhLAsZ5Hg9T3lMGlS8x2CSKDw9dSszsDCgKdqcpYtrWiundyymyzBHwO9Fv/IP3Th4hkewc+eu1a6HmWlpvSGzFfON/Lq6YdXYX574qZc3STMsUEzryb0AAAoGaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+CiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIKICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICBleGlmOlBpeGVsWERpbWVuc2lvbj0iNTIyIgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iNTIxIgogICB0aWZmOkltYWdlV2lkdGg9IjUyMiIKICAgdGlmZjpJbWFnZUxlbmd0aD0iNTIxIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz7k114aAAAABHNCSVQICAgIfAhkiAAABwpJREFUeNrt1jEBAAAIwzDAv+dhgJsrkdCrnSQFAHAYCQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUJAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAAEYBADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAABGAQAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAADAKAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAAAwCgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAMAoAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAIBRAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgCAUQAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAgFEAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACMAgBgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAjAIAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAIwCAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAABgFAAAowAAGAUAwCgAAEYBADAKAIBRAACMAgBgFAAAowAAYBQAAKMAABgFAMAoAABGAQAwCgCAUQAAjAIAYBQAAKMAAGAUAACjAAAYBQDAKAAARgEAMAoAgFEAAIwCAGAUAACjAAAYBQkAAKMAABgFAMAoAAAPFh2CCA4AiRhLAAAAAElFTkSuQmCC",
+        "hasAlpha": false,
+        "getAlphaFromRGB": false,
+        "level": 1,
+        "coordinatesIndex": 0,
+        "optimizeUVAllocation": true,
+        "coordinatesMode": 7,
+        "wrapU": 1,
+        "wrapV": 1,
+        "wrapR": 1,
+        "anisotropicFilteringLevel": 4,
+        "isCube": false,
+        "is3D": false,
+        "is2DArray": false,
+        "gammaSpace": true,
+        "invertZ": false,
+        "lodLevelInAlpha": false,
+        "lodGenerationOffset": 0,
+        "lodGenerationScale": 0,
+        "linearSpecularLOD": false,
+        "isRenderTarget": false,
+        "animations": [],
+        "invertY": false,
+        "samplingMode": 3,
+        "_useSRGBBuffer": false,
+        "internalTextureLabel": "data:octet/stream;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAAIJCAY",
+        "noMipmap": false
+      }
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658773,
+      "name": "EmissionFactor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 1,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 0
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658776,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658715,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658777,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658742,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658778,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658740,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658779,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658739,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658780,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658711,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658781,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658710,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658782,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658764,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658783,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658713,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.NodeMaterialDebugBlock",
+      "id": 658784,
+      "name": "Debug",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 2,
+      "inputs": [
+        {
+          "name": "debug",
+          "inputName": "debug",
+          "targetBlockId": 658754,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [],
+      "isActive": false,
+      "renderAlpha": false
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658774,
+      "name": "Opacity Albedo*Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658718,
+          "targetConnectionName": "a",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658775,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 658775,
+      "name": "Opacity Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 1,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 1
+    },
+    {
+      "customType": "BABYLON.DotBlock",
+      "id": 658785,
+      "name": "Dot",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658758,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658723,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.RemapBlock",
+      "id": 658786,
+      "name": "Remap",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "input",
+          "inputName": "input",
+          "targetBlockId": 658785,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "sourceMin"
+        },
+        {
+          "name": "sourceMax"
+        },
+        {
+          "name": "targetMin"
+        },
+        {
+          "name": "targetMax"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "sourceRange": [
+        -1,
+        1
+      ],
+      "targetRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 658787,
+      "name": "Multiply",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 658786,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 658774,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    }
+  ],
+  "uniqueId": 4
+}

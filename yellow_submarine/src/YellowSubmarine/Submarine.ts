@@ -1,7 +1,7 @@
 import {
     AbstractMesh,
     Angle,
-    Mesh,
+    Mesh, PBRMaterial,
     Scalar,
     Scene,
     SceneLoader,
@@ -11,6 +11,7 @@ import {
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
+import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 
 export class Submarine {
 
@@ -46,6 +47,17 @@ export class Submarine {
     private async createMesh(scene: Scene) {
         const result = await SceneLoader.ImportMeshAsync("", "models/", "submarine.glb", scene);
         this._mesh = result.meshes[0] as Mesh;
+        result.meshes.forEach((mesh) => {
+            const mat = mesh.material as PBRMaterial;
+            if(mat){
+                const toonShader = new CartoonShaderMaterial();
+                    toonShader.assignMaterial(mesh).then( () => {
+                        toonShader.configureFromPBRMaterial(mat);
+                    }
+                );
+            }
+
+        })
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);
         this._mesh.material = new StandardMaterial("submarineMaterial", scene);

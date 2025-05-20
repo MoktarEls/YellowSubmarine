@@ -1,26 +1,115 @@
-import {ShaderMaterial, Vector3} from "@babylonjs/core";
+import {
+    AbstractMesh, Color3, InputBlock, NodeMaterial, PBRMaterial, StandardMaterial, Texture, TextureBlock,
+
+} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
-import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 export class CartoonShaderMaterial {
-    get shaderMaterial(): ShaderMaterial {
-        return this._shaderMaterial;
-    }
 
-    private _shaderMaterial: ShaderMaterial;
+    private _nodeMaterialPromise;
+    private _nodeMaterial!: NodeMaterial;
 
-    constructor() {
-        this._shaderMaterial = new ShaderMaterial('shader', Game.scene, {
-            vertex : "shader",
-            fragment : "shader",
-        }, {
-            attributes: ['position', 'normal', 'uv'],
-            uniforms: ['world', 'worldView', 'worldViewProjection'],
+    public async assignMaterial(mesh: AbstractMesh){
+        this._nodeMaterialPromise.then(() => {
+            mesh.material = this._nodeMaterial;
         })
 
-        this.shaderMaterial.setVector3('vLightPosition', Sky.sun.getPosition());
-        this.shaderMaterial.setVector3('vColor', new Vector3(0.5, 0.5, 0.5));
+    }
+
+    public constructor() {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRMaterial.json", Game.scene).then((nodeMaterial) => {
+            this._nodeMaterial = nodeMaterial;
+            this._nodeMaterial.backFaceCulling = false
+            this._nodeMaterial.build();
+        })
+    }
+
+    public set albedoColor(albedoColor: Color3){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("AlbedoColor") as InputBlock).value = albedoColor;
+        })
+    }
+
+    public set albedoTexture(albedoTexture: Texture){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("AlbedoTexture") as TextureBlock).texture = albedoTexture;
+        })
+    }
+
+    public set opacity(opacity: number){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("Opacity Factor") as InputBlock).value = opacity;
+        })
+    }
+
+    public set metallic(metallic: number){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("Metallic Factor") as InputBlock).value = metallic;
+        })
+    }
+
+    public set metallicTexture(metallicTexture: Texture){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("MetallicTexture") as TextureBlock).texture = metallicTexture;
+        })
+    }
+
+    public set roughness(roughness: number){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("Roughness Factor") as InputBlock).value = roughness;
+        })
+    }
+
+    public set roughnessTexture(roughnessTexture: Texture){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("RoughnessTexture") as TextureBlock).texture = roughnessTexture;
+        })
+    }
+
+    public set emission(emission: number){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("EmissionFactor") as InputBlock).value = emission;
+        })
+    }
+
+    public set emissionColor(emissionColor: Color3){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("EmissionColor") as InputBlock).value = emissionColor;
+        })
+    }
+
+    public set emissionTexture(emissionTexture: Texture){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("EmissionTexture") as TextureBlock).texture = emissionTexture;
+        })
+    }
+
+    public configureFromPBRMaterial(pbrMaterial: PBRMaterial){
+        this.albedoColor = pbrMaterial.albedoColor;
+        const albedoTexture = pbrMaterial.albedoTexture;
+        if(albedoTexture !== null){
+            this.albedoTexture = albedoTexture as Texture;
+        }
+
+        const metallic = pbrMaterial.metallic;
+        if(metallic !== null){
+            this.metallic = metallic;
+        }
+        const metallicTexture = pbrMaterial.metallicTexture;
+        if(metallicTexture !== null){
+            this.metallicTexture = metallicTexture as Texture;
+        }
+
+        const roughness = pbrMaterial.roughness;
+        if(roughness !== null){
+            this.roughness = roughness;
+        }
+        /*const roughnessTexture = pbrMaterial.roughTexture;
+        if(metallicTexture !== null){
+            this.metallicTexture = metallicTexture as Texture;
+        }*/
+
+
     }
 
 }
