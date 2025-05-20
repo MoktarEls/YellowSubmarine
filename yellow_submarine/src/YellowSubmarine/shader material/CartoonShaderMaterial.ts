@@ -1,6 +1,12 @@
 import {
-    AbstractMesh, Color3, InputBlock, NodeMaterial, PBRMaterial, StandardMaterial, Texture, TextureBlock,
-
+    AbstractMesh,
+    Color3,
+    InputBlock,
+    NodeMaterial,
+    Nullable,
+    PBRMaterial,
+    Texture,
+    TextureBlock,
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
@@ -17,10 +23,22 @@ export class CartoonShaderMaterial {
     }
 
     public constructor() {
-        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRMaterial.json", Game.scene).then((nodeMaterial) => {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRTransparentMaterial.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
             this._nodeMaterial.backFaceCulling = false
             this._nodeMaterial.build();
+        })
+    }
+
+    public set ambientColor(color: Color3){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("Ambient Light")as InputBlock).value = color;
+        })
+    }
+
+    public set ambientLightIntensity(intensity: number){
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("Ambient Light Intensity")as InputBlock).value = intensity;
         })
     }
 
@@ -84,6 +102,12 @@ export class CartoonShaderMaterial {
         })
     }
 
+    public set transparencyMode(transparencyMode: Nullable<number>){
+        this._nodeMaterialPromise.then(() => {
+            this._nodeMaterial.transparencyMode = transparencyMode;
+        })
+    }
+
     public configureFromPBRMaterial(pbrMaterial: PBRMaterial){
         this.albedoColor = pbrMaterial.albedoColor;
         const albedoTexture = pbrMaterial.albedoTexture;
@@ -91,14 +115,12 @@ export class CartoonShaderMaterial {
             this.albedoTexture = albedoTexture as Texture;
         }
 
-        const emission = pbrMaterial.emissiveIntensity;
-        this.emission = emission;
+        this.emission = pbrMaterial.emissiveIntensity;
         const emissionTexture = pbrMaterial.emissiveTexture;
         if(emissionTexture !== null){
             this.emissionTexture = emissionTexture as Texture;
         }
-        const emissionColor = pbrMaterial.emissiveColor;
-        this.emissionColor = emissionColor;
+        this.emissionColor = pbrMaterial.emissiveColor;
 
         const metallic = pbrMaterial.metallic;
         if(metallic !== null){
@@ -109,16 +131,14 @@ export class CartoonShaderMaterial {
             this.metallicTexture = metallicTexture as Texture;
         }
 
-        const roughness = pbrMaterial.roughness;
+/*        const roughness = pbrMaterial.roughness;
         if(roughness !== null){
             this.roughness = roughness;
-        }
-/*
-        const roughnessTexture = pbrMaterial.roughTexture;
-        if(roughnessTexture !== null){
-            this.roughnessTexture = roughnessTexture as Texture;
-        }
-*/
+        }*/
+
+        this.roughness = 1;
+        this.opacity = pbrMaterial.alpha;
+        this.transparencyMode = pbrMaterial.transparencyMode;
 
     }
 

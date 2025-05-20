@@ -3,7 +3,7 @@
   "ignoreAlpha": false,
   "maxSimultaneousLights": 4,
   "mode": 0,
-  "forceAlphaBlending": false,
+  "forceAlphaBlending": true,
   "id": "node",
   "name": "node",
   "checkReadyOnEveryCall": false,
@@ -527,8 +527,8 @@
       }
     ],
     "frames": [],
-    "x": -395.76398435367776,
-    "y": 201.17291265442293,
+    "x": -118.76398435367776,
+    "y": 474.17291265442293,
     "zoom": 0.4268661992931676
   },
   "customType": "BABYLON.NodeMaterial",
@@ -742,6 +742,9 @@
         },
         {
           "name": "a",
+          "inputName": "a",
+          "targetBlockId": 382412,
+          "targetConnectionName": "output",
           "isExposedOnFrame": true,
           "exposedPortPosition": -1
         },
@@ -3038,6 +3041,66 @@
       "value": 0
     },
     {
+      "customType": "BABYLON.MultiplyBlock",
+      "id": 382412,
+      "name": "Opacity Albedo*Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 4,
+      "inputs": [
+        {
+          "name": "left",
+          "inputName": "left",
+          "targetBlockId": 382356,
+          "targetConnectionName": "a",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        },
+        {
+          "name": "right",
+          "inputName": "right",
+          "targetBlockId": 382413,
+          "targetConnectionName": "output",
+          "isExposedOnFrame": true,
+          "exposedPortPosition": -1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ]
+    },
+    {
+      "customType": "BABYLON.InputBlock",
+      "id": 382413,
+      "name": "Opacity Factor",
+      "comments": "",
+      "visibleInInspector": false,
+      "visibleOnFrame": false,
+      "target": 1,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "output"
+        }
+      ],
+      "type": 1,
+      "mode": 0,
+      "animationType": 0,
+      "min": 0,
+      "max": 1,
+      "isBoolean": false,
+      "matrixMode": 0,
+      "isConstant": false,
+      "groupInInspector": "",
+      "convertToGammaSpace": false,
+      "convertToLinearSpace": false,
+      "valueType": "number",
+      "value": 1
+    },
+    {
       "customType": "BABYLON.NodeMaterialDebugBlock",
       "id": 382414,
       "name": "Debug",
@@ -3234,66 +3297,6 @@
       "outputs": [],
       "isActive": false,
       "renderAlpha": false
-    },
-    {
-      "customType": "BABYLON.MultiplyBlock",
-      "id": 382412,
-      "name": "Opacity Albedo*Factor",
-      "comments": "",
-      "visibleInInspector": false,
-      "visibleOnFrame": false,
-      "target": 4,
-      "inputs": [
-        {
-          "name": "left",
-          "inputName": "left",
-          "targetBlockId": 382356,
-          "targetConnectionName": "a",
-          "isExposedOnFrame": true,
-          "exposedPortPosition": -1
-        },
-        {
-          "name": "right",
-          "inputName": "right",
-          "targetBlockId": 382413,
-          "targetConnectionName": "output",
-          "isExposedOnFrame": true,
-          "exposedPortPosition": -1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output"
-        }
-      ]
-    },
-    {
-      "customType": "BABYLON.InputBlock",
-      "id": 382413,
-      "name": "Opacity Factor",
-      "comments": "",
-      "visibleInInspector": false,
-      "visibleOnFrame": false,
-      "target": 1,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "output"
-        }
-      ],
-      "type": 1,
-      "mode": 0,
-      "animationType": 0,
-      "min": 0,
-      "max": 1,
-      "isBoolean": false,
-      "matrixMode": 0,
-      "isConstant": false,
-      "groupInInspector": "",
-      "convertToGammaSpace": false,
-      "convertToLinearSpace": false,
-      "valueType": "number",
-      "value": 1
     }
   ],
   "uniqueId": 4
