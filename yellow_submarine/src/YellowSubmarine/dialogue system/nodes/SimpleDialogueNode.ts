@@ -2,8 +2,6 @@
 
 export class SimpleDialogueNode extends AbstractDialogueNode{
 
-    execute(): void {
-        console.log(this.text);
-    }
+    execute(): void {return;}
 
 }

@@ -46,7 +46,6 @@ export class InteractionManager{
         this._interactionArray.splice(this._interactionArray.indexOf(interaction), 1);
 
         if(this._interactionArray.length > 0){
-            console.log("Rearranging interactions")
             this._currentInteraction = this._interactionArray[this._interactionArray.length - 1];
         } else {
             this._currentInteraction = undefined;
