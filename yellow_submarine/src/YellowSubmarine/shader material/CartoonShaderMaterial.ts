@@ -25,6 +25,7 @@ export class CartoonShaderMaterial {
     public constructor() {
         this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRTransparentMaterial.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
+            this.ambientColor = new Color3(0.5,0.5,0.5);
             this._nodeMaterial.backFaceCulling = false
             this._nodeMaterial.build();
         })
