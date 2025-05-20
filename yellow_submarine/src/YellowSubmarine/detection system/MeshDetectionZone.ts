@@ -26,6 +26,10 @@ export class MeshDetectionZone {
         this.checkAll();
     }
 
+    public isInZone(mesh: AbstractMesh): boolean {
+        return this._zone.intersectsMesh(mesh, true);
+    }
+
     private checkDetection(mesh : AbstractMesh) : boolean {
         const state = this._zone.intersectsMesh(mesh, true);
         if (state !== this._meshToDetect.get(mesh)) {

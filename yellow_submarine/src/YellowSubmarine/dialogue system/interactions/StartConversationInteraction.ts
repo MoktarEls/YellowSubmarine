@@ -1,7 +1,6 @@
 ﻿import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
 import {AbstractMesh} from "@babylonjs/core";
-import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 
 export class StartConversationInteraction extends WorldInteraction{
 

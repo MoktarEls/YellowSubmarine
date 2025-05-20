@@ -71,6 +71,13 @@ export class NPC{
             this._startConversationInteraction = new StartConversationInteraction(conversation);
             this._conversation = conversation;
             this._conversation.npc = this;
+
+            this._conversation?.onConversationEnd.add( () =>  {
+                if(this._playerDetectionZone?.isInZone(World.submarine.mesh)){
+                    this._startConversationInteraction?.makeAvailable();
+                }
+            });
+
         }
         else{
             this._startConversationInteraction = undefined;
@@ -78,7 +85,6 @@ export class NPC{
                 this._conversation.npc = undefined;
             }
             this._conversation = undefined;
-
         }
     }
 
