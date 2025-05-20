@@ -91,6 +91,15 @@ export class CartoonShaderMaterial {
             this.albedoTexture = albedoTexture as Texture;
         }
 
+        const emission = pbrMaterial.emissiveIntensity;
+        this.emission = emission;
+        const emissionTexture = pbrMaterial.emissiveTexture;
+        if(emissionTexture !== null){
+            this.emissionTexture = emissionTexture as Texture;
+        }
+        const emissionColor = pbrMaterial.emissiveColor;
+        this.emissionColor = emissionColor;
+
         const metallic = pbrMaterial.metallic;
         if(metallic !== null){
             this.metallic = metallic;
@@ -104,11 +113,12 @@ export class CartoonShaderMaterial {
         if(roughness !== null){
             this.roughness = roughness;
         }
-        /*const roughnessTexture = pbrMaterial.roughTexture;
-        if(metallicTexture !== null){
-            this.metallicTexture = metallicTexture as Texture;
-        }*/
-
+/*
+        const roughnessTexture = pbrMaterial.roughTexture;
+        if(roughnessTexture !== null){
+            this.roughnessTexture = roughnessTexture as Texture;
+        }
+*/
 
     }
 
