@@ -18,8 +18,8 @@ export class DialogueInteractionUI extends UI {
         super();
 
         this._container = new Rectangle();
-        this._container.width = "30%";
-        this._container.height = "10%";
+        this._container.width = "40%";
+        this._container.height = "15%";
         this._container.cornerRadius = 10;
         this._container.thickness = 5;
         this._container.color = "rgb(168, 98, 68)";  // bordure marron
@@ -42,7 +42,7 @@ export class DialogueInteractionUI extends UI {
         this._triangle.width = "24px";
         this._triangle.height = "24px";
         this._triangle.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-        this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+        this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._triangle.isVisible = false;
         this._container.addControl(this._triangle);
 
@@ -62,7 +62,7 @@ export class DialogueInteractionUI extends UI {
         });
 
         Conversation.onAnyDialogueStart.add((dialog) => {
-            this.showText(this._textBlock, dialog.text, 35);
+            this.showText(this._textBlock, dialog.text, 20);
         });
 
     }
