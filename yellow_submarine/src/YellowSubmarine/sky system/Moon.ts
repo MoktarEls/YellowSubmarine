@@ -24,7 +24,10 @@ export class Moon extends HemisphericCelestialBody {
 
     // Light Characteristic
     public override get _intensity(): number {
-        return 0.1;
+        return 2;
+    }
+    public override get hemiLightIntensity(){
+        return 1;
     }
     public override get _diffuse(): Color3 {
         return new Color3(1.0, 1.0, 1.0);

@@ -25,9 +25,9 @@ export class World {
 
     constructor() {
         World._instance = this;
-        this._sky = new Sky();
         this._sea = new Sea();
         this._submarine = new Submarine();
+        this._sky = new Sky();
         KeyZoneFactory.createDolphinIsland();
     }
 

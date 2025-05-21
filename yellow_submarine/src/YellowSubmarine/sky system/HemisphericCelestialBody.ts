@@ -1,11 +1,20 @@
 import {CelestialBody} from "@/YellowSubmarine/sky system/CelestialBody";
-import {Color3, HemisphericLight, Scene, Vector3} from "@babylonjs/core";
+import {Color3, HemisphericLight, Scene, ShadowGenerator, Vector3} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class HemisphericCelestialBody extends CelestialBody{
 
     private _hemiLight : HemisphericLight
+    private shadowGenerator: ShadowGenerator;
+
+    public get hemiLight(){
+        return this._hemiLight;
+    }
+
+    public get hemiLightIntensity(){
+        return this._hemiLight.intensity;
+    }
 
     public get _emissiveColor(): Color3 {
         return new Color3(1.0, 1.0, 1.0);
@@ -27,18 +36,26 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
         super();
         this._hemiLight = this.createHemiLight(Game.scene);
         this.configMaterials(Game.scene);
+        this._hemiLight.direction = Vector3.Up();
+        this.shadowGenerator = new ShadowGenerator(1024, this.light);
+        this.shadowGenerator.useBlurExponentialShadowMap = true;
+        this.shadowGenerator.blurKernel = 16;
+        this.light.shadowEnabled = true;
+        Game.scene.onBeforeRenderObservable.add(() => {
+            if (Game.scene.activeCamera) {
+                const dir = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
+                this.light.direction = dir.negate();
+            }
+        });
     }
 
     private createHemiLight(scene: Scene) : HemisphericLight{
-        let direction = new Vector3(0, 0, 0);
-        if (scene.activeCamera) {
-            direction = this._defaultPosition.subtract(scene.activeCamera.position).normalize();
-        }
-        const light = new HemisphericLight("sunLight", direction, scene);
-        light.intensity = 0.8;
+        const light = new HemisphericLight("hemisphericLight", Vector3.Up(), scene);
+        light.intensity = 2;
         light.diffuse = this._diffuse;
         light.shadowEnabled = false;
-
+        light.parent = this._bodyMesh;
         return light;
     }
+
 }
