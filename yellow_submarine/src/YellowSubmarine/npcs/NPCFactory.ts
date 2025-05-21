@@ -4,7 +4,8 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Angle, Vector3} from "@babylonjs/core";
+import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
+import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 
 export class NPCFactory {
 
@@ -13,6 +14,15 @@ export class NPCFactory {
         pedro.name = "Pedro";
         Utils.loadMesh("models/characters/pedro.glb").then( (result) => {
             pedro.mesh = result.meshes[0];
+            result.meshes.forEach((mesh) => {
+                const mat = mesh.material as PBRMaterial;
+                if(mat){
+                    const toonMat = new CartoonShaderMaterial();
+                    toonMat.assignMaterial(mesh).then(() => {
+                        toonMat.configureFromPBRMaterial(mat);
+                    });
+                }
+            })
         });
         pedro.detectionZone = new CylindricalDetectionZone( {
             height: 8,
