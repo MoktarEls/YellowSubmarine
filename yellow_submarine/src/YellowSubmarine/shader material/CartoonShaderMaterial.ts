@@ -23,23 +23,9 @@ export class CartoonShaderMaterial {
     }
 
     public constructor() {
-        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRTransparentMaterial.json", Game.scene).then((nodeMaterial) => {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRMaterialRedshift.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
-            this.ambientColor = new Color3(0.5,0.5,0.5);
-            this._nodeMaterial.backFaceCulling = false
             this._nodeMaterial.build();
-        })
-    }
-
-    public set ambientColor(color: Color3){
-        this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("Ambient Light")as InputBlock).value = color;
-        })
-    }
-
-    public set ambientLightIntensity(intensity: number){
-        this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("Ambient Light Intensity")as InputBlock).value = intensity;
         })
     }
 
@@ -57,13 +43,13 @@ export class CartoonShaderMaterial {
 
     public set opacity(opacity: number){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("Opacity Factor") as InputBlock).value = opacity;
+            (this._nodeMaterial.getBlockByName("OpacityFactor") as InputBlock).value = opacity;
         })
     }
 
     public set metallic(metallic: number){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("Metallic Factor") as InputBlock).value = metallic;
+            (this._nodeMaterial.getBlockByName("MetallicFactor") as InputBlock).value = metallic;
         })
     }
 
@@ -75,7 +61,7 @@ export class CartoonShaderMaterial {
 
     public set roughness(roughness: number){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("Roughness Factor") as InputBlock).value = roughness;
+            (this._nodeMaterial.getBlockByName("RoughnessFactor") as InputBlock).value = roughness;
         })
     }
 
@@ -87,19 +73,19 @@ export class CartoonShaderMaterial {
 
     public set emission(emission: number){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("EmissionFactor") as InputBlock).value = emission;
+            (this._nodeMaterial.getBlockByName("EmissiveFactor") as InputBlock).value = emission;
         })
     }
 
     public set emissionColor(emissionColor: Color3){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("EmissionColor") as InputBlock).value = emissionColor;
+            (this._nodeMaterial.getBlockByName("EmissiveColor") as InputBlock).value = emissionColor;
         })
     }
 
     public set emissionTexture(emissionTexture: Texture){
         this._nodeMaterialPromise.then(() => {
-            (this._nodeMaterial.getBlockByName("EmissionTexture") as TextureBlock).texture = emissionTexture;
+            (this._nodeMaterial.getBlockByName("EmissiveTexture") as TextureBlock).texture = emissionTexture;
         })
     }
 
@@ -124,6 +110,7 @@ export class CartoonShaderMaterial {
         this.emissionColor = pbrMaterial.emissiveColor;
 
         const metallic = pbrMaterial.metallic;
+        console.log(pbrMaterial.name + ": " + metallic);
         if(metallic !== null){
             this.metallic = metallic;
         }
@@ -132,14 +119,24 @@ export class CartoonShaderMaterial {
             this.metallicTexture = metallicTexture as Texture;
         }
 
-/*        const roughness = pbrMaterial.roughness;
+        const roughness = pbrMaterial.roughness;
         if(roughness !== null){
             this.roughness = roughness;
-        }*/
+        }
 
-        this.roughness = 1;
-        this.opacity = pbrMaterial.alpha;
         this.transparencyMode = pbrMaterial.transparencyMode;
+        this._nodeMaterialPromise.then(() => {
+            this._nodeMaterial.backFaceCulling = pbrMaterial.backFaceCulling;
+            this._nodeMaterial.needDepthPrePass = pbrMaterial.needDepthPrePass;
+            this._nodeMaterial.cullBackFaces = pbrMaterial.cullBackFaces;
+            this._nodeMaterial.alpha = pbrMaterial.alpha;
+            this._nodeMaterial.alphaMode = pbrMaterial.alphaMode;
+            this._nodeMaterial.disableDepthWrite = pbrMaterial.disableDepthWrite;
+            this._nodeMaterial.disableColorWrite = pbrMaterial.disableColorWrite;
+            this._nodeMaterial.forceDepthWrite = pbrMaterial.forceDepthWrite;
+            this._nodeMaterial.depthFunction = pbrMaterial.depthFunction;
+        })
+
 
     }
 

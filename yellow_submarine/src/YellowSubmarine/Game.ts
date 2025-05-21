@@ -1,5 +1,5 @@
 import {World} from "@/YellowSubmarine/World";
-import {Engine, Observable, Scene} from "@babylonjs/core";
+import {Color3, DirectionalLight, Engine, Observable, Scene, Vector3} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
@@ -49,6 +49,9 @@ export class Game{
         this._world = new World();
         this._player = new Player();
         this._uiManager = new UIManager();
+        this._scene.lights.forEach(light => { light.setEnabled(false); })
+        const directionalLight = new DirectionalLight("testLight",Vector3.Right(), this._scene);
+        directionalLight.intensity = 1;
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 if(!this._isGameFocused) {

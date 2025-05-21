@@ -24,7 +24,7 @@ export class Submarine {
     }
 
     private static _instance: Submarine;
-    private _mesh !: AbstractMesh;
+    private _mesh!: AbstractMesh;
 
     private _movementSpeed = 5;
     private _currentMovementSpeed = 0;
@@ -60,9 +60,7 @@ export class Submarine {
         })
         this._mesh.name = "submarine";
         this._mesh.position = new Vector3(0, 0, 0);
-        this._mesh.material = new StandardMaterial("submarineMaterial", scene);
         return this._mesh;
-        // mesh.material = new CartoonShaderMaterial().shaderMaterial;
     }
 
     private update(deltaTimeInSec: number) {
