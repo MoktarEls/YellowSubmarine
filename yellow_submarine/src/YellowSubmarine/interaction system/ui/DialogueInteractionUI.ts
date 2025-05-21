@@ -77,6 +77,7 @@ export class DialogueInteractionUI extends UI {
         if(this._isBlinking) return;
 
         this._isBlinking = true;
+        this._triangle.isVisible = true;
         while (this._isBlinking) {
             this._triangle.alpha = 1;
             await Utils.sleep(300);
@@ -90,6 +91,8 @@ export class DialogueInteractionUI extends UI {
 
     private stopBlinkingIndicator() {
         this._isBlinking = false;
+        this._triangle.isVisible = false;
+        this._triangle.alpha = 1;
     }
 
 }
