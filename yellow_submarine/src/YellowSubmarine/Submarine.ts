@@ -25,13 +25,13 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh !: AbstractMesh;
 
-    private _movementSpeed = 5;
+    private _movementSpeed = 8;
     private _currentMovementSpeed = 0;
-    private _acceleration = 3;
+    private _acceleration = 6;
 
-    private _rotationSpeed = Angle.FromDegrees(90).radians();
+    private _rotationSpeed = Angle.FromDegrees(270).radians();
     private _currentRotationSpeed = 0;
-    private _rotationAcceleration = Angle.FromDegrees(60).radians();
+    private _rotationAcceleration = Angle.FromDegrees(270).radians();
 
     public meshCreationPromise: Promise<AbstractMesh>;
 
