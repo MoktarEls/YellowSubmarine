@@ -49,9 +49,6 @@ export class Game{
         this._world = new World();
         this._player = new Player();
         this._uiManager = new UIManager();
-        this._scene.lights.forEach(light => { light.setEnabled(false); })
-        const directionalLight = new DirectionalLight("testLight",Vector3.Right(), this._scene);
-        directionalLight.intensity = 1;
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 if(!this._isGameFocused) {
