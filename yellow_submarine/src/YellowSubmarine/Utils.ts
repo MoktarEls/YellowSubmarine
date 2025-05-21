@@ -7,4 +7,8 @@ export class Utils {
         return ImportMeshAsync(path, scene??Game.scene, options);
     }
 
+    public static sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
 }

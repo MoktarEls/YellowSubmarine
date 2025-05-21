@@ -25,9 +25,9 @@ export class NPCFactory {
         // for test purpose
         const conversation = new Conversation();
         const dialogue1 = new SimpleDialogueNode();
-        dialogue1.text = "Hello";
+        dialogue1.text = "Hello ! This is a text that needs to show upFDSQFDSOIJFODISJFOIDSJFIODSJIOFJDSIOJFDSIOJFDIOSJFIODSJIOFDSJIOFJSD";
         const dialogue2 = new SimpleDialogueNode();
-        dialogue2.text = "Bye";
+        dialogue2.text = "Hi ! This is a second text ";
         dialogue1.nextNode = dialogue2;
         conversation.root = dialogue1;
         pedro.conversation = conversation;
