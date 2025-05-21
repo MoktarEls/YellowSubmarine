@@ -11,7 +11,7 @@ export class CameraConfiguration {
     private _currentUpperBetaLimit? : number;
 
     public get targetPosition(): Vector3{
-        return ( this._target?.position ?? Vector3.Zero() ).add( this._offset.rotateByQuaternionToRef(this._target?.absoluteRotationQuaternion ?? Quaternion.Identity(), Vector3.Zero() ) );
+        return ( this._target?.absolutePosition ?? Vector3.Zero() ).add( this._offset.rotateByQuaternionToRef(this._target?.absoluteRotationQuaternion ?? Quaternion.Identity(), Vector3.Zero() ) );
     }
 
     public get offset(): Vector3 {
