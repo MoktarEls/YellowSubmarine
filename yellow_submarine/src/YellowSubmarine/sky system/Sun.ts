@@ -17,7 +17,10 @@ export class Sun extends HemisphericCelestialBody {
 
     // Light Characteristic
     public override get _intensity(): number {
-        return 1.0;
+        return 5;
+    }
+    public override get hemiLightIntensity(){
+        return 2;
     }
     public override get _diffuse(): Color3 {
         return new Color3(1.0, 1.0, 1.0);

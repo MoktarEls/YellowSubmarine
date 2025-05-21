@@ -48,7 +48,7 @@ export abstract class CelestialBody {
     }
 
     private createBody(scene: Scene) : Mesh{
-        const body = MeshBuilder.CreateSphere("body", {
+        const body = MeshBuilder.CreateSphere("celestialBody", {
             diameter: this._diameter,
             segments: 32
         }, scene);
@@ -59,7 +59,7 @@ export abstract class CelestialBody {
     }
 
     private createHalo(scene: Scene) : Mesh{
-        const halo = MeshBuilder.CreateSphere("sunHalo", {
+        const halo = MeshBuilder.CreateSphere("halo", {
             diameter: this._diameter * 1.05,
             segments: 32
         }, scene);
@@ -77,7 +77,7 @@ export abstract class CelestialBody {
         const light = new DirectionalLight("sunLight", direction.negate(), scene);
         light.intensity = this._intensity;
         light.shadowEnabled = true;
-        light.position = this._defaultPosition;
+        light.parent = this._bodyMesh;
         light.diffuse = this._diffuse;
         light.specular = this._specular;
         const glowLayer = new GlowLayer("", scene);
