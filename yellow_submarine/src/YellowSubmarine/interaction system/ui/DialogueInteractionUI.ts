@@ -18,8 +18,8 @@ export class DialogueInteractionUI extends UI {
         super();
 
         this._container = new Rectangle();
-        this._container.width = "90%";
-        this._container.height = "150px";
+        this._container.width = "30%";
+        this._container.height = "10%";
         this._container.cornerRadius = 10;
         this._container.thickness = 5;
         this._container.color = "rgb(168, 98, 68)";  // bordure marron
@@ -47,8 +47,13 @@ export class DialogueInteractionUI extends UI {
         this._container.addControl(this._triangle);
 
         // Événements
-        Conversation.onAnyConversationStart.add(() => {
+        Conversation.onAnyConversationStart.add((conversation) => {
             this._container.isVisible = true;
+            const mesh = conversation.npc?.mesh;
+            if(mesh){
+                this._container.linkWithMesh(mesh);
+                this._container.linkOffsetY = -200;
+            }
         });
 
         Conversation.onAnyConversationEnd.add(() => {
@@ -57,8 +62,9 @@ export class DialogueInteractionUI extends UI {
         });
 
         Conversation.onAnyDialogueStart.add((dialog) => {
-            this.showText(this._textBlock, dialog.text, 1);
+            this.showText(this._textBlock, dialog.text, 35);
         });
+
     }
 
     private async showText(textBlock: TextBlock, text: string, speed: number) {
