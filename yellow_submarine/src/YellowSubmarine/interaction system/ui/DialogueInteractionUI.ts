@@ -17,9 +17,10 @@ interface StyledTextBlock {
 }
 
 export class DialogueInteractionUI extends UI {
-    private _container: Rectangle;
-    private _verticalStack: StackPanel;
-    private _triangle: Image;
+    private _container!: Rectangle;
+    private _verticalStack!: StackPanel;
+    private _triangle!: Image;
+
     private _parser = new BBParser();
     private _advanceRequested = false;
     private static _isTextFullyDisplayed = false;
@@ -32,10 +33,7 @@ export class DialogueInteractionUI extends UI {
         return this._isTextFullyDisplayed;
     }
 
-    constructor() {
-        super();
-
-        // Conteneur principal
+    private initContainer() {
         this._container = new Rectangle();
         this._container.width = "40%";
         this._container.cornerRadius = 10;
@@ -45,15 +43,17 @@ export class DialogueInteractionUI extends UI {
         this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
+    }
 
-        // Stack vertical pour le texte
+    private initStack(){
         this._verticalStack = new StackPanel();
         this._verticalStack.isVertical = true;
         this._verticalStack.width = "100%";
         this._verticalStack.paddingTop = "4px";
         this._container.addControl(this._verticalStack);
+    }
 
-        // Indicateur (triangle) pour passer au dialogue suivant
+    private initTriangle(){
         this._triangle = new Image("nextTriangle", "ui/triangle.png");
         this._triangle.width = "24px";
         this._triangle.height = "24px";
@@ -61,8 +61,15 @@ export class DialogueInteractionUI extends UI {
         this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._triangle.isVisible = false;
         this._container.addControl(this._triangle);
+    }
 
-        // Événements de conversation
+    constructor() {
+        super();
+
+        this.initContainer();
+        this.initStack();
+        this.initTriangle();
+
         Conversation.onAnyConversationStart.add(conv => {
             this._container.isVisible = true;
             if (conv.npc?.mesh) {
@@ -84,45 +91,6 @@ export class DialogueInteractionUI extends UI {
         const ctx = canvas.getContext('2d')!;
         ctx.font = `${fontSize}px sans-serif`;
         return ctx.measureText(text).width;
-    }
-
-    private splitLines(segments: StyledSegment[], maxWidth: number): StyledSegment[][] {
-        const lines: StyledSegment[][] = [];
-        let currentLine: StyledSegment[] = [];
-        let currentWidth = 0;
-
-        for (const segment of segments) {
-            const segWidth = this.getTextWidth(segment.text, segment.style.size || 24);
-
-            if (currentWidth + segWidth <= maxWidth) {
-                currentLine.push(segment);
-                currentWidth += segWidth;
-            } else {
-                const parts = segment.text.split(/(\s+)/);
-                for (const part of parts) {
-                    const partWidth = this.getTextWidth(part, segment.style.size || 24);
-                    if (currentWidth + partWidth > maxWidth && currentLine.length) {
-                        lines.push(currentLine);
-                        currentLine = [];
-                        currentWidth = 0;
-                    }
-                    currentLine.push({ text: part, style: segment.style });
-                    currentWidth += partWidth;
-                }
-            }
-        }
-
-        if (currentLine.length) lines.push(currentLine);
-        return lines;
-    }
-
-    private applyStyle(tb: TextBlock, style: BBStyle) {
-        tb.fontWeight = style.bold ? 'bold' : 'normal';
-        tb.fontStyle = style.italic ? 'italic' : 'normal';
-        tb.color = style.color || 'black';
-        tb.fontSize = style.size || 24;
-        tb.paddingLeft = "4px";
-        tb.paddingRight = "4px";
     }
 
     private async showText(text: string, speed: number) {
@@ -167,6 +135,57 @@ export class DialogueInteractionUI extends UI {
         const totalHeight = lines.length * lineHeight + 16;
         this._container.height = `${totalHeight}px`;
 
+        await this.animateBlocks(blocks, speed);
+
+        if (this._advanceRequested) {
+            blocks.forEach(b => b.tb.text = b.full);
+        }
+
+        DialogueInteractionUI._isTextFullyDisplayed = true;
+        Conversation.onAdvanceDialogueRequested.remove(advanceObserver);
+        await this._startBlink();
+    }
+
+    private splitLines(segments: StyledSegment[], maxWidth: number): StyledSegment[][] {
+        const lines: StyledSegment[][] = [];
+        let currentLine: StyledSegment[] = [];
+        let currentWidth = 0;
+
+        for (const segment of segments) {
+            const segWidth = this.getTextWidth(segment.text, segment.style.size || 24);
+
+            if (currentWidth + segWidth <= maxWidth) {
+                currentLine.push(segment);
+                currentWidth += segWidth;
+            } else {
+                const parts = segment.text.split(/(\s+)/);
+                for (const part of parts) {
+                    const partWidth = this.getTextWidth(part, segment.style.size || 24);
+                    if (currentWidth + partWidth > maxWidth && currentLine.length) {
+                        lines.push(currentLine);
+                        currentLine = [];
+                        currentWidth = 0;
+                    }
+                    currentLine.push({ text: part, style: segment.style });
+                    currentWidth += partWidth;
+                }
+            }
+        }
+
+        if (currentLine.length) lines.push(currentLine);
+        return lines;
+    }
+
+    private applyStyle(tb: TextBlock, style: BBStyle) {
+        tb.fontWeight = style.bold ? 'bold' : 'normal';
+        tb.fontStyle = style.italic ? 'italic' : 'normal';
+        tb.color = style.color || 'black';
+        tb.fontSize = style.size || 24;
+        tb.paddingLeft = "4px";
+        tb.paddingRight = "4px";
+    }
+
+    private async animateBlocks(blocks: StyledTextBlock[], speed:number) {
         // Animation du texte
         let skipped = false;
         for (const { tb, full } of blocks) {
@@ -180,14 +199,6 @@ export class DialogueInteractionUI extends UI {
             }
             if (skipped) break;
         }
-
-        if (this._advanceRequested) {
-            blocks.forEach(b => b.tb.text = b.full);
-        }
-
-        DialogueInteractionUI._isTextFullyDisplayed = true;
-        Conversation.onAdvanceDialogueRequested.remove(advanceObserver);
-        this._startBlink();
     }
 
     private async _startBlink() {
