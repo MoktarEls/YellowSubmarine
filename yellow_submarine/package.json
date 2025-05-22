@@ -12,6 +12,7 @@
     "@babylonjs/materials": "latest",
     "@babylonjs/loaders": "latest",
     "@babylonjs/gui": "latest",
+    "@babylonjs/havok": "latest",
     "vue": "^3.2.13"
   },
   "devDependencies": {
