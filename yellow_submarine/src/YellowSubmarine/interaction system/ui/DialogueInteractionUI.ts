@@ -9,9 +9,17 @@ export class DialogueInteractionUI extends UI {
     private _container: Rectangle;
     private _triangle!: Image;
     private _isBlinking = false;
+    private _advanceRequested = false;
+
+    private static _isTextFullyDisplayed = false;
+
 
     public get controlNode(): Control {
         return this._container;
+    }
+
+    public static get isTextFullyDisplayed(): boolean {
+        return this._isTextFullyDisplayed;
     }
 
     constructor() {
@@ -69,15 +77,31 @@ export class DialogueInteractionUI extends UI {
 
     private async showText(textBlock: TextBlock, text: string, speed: number) {
         this.stopBlinkingIndicator();
+        DialogueInteractionUI._isTextFullyDisplayed = false;
+        this._advanceRequested = false;
         textBlock.text = "";
+
+        const observer = Conversation.onAdvanceDialogueRequested.add( () => {
+            this._advanceRequested = true;
+        });
+
         let currentText = "";
-        for(let i = 0; i < text.length; i++) {
+        for (let i = 0; i < text.length; i++) {
+            if (this._advanceRequested) {
+                textBlock.text = text;
+                break;
+            }
             currentText += text[i];
             textBlock.text = currentText;
             await Utils.sleep(speed);
         }
+
+        DialogueInteractionUI._isTextFullyDisplayed = true;
+        this._advanceRequested = false;
+        Conversation.onAdvanceDialogueRequested.remove(observer);
         await this.startBlinkingIndicator();
     }
+
 
     private async startBlinkingIndicator() {
         if(this._isBlinking) return;
