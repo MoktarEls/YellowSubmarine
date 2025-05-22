@@ -16,7 +16,7 @@ interface StyledTextBlock {
 }
 
 export class DialogueInteractionUI extends UI {
-
+    // Constantes
     private readonly CONTAINER_WIDTH = 0.4;
     private readonly CONTAINER_CORNER_RADIUS = 10;
     private readonly CONTAINER_THICKNESS = 5;
@@ -24,16 +24,18 @@ export class DialogueInteractionUI extends UI {
     private readonly CONTAINER_BACKGROUND = "rgb(255, 199, 130)";
     private readonly CONTAINER_OFFSET_Y = -200;
 
-    private readonly TEXT_PADDING = 4;
+    private readonly TEXT_PADDING = 8; // padding global du container
+    private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 4; // padding horizontal pour chaque segment
     private readonly TEXT_DEFAULT_FONT_SIZE = 24;
     private readonly TEXT_LINE_SPACING = 8;
+    private readonly TEXT_EXTRA_CONTAINER_MARGIN = 20;
     private readonly TEXT_SPEED = 20;
 
     private readonly TRIANGLE_IMAGE_PATH = "ui/triangle.png";
     private readonly TRIANGLE_SIZE = "24px";
     private readonly TRIANGLE_BLINK_INTERVAL = 300;
 
-    // === Membres ===
+    // Membres internes
     private _container!: Rectangle;
     private _verticalStack!: StackPanel;
     private _triangle!: Image;
@@ -41,6 +43,10 @@ export class DialogueInteractionUI extends UI {
     private _parser = new BBParser();
     private _advanceRequested = false;
     private static _isTextFullyDisplayed = false;
+
+    // Canvas pour mesure du texte
+    private _canvas = document.createElement('canvas');
+    private _ctx = this._canvas.getContext('2d')!;
 
     public get controlNode(): Control {
         return this._container;
@@ -84,13 +90,17 @@ export class DialogueInteractionUI extends UI {
         this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
+
+        this._container.paddingLeft = `${this.TEXT_PADDING}px`;
+        this._container.paddingRight = `${this.TEXT_PADDING}px`;
+        this._container.paddingTop = `${this.TEXT_PADDING}px`;
+        this._container.paddingBottom = `${this.TEXT_PADDING}px`;
     }
 
     private initStack() {
         this._verticalStack = new StackPanel();
         this._verticalStack.isVertical = true;
         this._verticalStack.width = "100%";
-        this._verticalStack.paddingTop = `${this.TEXT_PADDING}px`;
         this._container.addControl(this._verticalStack);
     }
 
@@ -105,10 +115,8 @@ export class DialogueInteractionUI extends UI {
     }
 
     private getTextWidth(text: string, fontSize: number = this.TEXT_DEFAULT_FONT_SIZE): number {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d')!;
-        ctx.font = `${fontSize}px sans-serif`;
-        return ctx.measureText(text).width;
+        this._ctx.font = `${fontSize}px sans-serif`;
+        return this._ctx.measureText(text).width;
     }
 
     private async showText(text: string, speed: number) {
@@ -125,12 +133,16 @@ export class DialogueInteractionUI extends UI {
             style: s.style
         }));
 
-        const maxWidth = document.querySelector('canvas')!.clientWidth * this.CONTAINER_WIDTH - this.TEXT_PADDING * 4;
+        const canvasWidth = document.querySelector('canvas')!.clientWidth;
+        const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
+        // on enlève le padding container ET 2x padding horizontal segment
+        const maxWidth = containerPixelWidth - this.TEXT_PADDING * 2 - this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
+
         const lines = this.splitLines(segments, maxWidth);
 
         const blocks: StyledTextBlock[] = [];
         const maxFontSize = Math.max(...segments.map(s => s.style.size || this.TEXT_DEFAULT_FONT_SIZE));
-        const lineHeight = maxFontSize + this.TEXT_LINE_SPACING;
+        const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
 
         lines.forEach(lineSegments => {
             const row = new StackPanel();
@@ -144,12 +156,16 @@ export class DialogueInteractionUI extends UI {
                 this.applyStyle(tb, segment.style);
                 tb.textWrapping = false;
                 tb.resizeToFit = true;
+                // Pour centrer verticalement le texte dans la ligne
+                tb.paddingTop = `${(lineHeight - (segment.style.size || this.TEXT_DEFAULT_FONT_SIZE)) / 2}px`;
+                tb.paddingBottom = tb.paddingTop;
                 row.addControl(tb);
                 blocks.push({ tb, full: segment.text });
             });
         });
 
-        const totalHeight = lines.length * lineHeight + this.TEXT_PADDING * 2;
+        const contentHeight = lines.length * lineHeight;
+        const totalHeight = contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
         this._container.height = `${totalHeight}px`;
 
         await this.animateBlocks(blocks, speed);
@@ -169,19 +185,26 @@ export class DialogueInteractionUI extends UI {
         let currentWidth = 0;
 
         for (const segment of segments) {
-            const segWidth = this.getTextWidth(segment.text, segment.style.size || this.TEXT_DEFAULT_FONT_SIZE);
+            const fontSize = segment.style.size || this.TEXT_DEFAULT_FONT_SIZE;
+            const segWidth = this.getTextWidth(segment.text, fontSize) + this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
 
             if (currentWidth + segWidth <= maxWidth) {
                 currentLine.push(segment);
                 currentWidth += segWidth;
             } else {
                 const parts = segment.text.split(/(\s+)/);
+
                 for (const part of parts) {
-                    const partWidth = this.getTextWidth(part, segment.style.size || this.TEXT_DEFAULT_FONT_SIZE);
+                    if (part === '' || (part.trim() === '' && currentLine.length === 0)) {
+                        // Ignore empty parts or spaces at start of line
+                        continue;
+                    }
+                    const partWidth = this.getTextWidth(part, fontSize) + this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
                     if (currentWidth + partWidth > maxWidth && currentLine.length) {
                         lines.push(currentLine);
                         currentLine = [];
                         currentWidth = 0;
+                        if (part.trim() === '') continue; // Don't start line with space
                     }
                     currentLine.push({ text: part, style: segment.style });
                     currentWidth += partWidth;
@@ -198,8 +221,8 @@ export class DialogueInteractionUI extends UI {
         tb.fontStyle = style.italic ? 'italic' : 'normal';
         tb.color = style.color || 'black';
         tb.fontSize = style.size || this.TEXT_DEFAULT_FONT_SIZE;
-        tb.paddingLeft = `${this.TEXT_PADDING}px`;
-        tb.paddingRight = `${this.TEXT_PADDING}px`;
+        tb.paddingLeft = `${this.TEXT_BLOCK_HORIZONTAL_PADDING}px`;
+        tb.paddingRight = `${this.TEXT_BLOCK_HORIZONTAL_PADDING}px`;
     }
 
     private async animateBlocks(blocks: StyledTextBlock[], speed: number) {
