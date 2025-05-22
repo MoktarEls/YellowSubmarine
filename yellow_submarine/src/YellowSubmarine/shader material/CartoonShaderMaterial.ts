@@ -110,7 +110,6 @@ export class CartoonShaderMaterial {
         this.emissionColor = pbrMaterial.emissiveColor;
 
         const metallic = pbrMaterial.metallic;
-        console.log(pbrMaterial.name + ": " + metallic);
         if(metallic !== null){
             this.metallic = metallic;
         }

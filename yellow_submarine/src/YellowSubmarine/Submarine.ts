@@ -1,17 +1,19 @@
 import {
     AbstractMesh,
     Angle,
-    Mesh, PBRMaterial,
+    KeyboardEventTypes,
+    Mesh,
+    PBRMaterial,
     Scalar,
     Scene,
     SceneLoader,
-    StandardMaterial,
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Submarine {
 
@@ -41,7 +43,26 @@ export class Submarine {
         this.meshCreationPromise = this.createMesh(Game.scene);
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(Game.engine.getDeltaTime() / 1000);
-        })
+        });
+        const keysDown = new Set<string>();
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const key = eventData.event.key;
+            if (key === "k") {
+                if (eventData.type === KeyboardEventTypes.KEYDOWN) {
+                    if (!keysDown.has(key)) {
+                        keysDown.add(key);
+                        SoundManager.instance.playSFX("submarine_horn", {
+                            volume : 0.05,
+                            spatialSound : true,
+                            loop : true
+                        });
+                    }
+                } else if (eventData.type === KeyboardEventTypes.KEYUP) {
+                    keysDown.delete(key);
+                    SoundManager.instance.stopSFX("submarine_horn");
+                }
+            }
+        });
     }
 
     private async createMesh(scene: Scene) {

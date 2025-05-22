@@ -4,6 +4,7 @@ import {Player} from "@/YellowSubmarine/Player";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Game{
 
@@ -19,6 +20,7 @@ export class Game{
     private _camera: ConfigurableCamera;
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
+    private _soundManager: SoundManager;
 
     public static get canvas(){
         return this._instance._canvas;
@@ -49,6 +51,7 @@ export class Game{
         this._world = new World();
         this._player = new Player();
         this._uiManager = new UIManager();
+        this._soundManager = new SoundManager();
         if (_canvas) {
             _canvas.addEventListener("click", () => {
                 if(!this._isGameFocused) {
