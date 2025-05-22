@@ -1,5 +1,5 @@
 ﻿import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
-import {AbstractMesh, Observable} from "@babylonjs/core";
+import {AbstractMesh, Observable, PhysicsAggregate} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
 
 export class KeyZone {
@@ -9,6 +9,7 @@ export class KeyZone {
     private  _discovered = false;
     private  _disabled = false;
     private _mesh!:AbstractMesh;
+    private _physicsAggregate?: PhysicsAggregate;
 
     public static onAnyKeyZoneEntered: Observable<KeyZone> = new Observable();
 
@@ -57,6 +58,14 @@ export class KeyZone {
     }
     public get mesh() {
         return this._mesh;
+    }
+
+    public get physicsAggregate(): PhysicsAggregate | undefined {
+        return this._physicsAggregate;
+    }
+
+    public set physicsAggregate(physicsAggregate: PhysicsAggregate | undefined){
+        this._physicsAggregate = physicsAggregate;
     }
 
 }

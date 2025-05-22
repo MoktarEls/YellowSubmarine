@@ -9,6 +9,7 @@ import { defineComponent } from 'vue';
 import {Game} from "@/YellowSubmarine/Game";
 import {Engine, HavokPlugin} from "@babylonjs/core";
 import HavokPhysics from "@babylonjs/havok";
+import {Debug} from "@babylonjs/core/Legacy/legacy";
 
 export default defineComponent({
   name: 'YellowSubmarine',
@@ -21,7 +22,21 @@ export default defineComponent({
       await HavokPhysics().then((havok) => {
         const havokPlugin = new HavokPlugin(true, havok);
         const game = new Game(canvas, havokPlugin);
+
+        setTimeout(() => {
+          const physicsViewer = new Debug.PhysicsViewer();
+          for (const mesh of Game.scene.meshes) {
+            if (mesh.physicsBody) {
+              physicsViewer.showBody(mesh.physicsBody);
+            }
+          }
+        }, 3000);
+
       })
+
+
+
+
   },
 });
 </script>
