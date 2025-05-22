@@ -1,14 +1,15 @@
-import {PhysicsBody, TransformNode, Vector3} from "@babylonjs/core";
+import {DistanceConstraint, PhysicsBody, PhysicsConstraint, TransformNode, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class Grappler {
 
 
-    private _parent?: TransformNode;
-    private _grapplerLength = 15;
+    private _parent?: PhysicsBody;
+    private _grapplerLength = 3;
+    private _breakingLength = 10;
     private _currentGrappledObject?: PhysicsBody;
     private _localOffsetWithSubmarine: Vector3 = new Vector3(0, 0, -5);
-    private _pullingForce = 50;
+    private _pullingForce = 3;
 
     constructor() {
         Game.scene.onBeforeRenderObservable.add(() => {
@@ -20,6 +21,7 @@ export class Grappler {
         if(this._currentGrappledObject) return;
 
         this._currentGrappledObject = object;
+
     }
 
     public letGoOfObject() {
@@ -36,11 +38,11 @@ export class Grappler {
         this._grapplerLength = length;
     }
 
-    public get parent(): TransformNode | undefined {
+    public get parent(): PhysicsBody | undefined {
         return this._parent;
     }
 
-    public set parent(submarine: TransformNode | undefined) {
+    public set parent(submarine: PhysicsBody | undefined) {
         this._parent = submarine;
     }
 
@@ -58,14 +60,17 @@ export class Grappler {
         if(this._currentGrappledObject !== undefined){
             const parent = this._parent;
             if(parent){
-                const positionWithOffset = parent.absolutePosition.add(this._localOffsetWithSubmarine.rotateByQuaternionToRef(parent.absoluteRotationQuaternion, Vector3.Zero()));
+                const positionWithOffset = parent.getObjectCenterWorld().add(this._localOffsetWithSubmarine.rotateByQuaternionToRef(parent.transformNode.absoluteRotationQuaternion, Vector3.Zero()));
 
                 const grappledObjectPosition = this._currentGrappledObject.getObjectCenterWorld();
                 const fromGrapplerToObject = grappledObjectPosition.subtract(positionWithOffset);
                 const distance = fromGrapplerToObject.length();
-                if(distance > this._grapplerLength){
+                if(distance > this._breakingLength){
+                    console.log("Cassé !!!")
+                    this.letGoOfObject();
+                }else if(distance > this._grapplerLength){
                     const pullingDirection = fromGrapplerToObject.normalizeToNew().scale(-1);
-                    this._currentGrappledObject.applyForce(pullingDirection.scale(this._pullingForce), grappledObjectPosition);
+                    this._currentGrappledObject.applyForce(pullingDirection.scale(this._pullingForce * (1 + (distance - this._grapplerLength)) ), grappledObjectPosition);
                 }
 
             }

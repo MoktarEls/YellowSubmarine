@@ -1,11 +1,11 @@
 import {
     AbstractMesh,
-    Angle,
     Mesh,
-    PBRMaterial, Physics6DoFConstraint,
-    PhysicsAggregate, PhysicsMotionType,
-    PhysicsShapeType, Quaternion,
-    Scalar,
+    MeshBuilder,
+    PBRMaterial,
+    PhysicsAggregate,
+    PhysicsMotionType,
+    PhysicsShapeType,
     Scene,
     SceneLoader,
     Vector3
@@ -41,7 +41,21 @@ export class Submarine {
         this.meshCreationPromise = this.createMesh(Game.scene);
         this.meshCreationPromise.then((mesh) => {
             const grappler = new Grappler();
-            grappler.parent = mesh;
+            console.log(mesh.physicsBody);
+            grappler.parent = mesh.physicsBody ?? undefined;
+
+            const grappledObjectMesh = MeshBuilder.CreateIcoSphere("grappledObject",{
+                radius: 0.5,
+            }, Game.scene);
+            grappledObjectMesh.position = mesh.position.add(mesh.forward.scale(-3));
+            const grappledObjectAggregate = new PhysicsAggregate(grappledObjectMesh, PhysicsShapeType.SPHERE, {
+                mass: 0.1,
+                mesh: grappledObjectMesh,
+            }, Game.scene);
+            grappledObjectAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
+            grappledObjectAggregate.body.setLinearDamping(1);
+            grappledObjectAggregate.body.setAngularDamping(1);
+            grappler.grappleObject(grappledObjectAggregate.body);
 
         })
         Game.scene.onBeforeRenderObservable.add(() => {
