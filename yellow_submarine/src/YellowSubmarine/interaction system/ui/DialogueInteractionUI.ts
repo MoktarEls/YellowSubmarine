@@ -2,6 +2,7 @@
 import {Control, TextBlock, Rectangle, Image} from "@babylonjs/gui";
 import { Conversation } from "@/YellowSubmarine/dialogue system/Conversation";
 import {Utils} from "@/YellowSubmarine/Utils";
+import {BBParser} from "@/YellowSubmarine/ui system/BBCode/BBParser";
 
 export class DialogueInteractionUI extends UI {
 
@@ -10,6 +11,7 @@ export class DialogueInteractionUI extends UI {
     private _triangle!: Image;
     private _isBlinking = false;
     private _advanceRequested = false;
+    private _parser = new BBParser();
 
     private static _isTextFullyDisplayed = false;
 
