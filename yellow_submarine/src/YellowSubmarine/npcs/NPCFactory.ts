@@ -25,10 +25,20 @@ export class NPCFactory {
         // for test purpose
         const conversation = new Conversation();
         const dialogue1 = new SimpleDialogueNode();
-        dialogue1.text = "Hello ! This is a text that needs to show upFDSQFDSOIJFODISJFOIDSJFIODSJIOFJDSIOJFDSIOJFDIOSJFIODSJIOFDSJIOFJSD";
+        dialogue1.text = "Ceci est un texte en [g]gras[/g]";
+
         const dialogue2 = new SimpleDialogueNode();
-        dialogue2.text = "Hi ! This is a second text ";
+        dialogue2.text = "Ceci est un texte en [i]italique[/i]";
+
         dialogue1.nextNode = dialogue2;
+        const dialogue3 = new SimpleDialogueNode();
+        dialogue3.text = "Ceci est un texte en [g][c=blue]gras et bleu[/c][/g].";
+
+        dialogue2.nextNode = dialogue3;
+        const dialogue4 = new SimpleDialogueNode();
+        dialogue4.text = "Voici un mot en [g]gras[/g], un en [i]italique[/i], et un [g][c=#ffffff]gras rouge[/c][/g].";
+        dialogue3.nextNode = dialogue4;
+
         conversation.root = dialogue1;
         pedro.conversation = conversation;
 

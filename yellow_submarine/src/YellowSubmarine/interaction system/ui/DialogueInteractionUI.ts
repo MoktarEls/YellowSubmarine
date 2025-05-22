@@ -1,12 +1,13 @@
 ﻿import { UI } from "@/YellowSubmarine/ui system/UI";
-import {Control, TextBlock, Rectangle, Image} from "@babylonjs/gui";
+import {Control, TextBlock, Rectangle, Image, StackPanel} from "@babylonjs/gui";
 import { Conversation } from "@/YellowSubmarine/dialogue system/Conversation";
 import {Utils} from "@/YellowSubmarine/Utils";
 import {BBParser} from "@/YellowSubmarine/ui system/BBCode/BBParser";
+import {BBStyle} from "@/YellowSubmarine/ui system/BBCode/BBStyle";
 
 export class DialogueInteractionUI extends UI {
 
-    private _textBlock: TextBlock;
+    private _stackPanel: StackPanel;
     private _container: Rectangle;
     private _triangle!: Image;
     private _isBlinking = false;
@@ -38,15 +39,14 @@ export class DialogueInteractionUI extends UI {
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
 
-        this._textBlock = new TextBlock();
-        this._textBlock.color = "black";
-        this._textBlock.fontSize = 24;
-        this._textBlock.textWrapping = true;
-        this._textBlock.width = "90%";  // un peu de marge horizontale
-        this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-        this._textBlock.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+        this._stackPanel = new StackPanel();
+        this._stackPanel.isVertical = false;
+        this._stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+        this._stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+        this._stackPanel.height = "100%";
+        this._stackPanel.width = "100%";
 
-        this._container.addControl(this._textBlock);
+        this._container.addControl(this._stackPanel);
 
         this._triangle = new Image("nextTriangle", "ui/triangle.png");
         this._triangle.width = "24px";
@@ -54,6 +54,7 @@ export class DialogueInteractionUI extends UI {
         this._triangle.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._triangle.isVisible = false;
+
         this._container.addControl(this._triangle);
 
         // Événements
@@ -72,30 +73,78 @@ export class DialogueInteractionUI extends UI {
         });
 
         Conversation.onAnyDialogueStart.add((dialog) => {
-            this.showText(this._textBlock, dialog.text, 20);
+            this.showText(dialog.text, 20);
         });
 
     }
 
-    private async showText(textBlock: TextBlock, text: string, speed: number) {
+    private applyStyleToTextBlock(textBlock: TextBlock, style: BBStyle): void {
+        if (style.bold) {
+            textBlock.fontWeight = "bold";
+        }
+        if (style.italic) {
+            textBlock.fontStyle = "italic";
+        }
+        if (style.color) {
+            textBlock.color = style.color;
+        } else {
+            textBlock.color = "black";
+        }
+    }
+
+    private async showText(text: string, speed: number) {
         this.stopBlinkingIndicator();
         DialogueInteractionUI._isTextFullyDisplayed = false;
         this._advanceRequested = false;
-        textBlock.text = "";
+
+        this._stackPanel.clearControls();
 
         const observer = Conversation.onAdvanceDialogueRequested.add( () => {
             this._advanceRequested = true;
         });
 
-        let currentText = "";
-        for (let i = 0; i < text.length; i++) {
-            if (this._advanceRequested) {
-                textBlock.text = text;
+        const segments = this._parser.parseBBCode(text);
+        const textBlocks: TextBlock[] = [];
+
+        for(const segment of segments) {
+            const tb = new TextBlock();
+            tb.text = "";
+            tb.fontSize = 24;
+            tb.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+            tb.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+            tb.resizeToFit = true;
+            tb.textWrapping = false;
+            tb.paddingLeft = "3px";
+            tb.paddingRight = "3px";
+            this.applyStyleToTextBlock(tb, segment.style);
+            this._stackPanel.addControl(tb);
+            textBlocks.push(tb);
+        }
+
+        let segmentIndex = 0;
+        let charIndex = 0;
+
+        while(segmentIndex < segments.length) {
+            if(this._advanceRequested) {
+
+                for (let i = 0; i < segments.length; i++) {
+                    textBlocks[i].text = segments[i].text;
+                }
                 break;
             }
-            currentText += text[i];
-            textBlock.text = currentText;
-            await Utils.sleep(speed);
+
+            const currentSegment = segments[segmentIndex];
+            const currentTextBlock = textBlocks[segmentIndex];
+
+            if (charIndex < currentSegment.text.length) {
+                currentTextBlock.text += currentSegment.text[charIndex];
+                charIndex++;
+                await Utils.sleep(speed);
+            } else {
+                segmentIndex++;
+                charIndex = 0;
+            }
+
         }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
