@@ -14,6 +14,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class Submarine {
     private _physicsAggregate?: PhysicsAggregate;
@@ -38,6 +39,11 @@ export class Submarine {
     constructor() {
         Submarine._instance = this;
         this.meshCreationPromise = this.createMesh(Game.scene);
+        this.meshCreationPromise.then((mesh) => {
+            const grappler = new Grappler();
+            grappler.parent = mesh;
+
+        })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
