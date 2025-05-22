@@ -7,17 +7,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {Game} from "@/YellowSubmarine/Game";
-import {Engine} from "@babylonjs/core";
+import {Engine, HavokPlugin} from "@babylonjs/core";
+import HavokPhysics from "@babylonjs/havok";
 
 export default defineComponent({
   name: 'YellowSubmarine',
   props: {
     msg: String,
   },
-  mounted() {
+  async mounted() {
       const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
       Engine.ShadersRepository = "../shaders/";
-      const game = new Game(canvas);
+      await HavokPhysics().then((havok) => {
+        const havokPlugin = new HavokPlugin(true, havok);
+        const game = new Game(canvas, havokPlugin);
+      })
   },
 });
 </script>

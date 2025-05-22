@@ -1,9 +1,10 @@
 import {World} from "@/YellowSubmarine/World";
-import {Color3, DirectionalLight, Engine, Observable, Scene, Vector3} from "@babylonjs/core";
+import {Color3, DirectionalLight, Engine, HavokPlugin, Observable, Scene, Vector3} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
+import {HavokPhysicsWithBindings} from "@babylonjs/havok";
 
 export class Game{
 
@@ -40,10 +41,11 @@ export class Game{
         return Game._instance._isGameFocused;
     }
 
-    constructor(private _canvas: HTMLCanvasElement) {
+    constructor(private _canvas: HTMLCanvasElement, private _havok: HavokPlugin) {
         Game._instance = this;
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
+        this._scene.enablePhysics(new Vector3(0,0,0), _havok);
         this._interactionManager = new InteractionManager();
         this._camera = new ConfigurableCamera();
         this._world = new World();
