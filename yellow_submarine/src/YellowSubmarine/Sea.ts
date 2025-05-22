@@ -1,11 +1,6 @@
 import {
     Mesh,
     MeshBuilder,
-    PhysicsBody,
-    PhysicsMotionType,
-    PhysicsShape,
-    PhysicsShapeType,
-    TransformNode, Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {ReflectiveToonWaterMaterial} from "@/YellowSubmarine/shader material/ReflectiveToonWaterMaterial";
