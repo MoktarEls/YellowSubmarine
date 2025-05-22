@@ -1,11 +1,13 @@
 import {
     AbstractMesh,
     Angle,
-    Mesh, PBRMaterial,
+    Mesh,
+    PBRMaterial, Physics6DoFConstraint,
+    PhysicsAggregate, PhysicsMotionType,
+    PhysicsShapeType, Quaternion,
     Scalar,
     Scene,
     SceneLoader,
-    StandardMaterial,
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
@@ -14,6 +16,7 @@ import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 
 export class Submarine {
+    private _physicsAggregate?: PhysicsAggregate;
 
     public get mesh(): AbstractMesh{
         return this._mesh;
@@ -26,13 +29,9 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh!: AbstractMesh;
 
-    private _movementSpeed = 8;
-    private _currentMovementSpeed = 0;
-    private _acceleration = 6;
+    private _movementForce = 1000000;
 
-    private _rotationSpeed = Angle.FromDegrees(270).radians();
-    private _currentRotationSpeed = 0;
-    private _rotationAcceleration = Angle.FromDegrees(270).radians();
+    private _rotationImpulse = 1000000;
 
     public meshCreationPromise: Promise<AbstractMesh>;
 
@@ -40,70 +39,80 @@ export class Submarine {
         Submarine._instance = this;
         this.meshCreationPromise = this.createMesh(Game.scene);
         Game.scene.onBeforeRenderObservable.add(() => {
-            this.update(Game.engine.getDeltaTime() / 1000);
+            this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
     }
 
     private async createMesh(scene: Scene) {
         const result = await SceneLoader.ImportMeshAsync("", "models/objects/", "submarine.glb", scene);
-        this._mesh = result.meshes[0] as Mesh;
-        result.meshes.forEach((mesh) => {
+        const rootMesh = result.meshes[0] as Mesh;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
             const mat = mesh.material as PBRMaterial;
             if(mat){
-                const toonShader = new CartoonShaderMaterial();
-                    toonShader.assignMaterial(mesh).then( () => {
-                        toonShader.configureFromPBRMaterial(mat);
-                    }
-                );
+                const toonMat = new CartoonShaderMaterial();
+                await toonMat.assignMaterial(mesh).then(() => {
+                    toonMat.configureFromPBRMaterial(mat);
+                });
             }
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            this._mesh = mergedMesh;
+            this._physicsAggregate = new PhysicsAggregate(this._mesh, PhysicsShapeType.CONVEX_HULL,{
+                mass: 1,
+            }, Game.scene);
+            this._physicsAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
+            this._physicsAggregate.body.setMassProperties({
+                inertia: new Vector3(0, 1, 0),
+            });
+            this._physicsAggregate.body.setLinearDamping(1);
+            this._physicsAggregate.body.setAngularDamping(1);
+            this._physicsAggregate.body.getCollisionObservable().add((eventData, eventState) => {
+                eventData.collider
+            })
 
-        })
-        this._mesh.name = "submarine";
-        this._mesh.position = new Vector3(0, 0, 0);
+            this._mesh.name = "submarine";
+            this._mesh.position = new Vector3(0, 0, 0);
+        }
+
         return this._mesh;
     }
 
-    private update(deltaTimeInSec: number) {
-        this.updateRotationSpeed(deltaTimeInSec);
-        this.updateMovementSpeed(deltaTimeInSec);
-        this.updateRotation(deltaTimeInSec);
-        this.updatePosition(deltaTimeInSec);
+    private update() {
+        this.updateRotationSpeed();
+        this.updateMovementSpeed();
     }
 
-    private updateRotationSpeed(deltaTimeInSec: number) {
-        let rotationSpeedTarget = 0;
+    private updateRotationSpeed() {
+        if (!this._physicsAggregate) return;
 
-        if(this.isRightPressed()){
-            rotationSpeedTarget += this._rotationSpeed;
-        }
-        if(this.isLeftPressed()){
-            rotationSpeedTarget -= this._rotationSpeed;
-        }
+        const body = this._physicsAggregate.body;
 
-        this._currentRotationSpeed = Scalar.MoveTowards(this._currentRotationSpeed, rotationSpeedTarget, deltaTimeInSec * this._rotationAcceleration);
+        // Déterminer la direction de rotation en fonction des entrées utilisateur
+        let direction = 0;
+        if (this.isRightPressed()) direction += 1;
+        if (this.isLeftPressed()) direction -= 1;
+
+        if(direction == 0) return;
+
+        body.applyAngularImpulse(this._mesh.right.scale(-direction * this._rotationImpulse));
+
     }
 
-    private updateMovementSpeed(deltaTimeInSec: number) {
-        let targetMovementSpeed = 0;
-        if(this.isForwardPressed()){
-            targetMovementSpeed += this._movementSpeed;
-        }
-        if(this.isBackwardPressed()){
-            targetMovementSpeed -= this._movementSpeed;
-        }
-        this._currentMovementSpeed = Scalar.MoveTowards(this._currentMovementSpeed, targetMovementSpeed, deltaTimeInSec * this._acceleration);
-    }
+    private updateMovementSpeed() {
+        if (!this._physicsAggregate) return;
 
-    private updateRotation(deltaTimeInSec: number) {
-        if(this.mesh){
-            this.mesh.rotateAround(this.mesh.position, Vector3.Up(), deltaTimeInSec * this._currentRotationSpeed);
-        }
-    }
+        const body = this._physicsAggregate.body;
 
-    private updatePosition(deltaTimeInSec: number) {
-        if(this.mesh){
-            this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
-        }
+        let direction = 0;
+        if (this.isForwardPressed()) direction += 1;
+        if (this.isBackwardPressed()) direction -= 1;
+
+        if (direction === 0) return;
+
+        body.applyForce(this._mesh.forward.scale(direction * this._movementForce), body.getObjectCenterWorld() );
+
     }
 
     private isForwardPressed() {

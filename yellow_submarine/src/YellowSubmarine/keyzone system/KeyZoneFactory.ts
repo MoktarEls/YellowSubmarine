@@ -43,7 +43,6 @@ export class KeyZoneFactory {
         const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
         if(mergedMesh){
             island.mesh = mergedMesh;
-            console.log(mergedMesh.position);
             island.mesh.parent = _transformIsland;
             island.physicsAggregate = this.createStaticPhysicsAggregate(island.mesh, PhysicsShapeType.MESH);
 
