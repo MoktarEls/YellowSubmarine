@@ -90,6 +90,11 @@ export class DialogueInteractionUI extends UI {
         } else {
             textBlock.color = "black";
         }
+        if (style.size) {
+            textBlock.fontSize = style.size;
+        } else {
+            textBlock.fontSize = 24;
+        }
     }
 
     private async showText(text: string, speed: number) {

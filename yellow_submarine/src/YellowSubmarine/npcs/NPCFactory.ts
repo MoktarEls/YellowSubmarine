@@ -32,11 +32,11 @@ export class NPCFactory {
 
         dialogue1.nextNode = dialogue2;
         const dialogue3 = new SimpleDialogueNode();
-        dialogue3.text = "Ceci est un texte en [g][c=blue]gras et bleu[/c][/g].";
+        dialogue3.text = "Ceci est un texte en [s=16][c=blue]petit et bleu[/s][/g].";
 
         dialogue2.nextNode = dialogue3;
         const dialogue4 = new SimpleDialogueNode();
-        dialogue4.text = "Voici un mot en [g]gras[/g], un en [i]italique[/i], et un [g][c=#ffffff]gras rouge.[/c][/g] Il y a beaucoup de texte";
+        dialogue4.text = "Voici un mot en [g]gras[/g], un en [i]italique[/i], et un [s=28][c=#ffffff]gros rouge.[/s][/g] Il y a beaucoup de texte";
         dialogue3.nextNode = dialogue4;
 
         conversation.root = dialogue1;
