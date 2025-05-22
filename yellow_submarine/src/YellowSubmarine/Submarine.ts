@@ -31,7 +31,7 @@ export class Submarine {
 
     private _movementForce = 1000000;
 
-    private _rotationImpulse = 1000000;
+    private _rotationForce = 500000;
 
     public meshCreationPromise: Promise<AbstractMesh>;
 
@@ -59,18 +59,20 @@ export class Submarine {
         const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
         if(mergedMesh){
             this._mesh = mergedMesh;
-            this._physicsAggregate = new PhysicsAggregate(this._mesh, PhysicsShapeType.CONVEX_HULL,{
+            this._physicsAggregate = new PhysicsAggregate(this._mesh, PhysicsShapeType.BOX,{
                 mass: 1,
+                friction: 0,
+                restitution: 0,
+                mesh: mergedMesh,
             }, Game.scene);
             this._physicsAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
             this._physicsAggregate.body.setMassProperties({
                 inertia: new Vector3(0, 1, 0),
+                centerOfMass: this._mesh.absolutePosition,
             });
             this._physicsAggregate.body.setLinearDamping(1);
             this._physicsAggregate.body.setAngularDamping(1);
-            this._physicsAggregate.body.getCollisionObservable().add((eventData, eventState) => {
-                eventData.collider
-            })
+            this._physicsAggregate.body.getCollisionObservable();
 
             this._mesh.name = "submarine";
             this._mesh.position = new Vector3(0, 0, 0);
@@ -96,7 +98,7 @@ export class Submarine {
 
         if(direction == 0) return;
 
-        body.applyAngularImpulse(this._mesh.right.scale(-direction * this._rotationImpulse));
+        body.applyForce(this._mesh.right.scale(direction * this._rotationForce), body.getObjectCenterWorld().add(this._mesh.forward));
 
     }
 

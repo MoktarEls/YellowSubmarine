@@ -45,7 +45,7 @@ export class Game{
         Game._instance = this;
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
-        this._scene.enablePhysics(new Vector3(0,-9.81,0), _havok);
+        this._scene.enablePhysics(new Vector3(0,0,0), _havok);
         this._interactionManager = new InteractionManager();
         this._camera = new ConfigurableCamera();
         this._world = new World();
