@@ -21,53 +21,50 @@ export class BBParser {
     }
 
     public parseBBCode(input: string): Segment[] {
-
         const segments: Segment[] = [];
         const tagStack: BBTag[] = [];
-        let cursor = 0;
+        const styleStack: BBStyle[] = [];
 
-        // Style de base
+        let cursor = 0;
         let currentStyle: BBStyle = {};
 
-        // Regex pour tag ouvrant ou fermant : [t], [/t], ou [t=param]
         const regex = /\[\/?([a-z]+)(?:=([^\]]+))?\]/ig;
         let match: RegExpExecArray | null;
 
         while ((match = regex.exec(input))) {
             const [full, name, param] = match;
-            const isClosing = full.startsWith("[/]");
+            const isClosing = full.startsWith("[/");
             const idx = match.index;
 
             // 1) Texte avant le tag
             if (idx > cursor) {
-                segments.push({ text: input.slice(cursor, idx), style: {...currentStyle} });
+                segments.push({ text: input.slice(cursor, idx), style: { ...currentStyle } });
             }
             cursor = idx + full.length;
 
             if (!isClosing) {
-                // 2) Ouvrant : instancier le tag et modifier currentStyle
                 const TagClass = this._registry.get(name);
                 if (TagClass) {
                     const tagInstance = new TagClass(param);
                     tagStack.push(tagInstance);
+                    styleStack.push({ ...currentStyle }); // snapshot du style
                     currentStyle = tagInstance.onOpen(currentStyle);
                 }
             } else {
-                // 3) Fermant : dépiler jusqu’au matching, restaurer style
-                // (ici on suppose tags bien emboîtés)
                 const last = tagStack.pop();
-                if (last) {
-                    currentStyle = last.onClose(currentStyle);
+                const previousStyle = styleStack.pop();
+                if (last && previousStyle) {
+                    currentStyle = previousStyle; // restore snapshot
                 }
             }
         }
 
-        // 4) Texte restant
         if (cursor < input.length) {
-            segments.push({ text: input.slice(cursor), style: {...currentStyle} });
+            segments.push({ text: input.slice(cursor), style: { ...currentStyle } });
         }
 
         return segments;
     }
+
 
 }
