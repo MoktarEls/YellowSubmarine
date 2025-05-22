@@ -41,10 +41,10 @@ export class DialogueInteractionUI extends UI {
 
         this._stackPanel = new StackPanel();
         this._stackPanel.isVertical = false;
-        this._stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-        this._stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-        this._stackPanel.height = "100%";
-        this._stackPanel.width = "100%";
+        this._stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+        this._stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+        this._stackPanel.height = "95%";
+        this._stackPanel.width = "95%";
 
         this._container.addControl(this._stackPanel);
 
@@ -111,7 +111,7 @@ export class DialogueInteractionUI extends UI {
             tb.text = "";
             tb.fontSize = 24;
             tb.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            tb.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+            tb.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
             tb.resizeToFit = true;
             tb.textWrapping = false;
             tb.paddingLeft = "3px";

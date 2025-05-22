@@ -36,7 +36,7 @@ export class NPCFactory {
 
         dialogue2.nextNode = dialogue3;
         const dialogue4 = new SimpleDialogueNode();
-        dialogue4.text = "Voici un mot en [g]gras[/g], un en [i]italique[/i], et un [g][c=#ffffff]gras rouge[/c][/g].";
+        dialogue4.text = "Voici un mot en [g]gras[/g], un en [i]italique[/i], et un [g][c=#ffffff]gras rouge.[/c][/g] Il y a beaucoup de texte";
         dialogue3.nextNode = dialogue4;
 
         conversation.root = dialogue1;
