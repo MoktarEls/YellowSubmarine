@@ -5,6 +5,17 @@ import { Utils } from "@/YellowSubmarine/Utils";
 import { BBParser } from "@/YellowSubmarine/ui system/BBCode/BBParser";
 import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
 
+// Interfaces de structure
+interface StyledSegment {
+    text: string;
+    style: BBStyle;
+}
+
+interface StyledTextBlock {
+    tb: TextBlock;
+    full: string;
+}
+
 export class DialogueInteractionUI extends UI {
     private _container: Rectangle;
     private _verticalStack: StackPanel;
@@ -16,6 +27,7 @@ export class DialogueInteractionUI extends UI {
     public get controlNode(): Control {
         return this._container;
     }
+
     public static get isTextFullyDisplayed(): boolean {
         return this._isTextFullyDisplayed;
     }
@@ -23,6 +35,7 @@ export class DialogueInteractionUI extends UI {
     constructor() {
         super();
 
+        // Conteneur principal
         this._container = new Rectangle();
         this._container.width = "40%";
         this._container.cornerRadius = 10;
@@ -33,14 +46,14 @@ export class DialogueInteractionUI extends UI {
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
 
-
+        // Stack vertical pour le texte
         this._verticalStack = new StackPanel();
         this._verticalStack.isVertical = true;
         this._verticalStack.width = "100%";
         this._verticalStack.paddingTop = "4px";
         this._container.addControl(this._verticalStack);
 
-
+        // Indicateur (triangle) pour passer au dialogue suivant
         this._triangle = new Image("nextTriangle", "ui/triangle.png");
         this._triangle.width = "24px";
         this._triangle.height = "24px";
@@ -49,6 +62,7 @@ export class DialogueInteractionUI extends UI {
         this._triangle.isVisible = false;
         this._container.addControl(this._triangle);
 
+        // Événements de conversation
         Conversation.onAnyConversationStart.add(conv => {
             this._container.isVisible = true;
             if (conv.npc?.mesh) {
@@ -66,39 +80,39 @@ export class DialogueInteractionUI extends UI {
     }
 
     private getTextWidth(text: string, fontSize: number): number {
-        const c = document.createElement('canvas');
-        const ctx = c.getContext('2d')!;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
         ctx.font = `${fontSize}px sans-serif`;
         return ctx.measureText(text).width;
     }
 
-    private splitLines(segs: { text: string; style: BBStyle }[],
-        maxWidth: number): { text: string; style: BBStyle }[][]
-    {
-        const lines: { text: string; style: BBStyle }[][] = [];
-        let current: { text: string; style: BBStyle }[] = [];
-        let width = 0;
+    private splitLines(segments: StyledSegment[], maxWidth: number): StyledSegment[][] {
+        const lines: StyledSegment[][] = [];
+        let currentLine: StyledSegment[] = [];
+        let currentWidth = 0;
 
-        for (const seg of segs) {
-            const segW = this.getTextWidth(seg.text, seg.style.size || 24);
-            if (width + segW <= maxWidth) {
-                current.push(seg);
-                width += segW;
+        for (const segment of segments) {
+            const segWidth = this.getTextWidth(segment.text, segment.style.size || 24);
+
+            if (currentWidth + segWidth <= maxWidth) {
+                currentLine.push(segment);
+                currentWidth += segWidth;
             } else {
-                const parts = seg.text.split(/(\s+)/);
+                const parts = segment.text.split(/(\s+)/);
                 for (const part of parts) {
-                    const w = this.getTextWidth(part, seg.style.size || 24);
-                    if (width + w > maxWidth && current.length) {
-                        lines.push(current);
-                        current = [];
-                        width = 0;
+                    const partWidth = this.getTextWidth(part, segment.style.size || 24);
+                    if (currentWidth + partWidth > maxWidth && currentLine.length) {
+                        lines.push(currentLine);
+                        currentLine = [];
+                        currentWidth = 0;
                     }
-                    current.push({ text: part, style: seg.style });
-                    width += w;
+                    currentLine.push({ text: part, style: segment.style });
+                    currentWidth += partWidth;
                 }
             }
         }
-        if (current.length) lines.push(current);
+
+        if (currentLine.length) lines.push(currentLine);
         return lines;
     }
 
@@ -116,63 +130,80 @@ export class DialogueInteractionUI extends UI {
         this._advanceRequested = false;
         this._verticalStack.clearControls();
 
-        const obs = Conversation.onAdvanceDialogueRequested.add(() =>
-            this._advanceRequested = true);
+        const advanceObserver = Conversation.onAdvanceDialogueRequested.add(() =>
+            this._advanceRequested = true
+        );
 
-        const segs = this._parser.parseBBCode(text).map(s => ({ text: s.text, style: s.style }));
-        const maxW = document.querySelector('canvas')!.clientWidth * 0.4 - 16;
+        const segments: StyledSegment[] = this._parser.parseBBCode(text).map(s => ({
+            text: s.text,
+            style: s.style
+        }));
 
-        const lines = this.splitLines(segs, maxW);
+        const maxWidth = document.querySelector('canvas')!.clientWidth * 0.4 - 16;
+        const lines = this.splitLines(segments, maxWidth);
 
-        const blocks: { tb: TextBlock; full: string }[] = [];
-        const maxFont = Math.max(...segs.map(s => s.style.size || 24));
-        const lh = maxFont + 8;
+        const blocks: StyledTextBlock[] = [];
+        const maxFontSize = Math.max(...segments.map(s => s.style.size || 24));
+        const lineHeight = maxFontSize + 8;
 
-        lines.forEach(parts => {
+        // Création visuelle des lignes de texte
+        lines.forEach(lineSegments => {
             const row = new StackPanel();
             row.isVertical = false;
-            row.height = `${lh}px`;
+            row.height = `${lineHeight}px`;
             this._verticalStack.addControl(row);
-            parts.forEach(p => {
+
+            lineSegments.forEach(segment => {
                 const tb = new TextBlock();
                 tb.text = '';
-                this.applyStyle(tb, p.style);
+                this.applyStyle(tb, segment.style);
                 tb.textWrapping = false;
                 tb.resizeToFit = true;
                 row.addControl(tb);
-                blocks.push({ tb, full: p.text });
+                blocks.push({ tb, full: segment.text });
             });
         });
 
+        const totalHeight = lines.length * lineHeight + 16;
+        this._container.height = `${totalHeight}px`;
 
-        const totalH = lines.length * lh + 16;
-        this._container.height = `${totalH}px`;
-
-        let stopped = false;
+        // Animation du texte
+        let skipped = false;
         for (const { tb, full } of blocks) {
             for (let i = 1; i <= full.length; i++) {
                 tb.text = full.slice(0, i);
-                if (this._advanceRequested) { stopped = true; break; }
+                if (this._advanceRequested) {
+                    skipped = true;
+                    break;
+                }
                 await Utils.sleep(speed);
             }
-            if (stopped) break;
+            if (skipped) break;
         }
-        if (this._advanceRequested) blocks.forEach(b => b.tb.text = b.full);
+
+        if (this._advanceRequested) {
+            blocks.forEach(b => b.tb.text = b.full);
+        }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
-        Conversation.onAdvanceDialogueRequested.remove(obs);
+        Conversation.onAdvanceDialogueRequested.remove(advanceObserver);
         this._startBlink();
     }
 
     private async _startBlink() {
         if (this._triangle.isVisible) return;
         this._triangle.isVisible = true;
+
         while (!this._advanceRequested) {
-            this._triangle.alpha = 1; await Utils.sleep(300);
-            this._triangle.alpha = 0; await Utils.sleep(300);
+            this._triangle.alpha = 1;
+            await Utils.sleep(300);
+            this._triangle.alpha = 0;
+            await Utils.sleep(300);
         }
+
         this._triangle.alpha = 1;
     }
+
     private _stopBlink() {
         this._triangle.isVisible = false;
         this._triangle.alpha = 1;
