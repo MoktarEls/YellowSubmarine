@@ -16,7 +16,6 @@ interface StyledTextBlock {
 }
 
 export class DialogueInteractionUI extends UI {
-    // Constantes
     private readonly CONTAINER_WIDTH = 0.4;
     private readonly CONTAINER_CORNER_RADIUS = 10;
     private readonly CONTAINER_THICKNESS = 5;
@@ -24,8 +23,8 @@ export class DialogueInteractionUI extends UI {
     private readonly CONTAINER_BACKGROUND = "rgb(255, 199, 130)";
     private readonly CONTAINER_OFFSET_Y = -200;
 
-    private readonly TEXT_PADDING = 8; // padding global du container
-    private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 4; // padding horizontal pour chaque segment
+    private readonly TEXT_PADDING = 8;
+    private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 3;
     private readonly TEXT_DEFAULT_FONT_SIZE = 24;
     private readonly TEXT_LINE_SPACING = 8;
     private readonly TEXT_EXTRA_CONTAINER_MARGIN = 20;
@@ -35,7 +34,6 @@ export class DialogueInteractionUI extends UI {
     private readonly TRIANGLE_SIZE = "24px";
     private readonly TRIANGLE_BLINK_INTERVAL = 300;
 
-    // Membres internes
     private _container!: Rectangle;
     private _verticalStack!: StackPanel;
     private _triangle!: Image;
@@ -44,7 +42,6 @@ export class DialogueInteractionUI extends UI {
     private _advanceRequested = false;
     private static _isTextFullyDisplayed = false;
 
-    // Canvas pour mesure du texte
     private _canvas = document.createElement('canvas');
     private _ctx = this._canvas.getContext('2d')!;
 
@@ -93,14 +90,13 @@ export class DialogueInteractionUI extends UI {
 
         this._container.paddingLeft = `${this.TEXT_PADDING}px`;
         this._container.paddingRight = `${this.TEXT_PADDING}px`;
-        this._container.paddingTop = `${this.TEXT_PADDING}px`;
-        this._container.paddingBottom = `${this.TEXT_PADDING}px`;
     }
 
     private initStack() {
         this._verticalStack = new StackPanel();
         this._verticalStack.isVertical = true;
         this._verticalStack.width = "100%";
+        this._verticalStack.paddingBottom = "4px";
         this._container.addControl(this._verticalStack);
     }
 
@@ -135,7 +131,6 @@ export class DialogueInteractionUI extends UI {
 
         const canvasWidth = document.querySelector('canvas')!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
-        // on enlève le padding container ET 2x padding horizontal segment
         const maxWidth = containerPixelWidth - this.TEXT_PADDING * 2 - this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
 
         const lines = this.splitLines(segments, maxWidth);
@@ -148,6 +143,8 @@ export class DialogueInteractionUI extends UI {
             const row = new StackPanel();
             row.isVertical = false;
             row.height = `${lineHeight}px`;
+            row.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+            row.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
             this._verticalStack.addControl(row);
 
             lineSegments.forEach(segment => {
@@ -156,9 +153,7 @@ export class DialogueInteractionUI extends UI {
                 this.applyStyle(tb, segment.style);
                 tb.textWrapping = false;
                 tb.resizeToFit = true;
-                // Pour centrer verticalement le texte dans la ligne
-                tb.paddingTop = `${(lineHeight - (segment.style.size || this.TEXT_DEFAULT_FONT_SIZE)) / 2}px`;
-                tb.paddingBottom = tb.paddingTop;
+                tb.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
                 row.addControl(tb);
                 blocks.push({ tb, full: segment.text });
             });
@@ -196,7 +191,6 @@ export class DialogueInteractionUI extends UI {
 
                 for (const part of parts) {
                     if (part === '' || (part.trim() === '' && currentLine.length === 0)) {
-                        // Ignore empty parts or spaces at start of line
                         continue;
                     }
                     const partWidth = this.getTextWidth(part, fontSize) + this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
@@ -204,7 +198,7 @@ export class DialogueInteractionUI extends UI {
                         lines.push(currentLine);
                         currentLine = [];
                         currentWidth = 0;
-                        if (part.trim() === '') continue; // Don't start line with space
+                        if (part.trim() === '') continue;
                     }
                     currentLine.push({ text: part, style: segment.style });
                     currentWidth += partWidth;
