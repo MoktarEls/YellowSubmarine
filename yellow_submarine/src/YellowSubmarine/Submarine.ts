@@ -1,11 +1,11 @@
 import {
     AbstractMesh,
-    Angle,
     Mesh,
-    PBRMaterial, Physics6DoFConstraint,
-    PhysicsAggregate, PhysicsMotionType,
-    PhysicsShapeType, Quaternion,
-    Scalar,
+    MeshBuilder,
+    PBRMaterial,
+    PhysicsAggregate,
+    PhysicsMotionType,
+    PhysicsShapeType,
     Scene,
     SceneLoader,
     Vector3
@@ -14,6 +14,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class Submarine {
     private _physicsAggregate?: PhysicsAggregate;
@@ -32,12 +33,17 @@ export class Submarine {
     private _movementForce = 1000000;
 
     private _rotationForce = 500000;
+    private _grappler: Grappler;
 
     public meshCreationPromise: Promise<AbstractMesh>;
 
     constructor() {
         Submarine._instance = this;
+        this._grappler = new Grappler();
         this.meshCreationPromise = this.createMesh(Game.scene);
+        this.meshCreationPromise.then((mesh) => {
+            this._grappler.owner = mesh.physicsBody ?? undefined;
+        })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
