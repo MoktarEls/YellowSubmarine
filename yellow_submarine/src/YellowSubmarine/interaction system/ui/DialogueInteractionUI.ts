@@ -24,7 +24,7 @@ export class DialogueInteractionUI extends UI {
     private readonly CONTAINER_OFFSET_Y = -200;
 
     private readonly TEXT_PADDING = 8;
-    private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 3;
+    private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 4;
     private readonly TEXT_DEFAULT_FONT_SIZE = 24;
     private readonly TEXT_LINE_SPACING = 8;
     private readonly TEXT_EXTRA_CONTAINER_MARGIN = 20;
@@ -96,7 +96,7 @@ export class DialogueInteractionUI extends UI {
         this._verticalStack = new StackPanel();
         this._verticalStack.isVertical = true;
         this._verticalStack.width = "100%";
-        this._verticalStack.paddingBottom = "4px";
+        this._verticalStack.paddingBottom = "5px";
         this._container.addControl(this._verticalStack);
     }
 
