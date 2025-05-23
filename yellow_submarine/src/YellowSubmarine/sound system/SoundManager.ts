@@ -4,9 +4,6 @@ import {
     CreateSoundAsync, ISoundOptions,
     StaticSound
 } from "@babylonjs/core";
-import {name} from "@babylonjs/gui";
-import * as url from "node:url";
-import * as url from "node:url";
 
 export class SoundManager {
 
