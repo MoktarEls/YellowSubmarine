@@ -1,21 +1,12 @@
 ﻿import { UI } from "@/YellowSubmarine/ui system/UI";
-import { Control, TextBlock, Rectangle, Image, StackPanel } from "@babylonjs/gui";
+import { Control, Rectangle, Image, StackPanel } from "@babylonjs/gui";
 import { Conversation } from "@/YellowSubmarine/dialogue system/Conversation";
 import { Utils } from "@/YellowSubmarine/Utils";
-import { BBParser } from "@/YellowSubmarine/ui system/BBCode/BBParser";
-import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
-
-interface StyledSegment {
-    text: string;
-    style: BBStyle;
-}
-
-interface StyledTextBlock {
-    tb: TextBlock;
-    full: string;
-}
+import { TextLayoutManager } from "@/YellowSubmarine/ui system/TextLayoutManager";
+import {TextAnimator} from "@/YellowSubmarine/ui system/TextAnimator";
 
 export class DialogueInteractionUI extends UI {
+    // === Constantes UI ===
     private readonly CONTAINER_WIDTH = 0.4;
     private readonly CONTAINER_CORNER_RADIUS = 10;
     private readonly CONTAINER_THICKNESS = 5;
@@ -38,12 +29,11 @@ export class DialogueInteractionUI extends UI {
     private _verticalStack!: StackPanel;
     private _triangle!: Image;
 
-    private _parser = new BBParser();
-    private _advanceRequested = false;
     private static _isTextFullyDisplayed = false;
 
-    private _canvas = document.createElement('canvas');
-    private _ctx = this._canvas.getContext('2d')!;
+
+    private _layoutManager: TextLayoutManager;
+    private _textAnimator: TextAnimator;
 
     public get controlNode(): Control {
         return this._container;
@@ -60,7 +50,18 @@ export class DialogueInteractionUI extends UI {
         this.initStack();
         this.initTriangle();
 
-        Conversation.onAnyConversationStart.add(conv => {
+        this._layoutManager = new TextLayoutManager(
+            (() => {
+                const canvas = document.createElement("canvas");
+                return canvas.getContext("2d")!;
+            })(),
+            this.TEXT_DEFAULT_FONT_SIZE,
+            this.TEXT_BLOCK_HORIZONTAL_PADDING
+        );
+
+        this._textAnimator = new TextAnimator();
+
+        Conversation.onAnyConversationStart.add((conv) => {
             this._container.isVisible = true;
             if (conv.npc?.mesh) {
                 this._container.linkWithMesh(conv.npc.mesh);
@@ -73,8 +74,9 @@ export class DialogueInteractionUI extends UI {
             this._container.isVisible = false;
         });
 
-        Conversation.onAnyDialogueStart.add(dialog =>
-            this.showText(dialog.text, this.TEXT_SPEED));
+        Conversation.onAnyDialogueStart.add((dialog) =>
+            this.showText(dialog.text, this.TEXT_SPEED)
+        );
     }
 
     private initContainer() {
@@ -87,7 +89,6 @@ export class DialogueInteractionUI extends UI {
         this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
-
         this._container.paddingLeft = `${this.TEXT_PADDING}px`;
         this._container.paddingRight = `${this.TEXT_PADDING}px`;
     }
@@ -110,63 +111,49 @@ export class DialogueInteractionUI extends UI {
         this._container.addControl(this._triangle);
     }
 
-    private getTextWidth(text: string, fontSize: number = this.TEXT_DEFAULT_FONT_SIZE): number {
-        this._ctx.font = `${fontSize}px sans-serif`;
-        return this._ctx.measureText(text).width;
-    }
-
     private async showText(text: string, speed: number) {
         DialogueInteractionUI._isTextFullyDisplayed = false;
-        this._advanceRequested = false;
+        this._textAnimator.resetAdvance();
         this._verticalStack.clearControls();
 
-        const advanceObserver = Conversation.onAdvanceDialogueRequested.add(() =>
-            this._advanceRequested = true
-        );
+        const advanceObserver = Conversation.onAdvanceDialogueRequested.add(() => {
+            this._textAnimator.requestAdvance();
+        });
 
-        const segments: StyledSegment[] = this._parser.parseBBCode(text).map(s => ({
-            text: s.text,
-            style: s.style
-        }));
-
-        const canvasWidth = document.querySelector('canvas')!.clientWidth;
+        const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
-        const maxWidth = containerPixelWidth - this.TEXT_PADDING * 2 - this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
+        const maxWidth =
+            containerPixelWidth -
+            this.TEXT_PADDING * 2 -
+            this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
 
-        const lines = this.splitLines(segments, maxWidth);
+        const { lines, segments } = this._layoutManager.layout(text, maxWidth);
 
-        const blocks: StyledTextBlock[] = [];
-        const maxFontSize = Math.max(...segments.map(s => s.style.size || this.TEXT_DEFAULT_FONT_SIZE));
+        const maxFontSize = Math.max(
+            ...segments.map((s) => s.style.size || this.TEXT_DEFAULT_FONT_SIZE)
+        );
         const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
 
-        lines.forEach(lineSegments => {
-            const row = new StackPanel();
-            row.isVertical = false;
-            row.height = `${lineHeight}px`;
-            row.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            row.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            this._verticalStack.addControl(row);
+        const { linesPanels, blocks } = this._layoutManager.createTextBlocks(
+            lines,
+            lineHeight,
+            this.TEXT_BLOCK_HORIZONTAL_PADDING,
+            this.TEXT_DEFAULT_FONT_SIZE
+        );
 
-            lineSegments.forEach(segment => {
-                const tb = new TextBlock();
-                tb.text = '';
-                this.applyStyle(tb, segment.style);
-                tb.textWrapping = false;
-                tb.resizeToFit = true;
-                tb.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-                row.addControl(tb);
-                blocks.push({ tb, full: segment.text });
-            });
+        linesPanels.forEach(linePanel => {
+            this._verticalStack.addControl(linePanel);
         });
 
         const contentHeight = lines.length * lineHeight;
-        const totalHeight = contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
+        const totalHeight =
+            contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
         this._container.height = `${totalHeight}px`;
 
-        await this.animateBlocks(blocks, speed);
+        await this._textAnimator.animateBlocks(blocks, speed);
 
-        if (this._advanceRequested) {
-            blocks.forEach(b => b.tb.text = b.full);
+        if (this._textAnimator.advanceRequested) {
+            blocks.forEach((b) => (b.tb.text = b.full));
         }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
@@ -174,71 +161,11 @@ export class DialogueInteractionUI extends UI {
         await this._startBlink();
     }
 
-    private splitLines(segments: StyledSegment[], maxWidth: number): StyledSegment[][] {
-        const lines: StyledSegment[][] = [];
-        let currentLine: StyledSegment[] = [];
-        let currentWidth = 0;
-
-        for (const segment of segments) {
-            const fontSize = segment.style.size || this.TEXT_DEFAULT_FONT_SIZE;
-            const segWidth = this.getTextWidth(segment.text, fontSize) + this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
-
-            if (currentWidth + segWidth <= maxWidth) {
-                currentLine.push(segment);
-                currentWidth += segWidth;
-            } else {
-                const parts = segment.text.split(/(\s+)/);
-
-                for (const part of parts) {
-                    if (part === '' || (part.trim() === '' && currentLine.length === 0)) {
-                        continue;
-                    }
-                    const partWidth = this.getTextWidth(part, fontSize) + this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
-                    if (currentWidth + partWidth > maxWidth && currentLine.length) {
-                        lines.push(currentLine);
-                        currentLine = [];
-                        currentWidth = 0;
-                        if (part.trim() === '') continue;
-                    }
-                    currentLine.push({ text: part, style: segment.style });
-                    currentWidth += partWidth;
-                }
-            }
-        }
-
-        if (currentLine.length) lines.push(currentLine);
-        return lines;
-    }
-
-    private applyStyle(tb: TextBlock, style: BBStyle) {
-        tb.fontWeight = style.bold ? 'bold' : 'normal';
-        tb.fontStyle = style.italic ? 'italic' : 'normal';
-        tb.color = style.color || 'black';
-        tb.fontSize = style.size || this.TEXT_DEFAULT_FONT_SIZE;
-        tb.paddingLeft = `${this.TEXT_BLOCK_HORIZONTAL_PADDING}px`;
-        tb.paddingRight = `${this.TEXT_BLOCK_HORIZONTAL_PADDING}px`;
-    }
-
-    private async animateBlocks(blocks: StyledTextBlock[], speed: number) {
-        let skipped = false;
-        for (const { tb, full } of blocks) {
-            for (let i = 1; i <= full.length; i++) {
-                tb.text = full.slice(0, i);
-                if (this._advanceRequested) {
-                    skipped = true;
-                    break;
-                }
-                await Utils.sleep(speed);
-            }
-            if (skipped) break;
-        }
-    }
-
     private async _startBlink() {
         if (this._triangle.isVisible) return;
         this._triangle.isVisible = true;
 
-        while (!this._advanceRequested) {
+        while (!this._textAnimator.advanceRequested) {
             this._triangle.alpha = 1;
             await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
             this._triangle.alpha = 0;

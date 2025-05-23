@@ -3,7 +3,7 @@ import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Angle, Vector3} from "@babylonjs/core";
-import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/nodes/ConversationBuilder";
+import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
 
 export class NPCFactory {
 
