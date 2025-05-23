@@ -1,23 +1,29 @@
-import {DistanceConstraint, PhysicsBody, PhysicsConstraint, TransformNode, Vector3} from "@babylonjs/core";
+import {DistanceConstraint, Observable, PhysicsBody, PhysicsConstraint, TransformNode, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
 
 export class Grappler {
 
+    private static _instance: Grappler;
 
     private _owner?: PhysicsBody;
-    private _grapplerLength = 3;
-    private _breakingLength = 10;
-    private _currentGrappledObject?: PhysicsBody;
+    private _grapplerLength = 1.5;
+    private _currentGrappledObject?: GrabbableObject;
     private _localOffsetWithSubmarine: Vector3 = new Vector3(0, 0, -5);
-    private _pullingForce = 3;
+    private _pullingForce = 5;
+
+    public static get instance(): Grappler {
+        return this._instance;
+    }
 
     constructor() {
+        Grappler._instance = this;
         Game.scene.onBeforeRenderObservable.add(() => {
             this.updateGrappledObject();
         })
     }
 
-    public grappleObject(object: PhysicsBody) {
+    public grappleObject(object: GrabbableObject) {
         if(this._currentGrappledObject) return;
 
         this._currentGrappledObject = object;
@@ -28,6 +34,10 @@ export class Grappler {
         if(!this._currentGrappledObject) return;
 
         this._currentGrappledObject = undefined;
+    }
+
+    public get hasAnObjectGrappled(): boolean {
+        return this._currentGrappledObject !== undefined;
     }
 
     public get grapplerLength(): number {
@@ -62,15 +72,12 @@ export class Grappler {
             if(parent){
                 const positionWithOffset = parent.getObjectCenterWorld().add(this._localOffsetWithSubmarine.rotateByQuaternionToRef(parent.transformNode.absoluteRotationQuaternion, Vector3.Zero()));
 
-                const grappledObjectPosition = this._currentGrappledObject.getObjectCenterWorld();
+                const grappledObjectPosition = this._currentGrappledObject.physicsBody.getObjectCenterWorld();
                 const fromGrapplerToObject = grappledObjectPosition.subtract(positionWithOffset);
                 const distance = fromGrapplerToObject.length();
-                if(distance > this._breakingLength){
-                    console.log("Cassé !!!")
-                    this.letGoOfObject();
-                }else if(distance > this._grapplerLength){
+                if(distance > this._grapplerLength){
                     const pullingDirection = fromGrapplerToObject.normalizeToNew().scale(-1);
-                    this._currentGrappledObject.applyForce(pullingDirection.scale(this._pullingForce * (1 + (distance - this._grapplerLength)) ), grappledObjectPosition);
+                    this._currentGrappledObject.physicsBody.applyForce(pullingDirection.scale(this._pullingForce * (1 + (distance - this._grapplerLength)) ), grappledObjectPosition);
                 }
 
             }

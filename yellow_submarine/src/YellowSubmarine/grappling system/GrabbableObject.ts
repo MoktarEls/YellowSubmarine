@@ -10,6 +10,7 @@ import {
 } from "@babylonjs/core";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Game} from "@/YellowSubmarine/Game";
+import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class GrabbableObject {
     private _detectionZone: SphericalDetectionZone;
@@ -53,6 +54,8 @@ export class GrabbableObject {
            this._detectionZone.addMeshToDetect(mesh);
         });
         this._detectionZone.onMeshEnter.add(() => {
+            if(Grappler.instance.hasAnObjectGrappled) return
+
             this._grappleInteraction.makeAvailable();
         })
         this._detectionZone.onMeshExit.add(() => {

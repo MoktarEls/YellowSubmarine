@@ -1,6 +1,7 @@
 import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
 import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
 import {AbstractMesh} from "@babylonjs/core";
+import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class GrappleInteraction extends WorldInteraction{
 
@@ -21,7 +22,8 @@ export class GrappleInteraction extends WorldInteraction{
     }
 
     public executeInteraction(): void {
-        console.log("GrappleInteraction executed !!");
+        Grappler.instance.grappleObject(this._grabbableObject);
+        this.makeUnavailable();
     }
 
     public get mesh(): AbstractMesh | undefined {
