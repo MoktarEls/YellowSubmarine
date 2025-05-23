@@ -13,6 +13,7 @@ export class Conversation {
     public static onAnyDialogueStart:Observable<AbstractDialogueNode> = new Observable();
     public static onAnyConversationStart: Observable<Conversation> = new Observable();
     public static onAnyConversationEnd: Observable<Conversation> = new Observable();
+    public static onAdvanceDialogueRequested: Observable<void> = new Observable();
 
     public onDialogueStart: Observable<AbstractDialogueNode> = new Observable();
     public onConversationStart: Observable<Conversation> = new Observable();
