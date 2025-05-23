@@ -33,30 +33,16 @@ export class Submarine {
     private _movementForce = 1000000;
 
     private _rotationForce = 500000;
+    private _grappler: Grappler;
 
     public meshCreationPromise: Promise<AbstractMesh>;
 
     constructor() {
         Submarine._instance = this;
+        this._grappler = new Grappler();
         this.meshCreationPromise = this.createMesh(Game.scene);
         this.meshCreationPromise.then((mesh) => {
-            const grappler = new Grappler();
-            console.log(mesh.physicsBody);
-            grappler.parent = mesh.physicsBody ?? undefined;
-
-            const grappledObjectMesh = MeshBuilder.CreateIcoSphere("grappledObject",{
-                radius: 0.5,
-            }, Game.scene);
-            grappledObjectMesh.position = mesh.position.add(mesh.forward.scale(-3));
-            const grappledObjectAggregate = new PhysicsAggregate(grappledObjectMesh, PhysicsShapeType.SPHERE, {
-                mass: 0.1,
-                mesh: grappledObjectMesh,
-            }, Game.scene);
-            grappledObjectAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
-            grappledObjectAggregate.body.setLinearDamping(1);
-            grappledObjectAggregate.body.setAngularDamping(1);
-            grappler.grappleObject(grappledObjectAggregate.body);
-
+            this._grappler.owner = mesh.physicsBody ?? undefined;
         })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);

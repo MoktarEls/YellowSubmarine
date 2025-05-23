@@ -4,7 +4,7 @@ import {Game} from "@/YellowSubmarine/Game";
 export class Grappler {
 
 
-    private _parent?: PhysicsBody;
+    private _owner?: PhysicsBody;
     private _grapplerLength = 3;
     private _breakingLength = 10;
     private _currentGrappledObject?: PhysicsBody;
@@ -38,12 +38,12 @@ export class Grappler {
         this._grapplerLength = length;
     }
 
-    public get parent(): PhysicsBody | undefined {
-        return this._parent;
+    public get owner(): PhysicsBody | undefined {
+        return this._owner;
     }
 
-    public set parent(submarine: PhysicsBody | undefined) {
-        this._parent = submarine;
+    public set owner(submarine: PhysicsBody | undefined) {
+        this._owner = submarine;
     }
 
     public get offset(): Vector3 {
@@ -58,7 +58,7 @@ export class Grappler {
 
     private updateGrappledObject(){
         if(this._currentGrappledObject !== undefined){
-            const parent = this._parent;
+            const parent = this._owner;
             if(parent){
                 const positionWithOffset = parent.getObjectCenterWorld().add(this._localOffsetWithSubmarine.rotateByQuaternionToRef(parent.transformNode.absoluteRotationQuaternion, Vector3.Zero()));
 
