@@ -31,7 +31,8 @@ export class World {
         this._sea = new Sea();
         this._submarine = new Submarine();
         this._sky = new Sky();
-        KeyZoneFactory.createDolphinIsland();
+        // KeyZoneFactory.createDolphinIsland();
+        KeyZoneFactory.createTemple();
         this._grabbableObject = new GrabbableObject(new Vector3(20,0,0));
     }
 

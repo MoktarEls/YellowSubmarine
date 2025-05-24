@@ -15,9 +15,9 @@ export class Sea {
             this._groundMesh = MeshBuilder.CreateGround(
                 "waterPlane",
                 {
-                    width: 512,
-                    height: 512,
-                    subdivisions: 64,
+                    width: 2048,
+                    height: 2048,
+                    subdivisions: 128,
                 },
                 Game.scene
             );
