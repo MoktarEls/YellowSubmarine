@@ -1,7 +1,7 @@
 ﻿import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {
-    Angle,
+    Angle, Color3,
     Mesh,
     PBRMaterial,
     PhysicsAggregate,
@@ -91,6 +91,7 @@ export class KeyZoneFactory {
                 await toonMat.assignMaterial(mesh).then(() => {
                     toonMat.configureFromPBRMaterial(mat);
                 });
+                toonMat.emissionColor = Color3.FromHexString("#4bf49f")
             }
         }
         const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);

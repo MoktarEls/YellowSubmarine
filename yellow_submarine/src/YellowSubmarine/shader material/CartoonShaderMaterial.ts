@@ -23,7 +23,7 @@ export class CartoonShaderMaterial {
     }
 
     public constructor() {
-        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRMaterialRedshift.json", Game.scene).then((nodeMaterial) => {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonEmissiveFixed.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
             this._nodeMaterial.build();
         })
