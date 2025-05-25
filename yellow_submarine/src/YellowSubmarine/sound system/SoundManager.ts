@@ -1,60 +1,83 @@
 import {
     AbstractMesh,
     CreateAudioEngineAsync,
-    CreateSoundAsync, ISoundOptions,
+    CreateSoundAsync, ISoundOptions, SoundState,
     StaticSound
 } from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class SoundManager {
 
     public static instance: SoundManager;
-    private _audioEngine = CreateAudioEngineAsync();
+    private _audioEngine;
     private _SFXsounds = new Map<string, StaticSound>();
     private _UIsounds = new Map<string, StaticSound>();
     private _MUSICsounds = new Map<string, StaticSound>();
+
     private _SFXVolume : number;
     private _UIVolume : number;
     private _MUSICVolume : number;
 
     constructor() {
         SoundManager.instance = this;
-        this._SFXVolume = 1;
+        this._SFXVolume = 0.8;
         this._UIVolume = 1;
-        this._MUSICVolume = 1;
+        this._MUSICVolume = 0;
+        Game.scene.headphone = true;
+        this._audioEngine = CreateAudioEngineAsync();
+        this._audioEngine.then((engine) => {
+            engine.unlockAsync();
+            Game.scene.onBeforeRenderObservable.add(() => {
+                if(Game.scene.activeCamera !== null) {
+                    engine.listener.position = Game.scene.activeCamera?.position;
+                }
+            });
+        });
+        Game.scene.onReadyObservable.add(() => {
+            this.playSFX("wind", {
+                loop: true,
+                autoplay: true,
+            });
+        })
     }
 
     private async load(name: string, url: string, options?: Partial<ISoundOptions>) {
-        await (await this._audioEngine).unlockAsync();
         return CreateSoundAsync(name, `${url}/${name}.wav`, options);
     }
 
-    private async play(name: string, url: string, map: Map<string, StaticSound>, options?: Partial<ISoundOptions>, mesh?: AbstractMesh) {
+    protected async play(name: string, url: string, map: Map<string, StaticSound>, volume: number, options?: Partial<ISoundOptions>, mesh?: AbstractMesh) {
         const sound = map.get(name);
         if(sound) {
-            if(options?.spatialSound && mesh) sound.spatial.attach(mesh)
-            this.fadeIn(sound, options?.volume ?? 1, 50);
-            sound.play();
+            if(sound.state !== SoundState.Started) {
+                this.fadeIn(sound, volume, 100);
+                sound.play();
+            }
         }
         else{
-            await this.load(name, url, options).then((sound) => {
-                map.set(name, sound)
-                if(options?.spatialSound && mesh) sound.spatial.attach(mesh)
-                this.fadeIn(sound, options?.volume ?? 1, 50);
-                sound.play();
-            });
+            const sound = await this.load(name, url, options);
+            map.set(name, sound)
+            if (options?.spatialSound && mesh) {
+                sound.spatial.attach(mesh);
+                sound.spatial.maxDistance = options.maxDistance ?? 100;
+                sound.spatial.distanceModel = "linear";
+                console.log(sound.spatial);
+            }
+            this.fadeIn(sound, volume, 1000);
+            sound.play();
         }
     }
 
     public async playSFX(name: string, options?: Partial<ISoundOptions>, mesh?: AbstractMesh) {
-        await this.play(name, "sounds/sfx", this._SFXsounds, options, mesh);
+        await this.play(name, "sounds/sfx", this._SFXsounds, this.SFXVolume, options, mesh);
     }
 
     public async playUI(name: string, options?: Partial<ISoundOptions>, mesh?: AbstractMesh) {
-        await this.play(name, "sounds/ui", this._UIsounds, options, mesh);
+        await this.play(name, "sounds/ui", this._UIsounds, this.UIVolume, options, mesh);
     }
 
     public async playMUSIC(name: string, options?: Partial<ISoundOptions>, mesh?: AbstractMesh) {
-        await this.play(name, "sounds/music", this._MUSICsounds, options, mesh);
+        await this.play(name, "sounds/music", this._MUSICsounds, this.MUSICVolume, options, mesh);
     }
 
     private fadeIn(sound: StaticSound, targetVolume: number, duration: number) {
@@ -90,17 +113,21 @@ export class SoundManager {
 
     public stopSFX(name: string) {
         const sound = this._SFXsounds.get(name);
-        if (sound) this.fadeOutAndStop(sound, 50);
+        if (sound) this.fadeOutAndStop(sound, 100);
     }
 
     public stopUI(name: string) {
         const sound = this._UIsounds.get(name);
-        if (sound) this.fadeOutAndStop(sound, 50);
+        if (sound) this.fadeOutAndStop(sound, 100);
     }
 
     public stopMUSIC(name: string) {
         const sound = this._MUSICsounds.get(name);
-        if (sound) this.fadeOutAndStop(sound, 50);
+        if (sound) this.fadeOutAndStop(sound, 100);
+    }
+
+    public stopAll(map : Map<string, StaticSound>) {
+        map.forEach(sound => {sound.stop()});
     }
 
     public get SFXVolume(): number {

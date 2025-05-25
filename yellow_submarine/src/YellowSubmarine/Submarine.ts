@@ -52,10 +52,8 @@ export class Submarine {
                     if (!keysDown.has(key)) {
                         keysDown.add(key);
                         SoundManager.instance.playSFX("submarine_horn", {
-                            volume : 0.05,
-                            spatialSound : true,
                             loop : true
-                        });
+                        }, this.mesh);
                     }
                 } else if (eventData.type === KeyboardEventTypes.KEYUP) {
                     keysDown.delete(key);
@@ -63,6 +61,22 @@ export class Submarine {
                 }
             }
         });
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const key = eventData.event.key;
+            if(key === "z" || key === "s"){
+                if (eventData.type === KeyboardEventTypes.KEYDOWN) {
+                    if (!keysDown.has(key)) {
+                        keysDown.add(key);
+                        SoundManager.instance.playSFX("submarine", {
+                            loop : true
+                        });
+                    }
+                } else if (eventData.type === KeyboardEventTypes.KEYUP) {
+                    keysDown.delete(key);
+                    SoundManager.instance.stopSFX("submarine");
+                }
+            }
+        })
     }
 
     private async createMesh(scene: Scene) {

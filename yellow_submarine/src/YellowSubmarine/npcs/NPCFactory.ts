@@ -4,15 +4,17 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
+import {Angle, MeshBuilder, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import {Game} from "@/YellowSubmarine/Game";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class NPCFactory {
 
     public static async createPedro(): Promise<NPC>{
         const pedro = new NPC();
         pedro.name = "Pedro";
-        Utils.loadMesh("models/characters/pedro.glb").then( (result) => {
+        Utils.loadMesh("models/characters/pedro.glb").then((result) => {
             pedro.mesh = result.meshes[0];
             result.meshes.forEach((mesh) => {
                 const mat = mesh.material as PBRMaterial;
@@ -23,6 +25,13 @@ export class NPCFactory {
                     });
                 }
             })
+            SoundManager.instance.playMUSIC("pedro", {
+                spatialSound: true,
+                loop: true,
+                autoplay: true,
+                maxDistance: 80,
+                rolloffFactor: 1.5,
+            }, pedro.mesh);
         });
         pedro.detectionZone = new CylindricalDetectionZone( {
             height: 8,
@@ -47,7 +56,6 @@ export class NPCFactory {
         pedro.cameraConfiguration.distanceFromTarget = 10;
         pedro.cameraConfiguration.offset = Vector3.Up().scale(2);
         pedro.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
-
 
         return pedro;
     }
