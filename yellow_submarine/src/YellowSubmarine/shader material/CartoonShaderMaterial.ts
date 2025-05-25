@@ -23,8 +23,10 @@ export class CartoonShaderMaterial {
     }
 
     public constructor() {
-        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/RemappedMetallic.json", Game.scene).then((nodeMaterial) => {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/Test2.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
+            this._nodeMaterial.maxSimultaneousLights = 6;
+            this.saturationMultiplier = 1.5;
             this._nodeMaterial.build();
         })
     }

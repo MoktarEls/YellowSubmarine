@@ -12,6 +12,7 @@ export class NPCFactory {
         pedro.name = "Pedro";
         Utils.loadMesh("models/characters/pedro.glb").then( (result) => {
             pedro.mesh = result.meshes[0];
+            pedro.mesh.receiveShadows = true;
         });
         pedro.detectionZone = new CylindricalDetectionZone( {
             height: 8,
