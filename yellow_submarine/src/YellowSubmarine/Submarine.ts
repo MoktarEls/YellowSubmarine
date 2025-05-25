@@ -1,5 +1,5 @@
 import {
-    AbstractMesh,
+    AbstractMesh, Color3, KeyboardEventTypes,
     Mesh,
     MeshBuilder,
     PBRMaterial,
@@ -7,7 +7,7 @@ import {
     PhysicsMotionType,
     PhysicsShapeType,
     Scene,
-    SceneLoader,
+    SceneLoader, SpotLight,
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
@@ -30,12 +30,15 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh!: AbstractMesh;
 
-    private _movementForce = 1000000;
+    private _movementForce = 500000;
 
-    private _rotationForce = 500000;
+
+    private _rotationForce = 200000;
     private _grappler: Grappler;
 
     public meshCreationPromise: Promise<AbstractMesh>;
+
+    private _spotLight?: SpotLight;
 
     constructor() {
         Submarine._instance = this;
@@ -43,10 +46,18 @@ export class Submarine {
         this.meshCreationPromise = this.createMesh(Game.scene);
         this.meshCreationPromise.then((mesh) => {
             this._grappler.owner = mesh.physicsBody ?? undefined;
+            this._spotLight = this.createSpotlight();
         })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
+
+        Game.scene.onKeyboardObservable.add( (eventData) => {
+            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
+            if(eventData.event.key === "l" && state){
+                this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
+            }
+        });
     }
 
     private async createMesh(scene: Scene) {
@@ -87,6 +98,24 @@ export class Submarine {
         return this._mesh;
     }
 
+
+
+    private createSpotlight() {
+        const spotLight = new SpotLight("spotLight",
+            new Vector3(0, 0, 0),
+            new Vector3(0, 0, 1),
+            Math.PI / 3,
+            2,
+            Game.scene
+        );
+        spotLight.diffuse = new Color3(1, 1, 1);
+        spotLight.specular = new Color3(1, 1, 1);
+        spotLight.intensity = 5;
+        spotLight.parent = this._mesh;
+        spotLight.setEnabled(false);
+        return spotLight;
+    }
+
     private update() {
         this.updateRotationSpeed();
         this.updateMovementSpeed();
@@ -97,7 +126,6 @@ export class Submarine {
 
         const body = this._physicsAggregate.body;
 
-        // Déterminer la direction de rotation en fonction des entrées utilisateur
         let direction = 0;
         if (this.isRightPressed()) direction += 1;
         if (this.isLeftPressed()) direction -= 1;
@@ -138,6 +166,4 @@ export class Submarine {
     private isLeftPressed() {
         return Player.isTurnLeftPressed();
     }
-
-
 }
