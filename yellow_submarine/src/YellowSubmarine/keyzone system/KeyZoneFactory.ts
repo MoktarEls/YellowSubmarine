@@ -1,10 +1,12 @@
 ﻿import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {
-    Angle, Color3,
+    Angle,
+    Color3,
     Mesh,
     PBRMaterial,
     PhysicsAggregate,
+    PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
     PhysicsShapeType,
@@ -103,7 +105,17 @@ export class KeyZoneFactory {
             // TODO x:0 y:0 z:500
             templeTransform.position = new Vector3(0,0,60);
             templeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
         }
+
 
         const steleDetectionZone = new SphericalDetectionZone({
             diameter: 10

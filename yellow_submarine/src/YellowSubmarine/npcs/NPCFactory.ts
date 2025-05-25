@@ -26,7 +26,7 @@ export class NPCFactory {
             .say("Ceci est un texte en [g]gras[/g]")
             .then("Ceci est un texte en [i]italique[/i]")
             .then("Ceci est un texte en [s=16][c=blue]petit et bleu[/s][/g]")
-            .then("Voici un mot en [g]gras[/g], un en [i]italique[/i], et [c=#ffffff]couleur rouge.[/g] Il y a beaucoup de texte AAAA")
+            .then("Voici un mot en [g]gras[/g], un en [i]italique[/i], et [c=#ffffff]couleur rouge.[/c] Il y a beaucoup de texte AAAA")
             .build();
 
         pedro.cameraConfiguration = new CameraConfiguration();
