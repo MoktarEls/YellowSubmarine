@@ -59,12 +59,12 @@ export class ReflectiveToonWaterMaterial {
         })
         this._material.setVector2("screensize", new Vector2(window.innerWidth, window.innerHeight));
         window.addEventListener("resize", () => this._material.setVector2("screensize", new Vector2(window.innerWidth, window.innerHeight)) );
-        const mirrorTexture = new MirrorTexture("mirrorTexture", 1024, Game.scene, true);
+        const mirrorTexture = new MirrorTexture("mirrorTexture", 1024, Game.scene);
         mirrorTexture.mirrorPlane = Plane.FromPositionAndNormal(Vector3.Zero(), Vector3.Down());
-        mirrorTexture.renderListPredicate = (m) => m.material !== this._material;
+        mirrorTexture.renderListPredicate = (m) => true;
         this._material.setTexture("reflectionTexture", mirrorTexture);
         Game.scene.customRenderTargets.push(mirrorTexture);
-        this._material.disableDepthWrite = true;
+        // this._material.disableDepthWrite = false;
 
         this._geometryBufferRenderer = this._scene.enableGeometryBufferRenderer();
         if(this._geometryBufferRenderer != null) {

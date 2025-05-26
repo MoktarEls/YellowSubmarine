@@ -20,6 +20,8 @@ import {NPCFactory} from "@/YellowSubmarine/npcs/NPCFactory";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Game} from "@/YellowSubmarine/Game";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Stele} from "@/YellowSubmarine/temple/Stele";
+import {Socle} from "@/YellowSubmarine/temple/Socle";
 
 export class KeyZoneFactory {
 
@@ -117,17 +119,13 @@ export class KeyZoneFactory {
         }
 
 
-        const steleDetectionZone = new SphericalDetectionZone({
-            diameter: 10
-        }, true);
-        steleDetectionZone.zone.parent = templeTransform;
-        steleDetectionZone.zone.position = new Vector3(0,0,50);
-        Submarine.instance.meshCreationPromise.then((mesh) => {
-            steleDetectionZone.addMeshToDetect(mesh);
-        });
-        steleDetectionZone.onMeshEnter.add(() => console.log('Stele in range'));
-        steleDetectionZone.onMeshExit.add(() => console.log('Stele out of range'));
-        temple.detectionZone = steleDetectionZone;
+        const stele = new Stele();
+        const steleInteractionZone = stele.steleInteractionZone;
+        steleInteractionZone.zone.parent = templeTransform;
+        steleInteractionZone.zone.position = new Vector3(0,0,50);
+
+        const socle = new Socle();
+
 
     }
 
