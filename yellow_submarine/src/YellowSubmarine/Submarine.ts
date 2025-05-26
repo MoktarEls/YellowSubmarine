@@ -1,20 +1,17 @@
 import {
-    AbstractMesh, Color3, KeyboardEventTypes,
-    Mesh,
-    MeshBuilder,
-    PBRMaterial,
-    PhysicsAggregate,
-    PhysicsMotionType,
-    PhysicsShapeType,
+    AbstractMesh,
+    Angle,
+    Mesh, PBRMaterial,
+    Scalar,
     Scene,
-    SceneLoader, SpotLight,
+    SceneLoader,
+    StandardMaterial,
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
-import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class Submarine {
     private _physicsAggregate?: PhysicsAggregate;
@@ -49,7 +46,40 @@ export class Submarine {
             this._spotLight = this.createSpotlight();
         })
         Game.scene.onBeforeRenderObservable.add(() => {
-            this.update(/*Game.engine.getDeltaTime() / 1000*/);
+            this.update(Game.engine.getDeltaTime() / 1000);
+        });
+        const keysDown = new Set<string>();
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const key = eventData.event.key;
+            if (key === "k") {
+                if (eventData.type === KeyboardEventTypes.KEYDOWN) {
+                    if (!keysDown.has(key)) {
+                        keysDown.add(key);
+                        SoundManager.instance.playSFX("submarine_horn", {
+                            loop : true
+                        }, this.mesh);
+                    }
+                } else if (eventData.type === KeyboardEventTypes.KEYUP) {
+                    keysDown.delete(key);
+                    SoundManager.instance.stopSFX("submarine_horn");
+                }
+            }
+        });
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const key = eventData.event.key;
+            if(key === "z" || key === "s"){
+                if (eventData.type === KeyboardEventTypes.KEYDOWN) {
+                    if (!keysDown.has(key)) {
+                        keysDown.add(key);
+                        SoundManager.instance.playSFX("submarine", {
+                            loop : true
+                        });
+                    }
+                } else if (eventData.type === KeyboardEventTypes.KEYUP) {
+                    keysDown.delete(key);
+                    SoundManager.instance.stopSFX("submarine");
+                }
+            }
         })
 
         Game.scene.onKeyboardObservable.add( (eventData) => {
@@ -98,7 +128,15 @@ export class Submarine {
         return this._mesh;
     }
 
+    private update(deltaTimeInSec: number) {
+        this.updateRotationSpeed(deltaTimeInSec);
+        this.updateMovementSpeed(deltaTimeInSec);
+        this.updateRotation(deltaTimeInSec);
+        this.updatePosition(deltaTimeInSec);
+    }
 
+    private updateRotationSpeed(deltaTimeInSec: number) {
+        let rotationSpeedTarget = 0;
 
     private createSpotlight() {
         const spotLight = new SpotLight("spotLight",
@@ -121,34 +159,40 @@ export class Submarine {
         this.updateMovementSpeed();
     }
 
-    private updateRotationSpeed() {
-        if (!this._physicsAggregate) return;
-
-        const body = this._physicsAggregate.body;
-
-        let direction = 0;
-        if (this.isRightPressed()) direction += 1;
-        if (this.isLeftPressed()) direction -= 1;
-
-        if(direction == 0) return;
-
-        body.applyForce(this._mesh.right.scale(direction * this._rotationForce), body.getObjectCenterWorld().add(this._mesh.forward));
-
-    }
-
     private updateMovementSpeed() {
-        if (!this._physicsAggregate) return;
+            if (!this._physicsAggregate) return;
 
-        const body = this._physicsAggregate.body;
+            const body = this._physicsAggregate.body;
 
-        let direction = 0;
-        if (this.isForwardPressed()) direction += 1;
-        if (this.isBackwardPressed()) direction -= 1;
+            let direction = 0;
+            if (this.isForwardPressed()) direction += 1;
+            if (this.isBackwardPressed()) direction -= 1;
 
-        if (direction === 0) return;
+            if (direction === 0) return;
 
-        body.applyForce(this._mesh.forward.scale(direction * this._movementForce), body.getObjectCenterWorld() );
+            body.applyForce(this._mesh.forward.scale(direction * this._movementForce), body.getObjectCenterWorld() );
 
+        }
+
+    private updateRotationSpeed() {
+            if (!this._physicsAggregate) return;
+
+            const body = this._physicsAggregate.body;
+
+            let direction = 0;
+            if (this.isRightPressed()) direction += 1;
+            if (this.isLeftPressed()) direction -= 1;
+
+            if(direction == 0) return;
+
+            body.applyForce(this._mesh.right.scale(direction * this._rotationForce), body.getObjectCenterWorld().add(this._mesh.forward));
+
+        }
+
+    private updatePosition(deltaTimeInSec: number) {
+        if(this.mesh){
+            this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
+        }
     }
 
     private isForwardPressed() {
@@ -166,4 +210,6 @@ export class Submarine {
     private isLeftPressed() {
         return Player.isTurnLeftPressed();
     }
+
+
 }
