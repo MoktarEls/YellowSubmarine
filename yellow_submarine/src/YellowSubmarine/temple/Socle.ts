@@ -99,7 +99,6 @@ export class Socle{
 
     public letGoOfBall(){
         if(this._currentBall){
-            this._currentBall.physicsBody.disablePreStep = true;
             this._currentBall = undefined;
             this._lockConstraint?.dispose();
         }
