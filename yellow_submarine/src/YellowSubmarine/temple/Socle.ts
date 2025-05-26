@@ -1,7 +1,7 @@
 import {
     AbstractMesh,
     Color3,
-    ImportMeshAsync,
+    ImportMeshAsync, LockConstraint,
     Mesh,
     PBRMaterial,
     PhysicsBody,
@@ -27,10 +27,12 @@ export class Socle{
     }
 
     private _transformNode: TransformNode = new TransformNode("socle");
+    private _ballTransformNode: TransformNode = new TransformNode("ballPosition");
     private _mesh!: AbstractMesh;
     private _socleDetectionZone: MeshDetectionZone;
     private _validColor?: Color3;
     private _currentBall?: TempleBall;
+    private _lockConstraint?: LockConstraint;
     private _placeTempleBallInteraction: PlaceTempleBallInteraction;
     private _removeTempleBallInteraction: RemoveTempleBallInteraction;
 
@@ -38,6 +40,8 @@ export class Socle{
 
         this._transformNode.parent = parent;
         this._transformNode.position = position;
+        this._ballTransformNode.parent = this._transformNode;
+        this._ballTransformNode.position = Vector3.Up().scale(5);
         this._placeTempleBallInteraction = new PlaceTempleBallInteraction(this);
         this._removeTempleBallInteraction = new RemoveTempleBallInteraction(this);
 
@@ -89,10 +93,16 @@ export class Socle{
 
     public placeBall(ball: TempleBall) {
         this._currentBall = ball;
+        this._lockConstraint = new LockConstraint(Vector3.Zero(), Vector3.Up().scale(4), Vector3.Up(), Vector3.Down(), Game.scene);
+        this._mesh.physicsBody?.addConstraint(ball.physicsBody, this._lockConstraint);
     }
 
     public letGoOfBall(){
-        this._currentBall = undefined;
+        if(this._currentBall){
+            this._currentBall.physicsBody.disablePreStep = true;
+            this._currentBall = undefined;
+            this._lockConstraint?.dispose();
+        }
     }
 
     public get validColor(): Color3 | undefined {
