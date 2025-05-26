@@ -30,10 +30,10 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh!: AbstractMesh;
 
-    private _movementForce = 500000;
+    private _movementForce = 300000;
 
 
-    private _rotationForce = 200000;
+    private _rotationForce = 150000;
     private _grappler: Grappler;
 
     public meshCreationPromise: Promise<AbstractMesh>;
