@@ -36,6 +36,10 @@ export class Grappler {
         this._currentGrappledObject = undefined;
     }
 
+    public get grappledObject(): TempleBall | undefined {
+        return this._currentGrappledObject;
+    }
+
     public get hasAnObjectGrappled(): boolean {
         return this._currentGrappledObject !== undefined;
     }

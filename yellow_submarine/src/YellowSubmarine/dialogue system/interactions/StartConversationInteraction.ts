@@ -14,7 +14,6 @@ export class StartConversationInteraction extends WorldInteraction{
 
     executeInteraction(): void {
         this._conversation.startConversation();
-        this.makeUnavailable();
     }
 
     get mesh(): AbstractMesh | undefined {

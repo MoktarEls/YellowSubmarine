@@ -11,6 +11,7 @@ import {
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Game} from "@/YellowSubmarine/Game";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {Socle} from "@/YellowSubmarine/temple/Socle";
 
 export class TempleBall {
     private _detectionZone: SphericalDetectionZone;
@@ -18,6 +19,7 @@ export class TempleBall {
     private _mesh: AbstractMesh;
     private _physicsBody: PhysicsBody;
     private _physicsShape: PhysicsShape;
+    private _socle?: Socle;
 
     public get mesh(): AbstractMesh {
         return this._mesh;
@@ -25,6 +27,14 @@ export class TempleBall {
 
     public get physicsBody(): PhysicsBody {
         return this._physicsBody;
+    }
+
+    public get socle(): Socle | undefined {
+        return this._socle;
+    }
+
+    public set socle(value: Socle | undefined) {
+        this._socle = value;
     }
 
     public constructor(position: Vector3, public readonly color: Color3) {
@@ -54,7 +64,7 @@ export class TempleBall {
            this._detectionZone.addMeshToDetect(mesh);
         });
         this._detectionZone.onMeshEnter.add(() => {
-            if(Grappler.instance.hasAnObjectGrappled) return
+            if(Grappler.instance.hasAnObjectGrappled || this._socle) return
 
             this._grappleInteraction.makeAvailable();
         })

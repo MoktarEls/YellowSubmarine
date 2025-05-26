@@ -15,6 +15,7 @@ import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 
 export class Submarine {
     private _physicsAggregate?: PhysicsAggregate;
@@ -47,6 +48,18 @@ export class Submarine {
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
+    }
+
+    public get templeBall(): TempleBall | undefined {
+        return this._grappler.grappledObject;
+    }
+
+    public grabBall(ball: TempleBall): void {
+        this._grappler.grappleObject(ball);
+    }
+
+    public letGoOfBall(){
+        this._grappler.letGoOfObject();
     }
 
     private async createMesh(scene: Scene) {

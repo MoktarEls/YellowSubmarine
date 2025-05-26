@@ -54,7 +54,10 @@ export class InteractionManager{
     }
 
     public executeInteraction(){
-        this._currentInteraction?.executeInteraction();
+        const interaction = this._currentInteraction;
+        if(interaction){
+            interaction.executeInteraction();
+        }
     }
 
 }
