@@ -1,7 +1,7 @@
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {GrappleInteraction} from "@/YellowSubmarine/grappling system/interaction/GrappleInteraction";
 import {
-    AbstractMesh, Mesh,
+    AbstractMesh, Color3, Mesh,
     MeshBuilder,
     PhysicsBody,
     PhysicsMotionType,
@@ -12,7 +12,7 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Game} from "@/YellowSubmarine/Game";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
-export class GrabbableObject {
+export class TempleBall {
     private _detectionZone: SphericalDetectionZone;
     private _grappleInteraction: GrappleInteraction;
     private _mesh: AbstractMesh;
@@ -27,8 +27,8 @@ export class GrabbableObject {
         return this._physicsBody;
     }
 
-    public constructor(position: Vector3) {
-        this._mesh = MeshBuilder.CreateSphere("grabbableObject", {
+    public constructor(position: Vector3, public readonly color: Color3) {
+        this._mesh = MeshBuilder.CreateSphere("templeBall", {
             diameter: 2,
         });
         this._mesh.position = position;

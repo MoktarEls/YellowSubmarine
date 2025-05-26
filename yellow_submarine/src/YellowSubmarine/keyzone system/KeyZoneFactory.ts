@@ -22,6 +22,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Stele} from "@/YellowSubmarine/temple/Stele";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
+import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 
 export class KeyZoneFactory {
 
@@ -124,8 +125,7 @@ export class KeyZoneFactory {
         steleInteractionZone.zone.parent = templeTransform;
         steleInteractionZone.zone.position = new Vector3(0,0,50);
 
-        const socle = new Socle();
-
+        const templePuzzle = new TemplePuzzle(templeTransform, new Vector3(0,0,0));
 
     }
 

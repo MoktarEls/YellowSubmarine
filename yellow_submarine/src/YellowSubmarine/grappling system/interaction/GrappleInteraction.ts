@@ -1,19 +1,19 @@
 import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
-import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {AbstractMesh} from "@babylonjs/core";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 
 export class GrappleInteraction extends WorldInteraction{
 
-    public constructor(private _grabbableObject: GrabbableObject) {
+    public constructor(private _grabbableObject: TempleBall) {
         super("KeyF");
     }
 
-    public get grabbableObject(): GrabbableObject {
+    public get grabbableObject(): TempleBall {
         return this._grabbableObject;
     }
 
-    public set grabbableObject(value: GrabbableObject) {
+    public set grabbableObject(value: TempleBall) {
         this._grabbableObject = value;
     }
 

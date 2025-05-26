@@ -7,7 +7,7 @@ import {
     PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
-    PhysicsShapeType
+    PhysicsShapeType, Quaternion, TransformNode, Vector3
 } from "@babylonjs/core";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {Game} from "@/YellowSubmarine/Game";
@@ -16,11 +16,15 @@ import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/Spheric
 import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class Socle{
+    private _transformNode: TransformNode = new TransformNode("socle");
     private _mesh!: AbstractMesh;
     private _socleDetectionZone: MeshDetectionZone;
     private _validColor?: Color3;
 
-    public constructor() {
+    public constructor(parent: TransformNode, position: Vector3) {
+
+        this._transformNode.parent = parent;
+        this._transformNode.position = position;
 
         this._socleDetectionZone = new SphericalDetectionZone({
             diameter: 8,
@@ -40,8 +44,7 @@ export class Socle{
 
         ImportMeshAsync("models/objects/socle.glb", Game.scene).then((result) => {
             this._mesh = result.meshes[1];
-            this._mesh.parent = null;
-            this._mesh.position.set(0,0,30);
+            this._mesh.parent = this._transformNode;
             const toonShader = new CartoonShaderMaterial();
             toonShader.assignMaterial(this._mesh).then(() => {
                 if(this._mesh){
@@ -74,6 +77,10 @@ export class Socle{
 
     public set validColor(value: Color3 | undefined) {
         this._validColor = value;
+    }
+
+    public get transformNode(): TransformNode {
+        return this._transformNode;
     }
 
 }
