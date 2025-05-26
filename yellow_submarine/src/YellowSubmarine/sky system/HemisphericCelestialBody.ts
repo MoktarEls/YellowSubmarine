@@ -26,7 +26,7 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
 
     public get _direction(): Vector3{
         if(Game.scene.activeCamera){
-            this.light.direction = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
+            this.light.direction = this._bodyMesh.absolutePosition.subtract(Vector3.Zero()).normalize();
             this._hemiLight.direction = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
         }
         return this.light.direction;
@@ -37,13 +37,14 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
         this._hemiLight = this.createHemiLight(Game.scene);
         this.configMaterials(Game.scene);
         this._hemiLight.direction = Vector3.Up();
+        this._hemiLight.isEnabled(false);
         this.shadowGenerator = new ShadowGenerator(1024, this.light);
         this.shadowGenerator.useBlurExponentialShadowMap = true;
         this.shadowGenerator.blurKernel = 16;
         this.light.shadowEnabled = true;
         Game.scene.onBeforeRenderObservable.add(() => {
             if (Game.scene.activeCamera) {
-                const dir = this._bodyMesh.position.subtract(Game.scene.activeCamera.position).normalize();
+                const dir = this._bodyMesh.absolutePosition.subtract(Vector3.Zero()).normalize();
                 this.light.direction = dir.negate();
             }
         });

@@ -23,9 +23,35 @@ export class CartoonShaderMaterial {
     }
 
     public constructor() {
-        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/ToonPBRMaterialRedshift.json", Game.scene).then((nodeMaterial) => {
+        this._nodeMaterialPromise = NodeMaterial.ParseFromFileAsync("ToonShader", "shaders/PBRToonMaterial.json", Game.scene).then((nodeMaterial) => {
             this._nodeMaterial = nodeMaterial;
+            this._nodeMaterial.maxSimultaneousLights = 6;
+            this.saturationMultiplier = 1.5;
             this._nodeMaterial.build();
+        })
+    }
+
+    public set saturationMultiplier(saturationMultiplier: number) {
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("SaturationMultiplier") as InputBlock).value = saturationMultiplier;
+        })
+    }
+
+    public set numberOfSteps(numberOfSteps: number) {
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("NumberOfSteps") as InputBlock).value = numberOfSteps;
+        })
+    }
+
+    public set luminanceEasingFactor(luminanceEasingFactor: number) {
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("LuminanceEasingFactor") as InputBlock).value = luminanceEasingFactor;
+        })
+    }
+
+    public set indexOfRefraction(indexOfRefraction: number) {
+        this._nodeMaterialPromise.then(() => {
+            (this._nodeMaterial.getBlockByName("IoR") as InputBlock).value = indexOfRefraction;
         })
     }
 
@@ -124,6 +150,8 @@ export class CartoonShaderMaterial {
         }
 
         this.transparencyMode = pbrMaterial.transparencyMode;
+        this.indexOfRefraction = pbrMaterial.indexOfRefraction;
+
         this._nodeMaterialPromise.then(() => {
             this._nodeMaterial.backFaceCulling = pbrMaterial.backFaceCulling;
             this._nodeMaterial.needDepthPrePass = pbrMaterial.needDepthPrePass;

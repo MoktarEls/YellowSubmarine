@@ -48,6 +48,7 @@ export class KeyZoneFactory {
 
             island.physicsAggregate.body.setMotionType(PhysicsMotionType.STATIC);
             island.physicsAggregate.body.setTargetTransform(islandPosition, Quaternion.Identity());
+            mergedMesh.receiveShadows = true;
 
             NPCFactory.createPedro().then( (pedro) => {
                 pedro.transformNode.position = new Vector3(-30, 15, -14).add(islandPosition);

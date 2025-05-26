@@ -94,7 +94,7 @@ export class Submarine {
             this._mesh.name = "submarine";
             this._mesh.position = new Vector3(0, 0, 0);
         }
-
+        this.mesh.receiveShadows = true;
         return this._mesh;
     }
 
@@ -110,7 +110,7 @@ export class Submarine {
         );
         spotLight.diffuse = new Color3(1, 1, 1);
         spotLight.specular = new Color3(1, 1, 1);
-        spotLight.intensity = 5;
+        spotLight.intensity = 9999;
         spotLight.parent = this._mesh;
         spotLight.setEnabled(false);
         return spotLight;
