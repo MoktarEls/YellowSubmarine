@@ -4,6 +4,7 @@ import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
 import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
 import {PhysicsMotionType, Vector3} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class World {
     private _sky: Sky;

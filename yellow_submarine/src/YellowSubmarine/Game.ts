@@ -5,6 +5,7 @@ import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCa
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {HavokPhysicsWithBindings} from "@babylonjs/havok";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class Game{
 
@@ -61,10 +62,11 @@ export class Game{
                 this.updateFocusState(document.pointerLockElement === _canvas);
             });
         }
+
         this._engine.runRenderLoop(() => {
             this._scene.render();
         })
-        window.addEventListener("resize", () => this._engine.resize() );
+        window.addEventListener("resize", () => this._engine.resize());
     }
 
     private updateFocusState(state: boolean) {

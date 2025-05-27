@@ -48,6 +48,22 @@ export class Submarine {
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();
             this.addVolumetricLight();
+            const mapLimit = 50;
+
+            Game.scene.onBeforeRenderObservable.add(() => {
+                const body = this._physicsAggregate!.body;
+                const pos = body.transformNode.position;
+                if (pos.x > mapLimit) {
+                    pos.x = -mapLimit;
+                } else if (pos.x < -mapLimit) {
+                    pos.x = mapLimit;
+                }
+                if (pos.z > mapLimit) {
+                    pos.z = -mapLimit;
+                } else if (pos.z < -mapLimit) {
+                    pos.z = mapLimit;
+                }
+            });
         })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
