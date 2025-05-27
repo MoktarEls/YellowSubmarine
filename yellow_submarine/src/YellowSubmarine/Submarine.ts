@@ -1,10 +1,10 @@
 import {
     AbstractMesh,
-    Angle,
-    Mesh, PBRMaterial,
+    Angle, Color3, KeyboardEventTypes,
+    Mesh, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scalar,
     Scene,
-    SceneLoader,
+    SceneLoader, SpotLight,
     StandardMaterial,
     Vector3
 } from "@babylonjs/core";
@@ -12,6 +12,8 @@ import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
+import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Submarine {
     private _physicsAggregate?: PhysicsAggregate;
@@ -44,10 +46,12 @@ export class Submarine {
         this.meshCreationPromise.then((mesh) => {
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();
-        })
-        Game.scene.onBeforeRenderObservable.add(() => {
-            this.update(Game.engine.getDeltaTime() / 1000);
         });
+
+        Game.scene.onBeforeRenderObservable.add(() => {
+            this.update(/*Game.engine.getDeltaTime() / 1000*/);
+        });
+
         const keysDown = new Set<string>();
         Game.scene.onKeyboardObservable.add((eventData) => {
             const key = eventData.event.key;
@@ -65,6 +69,7 @@ export class Submarine {
                 }
             }
         });
+
         Game.scene.onKeyboardObservable.add((eventData) => {
             const key = eventData.event.key;
             if(key === "z" || key === "s"){
@@ -80,7 +85,7 @@ export class Submarine {
                     SoundManager.instance.stopSFX("submarine");
                 }
             }
-        })
+        });
 
         Game.scene.onKeyboardObservable.add( (eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
@@ -128,15 +133,6 @@ export class Submarine {
         return this._mesh;
     }
 
-    private update(deltaTimeInSec: number) {
-        this.updateRotationSpeed(deltaTimeInSec);
-        this.updateMovementSpeed(deltaTimeInSec);
-        this.updateRotation(deltaTimeInSec);
-        this.updatePosition(deltaTimeInSec);
-    }
-
-    private updateRotationSpeed(deltaTimeInSec: number) {
-        let rotationSpeedTarget = 0;
 
     private createSpotlight() {
         const spotLight = new SpotLight("spotLight",
@@ -189,11 +185,6 @@ export class Submarine {
 
         }
 
-    private updatePosition(deltaTimeInSec: number) {
-        if(this.mesh){
-            this.mesh.locallyTranslate(Vector3.Forward().scale(deltaTimeInSec * this._currentMovementSpeed));
-        }
-    }
 
     private isForwardPressed() {
         return Player.isMoveForwardPressed();
