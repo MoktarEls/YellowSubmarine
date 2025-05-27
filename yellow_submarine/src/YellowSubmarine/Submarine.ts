@@ -54,24 +54,10 @@ export class Submarine {
 
                 const body = this._physicsAggregate.body;
                 const pos = body.transformNode.position.clone();
-                let hasToPivot = false;
 
                 if (pos.x > mapLimit || pos.x < -mapLimit || pos.z > mapLimit || pos.z < -mapLimit) {
-                    hasToPivot = true;
-                }
-                if (hasToPivot) {
-                    let currentQuat = body.transformNode.rotationQuaternion;
-                    if (!currentQuat) {
-                        currentQuat = Quaternion.Identity();
-                    }
-                    const currentEuler = currentQuat.toEulerAngles();
-                    const newRotationY = currentEuler.y + Math.PI;
-                    const newQuat = Quaternion.FromEulerAngles(currentEuler.x, newRotationY, currentEuler.z);
-
                     body.setLinearVelocity(body.getLinearVelocity().negate());
-                    body.setAngularVelocity(body.getAngularVelocity().negate());
                     body.transformNode.position.copyFrom(pos);
-                    body.transformNode.rotationQuaternion = newQuat;
                 }
             });
         });
