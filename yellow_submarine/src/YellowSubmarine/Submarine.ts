@@ -7,8 +7,8 @@ import {
     PhysicsMotionType,
     PhysicsShapeType,
     Scene,
-    SceneLoader, SpotLight,
-    Vector3
+    SceneLoader, SpotLight, StandardMaterial, Texture,
+    Vector3, VolumetricLightScatteringPostProcess
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"
@@ -47,17 +47,11 @@ export class Submarine {
         this.meshCreationPromise.then((mesh) => {
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();
+            this.addVolumetricLight();
         })
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
         })
-
-        Game.scene.onKeyboardObservable.add( (eventData) => {
-            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if(eventData.event.key === "l" && state){
-                this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
-            }
-        });
     }
 
     private async createMesh(scene: Scene) {
@@ -98,8 +92,6 @@ export class Submarine {
         return this._mesh;
     }
 
-
-
     private createSpotlight() {
         const spotLight = new SpotLight("spotLight",
             new Vector3(0, 0, 0),
@@ -110,10 +102,53 @@ export class Submarine {
         );
         spotLight.diffuse = new Color3(1, 1, 1);
         spotLight.specular = new Color3(1, 1, 1);
-        spotLight.intensity = 9999;
+        spotLight.intensity = 5000;
         spotLight.parent = this._mesh;
         spotLight.setEnabled(false);
+
+        this._spotLight = spotLight;
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
+            if (eventData.event.key === "l" && state) {
+                const enabled = !this._spotLight?.isEnabled();
+                this._spotLight?.setEnabled(enabled);
+            }
+        });
+
         return spotLight;
+    }
+
+    private addVolumetricLight() {
+        const camera = Game.scene.activeCamera!;
+
+        const lightEmitter = MeshBuilder.CreateSphere("lightEmitter", {diameter: 0.8}, Game.scene);
+        const vl = new VolumetricLightScatteringPostProcess("vls", 1.0, camera, lightEmitter);
+        lightEmitter.position = new Vector3(0, 0, 2.3);
+        lightEmitter.parent = this._mesh;
+
+        const mat = new StandardMaterial("lightMat", Game.scene);
+        mat.emissiveTexture = new Texture("textures/lensflare/lens5.png", Game.scene);
+        mat.diffuseColor = new Color3(0, 0, 0);
+        mat.specularColor = new Color3(0, 0, 0);
+        mat.emissiveColor = new Color3(1, 1, 1);
+        mat.alpha = 0.8;
+        lightEmitter.material = mat;
+
+        vl.mesh = lightEmitter;
+
+        vl.exposure = 1;
+        vl.decay = 0.96815;
+        vl.weight = 0.4;
+        vl.density = 0.99;
+
+        lightEmitter.setEnabled(false);
+
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
+            if (eventData.event.key === "l" && state) {
+                lightEmitter.setEnabled(!lightEmitter.isEnabled());
+            }
+        });
     }
 
     private update() {
