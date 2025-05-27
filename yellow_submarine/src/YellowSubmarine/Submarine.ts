@@ -5,7 +5,7 @@ import {
     PBRMaterial,
     PhysicsAggregate,
     PhysicsMotionType,
-    PhysicsShapeType,
+    PhysicsShapeType, Quaternion,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
     Vector3, VolumetricLightScatteringPostProcess
@@ -49,25 +49,35 @@ export class Submarine {
             this._spotLight = this.createSpotlight();
             this.addVolumetricLight();
             const mapLimit = 50;
-
             Game.scene.onBeforeRenderObservable.add(() => {
-                const body = this._physicsAggregate!.body;
-                const pos = body.transformNode.position;
-                if (pos.x > mapLimit) {
-                    pos.x = -mapLimit;
-                } else if (pos.x < -mapLimit) {
-                    pos.x = mapLimit;
+                if (!this._physicsAggregate) return;
+
+                const body = this._physicsAggregate.body;
+                const pos = body.transformNode.position.clone();
+                let hasToPivot = false;
+
+                if (pos.x > mapLimit || pos.x < -mapLimit || pos.z > mapLimit || pos.z < -mapLimit) {
+                    hasToPivot = true;
                 }
-                if (pos.z > mapLimit) {
-                    pos.z = -mapLimit;
-                } else if (pos.z < -mapLimit) {
-                    pos.z = mapLimit;
+                if (hasToPivot) {
+                    let currentQuat = body.transformNode.rotationQuaternion;
+                    if (!currentQuat) {
+                        currentQuat = Quaternion.Identity();
+                    }
+                    const currentEuler = currentQuat.toEulerAngles();
+                    const newRotationY = currentEuler.y + Math.PI;
+                    const newQuat = Quaternion.FromEulerAngles(currentEuler.x, newRotationY, currentEuler.z);
+
+                    body.setLinearVelocity(body.getLinearVelocity().negate());
+                    body.setAngularVelocity(body.getAngularVelocity().negate());
+                    body.transformNode.position.copyFrom(pos);
+                    body.transformNode.rotationQuaternion = newQuat;
                 }
             });
-        })
+        });
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
-        })
+        });
     }
 
     private async createMesh(scene: Scene) {
