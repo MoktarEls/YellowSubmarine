@@ -33,6 +33,10 @@ export class World {
         KeyZoneFactory.createDolphinIsland();
         KeyZoneFactory.createTemple();
         KeyZoneFactory.createBanquise();
+        KeyZoneFactory.createPhare();
+        KeyZoneFactory.createPoulpe();
+        KeyZoneFactory.createArchipel();
+
     }
 
 }

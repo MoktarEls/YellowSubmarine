@@ -11,7 +11,7 @@ import {
     PhysicsShape,
     PhysicsShapeType,
     Quaternion,
-    Space,
+    Space, StandardMaterial,
     TransformNode,
     Vector3
 } from "@babylonjs/core";
@@ -150,7 +150,7 @@ export class KeyZoneFactory {
 
         banquise.name = "Banquise";
         banquise.detectionZone = new SphericalDetectionZone({
-            diameter : 500,
+            diameter : 200,
         }, true);
 
         const result = await Utils.loadMesh("models/scenes/banquise.glb");
@@ -159,14 +159,204 @@ export class KeyZoneFactory {
         rootMesh.parent = banquiseTransform;
         const childMeshes = rootMesh.getChildMeshes<Mesh>();
         for (const mesh of result.meshes) {
-            mesh.material = new CellMaterial("banquiseMat");
+            const pbrMaterial = mesh.material as PBRMaterial;
+            const standardMat = mesh.material as StandardMaterial;
+            if(pbrMaterial){
+                const cellMaterial = new CellMaterial("banquiseMat");
+                cellMaterial.diffuseColor = pbrMaterial.albedoColor;
+                if(pbrMaterial.albedoTexture){
+                    cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+            else if(standardMat){
+                const cellMaterial = new CellMaterial("banquiseMat");
+                cellMaterial.diffuseColor = standardMat.diffuseColor;
+                if(standardMat.diffuseTexture){
+                    cellMaterial.diffuseTexture = standardMat.diffuseTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+
         }
         const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
         if(mergedMesh){
             mergedMesh.parent = banquiseTransform;
             banquise.mesh = mergedMesh;
-            banquiseTransform.position = new Vector3(100,0,100);
+            banquiseTransform.position = new Vector3(300,0,500);
             banquiseTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
+
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+        }
+
+
+    }
+
+    public static async createArchipel(){
+        const archipelTransform: TransformNode = new TransformNode("archipel transform");
+        const archipel = new KeyZone();
+
+        archipel.name = "Archipel";
+        archipel.detectionZone = new SphericalDetectionZone({
+            diameter : 200,
+        }, true);
+
+        const result = await Utils.loadMesh("models/scenes/archipel.glb");
+        const rootMesh = result.meshes[0];
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = archipelTransform;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
+            const pbrMaterial = mesh.material as PBRMaterial;
+            const standardMat = mesh.material as StandardMaterial;
+            if(pbrMaterial){
+                const cellMaterial = new CellMaterial("archipelMat");
+                cellMaterial.diffuseColor = pbrMaterial.albedoColor;
+                if(pbrMaterial.albedoTexture){
+                    cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+            else if(standardMat){
+                const cellMaterial = new CellMaterial("archipelMat");
+                cellMaterial.diffuseColor = standardMat.diffuseColor;
+                if(standardMat.diffuseTexture){
+                    cellMaterial.diffuseTexture = standardMat.diffuseTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            mergedMesh.parent = archipelTransform;
+            archipel.mesh = mergedMesh;
+            archipelTransform.position = new Vector3(-300,0,500);
+            archipelTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
+
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+        }
+
+
+    }
+
+    public static async createPoulpe(){
+        const poulpeTransform: TransformNode = new TransformNode("poulpe transform");
+        const poulpe = new KeyZone();
+
+        poulpe.name = "Poulpe";
+        poulpe.detectionZone = new SphericalDetectionZone({
+            diameter : 200,
+        }, true);
+
+        const result = await Utils.loadMesh("models/scenes/poulpe.glb");
+        const rootMesh = result.meshes[0];
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = poulpeTransform;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
+            const pbrMaterial = mesh.material as PBRMaterial;
+            const standardMat = mesh.material as StandardMaterial;
+            if(pbrMaterial){
+                const cellMaterial = new CellMaterial("poulpeMat");
+                cellMaterial.diffuseColor = pbrMaterial.albedoColor;
+                if(pbrMaterial.albedoTexture){
+                    cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+            else if(standardMat){
+                const cellMaterial = new CellMaterial("poulpeMat");
+                cellMaterial.diffuseColor = standardMat.diffuseColor;
+                if(standardMat.diffuseTexture){
+                    cellMaterial.diffuseTexture = standardMat.diffuseTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            mergedMesh.parent = poulpeTransform;
+            poulpe.mesh = mergedMesh;
+            poulpeTransform.position = new Vector3(300,0,300);
+            poulpeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
+
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+        }
+
+
+    }
+
+    public static async createPhare(){
+        const phareTransform: TransformNode = new TransformNode("phare transform");
+        const phare = new KeyZone();
+
+        phare.name = "Phare";
+        phare.detectionZone = new SphericalDetectionZone({
+            diameter : 200,
+        }, true);
+
+        const result = await Utils.loadMesh("models/scenes/phare.glb");
+        const rootMesh = result.meshes[0];
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = phareTransform;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
+            const pbrMaterial = mesh.material as PBRMaterial;
+            const standardMat = mesh.material as StandardMaterial;
+            if(pbrMaterial){
+                const cellMaterial = new CellMaterial("phareMat");
+                cellMaterial.diffuseColor = pbrMaterial.albedoColor;
+                if(pbrMaterial.albedoTexture){
+                    cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+            else if(standardMat){
+                const cellMaterial = new CellMaterial("phareMat");
+                cellMaterial.diffuseColor = standardMat.diffuseColor;
+                if(standardMat.diffuseTexture){
+                    cellMaterial.diffuseTexture = standardMat.diffuseTexture;
+                }
+                mesh.material = cellMaterial;
+            }
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            mergedMesh.parent = phareTransform;
+            phare.mesh = mergedMesh;
+            phareTransform.position = new Vector3(-300,0,300);
+            phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
