@@ -1,6 +1,12 @@
-import {Color3, TransformNode, Vector3} from "@babylonjs/core";
+import {Angle, Color3, TransformNode, Vector3} from "@babylonjs/core";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
+import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
+import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Player} from "@/YellowSubmarine/Player";
 
 export class TemplePuzzle {
     public get transformNode(): TransformNode {
@@ -19,12 +25,32 @@ export class TemplePuzzle {
     }
 
     private _transformNode: TransformNode = new TransformNode("templePuzzle");
+    private _cameraConfiguration: CameraConfiguration;
+    private _detectionZone: MeshDetectionZone;
 
     public constructor(parent: TransformNode, position: Vector3) {
         TemplePuzzle._instance = this;
         this._transformNode.parent = parent;
         this._transformNode.rotation = Vector3.Zero();
         this._transformNode.position = position;
+        this._detectionZone = new SphericalDetectionZone({
+            diameter: 70,
+        }, true);
+        this._detectionZone.zone.parent = this._transformNode;
+        this._cameraConfiguration = new CameraConfiguration();
+        this._cameraConfiguration.target = this._transformNode;
+        this._cameraConfiguration.wantedBeta = Angle.FromDegrees(0).radians();
+        this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
+        this._cameraConfiguration.distanceFromTarget = 70;
+        this._detectionZone.onMeshEnter.add(() => {
+            ConfigurableCamera.instance.cameraConfiguration = this._cameraConfiguration;
+        });
+        this._detectionZone.onMeshExit.add(() => {
+            ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
+        })
+        Submarine.instance.meshCreationPromise.then((mesh) => {
+            this._detectionZone.addMeshToDetect(mesh);
+        })
         const upperRightSocle = this.createSocle(new Vector3(-1,0,-1).scale(20));
         const middleRightSocle = this.createSocle(new Vector3(-1,0,0).scale(20), Color3.Purple());
         const lowerRightSocle = this.createSocle(new Vector3(-1,0,1).scale(20), Color3.Blue());
