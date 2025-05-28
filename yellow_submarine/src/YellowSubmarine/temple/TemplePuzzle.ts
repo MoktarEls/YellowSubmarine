@@ -9,6 +9,20 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Player} from "@/YellowSubmarine/Player";
 
 export class TemplePuzzle {
+    private _upperRightSocle: Socle;
+    private _middleRightSocle: Socle;
+    private _lowerRightSocle: Socle;
+    private _lowerMiddleSocle: Socle;
+    private _lowerLeftSocle: Socle;
+    private _middleLeftSocle: Socle;
+    private _upperLeftSocle: Socle;
+    private _upperMiddleSocle: Socle;
+    private _centerSocle: Socle;
+
+    public static get instance(): TemplePuzzle{
+        return this._instance;
+    }
+
     public get transformNode(): TransformNode {
         return this._transformNode;
     }
@@ -35,7 +49,7 @@ export class TemplePuzzle {
         this._transformNode.position = position;
         this._detectionZone = new SphericalDetectionZone({
             diameter: 70,
-        }, true);
+        }, false);
         this._detectionZone.zone.parent = this._transformNode;
         this._cameraConfiguration = new CameraConfiguration();
         this._cameraConfiguration.target = this._transformNode;
@@ -51,15 +65,15 @@ export class TemplePuzzle {
         Submarine.instance.meshCreationPromise.then((mesh) => {
             this._detectionZone.addMeshToDetect(mesh);
         })
-        const upperRightSocle = this.createSocle(new Vector3(-1,0,-1).scale(20));
-        const middleRightSocle = this.createSocle(new Vector3(-1,0,0).scale(20), Color3.Purple());
-        const lowerRightSocle = this.createSocle(new Vector3(-1,0,1).scale(20), Color3.Blue());
-        const lowerMiddleSocle = this.createSocle(new Vector3(0,0,1).scale(20), Color3.Green());
-        const lowerLeftSocle = this.createSocle(new Vector3(1,0,1).scale(20), Color3.Red());
-        const middleLeftSocle = this.createSocle(new Vector3(1,0,0).scale(20));
-        const upperLeftSocle = this.createSocle(new Vector3(1,0,-1).scale(20), Color3.Gray());
-        const upperMiddleSocle = this.createSocle(new Vector3(0,0,-1).scale(20), Color3.Yellow());
-        const centerSocle = this.createSocle(Vector3.Zero());
+        this._upperRightSocle = this.createSocle(new Vector3(-1,0,-1).scale(20));
+        this._middleRightSocle = this.createSocle(new Vector3(-1,0,0).scale(20), Color3.Purple());
+        this._lowerRightSocle = this.createSocle(new Vector3(-1,0,1).scale(20), Color3.Blue());
+        this._lowerMiddleSocle = this.createSocle(new Vector3(0,0,1).scale(20), Color3.Green());
+        this._lowerLeftSocle = this.createSocle(new Vector3(1,0,1).scale(20), Color3.Red());
+        this._middleLeftSocle = this.createSocle(new Vector3(1,0,0).scale(20));
+        this._upperLeftSocle = this.createSocle(new Vector3(1,0,-1).scale(20), Color3.Gray());
+        this._upperMiddleSocle = this.createSocle(new Vector3(0,0,-1).scale(20), Color3.Yellow());
+        this._centerSocle = this.createSocle(Vector3.Zero());
 
         // TODO: Test only, remove after
         const redBall = new TempleBall(new Vector3(30,0,10), Color3.Red());
@@ -68,23 +82,23 @@ export class TemplePuzzle {
         const purpleBall = new TempleBall(new Vector3(30,0,20), Color3.Purple());
         const grayBall = new TempleBall(new Vector3(40,0,20), Color3.Gray());
         const yellowBall = new TempleBall(new Vector3(50,0,20), Color3.Yellow());
-        lowerLeftSocle.meshImportedPromise.then(() => {
-            lowerLeftSocle.placeBall(redBall);
+        this._lowerLeftSocle.meshImportedPromise.then(() => {
+            this._lowerLeftSocle.placeBall(redBall);
         });
-        lowerMiddleSocle.meshImportedPromise.then(() => {
-            lowerMiddleSocle.placeBall(greenBall);
+        this._lowerMiddleSocle.meshImportedPromise.then(() => {
+            this._lowerMiddleSocle.placeBall(greenBall);
         });
-        lowerRightSocle.meshImportedPromise.then(() => {
-            lowerRightSocle.placeBall(blueBall);
+        this._lowerRightSocle.meshImportedPromise.then(() => {
+            this._lowerRightSocle.placeBall(blueBall);
         });
-        middleRightSocle.meshImportedPromise.then(() => {
-            middleRightSocle.placeBall(purpleBall);
+        this._middleRightSocle.meshImportedPromise.then(() => {
+            this._middleRightSocle.placeBall(purpleBall);
         });
-        upperLeftSocle.meshImportedPromise.then(() => {
-            upperLeftSocle.placeBall(grayBall);
+        this._upperLeftSocle.meshImportedPromise.then(() => {
+            this._upperLeftSocle.placeBall(grayBall);
         });
-        upperMiddleSocle.meshImportedPromise.then(() => {
-            upperMiddleSocle.placeBall(yellowBall);
+        this._upperMiddleSocle.meshImportedPromise.then(() => {
+            this._upperMiddleSocle.placeBall(yellowBall);
         });
     }
 
@@ -126,5 +140,42 @@ export class TemplePuzzle {
             }
         }
         return true;
+    }
+
+
+    get upperRightSocle(): Socle {
+        return this._upperRightSocle;
+    }
+
+    get middleRightSocle(): Socle {
+        return this._middleRightSocle;
+    }
+
+    get lowerRightSocle(): Socle {
+        return this._lowerRightSocle;
+    }
+
+    get lowerMiddleSocle(): Socle {
+        return this._lowerMiddleSocle;
+    }
+
+    get lowerLeftSocle(): Socle {
+        return this._lowerLeftSocle;
+    }
+
+    get middleLeftSocle(): Socle {
+        return this._middleLeftSocle;
+    }
+
+    get upperLeftSocle(): Socle {
+        return this._upperLeftSocle;
+    }
+
+    get upperMiddleSocle(): Socle {
+        return this._upperMiddleSocle;
+    }
+
+    get centerSocle(): Socle {
+        return this._centerSocle;
     }
 }

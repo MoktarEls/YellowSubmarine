@@ -23,6 +23,7 @@ export class TempleBall {
     private _physicsShape: PhysicsShape;
     private _socle?: Socle;
 
+    public static onAnyBallPlacedOnAnySocle = new Observable<{ball: TempleBall, socle: Socle}>();
     public onPlacedOnSocle = new Observable<Socle>();
 
     public get mesh(): AbstractMesh {
@@ -46,6 +47,7 @@ export class TempleBall {
 
     public constructor(position: Vector3, public readonly color: Color3) {
         TemplePuzzle.registerBall(this);
+        this.onPlacedOnSocle.add((s) => TempleBall.onAnyBallPlacedOnAnySocle.notifyObservers({ball: this, socle: s}));
         this._mesh = MeshBuilder.CreateSphere("templeBall", {
             diameter: 2,
         });
@@ -69,7 +71,7 @@ export class TempleBall {
         this._grappleInteraction = new GrappleInteraction(this);
         this._detectionZone = new SphericalDetectionZone({
             diameter: 4,
-        },true);
+        },false);
         this._detectionZone.zone.parent = this._mesh;
         Submarine.instance.meshCreationPromise.then((mesh) => {
            this._detectionZone.addMeshToDetect(mesh);
