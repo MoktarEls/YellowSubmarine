@@ -183,8 +183,8 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = banquiseTransform;
             banquise.mesh = mergedMesh;
-            banquiseTransform.position = new Vector3(300,0,500);
-            banquiseTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+            banquiseTransform.position = new Vector3(-300,0,500);
+            banquiseTransform.rotate(Vector3.Up(), Angle.FromDegrees(-90).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
@@ -240,8 +240,8 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = archipelTransform;
             archipel.mesh = mergedMesh;
-            archipelTransform.position = new Vector3(-300,0,500);
-            archipelTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+            archipelTransform.position = new Vector3(300,0,500);
+            archipelTransform.rotate(Vector3.Up(), Angle.FromDegrees(-90).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
@@ -299,7 +299,7 @@ export class KeyZoneFactory {
             mergedMesh.parent = poulpeTransform;
             poulpe.mesh = mergedMesh;
             poulpeTransform.position = new Vector3(300,0,300);
-            poulpeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+            //poulpeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
@@ -356,7 +356,7 @@ export class KeyZoneFactory {
             mergedMesh.parent = phareTransform;
             phare.mesh = mergedMesh;
             phareTransform.position = new Vector3(-300,0,300);
-            phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+            //phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
