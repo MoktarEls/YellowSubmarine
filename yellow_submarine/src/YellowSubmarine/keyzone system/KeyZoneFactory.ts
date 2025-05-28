@@ -23,6 +23,7 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Stele} from "@/YellowSubmarine/temple/Stele";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
+import {CellMaterial} from "@babylonjs/materials";
 
 export class KeyZoneFactory {
 
@@ -104,8 +105,6 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = templeTransform;
             temple.mesh = mergedMesh;
-            temple.physicsAggregate = this.createStaticPhysicsAggregate(temple.mesh, PhysicsShapeType.MESH);
-            temple.physicsAggregate.body.setMotionType(PhysicsMotionType.STATIC);
             templeTransform.position = new Vector3(0,0,500);
             templeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
@@ -117,7 +116,12 @@ export class KeyZoneFactory {
                 }
             }, Game.scene);
             physicsBody.shape = physicsShape;
+
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
         }
+
+
 
 
         const stele = new Stele();
@@ -138,6 +142,46 @@ export class KeyZoneFactory {
         }, Game.scene);
 
         return aggregate;
+    }
+
+    public static async createBanquise(){
+        const banquiseTransform: TransformNode = new TransformNode("temple transform");
+        const banquise = new KeyZone();
+
+        banquise.name = "Banquise";
+        banquise.detectionZone = new SphericalDetectionZone({
+            diameter : 500,
+        }, true);
+
+        const result = await Utils.loadMesh("models/scenes/banquise.glb");
+        const rootMesh = result.meshes[0];
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = banquiseTransform;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
+            mesh.material = new CellMaterial("banquiseMat");
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            mergedMesh.parent = banquiseTransform;
+            banquise.mesh = mergedMesh;
+            banquiseTransform.position = new Vector3(100,0,100);
+            banquiseTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
+
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+        }
+
+
     }
 
 }

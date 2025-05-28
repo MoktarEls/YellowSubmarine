@@ -32,6 +32,7 @@ export class World {
         this._sky = new Sky();
         KeyZoneFactory.createDolphinIsland();
         KeyZoneFactory.createTemple();
+        KeyZoneFactory.createBanquise();
     }
 
 }
