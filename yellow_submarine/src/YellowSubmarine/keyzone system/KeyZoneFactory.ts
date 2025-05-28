@@ -259,7 +259,7 @@ export class KeyZoneFactory {
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
 
             NPCFactory.createRabbit().then( (rabbit) => {
-                rabbit.transformNode.position = new Vector3(0.8, 5, 0.7).add(archipelTransform.position);
+                rabbit.transformNode.position = new Vector3(-0.8, 5.2, -0.7);
                 rabbit.transformNode.parent = archipelTransform;
             });
         }
