@@ -18,7 +18,6 @@ export class PlaceTempleBallInteraction extends WorldInteraction{
         if(templeBall) {
             console.log("PLACING THE BALL !!!", templeBall);
             this._socle.placeBall(templeBall);
-            templeBall.socle = this._socle;
             Submarine.instance.letGoOfBall();
         }
     }

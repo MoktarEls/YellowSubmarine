@@ -1,7 +1,7 @@
 import {
     AbstractMesh,
     Color3,
-    ImportMeshAsync, LockConstraint,
+    ImportMeshAsync, ISceneLoaderAsyncResult, LockConstraint,
     Mesh,
     PBRMaterial,
     PhysicsBody,
@@ -36,6 +36,8 @@ export class Socle{
     private _placeTempleBallInteraction: PlaceTempleBallInteraction;
     private _removeTempleBallInteraction: RemoveTempleBallInteraction;
 
+    public readonly meshImportedPromise: Promise<void | ISceneLoaderAsyncResult>;
+
     public constructor(parent: TransformNode, position: Vector3) {
 
         this._transformNode.parent = parent;
@@ -62,7 +64,7 @@ export class Socle{
             this.makeInteractionUnavailable();
         });
 
-        ImportMeshAsync("models/objects/socle.glb", Game.scene).then((result) => {
+        this.meshImportedPromise = ImportMeshAsync("models/objects/socle.glb", Game.scene).then((result) => {
             this._mesh = result.meshes[1];
             this._mesh.parent = this._transformNode;
             const toonShader = new CartoonShaderMaterial();
@@ -95,6 +97,7 @@ export class Socle{
         this._currentBall = ball;
         this._lockConstraint = new LockConstraint(Vector3.Zero(), Vector3.Up().scale(4), Vector3.Up(), Vector3.Down(), Game.scene);
         this._mesh.physicsBody?.addConstraint(ball.physicsBody, this._lockConstraint);
+        this._currentBall.socle = this;
     }
 
     public letGoOfBall(){

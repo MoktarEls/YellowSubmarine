@@ -32,8 +32,6 @@ export class World {
         this._sky = new Sky();
         // KeyZoneFactory.createDolphinIsland();
         KeyZoneFactory.createTemple();
-        // TODO: Test only, remove after
-        const templeBall = new TempleBall(new Vector3(30,0,10), Color3.Red());
     }
 
 }

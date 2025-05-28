@@ -17,7 +17,6 @@ export class RemoveTempleBallInteraction extends WorldInteraction{
         const templeBall = this._socle.currentBall;
         if(templeBall && !Submarine.instance.templeBall){
             this._socle.letGoOfBall();
-            templeBall.socle = undefined;
             Submarine.instance.grabBall(templeBall);
             console.log("REMOVING THE BALL !!!")
         }

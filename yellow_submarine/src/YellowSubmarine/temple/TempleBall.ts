@@ -2,7 +2,7 @@ import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/Spheric
 import {GrappleInteraction} from "@/YellowSubmarine/grappling system/interaction/GrappleInteraction";
 import {
     AbstractMesh, Color3, Mesh,
-    MeshBuilder,
+    MeshBuilder, Observable,
     PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
@@ -12,6 +12,8 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Game} from "@/YellowSubmarine/Game";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
+import {CellMaterial} from "@babylonjs/materials";
+import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 
 export class TempleBall {
     private _detectionZone: SphericalDetectionZone;
@@ -20,6 +22,8 @@ export class TempleBall {
     private _physicsBody: PhysicsBody;
     private _physicsShape: PhysicsShape;
     private _socle?: Socle;
+
+    public onPlacedOnSocle = new Observable<Socle>();
 
     public get mesh(): AbstractMesh {
         return this._mesh;
@@ -33,11 +37,15 @@ export class TempleBall {
         return this._socle;
     }
 
-    public set socle(value: Socle | undefined) {
-        this._socle = value;
+    public set socle(socle: Socle | undefined) {
+        this._socle = socle;
+        if(socle){
+            this.onPlacedOnSocle.notifyObservers(socle);
+        }
     }
 
     public constructor(position: Vector3, public readonly color: Color3) {
+        TemplePuzzle.registerBall(this);
         this._mesh = MeshBuilder.CreateSphere("templeBall", {
             diameter: 2,
         });
@@ -48,6 +56,9 @@ export class TempleBall {
                 radius: 1,
             }
         }, Game.scene);
+        const cellMaterial = new CellMaterial("templeBallMaterial");
+        cellMaterial.diffuseColor = color;
+        this._mesh.material = cellMaterial;
         this._physicsBody = new PhysicsBody(this._mesh, PhysicsMotionType.DYNAMIC, false, Game.scene);
         this._physicsBody.shape = this._physicsShape;
         this._physicsBody.setLinearDamping(1);
