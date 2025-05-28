@@ -148,7 +148,7 @@ export class KeyZoneFactory {
         const banquiseTransform: TransformNode = new TransformNode("temple transform");
         const banquise = new KeyZone();
 
-        banquise.name = "Banquise";
+        banquise.name = "Fractisberg";
         banquise.detectionZone = new SphericalDetectionZone({
             diameter : 200,
         }, true);
@@ -206,7 +206,7 @@ export class KeyZoneFactory {
         const archipelTransform: TransformNode = new TransformNode("archipel transform");
         const archipel = new KeyZone();
 
-        archipel.name = "Archipel";
+        archipel.name = "L'Archipel Carotte";
         archipel.detectionZone = new SphericalDetectionZone({
             diameter : 200,
         }, true);
@@ -263,7 +263,7 @@ export class KeyZoneFactory {
         const poulpeTransform: TransformNode = new TransformNode("poulpe transform");
         const poulpe = new KeyZone();
 
-        poulpe.name = "Poulpe";
+        poulpe.name = "Le Poulpensant";
         poulpe.detectionZone = new SphericalDetectionZone({
             diameter : 200,
         }, true);
@@ -321,7 +321,7 @@ export class KeyZoneFactory {
         const phareTransform: TransformNode = new TransformNode("phare transform");
         const phare = new KeyZone();
 
-        phare.name = "Phare";
+        phare.name = "Le Phare Flashouille";
         phare.detectionZone = new SphericalDetectionZone({
             diameter : 200,
         }, true);
