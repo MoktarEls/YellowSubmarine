@@ -5,6 +5,7 @@ import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCa
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {HavokPhysicsWithBindings} from "@babylonjs/havok";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Game{
 
@@ -20,6 +21,7 @@ export class Game{
     private _camera: ConfigurableCamera;
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
+    private _soundManager : SoundManager;
 
     public static get canvas(){
         return this._instance._canvas;
@@ -50,17 +52,13 @@ export class Game{
         this._camera = new ConfigurableCamera();
         this._world = new World();
         this._player = new Player();
-        this._uiManager = new UIManager();
-        if (_canvas) {
-            _canvas.addEventListener("click", () => {
-                if(!this._isGameFocused) {
-                    _canvas.requestPointerLock();
-                }
-            });
-            document.addEventListener("pointerlockchange", () => {
-                this.updateFocusState(document.pointerLockElement === _canvas);
-            });
-        }
+        this._soundManager = new SoundManager();
+        this._uiManager = new UIManager(_canvas);
+
+        document.addEventListener("pointerlockchange", () => {
+            this.updateFocusState(document.pointerLockElement === _canvas);
+        });
+
         this._engine.runRenderLoop(() => {
             this._scene.render();
         })
@@ -71,6 +69,9 @@ export class Game{
         if(state != this._isGameFocused){
             this._isGameFocused = state;
             Game.onGameFocusChange.notifyObservers(this._isGameFocused);
+            if (!this._isGameFocused) {
+                Game.uiManager.showMainMenu();
+            }
         }
     }
 
