@@ -1,13 +1,11 @@
 ﻿import {NPC} from "@/YellowSubmarine/npcs/NPC";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Angle, MeshBuilder, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
-import {Game} from "@/YellowSubmarine/Game";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
 
 export class NPCFactory {
 

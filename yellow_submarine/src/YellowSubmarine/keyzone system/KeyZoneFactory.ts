@@ -106,8 +106,7 @@ export class KeyZoneFactory {
             temple.mesh = mergedMesh;
             temple.physicsAggregate = this.createStaticPhysicsAggregate(temple.mesh, PhysicsShapeType.MESH);
             temple.physicsAggregate.body.setMotionType(PhysicsMotionType.STATIC);
-            // TODO x:0 y:0 z:500
-            templeTransform.position = new Vector3(0,0,60);
+            templeTransform.position = new Vector3(0,0,500);
             templeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
