@@ -2,7 +2,7 @@
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Angle, MeshBuilder, PBRMaterial, Vector3} from "@babylonjs/core";
+import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
@@ -54,5 +54,135 @@ export class NPCFactory {
         pedro.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
         return pedro;
+    }
+
+    public static async createFox(): Promise<NPC>{
+        const fox = new NPC();
+        fox.name = "Le perdu";
+        Utils.loadMesh("models/characters/fox.glb").then((result) => {
+            fox.mesh = result.meshes[0];
+            result.meshes.forEach((mesh) => {
+                const mat = mesh.material as PBRMaterial;
+                if(mat){
+                    const toonMat = new CartoonShaderMaterial();
+                    toonMat.assignMaterial(mesh).then(() => {
+                        toonMat.configureFromPBRMaterial(mat);
+                    });
+                }
+            })
+        });
+        fox.detectionZone = new CylindricalDetectionZone( {
+            height: 8,
+            diameterTop: 45,
+            diameterBottom: 45,
+        }, true);
+
+        fox.detectionZone.zone.position.set(0, -11, 0);
+
+        // for test purpose
+        fox.conversation = new ConversationBuilder()
+            .say("[g][c=rouge] AAAAAAAAAAAAAAAAAAAAAAAAAA [/g][/c]")
+            .build();
+
+
+        return fox;
+    }
+
+    public static async createGirl(): Promise<NPC>{
+        const scientific = new NPC();
+        scientific.name = "La scientifique";
+        Utils.loadMesh("models/characters/phare_girl.glb").then((result) => {
+            scientific.mesh = result.meshes[0];
+            result.meshes.forEach((mesh) => {
+                const mat = mesh.material as PBRMaterial;
+                if(mat){
+                    const toonMat = new CartoonShaderMaterial();
+                    toonMat.assignMaterial(mesh).then(() => {
+                        toonMat.configureFromPBRMaterial(mat);
+                    });
+                }
+            })
+        });
+        scientific.detectionZone = new CylindricalDetectionZone( {
+            height: 8,
+            diameterTop: 45,
+            diameterBottom: 45,
+        }, true);
+
+        scientific.detectionZone.zone.position.set(0, -11, 0);
+
+        // for test purpose
+        scientific.conversation = new ConversationBuilder()
+            .say("[g]hon hon la science [/g]")
+            .build();
+
+        return scientific;
+    }
+
+    public static async createScribe(): Promise<NPC>{
+        const scribe = new NPC();
+        scribe.name = "L'écrivain";
+        Utils.loadMesh("models/characters/scribe.glb").then((result) => {
+            scribe.mesh = result.meshes[0];
+            result.meshes.forEach((mesh) => {
+                const mat = mesh.material as PBRMaterial;
+                if(mat){
+                    const toonMat = new CartoonShaderMaterial();
+                    toonMat.assignMaterial(mesh).then(() => {
+                        toonMat.configureFromPBRMaterial(mat);
+                    });
+                }
+            })
+        });
+        scribe.detectionZone = new CylindricalDetectionZone( {
+            height: 8,
+            diameterTop: 45,
+            diameterBottom: 45,
+        }, true);
+
+        scribe.detectionZone.zone.position.set(0, -11, 0);
+
+        // for test purpose
+        scribe.conversation = new ConversationBuilder()
+            .say("[g] SILEEEEEEEENCE, L'INSPIRATION ARRIVE [/g]")
+            .build();
+
+        return scribe;
+    }
+
+    public static async createRabbit(): Promise<NPC>{
+        const rabbit = new NPC();
+        rabbit.name = "Chef des Rapoutins";
+
+        Utils.loadMesh("models/characters/lapin.glb").then((result) => {
+            rabbit.mesh = result.meshes[0];
+
+            result.meshes.forEach((mesh) => {
+
+                const mat = mesh.material as PBRMaterial;
+                if(mat){
+                    const toonMat = new CartoonShaderMaterial();
+                    toonMat.assignMaterial(mesh).then(() => {
+                        toonMat.configureFromPBRMaterial(mat);
+                    });
+                }
+            })
+        });
+
+        rabbit.detectionZone = new CylindricalDetectionZone( {
+            height: 8,
+            diameterTop: 45,
+            diameterBottom: 45,
+        }, true);
+
+        rabbit.detectionZone.zone.position.set(0, -11, 0);
+
+        // for test purpose
+        rabbit.conversation = new ConversationBuilder()
+            .say(". . . On s'est déjà vu non ? ")
+            .build();
+
+
+        return rabbit;
     }
 }

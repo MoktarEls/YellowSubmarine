@@ -19,9 +19,7 @@ import {Utils} from "@/YellowSubmarine/Utils";
 import {NPCFactory} from "@/YellowSubmarine/npcs/NPCFactory";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Game} from "@/YellowSubmarine/Game";
-import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Stele} from "@/YellowSubmarine/temple/Stele";
-import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 import {CellMaterial} from "@babylonjs/materials";
 
@@ -145,7 +143,7 @@ export class KeyZoneFactory {
     }
 
     public static async createBanquise(){
-        const banquiseTransform: TransformNode = new TransformNode("temple transform");
+        const banquiseTransform: TransformNode = new TransformNode("banquise transform");
         const banquise = new KeyZone();
 
         banquise.name = "Fractisberg";
@@ -197,6 +195,11 @@ export class KeyZoneFactory {
 
             physicsBody.disablePreStep = false;
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
+            NPCFactory.createFox().then( (fox) => {
+                fox.transformNode.position = new Vector3(-8, 1.3, 0).add(banquiseTransform.position);
+                fox.transformNode.parent = banquiseTransform;
+            });
         }
 
 
@@ -254,6 +257,11 @@ export class KeyZoneFactory {
 
             physicsBody.disablePreStep = false;
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
+            NPCFactory.createRabbit().then( (rabbit) => {
+                rabbit.transformNode.position = new Vector3(0.8, 5, 0.7).add(archipelTransform.position);
+                rabbit.transformNode.parent = archipelTransform;
+            });
         }
 
 
@@ -312,6 +320,11 @@ export class KeyZoneFactory {
 
             physicsBody.disablePreStep = false;
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
+            NPCFactory.createScribe().then( (scribe) => {
+                scribe.transformNode.position = new Vector3(-1.5, 0.7, -5.8).add(poulpeTransform.position);
+                scribe.transformNode.parent = poulpeTransform;
+            });
         }
 
 
@@ -369,6 +382,11 @@ export class KeyZoneFactory {
 
             physicsBody.disablePreStep = false;
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
+            NPCFactory.createGirl().then( (girl) => {
+                girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
+                girl.transformNode.parent = phareTransform;
+            });
         }
 
 
