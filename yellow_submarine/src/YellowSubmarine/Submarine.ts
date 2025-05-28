@@ -49,7 +49,7 @@ export class Submarine {
             this.addVolumetricLight();
 
 
-            const mapLimit = 50;
+            const mapLimit = 1024;
             Game.scene.onBeforeRenderObservable.add(() => {
                 if (!this._physicsAggregate) return;
 
