@@ -197,7 +197,7 @@ export class KeyZoneFactory {
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
 
             NPCFactory.createFox().then( (fox) => {
-                fox.transformNode.position = new Vector3(-8, 1.3, 0).add(banquiseTransform.position);
+                fox.transformNode.position = new Vector3(-8, 1.4, 0);
                 fox.transformNode.parent = banquiseTransform;
             });
         }
