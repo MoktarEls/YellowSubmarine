@@ -2,13 +2,11 @@ import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
-import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
-import {PhysicsMotionType, Vector3} from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
+import {Color3, PhysicsMotionType, Vector3} from "@babylonjs/core";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 
 export class World {
     private _sky: Sky;
-    private _grabbableObject: GrabbableObject;
 
     public get submarine(): Submarine{
         return this._submarine;
@@ -33,7 +31,7 @@ export class World {
         this._submarine = new Submarine();
         this._sky = new Sky();
         KeyZoneFactory.createDolphinIsland();
-        this._grabbableObject = new GrabbableObject(new Vector3(20,0,0));
+        KeyZoneFactory.createTemple();
     }
 
 }

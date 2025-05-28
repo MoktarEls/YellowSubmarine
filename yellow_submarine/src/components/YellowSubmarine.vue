@@ -23,14 +23,16 @@ export default defineComponent({
         const havokPlugin = new HavokPlugin(true, havok);
         const game = new Game(canvas, havokPlugin);
 
-/*        setTimeout(() => {
+/*
+        setTimeout(() => {
           const physicsViewer = new Debug.PhysicsViewer();
           for (const mesh of Game.scene.meshes) {
             if (mesh.physicsBody) {
               physicsViewer.showBody(mesh.physicsBody);
             }
           }
-        }, 3000);*/
+        }, 3000);
+*/
 
       })
 

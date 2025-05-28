@@ -42,14 +42,12 @@ export class NPCFactory {
         pedro.detectionZone.zone.position.set(0, -11, 0);
 
         // for test purpose
-        const conversation = new Conversation();
-        const dialogue1 = new SimpleDialogueNode();
-        dialogue1.text = "Hello";
-        const dialogue2 = new SimpleDialogueNode();
-        dialogue2.text = "Bye";
-        dialogue1.nextNode = dialogue2;
-        conversation.root = dialogue1;
-        pedro.conversation = conversation;
+        pedro.conversation = new ConversationBuilder()
+            .say("Ceci est un texte en [g]gras[/g]")
+            .then("Ceci est un texte en [i]italique[/i]")
+            .then("Ceci est un texte en [s=16][c=blue]petit et bleu[/s][/g]")
+            .then("Voici un mot en [g]gras[/g], un en [i]italique[/i], et [c=#ffffff]couleur rouge.[/c] Il y a beaucoup de texte AAAA")
+            .build();
 
         pedro.cameraConfiguration = new CameraConfiguration();
         pedro.cameraConfiguration.target = pedro.transformNode;

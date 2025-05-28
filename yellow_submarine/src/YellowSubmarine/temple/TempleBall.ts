@@ -1,8 +1,8 @@
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {GrappleInteraction} from "@/YellowSubmarine/grappling system/interaction/GrappleInteraction";
 import {
-    AbstractMesh, Mesh,
-    MeshBuilder,
+    AbstractMesh, Color3, Mesh,
+    MeshBuilder, Observable,
     PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
@@ -11,13 +11,20 @@ import {
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Game} from "@/YellowSubmarine/Game";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {Socle} from "@/YellowSubmarine/temple/Socle";
+import {CellMaterial} from "@babylonjs/materials";
+import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 
-export class GrabbableObject {
+export class TempleBall {
     private _detectionZone: SphericalDetectionZone;
     private _grappleInteraction: GrappleInteraction;
     private _mesh: AbstractMesh;
     private _physicsBody: PhysicsBody;
     private _physicsShape: PhysicsShape;
+    private _socle?: Socle;
+
+    public static onAnyBallPlacedOnAnySocle = new Observable<{ball: TempleBall, socle: Socle}>();
+    public onPlacedOnSocle = new Observable<Socle>();
 
     public get mesh(): AbstractMesh {
         return this._mesh;
@@ -27,8 +34,21 @@ export class GrabbableObject {
         return this._physicsBody;
     }
 
-    public constructor(position: Vector3) {
-        this._mesh = MeshBuilder.CreateSphere("grabbableObject", {
+    public get socle(): Socle | undefined {
+        return this._socle;
+    }
+
+    public set socle(socle: Socle | undefined) {
+        this._socle = socle;
+        if(socle){
+            this.onPlacedOnSocle.notifyObservers(socle);
+        }
+    }
+
+    public constructor(position: Vector3, public readonly color: Color3) {
+        TemplePuzzle.registerBall(this);
+        this.onPlacedOnSocle.add((s) => TempleBall.onAnyBallPlacedOnAnySocle.notifyObservers({ball: this, socle: s}));
+        this._mesh = MeshBuilder.CreateSphere("templeBall", {
             diameter: 2,
         });
         this._mesh.position = position;
@@ -38,6 +58,9 @@ export class GrabbableObject {
                 radius: 1,
             }
         }, Game.scene);
+        const cellMaterial = new CellMaterial("templeBallMaterial");
+        cellMaterial.diffuseColor = color;
+        this._mesh.material = cellMaterial;
         this._physicsBody = new PhysicsBody(this._mesh, PhysicsMotionType.DYNAMIC, false, Game.scene);
         this._physicsBody.shape = this._physicsShape;
         this._physicsBody.setLinearDamping(1);
@@ -48,13 +71,13 @@ export class GrabbableObject {
         this._grappleInteraction = new GrappleInteraction(this);
         this._detectionZone = new SphericalDetectionZone({
             diameter: 4,
-        },true);
+        },false);
         this._detectionZone.zone.parent = this._mesh;
         Submarine.instance.meshCreationPromise.then((mesh) => {
            this._detectionZone.addMeshToDetect(mesh);
         });
         this._detectionZone.onMeshEnter.add(() => {
-            if(Grappler.instance.hasAnObjectGrappled) return
+            if(Grappler.instance.hasAnObjectGrappled || this._socle) return
 
             this._grappleInteraction.makeAvailable();
         })

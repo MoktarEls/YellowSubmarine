@@ -1,6 +1,6 @@
 import {DistanceConstraint, Observable, PhysicsBody, PhysicsConstraint, TransformNode, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {GrabbableObject} from "@/YellowSubmarine/grappling system/GrabbableObject";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 
 export class Grappler {
 
@@ -8,7 +8,7 @@ export class Grappler {
 
     private _owner?: PhysicsBody;
     private _grapplerLength = 1.5;
-    private _currentGrappledObject?: GrabbableObject;
+    private _currentGrappledObject?: TempleBall;
     private _localOffsetWithSubmarine: Vector3 = new Vector3(0, 0, -5);
     private _pullingForce = 5;
 
@@ -23,7 +23,7 @@ export class Grappler {
         })
     }
 
-    public grappleObject(object: GrabbableObject) {
+    public grappleObject(object: TempleBall) {
         if(this._currentGrappledObject) return;
 
         this._currentGrappledObject = object;
@@ -34,6 +34,10 @@ export class Grappler {
         if(!this._currentGrappledObject) return;
 
         this._currentGrappledObject = undefined;
+    }
+
+    public get grappledObject(): TempleBall | undefined {
+        return this._currentGrappledObject;
     }
 
     public get hasAnObjectGrappled(): boolean {

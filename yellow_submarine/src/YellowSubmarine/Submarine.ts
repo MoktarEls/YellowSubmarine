@@ -13,6 +13,7 @@ import "@babylonjs/loaders/glTF"
 import {Player} from "@/YellowSubmarine/Player";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Submarine {
@@ -29,10 +30,9 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh!: AbstractMesh;
 
-    private _movementForce = 300000;
+    private _movementForce = 1000000;
 
-
-    private _rotationForce = 150000;
+    private _rotationForce = 500000;
     private _grappler: Grappler;
 
     public meshCreationPromise: Promise<AbstractMesh>;
@@ -108,6 +108,18 @@ export class Submarine {
                 this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
             }
         });
+    }
+
+    public get templeBall(): TempleBall | undefined {
+        return this._grappler.grappledObject;
+    }
+
+    public grabBall(ball: TempleBall): void {
+        this._grappler.grappleObject(ball);
+    }
+
+    public letGoOfBall(){
+        this._grappler.letGoOfObject();
     }
 
     private async createMesh(scene: Scene) {

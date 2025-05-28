@@ -1,12 +1,17 @@
 ﻿import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {
+    Angle,
+    Color3,
     Mesh,
     PBRMaterial,
     PhysicsAggregate,
+    PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
-    PhysicsShapeType, Quaternion,
+    PhysicsShapeType,
+    Quaternion,
+    Space,
     TransformNode,
     Vector3
 } from "@babylonjs/core";
@@ -14,6 +19,10 @@ import {Utils} from "@/YellowSubmarine/Utils";
 import {NPCFactory} from "@/YellowSubmarine/npcs/NPCFactory";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Game} from "@/YellowSubmarine/Game";
+import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Stele} from "@/YellowSubmarine/temple/Stele";
+import {Socle} from "@/YellowSubmarine/temple/Socle";
+import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 
 export class KeyZoneFactory {
 
@@ -64,6 +73,61 @@ export class KeyZoneFactory {
 
 
         return island;
+    }
+
+    public static async createTemple(){
+
+        const templeTransform: TransformNode = new TransformNode("temple transform");
+        const temple = new KeyZone();
+
+        temple.name = "Temple";
+        temple.detectionZone = new SphericalDetectionZone({
+            diameter : 500,
+        }, true);
+
+        const result = await Utils.loadMesh("models/scenes/temple.glb");
+        const rootMesh = result.meshes[0];
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = templeTransform;
+        const childMeshes = rootMesh.getChildMeshes<Mesh>();
+        for (const mesh of result.meshes) {
+            const mat = mesh.material as PBRMaterial;
+            if(mat){
+                const toonMat = new CartoonShaderMaterial();
+                await toonMat.assignMaterial(mesh).then(() => {
+                    toonMat.configureFromPBRMaterial(mat);
+                });
+                toonMat.emissionColor = Color3.FromHexString("#4bf49f")
+            }
+        }
+        const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
+        if(mergedMesh){
+            mergedMesh.parent = templeTransform;
+            temple.mesh = mergedMesh;
+            temple.physicsAggregate = this.createStaticPhysicsAggregate(temple.mesh, PhysicsShapeType.MESH);
+            temple.physicsAggregate.body.setMotionType(PhysicsMotionType.STATIC);
+            // TODO x:0 y:0 z:500
+            templeTransform.position = new Vector3(0,0,60);
+            templeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+            physicsBody.shape = physicsShape;
+        }
+
+
+        const stele = new Stele();
+        const steleInteractionZone = stele.steleInteractionZone;
+        steleInteractionZone.zone.parent = templeTransform;
+        steleInteractionZone.zone.position = new Vector3(0,0,50);
+
+        const templePuzzle = new TemplePuzzle(templeTransform, new Vector3(0,0,0));
+
     }
 
     private static createStaticPhysicsAggregate(
