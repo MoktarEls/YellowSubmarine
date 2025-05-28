@@ -1,4 +1,4 @@
-import {Angle, Color3, TransformNode, Vector3} from "@babylonjs/core";
+import {Angle, Color3, Observable, TransformNode, Vector3} from "@babylonjs/core";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
@@ -26,6 +26,9 @@ export class TemplePuzzle {
     public get transformNode(): TransformNode {
         return this._transformNode;
     }
+
+    public onPuzzleResolved = new Observable<void>();
+    public onPuzzleRejected = new Observable<void>();
 
     private static _instance: TemplePuzzle;
 
@@ -55,7 +58,7 @@ export class TemplePuzzle {
         this._cameraConfiguration.target = this._transformNode;
         this._cameraConfiguration.wantedBeta = Angle.FromDegrees(0).radians();
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
-        this._cameraConfiguration.distanceFromTarget = 70;
+        this._cameraConfiguration.distanceFromTarget = 100;
         this._detectionZone.onMeshEnter.add(() => {
             ConfigurableCamera.instance.cameraConfiguration = this._cameraConfiguration;
         });
@@ -110,8 +113,13 @@ export class TemplePuzzle {
 
     private onBallPlacedOnSocle(){
         if(this.isAllBallPlacedOnASocle()){
-            const isConfigurationValid = this.checkConfiguration();
-            console.log(isConfigurationValid ? "Accept" : "Reject");
+            if(this.checkConfiguration()){
+                this.onPuzzleResolved.notifyObservers();
+            }
+            else{
+                this.onPuzzleRejected.notifyObservers();
+            }
+
         }
     }
 
