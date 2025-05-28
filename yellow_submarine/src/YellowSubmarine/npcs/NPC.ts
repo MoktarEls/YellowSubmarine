@@ -66,6 +66,7 @@ export class NPC{
     public get conversation(): Conversation | undefined {
         return this._conversation;
     }
+
     public set conversation(conversation: Conversation | undefined) {
         if(conversation !== undefined) {
             this._startConversationInteraction = new StartConversationInteraction(conversation);
@@ -109,12 +110,5 @@ export class NPC{
             });
 
         }
-
-
-
     }
-
-
-
-
 }
