@@ -3,6 +3,7 @@ import {
     Angle, Color3, KeyboardEventTypes,
     Mesh, MeshBuilder, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scalar,
+    Quaternion,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
     Vector3, VolumetricLightScatteringPostProcess,
@@ -46,8 +47,21 @@ export class Submarine {
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();
             this.addVolumetricLight();
-        });
 
+
+            const mapLimit = 50;
+            Game.scene.onBeforeRenderObservable.add(() => {
+                if (!this._physicsAggregate) return;
+
+                const body = this._physicsAggregate.body;
+                const pos = body.transformNode.position.clone();
+
+                if (pos.x > mapLimit || pos.x < -mapLimit || pos.z > mapLimit || pos.z < -mapLimit) {
+                    body.setLinearVelocity(body.getLinearVelocity().negate());
+                    body.transformNode.position.copyFrom(pos);
+                }
+            });
+        });
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
 

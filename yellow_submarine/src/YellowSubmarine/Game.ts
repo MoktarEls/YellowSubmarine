@@ -6,6 +6,7 @@ import {InteractionManager} from "@/YellowSubmarine/interaction system/Interacti
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {HavokPhysicsWithBindings} from "@babylonjs/havok";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class Game{
 
@@ -62,7 +63,7 @@ export class Game{
         this._engine.runRenderLoop(() => {
             this._scene.render();
         })
-        window.addEventListener("resize", () => this._engine.resize() );
+        window.addEventListener("resize", () => this._engine.resize());
     }
 
     private updateFocusState(state: boolean) {
