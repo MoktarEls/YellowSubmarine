@@ -12,7 +12,7 @@ export class QuestFactory {
     private static createTalkToPedro(): Quest{
         const quest = new Quest("dreamland", "Le monde des rêves", "active", 0);
         const steps: QuestStep[] = [];
-        steps.push(new QuestStep("Parle à l'habitant de l'ile du Dophin", false));
+        steps.push(new QuestStep("Parle à l'habitant de l'ile du Dophin"));
         quest.steps = steps;
         return quest;
     }

@@ -27,4 +27,14 @@ export class QuestManager {
     public getQuest(id: string): Quest | undefined {
         return this.quests.find(quest => quest.id === id);
     }
+
+    public getAllActiveQuests(): Quest[] {
+        const quests: Quest[] = [];
+        this.quests.forEach(quest => {
+            if(quest.state === "active") {
+                quests.push(quest);
+            }
+        });
+        return quests;
+    }
 }

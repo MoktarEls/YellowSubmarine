@@ -5,6 +5,7 @@ import {WorldInteractionUI} from "@/YellowSubmarine/interaction system/ui/WorldI
 import {IslandsUI} from "@/YellowSubmarine/interaction system/ui/IslandsUI";
 import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
+import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 
 
 export class UIManager {
@@ -16,6 +17,7 @@ export class UIManager {
     private _islandsUI: IslandsUI = new IslandsUI();
     private _mainMenuUI: MainMenuUI;
     private _optionsMenuUI;
+    private _questUI: QuestUI = new QuestUI();
 
 
     constructor(private _canvas: HTMLCanvasElement) {
@@ -27,6 +29,7 @@ export class UIManager {
         this._ui.addControl(this._optionsMenuUI.controlNode);
         this._ui.addControl(this._mainMenuUI.controlNode);
         this._mainMenuUI.canvas = _canvas;
+        this._ui.addControl(this._questUI.controlNode);
     }
 
     public showMainMenu(): void {
