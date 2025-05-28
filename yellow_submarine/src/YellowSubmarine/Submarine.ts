@@ -1,14 +1,11 @@
 import {
     AbstractMesh,
     Angle, Color3, KeyboardEventTypes,
-    Mesh, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
+    Mesh, MeshBuilder, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scalar,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
     Vector3, VolumetricLightScatteringPostProcess,
-    SceneLoader, SpotLight,
-    StandardMaterial,
-    Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import "@babylonjs/loaders/glTF"

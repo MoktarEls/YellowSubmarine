@@ -16,11 +16,11 @@ export class OptionsMenuUI extends UI {
     constructor(private _mainMenu: MainMenuUI) {
         super();
         this._panel = new StackPanel();
-        this._panel.width = "320px";
-        this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+        this._panel.width = "600px";
+        this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
         this._panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
         this._panel.spacing = 15;
-
+        this._panel.paddingLeft = "60px";
         this.createSliderWithLabel("Volume SFX", SoundManager.instance.SFXVolume, (value) => {
             SoundManager.instance.SFXVolume = value;
         });
@@ -36,10 +36,10 @@ export class OptionsMenuUI extends UI {
         const backButton = MainMenuUI.createButton("Retour", () => {
             this.hide();
         });
-        backButton.width = "100%";
+        backButton.width = "300px";
         backButton.height = "40px";
         backButton.color = "white";
-        backButton.background = "#333";
+        backButton.background = "rgba(255, 255, 255, 0.05)";
         this._panel.addControl(backButton);
 
         this._panel.isVisible = false;
