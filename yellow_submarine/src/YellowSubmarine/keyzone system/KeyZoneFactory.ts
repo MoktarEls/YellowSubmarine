@@ -322,7 +322,7 @@ export class KeyZoneFactory {
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
 
             NPCFactory.createScribe().then( (scribe) => {
-                scribe.transformNode.position = new Vector3(-1.5, 0.7, -5.8).add(poulpeTransform.position);
+                scribe.transformNode.position = new Vector3(-1.57, 0.8, 5.8);
                 scribe.transformNode.parent = poulpeTransform;
             });
         }
