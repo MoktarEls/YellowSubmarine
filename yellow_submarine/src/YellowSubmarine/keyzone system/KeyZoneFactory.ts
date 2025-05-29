@@ -344,6 +344,13 @@ export class KeyZoneFactory {
             NPCFactory.createScribe().then( (scribe) => {
                 scribe.transformNode.position = new Vector3(-1.57, 0.8, 5.8);
                 scribe.transformNode.parent = poulpeTransform;
+                const ball = new TempleBall(new Vector3(30,0,20), Color3.Purple());
+                const callBack = scribe.conversation?.onConversationEnd.add(() => {
+                    if(!Submarine.instance.templeBall){
+                        Submarine.instance.grabBall(ball);
+                        scribe.conversation?.onConversationEnd.remove(callBack ?? null);
+                    }
+                });
             });
         }
 
