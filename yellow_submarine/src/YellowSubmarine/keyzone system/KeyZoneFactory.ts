@@ -27,6 +27,13 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class KeyZoneFactory {
 
+    private static readonly _dolphinPosition: Vector3 = new Vector3(0,0,160);
+    private static readonly _templePosition: Vector3 = new Vector3(0, 0, 500);
+    private static readonly _banquisePosition: Vector3 = new Vector3(-200, 0, 680);
+    private static readonly _archipelPosition: Vector3 = new Vector3(200, 0, 680);
+    private static readonly _pharePosition: Vector3 = new Vector3(-250, 0, 420);
+    private static readonly _poulpePosition: Vector3 = new Vector3(250, 0, 420);
+
     public static async createDolphinIsland(): Promise<KeyZone> {
         const _transformIsland: TransformNode = new TransformNode("island transform");
         const island = new KeyZone();
@@ -38,8 +45,8 @@ export class KeyZoneFactory {
 
         const result = await Utils.loadMesh("models/scenes/dolphinIsland.glb");
         const rootMesh = result.meshes[0];
-        const islandPosition = new Vector3(0,0,60);
-        rootMesh.position = islandPosition;
+        rootMesh.position = Vector3.Zero();
+        rootMesh.parent = _transformIsland;
         const childMeshes = rootMesh.getChildMeshes<Mesh>();
         for (const mesh of result.meshes) {
             const mat = mesh.material as PBRMaterial;
@@ -52,16 +59,25 @@ export class KeyZoneFactory {
         }
         const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
         if(mergedMesh){
+            mergedMesh.parent = _transformIsland;
             island.mesh = mergedMesh;
-            island.mesh.parent = _transformIsland;
-            island.physicsAggregate = this.createStaticPhysicsAggregate(island.mesh, PhysicsShapeType.MESH);
+            _transformIsland.position = this._dolphinPosition;
 
-            island.physicsAggregate.body.setMotionType(PhysicsMotionType.STATIC);
-            island.physicsAggregate.body.setTargetTransform(islandPosition, Quaternion.Identity());
-            mergedMesh.receiveShadows = true;
+            const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
+            const physicsShape = new PhysicsShape({
+                type: PhysicsShapeType.MESH,
+                parameters: {
+                    mesh: mergedMesh,
+                }
+            }, Game.scene);
+
+            physicsBody.shape = physicsShape;
+            physicsBody.disablePreStep = false;
+            Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
 
             NPCFactory.createPedro().then( (pedro) => {
-                pedro.transformNode.position = new Vector3(-30, 15, -14).add(islandPosition);
+                pedro.transformNode.position = new Vector3(-30, 15, -14);
                 pedro.transformNode.parent = _transformIsland;
             });
         }
@@ -83,7 +99,7 @@ export class KeyZoneFactory {
 
         temple.name = "Temple";
         temple.detectionZone = new SphericalDetectionZone({
-            diameter : 500,
+            diameter : 260,
         }, true);
 
         const result = await Utils.loadMesh("models/scenes/temple.glb");
@@ -105,7 +121,7 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = templeTransform;
             temple.mesh = mergedMesh;
-            templeTransform.position = new Vector3(0,0,500);
+            templeTransform.position = this._templePosition;
             templeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
@@ -188,7 +204,7 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = banquiseTransform;
             banquise.mesh = mergedMesh;
-            banquiseTransform.position = new Vector3(-300,0,500);
+            banquiseTransform.position = this._banquisePosition;
             banquiseTransform.rotate(Vector3.Up(), Angle.FromDegrees(-90).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
@@ -259,7 +275,7 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = archipelTransform;
             archipel.mesh = mergedMesh;
-            archipelTransform.position = new Vector3(300,0,500);
+            archipelTransform.position = this._archipelPosition;
             archipelTransform.rotate(Vector3.Up(), Angle.FromDegrees(-90).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
@@ -333,8 +349,7 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = poulpeTransform;
             poulpe.mesh = mergedMesh;
-            poulpeTransform.position = new Vector3(300,0,300);
-            //poulpeTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+            poulpeTransform.position = this._poulpePosition;
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
@@ -404,7 +419,7 @@ export class KeyZoneFactory {
         if(mergedMesh){
             mergedMesh.parent = phareTransform;
             phare.mesh = mergedMesh;
-            phareTransform.position = new Vector3(-300,0,300);
+            phareTransform.position = this._pharePosition;
             //phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
