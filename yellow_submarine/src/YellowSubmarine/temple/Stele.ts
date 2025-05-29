@@ -21,7 +21,7 @@ export class Stele implements IConversationProvider {
 
     public constructor() {
         this.steleInteractionZone = new SphericalDetectionZone({
-            diameter: 10
+            diameter: 20,
         }, true);
         this._cameraConfiguration = new CameraConfiguration();
         this._cameraConfiguration.target = this._steleInteractionZone.zone;
