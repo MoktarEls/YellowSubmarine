@@ -206,7 +206,7 @@ export class KeyZoneFactory {
             NPCFactory.createFox().then( (fox) => {
                 fox.transformNode.position = new Vector3(-8, 1.4, 0);
                 fox.transformNode.parent = banquiseTransform;
-                const ball = new TempleBall(new Vector3(40,0,10), Color3.Green());
+                const ball = new TempleBall(fox.transformNode.absolutePosition.add(new Vector3(30,0,10)), Color3.Green());
                 const callBack = fox.conversation?.onConversationEnd.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
@@ -351,7 +351,7 @@ export class KeyZoneFactory {
             NPCFactory.createScribe().then( (scribe) => {
                 scribe.transformNode.position = new Vector3(-1.57, 0.8, 5.8);
                 scribe.transformNode.parent = poulpeTransform;
-                const ball = new TempleBall(new Vector3(30,0,20), Color3.Purple());
+                const ball = new TempleBall(scribe.transformNode.absolutePosition.add(new Vector3(30,0,10)), Color3.Purple());
                 const callBack = scribe.conversation?.onConversationEnd.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
@@ -422,7 +422,7 @@ export class KeyZoneFactory {
             NPCFactory.createGirl().then( (girl) => {
                 girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
                 girl.transformNode.parent = phareTransform;
-                const ball = new TempleBall(new Vector3(50,0,10), Color3.Blue());
+                const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(30,0,10)), Color3.Blue());
                 const callBack = girl.conversation?.onConversationEnd.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
