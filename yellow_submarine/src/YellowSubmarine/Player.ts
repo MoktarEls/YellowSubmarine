@@ -3,6 +3,7 @@ import {Angle, KeyboardEventTypes, KeyboardInfo, Observable, Scalar} from "@baby
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
@@ -15,6 +16,7 @@ export class Player {
     private static _playerCameraConfiguration: CameraConfiguration = new CameraConfiguration();
     private static _horizontalCameraSensitivity = 5;
     private static _verticalCameraSensitivity = 5;
+    private static _isMovementEnabled = true;
 
 
     public static get instance() {
@@ -43,22 +45,24 @@ export class Player {
         Player.initializeCameraParameter();
         Player.registerKeyboardInputs();
         Player.registerMouseMovementInputs();
+        Conversation.onAnyConversationStart.add(() => Player.disableMovement());
+        Conversation.onAnyConversationEnd.add(() => Player.enableMovement());
     }
 
     public static isMoveForwardPressed(): boolean {
-        return this._isForwardPressed;
+        return this._isForwardPressed && this._isMovementEnabled;
     }
 
     public static isMoveBackwardPressed(): boolean {
-        return this._isBackwardPressed;
+        return this._isBackwardPressed && this._isMovementEnabled;
     }
 
     public static isTurnLeftPressed(): boolean {
-        return this._isLeftPressed;
+        return this._isLeftPressed && this._isMovementEnabled;
     }
 
     public static isTurnRightPressed(): boolean {
-        return this._isRightPressed;
+        return this._isRightPressed && this._isMovementEnabled;
     }
 
     private static registerKeyboardInputs(){
@@ -66,19 +70,20 @@ export class Player {
         scene.onKeyboardObservable.add( (eventData) => {
             if(Game.isGameFocused){
                 const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-                if(eventData.event.key === "z"){
+                if(eventData.event.code === "KeyW"){
                     this._isForwardPressed = state;
                 }
-                else if(eventData.event.key === "s"){
+                else if(eventData.event.code === "KeyS"){
                     this._isBackwardPressed = state;
                 }
-                else if(eventData.event.key === "q"){
+                else if(eventData.event.code === "KeyA"){
                     this._isLeftPressed = state;
                 }
-                else if(eventData.event.key === "d"){
+                else if(eventData.event.code === "KeyD"){
                     this._isRightPressed = state;
                 }
                 this.onPlayerPressedAKey.notifyObservers(eventData);
+
             }
         } );
     }
@@ -94,6 +99,14 @@ export class Player {
                 this.updateCameraParameter(movementX, movementY);
             }
         })
+    }
+
+    public static enableMovement(){
+        this._isMovementEnabled = true;
+    }
+
+    public static disableMovement(){
+        this._isMovementEnabled = false;
     }
 
     private static initializeCameraParameter() {
