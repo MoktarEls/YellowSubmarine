@@ -19,6 +19,7 @@ export class SoundManager {
     private _UIVolume : number;
     private _MUSICVolume : number;
 
+
     constructor() {
         SoundManager.instance = this;
         this._SFXVolume = 0.8;
