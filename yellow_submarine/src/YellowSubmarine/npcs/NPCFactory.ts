@@ -93,6 +93,9 @@ export class NPCFactory {
             .then("Y'avait marqué ça : « Redina, la plus forte, restait en retrait afin de couvrir leurs arrières »")
             .then("Bizarre l'ambiance... J'en ai marre de jouer au bowling donc j'te donne la boule ! Mais prends-en soin !")
             .then("Allez, je vais jouer à la pétanque moi...")
+            .setOnEnding(() => {
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "D'après Crimson : Redina, la plus forte, restait en retrait afin de couvrir leurs arrières");
+            })
             .build();
 
         fox.cameraConfiguration = new CameraConfiguration();
@@ -132,12 +135,20 @@ export class NPCFactory {
             .then("J'ai trouvé une boule de couleurs avec deux parchemins. Commençons par les FAITS !")
             .then("Fait numéro 1 : la boule est d'une couleur spécifique... Hmmmm...... Ok soit.")
             .then("Fait numéro 2 : les textes parlent de je ne sais pas trop quoi à vrai dire. Mais ! J'ai l'impression que les couleurs sont importantes !")
+            .then("Fait numéro 3 : les deux parchemins racontes la chose suivante : \n" +
+                " - Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche \n" +
+                " - Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet ")
             .then("Maintenant, passons à la THEORIE !")
             .then("Théorie numéro 1 : une boule de couleur a une position unique. Mais où ??? AHHH Je ne comprends pas....")
             .then("Théorie numéro 2 : il existe d'autres boules de couleur car mes deux indices parlent de couleurs différentes de celle de ma boule !")
             .then("Et voilà c'est un peu tout ce que j'ai, je suis dans une sacrée impasse. Je vais sûrement rater le prix Nobel cette année.....")
             .then("Allez j'te laisse la boule, je suis passé à autre chose ! Tu me diras une prochaine fois si ça t'a été utile !")
             .then("À la revoyure !")
+            .setOnEnding(() => {
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), ("Rosa a trouvée ces deux phrases :" +
+                    "\n - Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
+                    "\n - Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
+            })
             .build();
 
 
@@ -182,6 +193,10 @@ export class NPCFactory {
             .then("[i]Moi seul, Marcel, pouvais en saisir l’essence, Car mon verbe est plus fort que toute connaissance.[/i]")
             .then("[i]Je retourne à présent vers la fontaine noire, Dont l’encre tachera les vers de ma mémoire.[/i]")
             .then("Voila ! J'espère que ce ne fut pas un peu trop long. Maintenant file je dois me concentrer !")
+            .setOnEnding(() => {
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
+                    " - Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
+            })
             .build();
 
 
@@ -226,6 +241,10 @@ export class NPCFactory {
             .then("AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
             .then("TU M'AS FAIS PEUR !!!!")
             .then("TIENS PREND ÇA ! ET PARS LOIN D'ICI SANS REVENIR !!!!!!!!!!!!!!!!")
+            .setOnEnding(() => {
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
+                    " - Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée...")
+            })
             .build();
 
 
