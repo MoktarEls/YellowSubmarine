@@ -7,6 +7,7 @@ import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {HavokPhysicsWithBindings} from "@babylonjs/havok";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 
 export class Game{
 
@@ -22,7 +23,8 @@ export class Game{
     private _camera: ConfigurableCamera;
     private _interactionManager: InteractionManager;
     private _uiManager: UIManager;
-    private _soundManager : SoundManager;
+    private _soundManager: SoundManager;
+    private _questManager: QuestManager;
 
     public static get canvas(){
         return this._instance._canvas;
@@ -55,6 +57,7 @@ export class Game{
         this._player = new Player();
         this._soundManager = new SoundManager();
         this._uiManager = new UIManager(_canvas);
+        this._questManager = new QuestManager();
 
         document.addEventListener("pointerlockchange", () => {
             this.updateFocusState(document.pointerLockElement === _canvas);

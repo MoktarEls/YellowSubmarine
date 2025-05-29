@@ -6,6 +6,7 @@ import {
 import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 
 export class Stele{
     private _steleInteractionZone!: MeshDetectionZone;
@@ -17,8 +18,15 @@ export class Stele{
             diameter: 10
         }, true);
         const conversationBuilder = new ConversationBuilder();
-        conversationBuilder.say("BLABLABLA [g]ILE[/g], BLABLABLA [g]BOULE[/g], BLABLABLA [g]CONSTELLATION[/g]")
-        conversationBuilder.then("[c=#ff0000]Courage le fréro[/c]")
+        conversationBuilder.say("La ligne du haut regarde les cieux")
+            .then("La ligne du milieu respire l’air")
+            .then("La ligne du bas touche la terre")
+            .setOnEnding(() => {
+                let quest = QuestManager.instance.getQuest("temple_quest");
+                if(quest) quest.state = "active";
+                quest = QuestManager.instance.getQuest("dreamland");
+                if(quest) quest.updateCurrentStepStatus();
+            })
         this.conversation = conversationBuilder.build();
     }
 

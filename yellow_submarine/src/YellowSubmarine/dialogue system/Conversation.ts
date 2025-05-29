@@ -8,6 +8,8 @@ import {NPC} from "@/YellowSubmarine/npcs/NPC";
 
 export class Conversation {
 
+    private _onEnding = (): void => {return};
+
     private _npc?: NPC;
 
     public static onAnyDialogueStart:Observable<AbstractDialogueNode> = new Observable();
@@ -36,6 +38,14 @@ export class Conversation {
     }
     public set root(value: AbstractDialogueNode | undefined){
         this._rootNode = value;
+    }
+
+    public get onEnding(): () => void {
+        return this._onEnding;
+    }
+
+    public set onEnding(value: () => void) {
+        this._onEnding = value;
     }
 
     private enterNode(node: AbstractDialogueNode){
@@ -72,11 +82,10 @@ export class Conversation {
         this.onConversationEnd.notifyObservers(this);
         Conversation.onAnyConversationEnd.notifyObservers(this);
         ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
+        this._onEnding();
     }
 
     public isInProgress(): boolean {
         return !!this._currentNode;
     }
-
-
 }

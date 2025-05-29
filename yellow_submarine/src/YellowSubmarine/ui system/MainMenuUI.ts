@@ -53,7 +53,7 @@ export class MainMenuUI extends UI {
                 if(this._canvas)
                     this._panel.isVisible ? this.onPlayPressed() : this.show();
             }
-        })
+        });
     }
 
     public static createButton(text: string, callback: () => void): Button {
