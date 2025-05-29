@@ -6,11 +6,11 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 export class RemoveTempleBallInteraction extends WorldInteraction{
 
     public constructor(private _socle: Socle) {
-        super("KeyF");
+        super("KeyF", "F");
     }
 
     public get description(): string {
-        return "Remove the ball";
+        return "Remove";
     }
 
     executeInteraction(): void {

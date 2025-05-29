@@ -3,13 +3,19 @@ import {InteractionManager} from "@/YellowSubmarine/interaction system/Interacti
 export abstract class AbstractInteraction {
 
     protected _code:string;
+    protected  _simplifiedCode: string;
 
     public get code(): string {
         return this._code;
     }
 
-    protected constructor(code: string) {
+    public get simplifiedCode(): string {
+        return this._simplifiedCode;
+    }
+
+    protected constructor(code: string, simplifiedCode: string) {
         this._code = code;
+        this._simplifiedCode = simplifiedCode;
     }
 
     public makeAvailable(){

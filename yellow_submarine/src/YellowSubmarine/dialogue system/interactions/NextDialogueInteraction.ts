@@ -6,7 +6,7 @@ import {DialogueInteractionUI} from "@/YellowSubmarine/interaction system/ui/Dia
 export class NextDialogueInteraction extends DialogueInteraction{
 
     constructor(private _conversation:Conversation) {
-        super("Space");
+        super("Space", "_");
     }
 
     executeInteraction(): void {
