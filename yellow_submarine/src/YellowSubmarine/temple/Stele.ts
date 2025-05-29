@@ -15,7 +15,7 @@ export class Stele{
 
     public constructor() {
         this.steleInteractionZone = new SphericalDetectionZone({
-            diameter: 10
+            diameter: 12
         }, true);
         const conversationBuilder = new ConversationBuilder();
         conversationBuilder.say("La ligne du haut regarde les cieux")
