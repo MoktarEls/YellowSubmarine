@@ -159,6 +159,11 @@ export class NPCFactory {
             .say("[g] SILEEEEEEEENCE, L'INSPIRATION ARRIVE [/g]")
             .build();
 
+        scribe.cameraConfiguration = new CameraConfiguration();
+        scribe.cameraConfiguration.target = scribe.transformNode;
+        scribe.cameraConfiguration.distanceFromTarget = 10;
+        scribe.cameraConfiguration.wantedAlpha = Angle.FromDegrees(150).radians();
+
         return scribe;
     }
 
