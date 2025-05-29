@@ -10,8 +10,6 @@ import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
 import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
-import {Player} from "@/YellowSubmarine/Player";
 
 export class Stele implements IConversationProvider {
     private _steleInteractionZone!: MeshDetectionZone;
