@@ -27,8 +27,8 @@ export class TemplePuzzle {
         return this._transformNode;
     }
 
-    public onPuzzleResolved = new Observable<void>();
-    public onPuzzleRejected = new Observable<void>();
+    public static onPuzzleResolved = new Observable<void>();
+    public static onPuzzleRejected = new Observable<void>();
 
     private static _instance: TemplePuzzle;
 
@@ -100,10 +100,10 @@ export class TemplePuzzle {
     private onBallPlacedOnSocle(){
         if(this.isAllBallPlacedOnASocle()){
             if(this.checkConfiguration()){
-                this.onPuzzleResolved.notifyObservers();
+                TemplePuzzle.onPuzzleResolved.notifyObservers();
             }
             else{
-                this.onPuzzleRejected.notifyObservers();
+                TemplePuzzle.onPuzzleRejected.notifyObservers();
             }
 
         }

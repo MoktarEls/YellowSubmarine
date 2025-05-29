@@ -48,6 +48,7 @@ export class NPCFactory {
             .then("Mais ! Y'a un p'tit endroit au nord d'ici un peu particulier.")
             .then("Y'avait deux boules et plein de poteaux, j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
             .then("Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
+            .then("Hésite pas à aller voir les habitants des autres, ils devraient pouvoir t'aider !")
             .then("Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt....................... zzZZZzzzzzZZzzzzzzzz)")
             .setOnEnding(() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Pedro s'est endormie");
