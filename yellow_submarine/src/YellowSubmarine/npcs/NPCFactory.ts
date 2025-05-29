@@ -6,6 +6,8 @@ import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
+import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
+import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 
 export class NPCFactory {
 
@@ -47,6 +49,10 @@ export class NPCFactory {
             .then("Y'avait deux boules et plein de poteaux, j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
             .then("Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
             .then("Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt....................... zzZZZzzzzzZZzzzzzzzz)")
+            .setOnEnding(() => {
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Pedro s'est endormie");
+                QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
+            })
             .build();
 
         pedro.cameraConfiguration = new CameraConfiguration();

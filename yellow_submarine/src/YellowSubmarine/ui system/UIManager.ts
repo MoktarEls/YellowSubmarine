@@ -6,6 +6,7 @@ import {IslandsUI} from "@/YellowSubmarine/interaction system/ui/IslandsUI";
 import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
+import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 
 
 export class UIManager {
@@ -18,6 +19,7 @@ export class UIManager {
     private _mainMenuUI: MainMenuUI;
     private _optionsMenuUI;
     private _questUI: QuestUI = new QuestUI();
+    private _journalUI: JournalUI = new JournalUI();
 
 
     constructor(private _canvas: HTMLCanvasElement) {
@@ -30,11 +32,11 @@ export class UIManager {
         this._ui.addControl(this._mainMenuUI.controlNode);
         this._mainMenuUI.canvas = _canvas;
         this._ui.addControl(this._questUI.controlNode);
+        this._ui.addControl(this._journalUI.controlNode);
     }
 
     public showMainMenu(): void {
         if(this._mainMenuUI)
             this._mainMenuUI.show();
     }
-
 }
