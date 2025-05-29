@@ -25,13 +25,6 @@ export class NPCFactory {
                     });
                 }
             })
-            SoundManager.instance.playMUSIC("pedro", {
-                spatialSound: true,
-                loop: true,
-                autoplay: true,
-                maxDistance: 80,
-                rolloffFactor: 1.5,
-            }, pedro.mesh);
         });
         pedro.detectionZone = new CylindricalDetectionZone( {
             height: 8,

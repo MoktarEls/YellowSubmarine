@@ -40,6 +40,12 @@ export class SoundManager {
                 autoplay: true,
             });
         })
+        Game.scene.onReadyObservable.add(() => {
+            this.playMUSIC("ambiant", {
+                loop: true,
+                autoplay: true,
+            });
+        })
     }
 
     private async load(name: string, url: string, options?: Partial<ISoundOptions>) {
