@@ -77,7 +77,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        fox.detectionZone.zone.position.set(0, -11, 0);
+        // fox.detectionZone.zone.position.set(0, -11, 0);
 
         // for test purpose
         fox.conversation = new ConversationBuilder()
@@ -109,7 +109,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        scientific.detectionZone.zone.position.set(0, -11, 0);
+        // scientific.detectionZone.zone.position.set(0, -11, 0);
 
         // for test purpose
         scientific.conversation = new ConversationBuilder()
@@ -140,7 +140,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        scribe.detectionZone.zone.position.set(0, -11, 0);
+        // scribe.detectionZone.zone.position.set(0, -11, 0);
 
         // for test purpose
         scribe.conversation = new ConversationBuilder()
@@ -175,7 +175,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        rabbit.detectionZone.zone.position.set(0, -11, 0);
+        rabbit.detectionZone.zone.position.set(0, -2, 0);
 
         // for test purpose
         rabbit.conversation = new ConversationBuilder()
