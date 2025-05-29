@@ -1,11 +1,10 @@
-import {UI} from "@/YellowSubmarine/ui system/UI";
-import {Control, Grid, Rectangle, StackPanel, TextBlock} from "@babylonjs/gui";
-import {Game} from "@/YellowSubmarine/Game";
-import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
-import {Quest} from "@/YellowSubmarine/quest system/Quest";
+import { UI } from "@/YellowSubmarine/ui system/UI";
+import { Control, Rectangle, StackPanel, TextBlock } from "@babylonjs/gui";
+import { Game } from "@/YellowSubmarine/Game";
+import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
+import { Quest } from "@/YellowSubmarine/quest system/Quest";
 
-export class QuestUI extends UI{
-
+export class QuestUI extends UI {
     private _panel: StackPanel;
 
     get controlNode(): Control {
@@ -18,10 +17,12 @@ export class QuestUI extends UI{
         this._panel = new StackPanel();
         this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-        this._panel.width = "30%";
-        this._panel.paddingTop = "10px";
+        this._panel.width = "25%";
+        this._panel.height = "100%";
         this._panel.paddingRight = "10px";
+        this._panel.paddingTop = "20px";
         this._panel.isVertical = true;
+        this._panel.spacing = 10;
 
         Game.scene.onBeforeRenderObservable.add(() => {
             this.refresh();
@@ -30,48 +31,57 @@ export class QuestUI extends UI{
 
     private refresh() {
         this._panel.clearControls();
-        const activeQuests = QuestManager.instance
-            .getAllActiveQuests();
+        const activeQuests = QuestManager.instance.getAllActiveQuests();
+
+        if (activeQuests.length === 0) {
+            // On affiche quand même un séparateur vide
+            this._panel.addControl(this.createSeparator());
+            return;
+        }
 
         activeQuests.forEach((quest: Quest) => {
-            const container = new Rectangle();
-            container.background = "rgba(0, 0, 0, 0.4)";
-            container.thickness = 0; // pas de bordure visible
-            container.cornerRadius = 10;
-            container.height = "50px";
-            container.paddingBottom = "5px";
+            const container = new StackPanel();
+            container.isVertical = true;
             container.width = "100%";
-            container.paddingLeft = "10px";
-            container.paddingRight = "10px";
+            //container.paddingTop = "5px";
 
-            const questGrid = new Grid();
-            questGrid.height = "40px";
-            questGrid.addColumnDefinition(0.4); // 40% pour le titre
-            questGrid.addColumnDefinition(0.6); // 60% pour la description
-            questGrid.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-            questGrid.paddingBottom = "5px";
-            questGrid.width = "100%";
-
+            // Titre
             const titleText = new TextBlock();
-            titleText.text = `🧭 ${quest.name}`;
+            titleText.text = `⛋ ${quest.name}`;
             titleText.color = "white";
             titleText.fontSize = 20;
             titleText.fontWeight = "bold";
-            titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+            titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+            titleText.height = "28px";
+            titleText.paddingBottom = "6px";
 
+            // Description avec un léger décalage à droite
             const stepText = new TextBlock();
             stepText.text = quest.steps[quest.currentStepIndex].description;
-            stepText.color = "lightgray";
-            stepText.fontSize = 16;
-            stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+            stepText.color = "#FFFFFF";
+            stepText.fontSize = 17;
+            stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+            stepText.height = "28px";
             stepText.textWrapping = true;
-            stepText.paddingLeft = "10px";
-            stepText.paddingRight = "10px";
+            stepText.paddingLeft = "16px"; // Décalage à droite
+            stepText.paddingBottom = "10px";
 
-            questGrid.addControl(titleText, 0, 0); // ligne 0, colonne 0
-            questGrid.addControl(stepText, 0, 1);  // ligne 0, colonne 1
-            container.addControl(questGrid);
+            container.addControl(titleText);
+            container.addControl(stepText);
+            container.addControl(this.createSeparator());
+
             this._panel.addControl(container);
         });
     }
+
+    private createSeparator(): Rectangle {
+        const separator = new Rectangle();
+        separator.height = "5px";
+        separator.width = "100%";
+        separator.background = "white";
+        separator.thickness = 0;
+        separator.paddingTop = "4px";
+        return separator;
+    }
+
 }
