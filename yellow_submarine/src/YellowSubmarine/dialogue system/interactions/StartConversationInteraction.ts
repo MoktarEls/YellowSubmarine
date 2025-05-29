@@ -5,11 +5,11 @@ import {AbstractMesh} from "@babylonjs/core";
 export class StartConversationInteraction extends WorldInteraction{
 
     public get description(): string {
-        return `Talk to ${this._conversation.conversationProvider?.name}`;
+        return `Talk`;
     }
 
     constructor(private _conversation: Conversation) {
-        super("KeyE");
+        super("KeyE", "E");
     }
 
     executeInteraction(): void {

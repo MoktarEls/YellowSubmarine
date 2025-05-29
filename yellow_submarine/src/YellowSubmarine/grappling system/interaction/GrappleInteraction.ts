@@ -6,7 +6,7 @@ import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 export class GrappleInteraction extends WorldInteraction{
 
     public constructor(private _grabbableObject: TempleBall) {
-        super("KeyF");
+        super("KeyF", "F");
     }
 
     public get grabbableObject(): TempleBall {

@@ -6,11 +6,11 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 export class PlaceTempleBallInteraction extends WorldInteraction{
 
     public constructor(private _socle: Socle) {
-        super("KeyF");
+        super("KeyF", "F");
     }
 
     public get description(): string {
-        return "Place the ball";
+        return "Place";
     }
 
     executeInteraction(): void {
