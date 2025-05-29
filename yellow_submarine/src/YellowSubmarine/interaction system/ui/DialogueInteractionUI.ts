@@ -63,8 +63,8 @@ export class DialogueInteractionUI extends UI {
 
         Conversation.onAnyConversationStart.add((conv) => {
             this._container.isVisible = true;
-            if (conv.npc?.mesh) {
-                this._container.linkWithMesh(conv.npc.mesh);
+            if (conv.conversationProvider?.mesh) {
+                this._container.linkWithMesh(conv.conversationProvider.mesh);
                 this._container.linkOffsetY = this.CONTAINER_OFFSET_Y;
             }
         });

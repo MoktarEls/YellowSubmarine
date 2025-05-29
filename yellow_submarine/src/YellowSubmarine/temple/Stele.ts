@@ -7,16 +7,27 @@ import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/Conversatio
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
+import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {AbstractMesh, Angle} from "@babylonjs/core";
+import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
+import {Player} from "@/YellowSubmarine/Player";
 
-export class Stele{
+export class Stele implements IConversationProvider {
     private _steleInteractionZone!: MeshDetectionZone;
     private _conversation!: Conversation;
     private _startConversationInteraction?: StartConversationInteraction
+    private _cameraConfiguration!: CameraConfiguration;
 
     public constructor() {
         this.steleInteractionZone = new SphericalDetectionZone({
             diameter: 10
         }, true);
+        this._cameraConfiguration = new CameraConfiguration();
+        this._cameraConfiguration.target = this._steleInteractionZone.zone;
+        this._cameraConfiguration.distanceFromTarget = 20;
+        this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
+
         const conversationBuilder = new ConversationBuilder();
         conversationBuilder.say("La ligne du haut regarde les cieux")
             .then("La ligne du milieu respire l’air")
@@ -28,6 +39,7 @@ export class Stele{
                 if(quest) quest.updateCurrentStepStatus();
             })
         this.conversation = conversationBuilder.build();
+        this.conversation.conversationProvider = this;
     }
 
     public get steleInteractionZone(): MeshDetectionZone {
@@ -62,6 +74,18 @@ export class Stele{
         if(this._conversation) {
             this._startConversationInteraction = new StartConversationInteraction(this._conversation);
         }
+    }
+
+    get mesh(): AbstractMesh | undefined {
+        return this._steleInteractionZone.zone;
+    }
+
+    get name(): string {
+        return "Stele";
+    }
+
+    get cameraConfiguration(): CameraConfiguration | undefined {
+        return this._cameraConfiguration;
     }
 
 

@@ -6,8 +6,9 @@ import {
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {World} from "@/YellowSubmarine/World";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
 
-export class NPC{
+export class NPC implements IConversationProvider {
 
     private _name = "undefined";
     private _mesh?: AbstractMesh;
@@ -71,7 +72,7 @@ export class NPC{
         if(conversation !== undefined) {
             this._startConversationInteraction = new StartConversationInteraction(conversation);
             this._conversation = conversation;
-            this._conversation.npc = this;
+            this._conversation.conversationProvider = this;
 
             this._conversation?.onConversationEnd.add( () =>  {
                 if(this._playerDetectionZone?.isInZone(World.submarine.mesh)){
@@ -83,7 +84,7 @@ export class NPC{
         else{
             this._startConversationInteraction = undefined;
             if(this._conversation){
-                this._conversation.npc = undefined;
+                this._conversation.conversationProvider = undefined;
             }
             this._conversation = undefined;
         }

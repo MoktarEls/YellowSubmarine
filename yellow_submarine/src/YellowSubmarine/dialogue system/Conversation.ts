@@ -4,13 +4,14 @@ import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interac
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {Player} from "@/YellowSubmarine/Player";
 import {NPC} from "@/YellowSubmarine/npcs/NPC";
+import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
 
 
 export class Conversation {
 
     private _onEnding = (): void => {return};
 
-    private _npc?: NPC;
+    private _conversationProvider?: IConversationProvider;
 
     public static onAnyDialogueStart:Observable<AbstractDialogueNode> = new Observable();
     public static onAnyConversationStart: Observable<Conversation> = new Observable();
@@ -25,12 +26,12 @@ export class Conversation {
     private _currentNode: AbstractDialogueNode | undefined = undefined;
     private _rootNode: AbstractDialogueNode | undefined = undefined;
 
-    public get npc(): NPC | undefined{
-        return this._npc;
+    public get conversationProvider(): IConversationProvider | undefined{
+        return this._conversationProvider;
     }
 
-    public set npc(npc: NPC | undefined) {
-        this._npc = npc;
+    public set conversationProvider(conversationProvider: IConversationProvider | undefined) {
+        this._conversationProvider = conversationProvider;
     }
 
     public get root(){
@@ -61,7 +62,7 @@ export class Conversation {
         Conversation.onAnyConversationStart.notifyObservers(this);
         this.enterNode(<AbstractDialogueNode>this._currentNode);
         this._nextInteraction.makeAvailable();
-        const cameraConfiguration = this._npc?.cameraConfiguration
+        const cameraConfiguration = this._conversationProvider?.cameraConfiguration
         if(cameraConfiguration) {
             ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
         }
