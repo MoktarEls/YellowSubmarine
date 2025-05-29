@@ -65,23 +65,30 @@ export class JournalUI extends UI {
                 questGrid.width = "100%";
 
                 const titleText = new TextBlock();
-                titleText.text = `🧭 ${quest.name}`;
+                titleText.text = "\n" + `🧭 ${quest.name}`;
                 titleText.color = "white";
                 titleText.fontSize = 20;
                 titleText.fontWeight = "bold";
+                titleText.paddingLeft = "10px";
+                titleText.paddingRight = "10px";
+                titleText.paddingTop = "10px"
+                titleText.paddingBottom = "10px";
                 titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+                titleText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
 
                 const stepText = new TextBlock();
                 lines.forEach((line) => {
-                    stepText.text += line + "\n";
+                    stepText.text += "\n" + line + "\n";
                 })
                 stepText.color = "lightgray";
                 stepText.fontSize = 20;
                 stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+                stepText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
                 stepText.textWrapping = true;
                 stepText.paddingLeft = "10px";
                 stepText.paddingRight = "10px";
-
+                stepText.paddingTop = "10px";
+                stepText.paddingBottom = "10px";
                 questGrid.addControl(titleText, 0, 0); // ligne 0, colonne 0
                 questGrid.addControl(stepText, 0, 1);
                 container.addControl(questGrid);
