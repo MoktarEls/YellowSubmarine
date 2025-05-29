@@ -79,7 +79,6 @@ export class TemplePuzzle {
         this._centerSocle = this.createSocle(Vector3.Zero());
 
         // TODO: Test only, remove after
-        const redBall = new TempleBall(new Vector3(30,0,10), Color3.Red());
         const greenBall = new TempleBall(new Vector3(40,0,10), Color3.Green());
         const blueBall = new TempleBall(new Vector3(50,0,10), Color3.Blue());
         const purpleBall = new TempleBall(new Vector3(30,0,20), Color3.Purple());

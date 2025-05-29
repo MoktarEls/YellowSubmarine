@@ -22,6 +22,8 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Stele} from "@/YellowSubmarine/temple/Stele";
 import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 import {CellMaterial} from "@babylonjs/materials";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class KeyZoneFactory {
 
@@ -268,7 +270,16 @@ export class KeyZoneFactory {
             NPCFactory.createRabbit().then( (rabbit) => {
                 rabbit.transformNode.position = new Vector3(-0.8, 5.2, -0.7);
                 rabbit.transformNode.parent = archipelTransform;
+                const ball = new TempleBall(rabbit.transformNode.absolutePosition.add(new Vector3(30,0,10)), Color3.Red());
+                const callBack = rabbit.conversation?.onConversationEnd.add(() => {
+                    if(!Submarine.instance.templeBall){
+                        Submarine.instance.grabBall(ball);
+                        rabbit.conversation?.onConversationEnd.remove(callBack ?? null);
+                    }
+                });
             });
+
+
         }
 
 
