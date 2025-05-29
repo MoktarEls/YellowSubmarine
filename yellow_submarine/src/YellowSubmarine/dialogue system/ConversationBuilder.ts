@@ -4,6 +4,7 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 export class ConversationBuilder {
     private root?: SimpleDialogueNode;
     private current?: SimpleDialogueNode;
+    private _onEnding?: () => void;
 
     public say(text: string): ConversationBuilder {
         const node = new SimpleDialogueNode();
@@ -25,9 +26,15 @@ export class ConversationBuilder {
 
     public build(): Conversation {
         const conversation = new Conversation();
+        if(this._onEnding) conversation.onEnding = this._onEnding;
         if (this.root) {
             conversation.root = this.root;
         }
         return conversation;
+    }
+
+    public setOnEnding(value: () => void): ConversationBuilder {
+        this._onEnding = value;
+        return this;
     }
 }
