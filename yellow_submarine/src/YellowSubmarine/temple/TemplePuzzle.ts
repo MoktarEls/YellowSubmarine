@@ -80,7 +80,6 @@ export class TemplePuzzle {
 
         // TODO: Test only, remove after
         const greenBall = new TempleBall(new Vector3(40,0,10), Color3.Green());
-        const blueBall = new TempleBall(new Vector3(50,0,10), Color3.Blue());
         const purpleBall = new TempleBall(new Vector3(30,0,20), Color3.Purple());
         const grayBall = new TempleBall(new Vector3(40,0,20), Color3.Gray());
         const yellowBall = new TempleBall(new Vector3(50,0,20), Color3.Yellow());
