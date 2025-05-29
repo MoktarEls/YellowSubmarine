@@ -206,6 +206,13 @@ export class KeyZoneFactory {
             NPCFactory.createFox().then( (fox) => {
                 fox.transformNode.position = new Vector3(-8, 1.4, 0);
                 fox.transformNode.parent = banquiseTransform;
+                const ball = new TempleBall(new Vector3(40,0,10), Color3.Green());
+                const callBack = fox.conversation?.onConversationEnd.add(() => {
+                    if(!Submarine.instance.templeBall){
+                        Submarine.instance.grabBall(ball);
+                        fox.conversation?.onConversationEnd.remove(callBack ?? null);
+                    }
+                });
             });
         }
 
