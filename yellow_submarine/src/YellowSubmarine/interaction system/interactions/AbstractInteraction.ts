@@ -13,11 +13,11 @@ export abstract class AbstractInteraction {
     }
 
     public makeAvailable(){
-        InteractionManager.instance.addAvailableInteraction(this);
+        InteractionManager.instance.makeInteractionAvailable(this);
     }
 
     public makeUnavailable(){
-        InteractionManager.instance.removeAvailableInteraction(this);
+        InteractionManager.instance.makeInteractionUnavailable(this);
     }
 
     public abstract executeInteraction(): void;

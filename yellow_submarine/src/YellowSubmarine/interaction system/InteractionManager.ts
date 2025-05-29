@@ -10,7 +10,7 @@ export class InteractionManager{
         return this._instance;
     }
 
-    private _interactionArray: Array<AbstractInteraction> = new Array<AbstractInteraction>();
+    // private _interactionArray: Array<AbstractInteraction> = new Array<AbstractInteraction>();
     private _currentInteraction?: AbstractInteraction;
 
     public onInteractionAvailable: Observable<AbstractInteraction>;
@@ -32,24 +32,16 @@ export class InteractionManager{
         } )
     }
 
-    public addAvailableInteraction(interaction: AbstractInteraction){
-        this._interactionArray.push(interaction);
+    public makeInteractionAvailable(interaction: AbstractInteraction){
+        if(this._currentInteraction) {
+            this.makeInteractionUnavailable(this._currentInteraction);
+        }
         this._currentInteraction = interaction;
         this.onInteractionAvailable.notifyObservers(interaction);
     }
 
-    public removeAvailableInteraction(interaction: AbstractInteraction){
-        if(!this._interactionArray.includes(interaction)){
-            return;
-        }
-
-        this._interactionArray.splice(this._interactionArray.indexOf(interaction), 1);
-
-        if(this._interactionArray.length > 0){
-            this._currentInteraction = this._interactionArray[this._interactionArray.length - 1];
-        } else {
-            this._currentInteraction = undefined;
-        }
+    public makeInteractionUnavailable(interaction: AbstractInteraction){
+        this._currentInteraction = undefined;
         this.onInteractionUnavailable.notifyObservers(interaction);
     }
 
