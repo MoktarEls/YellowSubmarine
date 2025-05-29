@@ -161,19 +161,24 @@ export class KeyZoneFactory {
             const standardMat = mesh.material as StandardMaterial;
             if(pbrMaterial){
                 const cellMaterial = new CellMaterial("banquiseMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = pbrMaterial.albedoColor;
                 if(pbrMaterial.albedoTexture){
                     cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
                 }
                 mesh.material = cellMaterial;
+                cellMaterial.cullBackFaces = false;
+
             }
             else if(standardMat){
                 const cellMaterial = new CellMaterial("banquiseMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = standardMat.diffuseColor;
                 if(standardMat.diffuseTexture){
                     cellMaterial.diffuseTexture = standardMat.diffuseTexture;
                 }
                 mesh.material = cellMaterial;
+                cellMaterial.cullBackFaces = false;
             }
 
         }
@@ -224,6 +229,7 @@ export class KeyZoneFactory {
             const standardMat = mesh.material as StandardMaterial;
             if(pbrMaterial){
                 const cellMaterial = new CellMaterial("archipelMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = pbrMaterial.albedoColor;
                 if(pbrMaterial.albedoTexture){
                     cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
@@ -232,6 +238,7 @@ export class KeyZoneFactory {
             }
             else if(standardMat){
                 const cellMaterial = new CellMaterial("archipelMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = standardMat.diffuseColor;
                 if(standardMat.diffuseTexture){
                     cellMaterial.diffuseTexture = standardMat.diffuseTexture;
@@ -286,6 +293,7 @@ export class KeyZoneFactory {
             const standardMat = mesh.material as StandardMaterial;
             if(pbrMaterial){
                 const cellMaterial = new CellMaterial("poulpeMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = pbrMaterial.albedoColor;
                 if(pbrMaterial.albedoTexture){
                     cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
@@ -294,6 +302,7 @@ export class KeyZoneFactory {
             }
             else if(standardMat){
                 const cellMaterial = new CellMaterial("poulpeMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = standardMat.diffuseColor;
                 if(standardMat.diffuseTexture){
                     cellMaterial.diffuseTexture = standardMat.diffuseTexture;
@@ -349,6 +358,7 @@ export class KeyZoneFactory {
             const standardMat = mesh.material as StandardMaterial;
             if(pbrMaterial){
                 const cellMaterial = new CellMaterial("phareMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = pbrMaterial.albedoColor;
                 if(pbrMaterial.albedoTexture){
                     cellMaterial.diffuseTexture = pbrMaterial.albedoTexture;
@@ -357,6 +367,7 @@ export class KeyZoneFactory {
             }
             else if(standardMat){
                 const cellMaterial = new CellMaterial("phareMat");
+                cellMaterial.needDepthPrePass = true;
                 cellMaterial.diffuseColor = standardMat.diffuseColor;
                 if(standardMat.diffuseTexture){
                     cellMaterial.diffuseTexture = standardMat.diffuseTexture;
