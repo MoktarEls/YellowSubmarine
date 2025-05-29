@@ -85,6 +85,11 @@ export class NPCFactory {
             .say("[g][c=rouge] AAAAAAAAAAAAAAAAAAAAAAAAAA [/g][/c]")
             .build();
 
+        fox.cameraConfiguration = new CameraConfiguration();
+        fox.cameraConfiguration.target = fox.transformNode;
+        fox.cameraConfiguration.distanceFromTarget = 10;
+        // fox.cameraConfiguration.offset = Vector3.Up().scale(2);
+        fox.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
         return fox;
     }
