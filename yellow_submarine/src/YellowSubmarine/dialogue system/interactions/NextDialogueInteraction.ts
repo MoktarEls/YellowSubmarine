@@ -18,9 +18,7 @@ export class NextDialogueInteraction extends DialogueInteraction{
     }
 
     get mesh(): AbstractMesh | undefined {
-        const mesh = this._conversation.conversationProvider?.mesh;
-        console.log(mesh)
-        return mesh;
+        return this._conversation.conversationProvider?.mesh;
     }
 
 }
