@@ -4,7 +4,6 @@ import {
     ShaderMaterial, Texture, Vector2, Vector4
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
 
 export class ToonWaterMaterial {
 

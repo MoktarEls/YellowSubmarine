@@ -1,6 +1,5 @@
 import {CelestialBody} from "@/YellowSubmarine/sky system/CelestialBody";
 import {Color3, HemisphericLight, Scene, ShadowGenerator, Vector3} from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class HemisphericCelestialBody extends CelestialBody{

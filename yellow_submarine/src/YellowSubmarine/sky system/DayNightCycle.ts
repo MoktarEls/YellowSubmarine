@@ -1,7 +1,7 @@
 import {Moon} from "@/YellowSubmarine/sky system/Moon";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {Sun} from "@/YellowSubmarine/sky system/Sun";
-import {Color3, ShadowGenerator, Vector3} from "@babylonjs/core";
+import {Color3, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class DayNightCycle {

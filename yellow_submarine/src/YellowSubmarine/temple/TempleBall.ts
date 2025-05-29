@@ -1,7 +1,7 @@
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {GrappleInteraction} from "@/YellowSubmarine/grappling system/interaction/GrappleInteraction";
 import {
-    AbstractMesh, Color3, Mesh,
+    AbstractMesh, Color3,
     MeshBuilder, Observable,
     PhysicsBody,
     PhysicsMotionType,

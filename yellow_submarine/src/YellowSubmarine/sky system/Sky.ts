@@ -1,8 +1,6 @@
-import {Scene} from "@babylonjs/core";
 import {Sun} from "@/YellowSubmarine/sky system/Sun";
 import {Moon} from "@/YellowSubmarine/sky system/Moon";
 import {SkyBox} from "@/YellowSubmarine/sky system/SkyBox";
-import {World} from "@/YellowSubmarine/World";
 import {DayNightCycle} from "@/YellowSubmarine/sky system/DayNightCycle";
 
 export class Sky{

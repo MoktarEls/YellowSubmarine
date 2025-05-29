@@ -1,12 +1,10 @@
 import {World} from "@/YellowSubmarine/World";
-import {Color3, DirectionalLight, Engine, HavokPlugin, Observable, Scene, Vector3} from "@babylonjs/core";
+import {Engine, HavokPlugin, Observable, Scene, Vector3} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
-import {HavokPhysicsWithBindings} from "@babylonjs/havok";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
-import {Submarine} from "@/YellowSubmarine/Submarine";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 
 export class Game{

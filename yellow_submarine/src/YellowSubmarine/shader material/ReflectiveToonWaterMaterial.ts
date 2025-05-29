@@ -1,10 +1,9 @@
 import {
     AbstractMesh, DepthRenderer, GeometryBufferRenderer, Material, MirrorTexture,
     MultiRenderTarget, Nullable, Plane, RenderTargetTexture, Scene,
-    ShaderMaterial, StandardMaterial, Texture, Vector2, Vector3, Vector4
+    ShaderMaterial, Texture, Vector2, Vector3, Vector4
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {World} from "@/YellowSubmarine/World";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 
 export class ReflectiveToonWaterMaterial {

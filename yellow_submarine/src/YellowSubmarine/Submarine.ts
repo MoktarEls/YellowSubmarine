@@ -1,9 +1,6 @@
 import {
-    AbstractMesh,
-    Angle, Color3, KeyboardEventTypes,
+    AbstractMesh, Color3, KeyboardEventTypes,
     Mesh, MeshBuilder, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
-    Scalar,
-    Quaternion,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
     Vector3, VolumetricLightScatteringPostProcess,

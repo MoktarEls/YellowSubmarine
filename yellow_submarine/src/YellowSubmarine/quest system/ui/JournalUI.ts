@@ -4,7 +4,6 @@ import {Quest} from "@/YellowSubmarine/quest system/Quest";
 import {Game} from "@/YellowSubmarine/Game";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {KeyboardEventTypes} from "@babylonjs/core";
-import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
 
 export class JournalUI extends UI{
 

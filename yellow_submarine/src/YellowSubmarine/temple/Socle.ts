@@ -3,15 +3,13 @@ import {
     Color3,
     ImportMeshAsync, ISceneLoaderAsyncResult, LockConstraint,
     Mesh,
-    PBRMaterial,
     PhysicsBody,
     PhysicsMotionType,
     PhysicsShape,
-    PhysicsShapeType, Quaternion, TransformNode, Vector3
+    PhysicsShapeType, TransformNode, Vector3
 } from "@babylonjs/core";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {Game} from "@/YellowSubmarine/Game";
-import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";

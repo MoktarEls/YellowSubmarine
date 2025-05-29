@@ -1,7 +1,6 @@
 import {
     Angle,
     ArcRotateCamera,
-    Quaternion,
     Scalar,
     Vector3
 } from "@babylonjs/core";

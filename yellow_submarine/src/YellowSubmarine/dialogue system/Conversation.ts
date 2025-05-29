@@ -3,7 +3,6 @@ import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Abst
 import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {Player} from "@/YellowSubmarine/Player";
-import {NPC} from "@/YellowSubmarine/npcs/NPC";
 import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
 
 

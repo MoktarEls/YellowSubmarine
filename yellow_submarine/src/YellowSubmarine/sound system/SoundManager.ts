@@ -5,8 +5,6 @@ import {
     StaticSound
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {Submarine} from "@/YellowSubmarine/Submarine";
-
 export class SoundManager {
 
     public static instance: SoundManager;

@@ -2,7 +2,7 @@ import {
     Color3, CubeTexture,
     Mesh,
     MeshBuilder,
-    ShaderMaterial, StandardMaterial, Texture
+    ShaderMaterial, Texture
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";

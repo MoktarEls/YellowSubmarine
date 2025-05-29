@@ -10,7 +10,6 @@ import {
     PhysicsMotionType,
     PhysicsShape,
     PhysicsShapeType,
-    Quaternion,
     Space, StandardMaterial,
     TransformNode,
     Vector3

@@ -8,7 +8,6 @@ import {
     StandardMaterial,
     Vector3
 } from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class CelestialBody {

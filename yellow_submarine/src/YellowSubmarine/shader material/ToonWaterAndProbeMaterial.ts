@@ -1,7 +1,6 @@
 import {
     ReflectionProbe, RenderTargetTexture
 } from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
 import {ToonWaterMaterial} from "@/YellowSubmarine/shader material/ToonWaterMaterial";
 
 export class ToonWaterAndProbeMaterial extends ToonWaterMaterial {

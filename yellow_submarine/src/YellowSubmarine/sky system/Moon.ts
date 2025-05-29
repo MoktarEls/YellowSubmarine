@@ -1,15 +1,7 @@
 import {
     Color3,
-    DirectionalLight,
-    HemisphericLight,
-    Mesh,
-    MeshBuilder,
-    Scene,
-    StandardMaterial,
     Vector3
 } from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
-import {CelestialBody} from "@/YellowSubmarine/sky system/CelestialBody";
 import {HemisphericCelestialBody} from "@/YellowSubmarine/sky system/HemisphericCelestialBody";
 
 export class Moon extends HemisphericCelestialBody {

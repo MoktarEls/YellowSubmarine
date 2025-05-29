@@ -2,7 +2,6 @@ import {
     Color3,
     Vector3
 } from "@babylonjs/core";
-import {World} from "@/YellowSubmarine/World";
 import {HemisphericCelestialBody} from "@/YellowSubmarine/sky system/HemisphericCelestialBody";
 
 export class Sun extends HemisphericCelestialBody {
