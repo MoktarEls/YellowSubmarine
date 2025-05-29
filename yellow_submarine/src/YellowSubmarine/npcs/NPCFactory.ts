@@ -88,7 +88,6 @@ export class NPCFactory {
         fox.cameraConfiguration = new CameraConfiguration();
         fox.cameraConfiguration.target = fox.transformNode;
         fox.cameraConfiguration.distanceFromTarget = 10;
-        // fox.cameraConfiguration.offset = Vector3.Up().scale(2);
         fox.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
         return fox;
@@ -121,6 +120,13 @@ export class NPCFactory {
         scientific.conversation = new ConversationBuilder()
             .say("[g]hon hon la science [/g]")
             .build();
+
+
+        scientific.cameraConfiguration = new CameraConfiguration();
+        scientific.cameraConfiguration.target = scientific.transformNode;
+        scientific.cameraConfiguration.distanceFromTarget = 40;
+        scientific.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-120).radians();
+        scientific.cameraConfiguration.wantedBeta = Angle.FromDegrees(50).radians();
 
         return scientific;
     }
