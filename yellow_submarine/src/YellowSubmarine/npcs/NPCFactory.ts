@@ -200,6 +200,11 @@ export class NPCFactory {
             .build();
 
 
+        rabbit.cameraConfiguration = new CameraConfiguration();
+        rabbit.cameraConfiguration.target = rabbit.transformNode;
+        rabbit.cameraConfiguration.distanceFromTarget = 10;
+        rabbit.cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
+
         return rabbit;
     }
 }
