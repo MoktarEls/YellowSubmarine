@@ -1,5 +1,5 @@
 import {
-    AbstractMesh, DepthRenderer, GeometryBufferRenderer,
+    AbstractMesh, DepthRenderer, Effect, GeometryBufferRenderer,
     MultiRenderTarget, Nullable, RenderTargetTexture, Scene,
     ShaderMaterial, Texture, Vector2, Vector4
 } from "@babylonjs/core";
@@ -18,11 +18,13 @@ export class ToonWaterMaterial {
     private _renderListPredicate: (mesh: AbstractMesh) => boolean;
 
     protected constructor() {
+        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         this._scene = Game.scene;
         const camera = this._scene.activeCamera;
 
         this._material = new ShaderMaterial("toonWaterMaterial", this._scene,{
-            vertex: this.shaderMaterialName, fragment: this.shaderMaterialName,
+            vertex: this.shaderMaterialName,
+            fragment: this.shaderMaterialName,
         },{
             attributes: ["position", "normal", "uv"],
             uniforms: ["world","view","projection","depthShallowColor", "depthDeepColor", "depthMaximumDistance",
@@ -43,14 +45,14 @@ export class ToonWaterMaterial {
         this._material.setFloat("depthMaximumDistance", 10.0);
         this._material.setTexture("linearDepthTexture", this._depthMap);
         this._material.setVector4("surfaceNoiseST", new Vector4(1, 4, 0, 0));
-        this._material.setTexture("surfaceNoiseTexture", new Texture("/textures/PerlinNoise.png"));
+        this._material.setTexture("surfaceNoiseTexture", new Texture("textures/PerlinNoise.png"));
         this._material.setFloat("surfaceNoiseCutoff", 0.777);
         this._material.setFloat("foamMaxDistance", 0.4);
         this._material.setFloat("foamMinDistance", 0.04);
         this._material.setVector2("surfaceNoiseScroll", new Vector2(0.03, 0.03));
         this._material.setVector4("surfaceDistortionST", new Vector4(1,1,0,0));
         this._material.setFloat("surfaceDistortionAmount", 0.27);
-        this._material.setTexture("surfaceDistortionTexture", new Texture("/textures/WaterDistortion.png"));
+        this._material.setTexture("surfaceDistortionTexture", new Texture("textures/WaterDistortion.png"));
         this._material.disableDepthWrite = true;
 
         this._geometryBufferRenderer = this._scene.enableGeometryBufferRenderer();
