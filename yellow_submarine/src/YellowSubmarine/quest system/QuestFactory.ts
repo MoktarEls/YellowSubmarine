@@ -28,7 +28,7 @@ export class QuestFactory {
     private static createTempleQuest(): Quest{
         const quest = new Quest("temple_quest", "Le Temple", "inactive", 0);
         const steps: QuestStep[] = [];
-        steps.push(new QuestStep("Résoudre l'énigme du temple"));
+        steps.push(new QuestStep("A l'aide du journal, \n Résoudre l'énigme du temple"));
         quest.steps = steps;
         TemplePuzzle.onPuzzleResolved.add(() => {
             quest.state = "completed";
