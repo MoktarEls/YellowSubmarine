@@ -79,14 +79,12 @@ export class TemplePuzzle {
         this._upperMiddleSocle = this.createSocle(new Vector3(0,0,-1).scale(20), Color3.Yellow());
         this._centerSocle = this.createSocle(Vector3.Zero());
 
-        const grayBall = new TempleBall(new Vector3(40,5,20), Color3.Gray());
-        const yellowBall = new TempleBall(new Vector3(50,5,20), Color3.Yellow());
 
         this._lowerLeftSocle.meshImportedPromise.then(() => {
-            this._lowerLeftSocle.placeBall(yellowBall);
+            const yellowBall = new TempleBall(this._lowerLeftSocle.transformNode.absolutePosition.add(Vector3.Forward().scale(-10)).add(Vector3.Up().scale(50)), Color3.Yellow());
         });
         this._lowerRightSocle.meshImportedPromise.then(() => {
-            this._lowerRightSocle.placeBall(grayBall);
+            const grayBall = new TempleBall(this._lowerRightSocle.transformNode.absolutePosition.add(Vector3.Forward().scale(-10)).add(Vector3.Up().scale(50)), Color3.Gray());
         })
 
     }
