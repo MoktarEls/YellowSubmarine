@@ -1,4 +1,5 @@
 import {QuestStep} from "@/YellowSubmarine/quest system/QuestStep";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 
 export type QuestState = 'inactive' | 'active' | 'completed';
@@ -61,6 +62,7 @@ export class Quest{
 
     public startQuest() {
         this._state = "active";
+        this.playQuestSound();
         QuestUI.instance.refresh();
     }
 
@@ -75,6 +77,7 @@ export class Quest{
         }
         else {
             this._currentStepIndex++;
+            this.playQuestSound();
         }
         QuestUI.instance.refresh();
 
@@ -82,5 +85,12 @@ export class Quest{
 
     public updateCurrentStepStatus() {
         this._steps[this._currentStepIndex].validate();
+    }
+
+    private playQuestSound(){
+        SoundManager.instance.playSFX("quest", {
+            loop: false,
+            autoplay: true
+        });
     }
 }
