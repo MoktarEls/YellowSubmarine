@@ -10,6 +10,6 @@ export class CylindricalDetectionZone extends MeshDetectionZone {
         frontUVs?: Vector4, backUVs?: Vector4}, debug ?: boolean) {
 
         const mesh = MeshBuilder.CreateCylinder("", options);
-        super(mesh, debug);
+        super(mesh, false);
     }
 }

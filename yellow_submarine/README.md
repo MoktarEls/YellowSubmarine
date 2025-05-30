@@ -1,24 +1,17 @@
-# yellow_submarine
+# GoW-2025-Yellow-Submarine
+Ce projet participe à **Games on Web 2025 : "Dreamland"**
 
-## Project setup
-```
-npm install
-```
+**Membres de l'équipe** : Oscar BELKADI, Moktar EL SHERIF, Omar ABOUDOU  
+**Lien du jeu** : **[Yellow Submarine ](https://moktarels.github.io/YellowSubmarine/)**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+---
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 📖 Présentation
+**Yellow Submarine** est un jeu d'exploration et de résolution d'énigmes dans un univers marin onirique. À bord de votre sous-marin jaune, 
+parcourez une mer mystérieuse parsemée d’îles énigmatiques.
 
-### Lints and fixes files
-```
-npm run lint
-```
+---
+## 🎮 Comment jouer
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+INCRUSTER IMAGE
+

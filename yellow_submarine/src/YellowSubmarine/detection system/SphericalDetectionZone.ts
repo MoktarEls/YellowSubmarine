@@ -9,6 +9,6 @@ export class SphericalDetectionZone extends MeshDetectionZone {
         backUVs?: Vector4, updatable?: boolean}, debug ?: boolean) {
 
         const mesh = MeshBuilder.CreateSphere("", options);
-        super(mesh, debug);
+        super(mesh, false);
     }
 }

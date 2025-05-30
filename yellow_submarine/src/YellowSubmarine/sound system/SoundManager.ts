@@ -20,9 +20,9 @@ export class SoundManager {
 
     constructor() {
         SoundManager.instance = this;
-        this._SFXVolume = 0.8;
+        this._SFXVolume = 0.5;
         this._UIVolume = 1;
-        this._MUSICVolume = 0;
+        this._MUSICVolume = 0.5;
         Game.scene.headphone = true;
         this._audioEngine = CreateAudioEngineAsync();
         this._audioEngine.then((engine) => {
