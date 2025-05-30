@@ -7,20 +7,8 @@ export class QuestFactory {
     public static createAll(){
         const quests: Quest[] = [];
         quests.push(QuestFactory.createTalkToPedro());
-        quests.push(QuestFactory.test());
         quests.push(QuestFactory.createTempleQuest());
         return quests;
-    }
-
-    private static test(): Quest{
-        const quest = new Quest("test", "la deuxième quête", "active", 0);
-        const steps: QuestStep[] = [];
-        steps.push(new QuestStep("Resoudre l'enigme du temple"));
-        quest.steps = steps;
-        TemplePuzzle.onPuzzleResolved.add(() => {
-            quest.state = "completed";
-        });
-        return quest;
     }
 
     private static createTalkToPedro(): Quest{
