@@ -8,6 +8,7 @@ import {
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes} from "@babylonjs/core";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class MainMenuUI extends UI {
 
@@ -81,6 +82,12 @@ export class MainMenuUI extends UI {
         });
 
         button.onPointerUpObservable.add(callback);
+        button.onPointerUpObservable.add(() => {
+            if (SoundManager.instance) {
+                SoundManager.instance.stopUI("click");
+                SoundManager.instance.playUI("click", {autoplay: true, loop: false});
+            }
+        });
         return button;
     }
 
