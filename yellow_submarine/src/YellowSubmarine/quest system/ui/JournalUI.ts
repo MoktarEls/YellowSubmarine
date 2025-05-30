@@ -1,15 +1,14 @@
 import { UI } from "@/YellowSubmarine/ui system/UI";
-import {Control, StackPanel, TextBlock, Rectangle, Grid} from "@babylonjs/gui";
+import { Control, StackPanel, TextBlock, Rectangle } from "@babylonjs/gui";
 import { Quest } from "@/YellowSubmarine/quest system/Quest";
 import { Game } from "@/YellowSubmarine/Game";
 import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { KeyboardEventTypes } from "@babylonjs/core";
-import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import { SoundManager } from "@/YellowSubmarine/sound system/SoundManager";
 
 export class JournalUI extends UI {
-
     private _panel: StackPanel;
-    private _container: Rectangle;
+    private _container: StackPanel;
     private _journalEntry: Map<Quest, Array<string>> = new Map();
     private static _instance: JournalUI;
     private hasBeenOpened = false;
@@ -30,21 +29,24 @@ export class JournalUI extends UI {
         this._panel.height = "90%";
         this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-        this._panel.spacing = 20;
         this._panel.isVisible = false;
 
-        const container = new Rectangle();
-        container.background = "rgba(0, 0, 0, 0.4)";
-        container.thickness = 0;
-        container.cornerRadius = 10;
-        container.height = "100%";
-        container.paddingBottom = "5px";
-        container.width = "100%";
-        container.paddingLeft = "10px";
-        container.paddingRight = "10px";
-        container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-        this._container = container;
-        this._panel.addControl(this._container);
+        const containerBg = new Rectangle();
+        containerBg.background = "rgba(0, 0, 0, 0.6)";
+        containerBg.thickness = 0;
+        containerBg.cornerRadius = 10;
+        containerBg.height = "100%";
+        containerBg.width = "100%";
+        containerBg.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+
+        this._container = new StackPanel();
+        this._container.isVertical = true;
+        this._container.width = "100%";
+        this._container.spacing = 20;
+        this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+
+        containerBg.addControl(this._container);
+        this._panel.addControl(containerBg);
 
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
@@ -57,79 +59,88 @@ export class JournalUI extends UI {
     }
 
     private refresh() {
-        if (QuestManager.instance) {
-            this._panel.clearControls();
+        if (!QuestManager.instance) return;
 
-            this._journalEntry.forEach((lines, quest) => {
+        this._container.clearControls();
 
-                const questGrid = new Grid();
-                questGrid.height = "100%";
-                questGrid.addColumnDefinition(0.4);
-                questGrid.addColumnDefinition(0.6);
-                questGrid.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-                questGrid.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-                questGrid.paddingBottom = "5px";
-                questGrid.width = "100%";
+        this._journalEntry.forEach((lines, quest) => {
+            const questBlock = new StackPanel();
+            questBlock.isVertical = true;
+            questBlock.width = "80%";
+            questBlock.paddingTop = "10px";
+            questBlock.paddingBottom = "10px";
+            questBlock.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
 
-                const titleText = new TextBlock();
-                titleText.text = "\n" + `⛋ ${quest.name}`;
-                titleText.color = "white";
-                titleText.fontSize = 20;
-                titleText.fontWeight = "bold";
-                titleText.paddingLeft = "10px";
-                titleText.paddingRight = "10px";
-                titleText.paddingTop = "10px"
-                titleText.paddingBottom = "10px";
-                titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-                titleText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+            const titleText = new TextBlock();
+            titleText.text = `⛋ ${quest.name}`;
+            titleText.color = "white";
+            titleText.fontSize = 20;
+            titleText.fontWeight = "bold";
+            titleText.resizeToFit = true;
+            titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
 
-                const stepText = new TextBlock();
-                lines.forEach((line) => {
-                    stepText.text += "\n" + line + "\n";
-                })
-                stepText.color = "lightgray";
-                stepText.fontSize = 20;
-                stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-                stepText.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-                stepText.textWrapping = true;
-                stepText.paddingLeft = "10px";
-                stepText.paddingRight = "10px";
-                stepText.paddingTop = "10px";
-                stepText.paddingBottom = "10px";
-                questGrid.addControl(titleText, 0, 0);
-                questGrid.addControl(stepText, 0, 1);
+            questBlock.addControl(titleText);
 
-                this._container.addControl(questGrid);
-                this._panel.addControl(this._container);
+            lines.forEach((line) => {
+                const entryText = new TextBlock();
+                entryText.text = `- ${line}`;
+                entryText.color = "#FFFFFF";
+                entryText.fontSize = 17;
+                entryText.textWrapping = true;
+                entryText.resizeToFit = true;
+                entryText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+
+                questBlock.addControl(entryText);
             });
-        }
+
+            questBlock.addControl(this.createSeparator());
+            this._container.addControl(questBlock);
+        });
+    }
+
+    private createSeparator(): Rectangle {
+        const separator = new Rectangle();
+        separator.height = "2px";
+        separator.width = "100%";
+        separator.background = "#888888";
+        separator.thickness = 0;
+        separator.paddingTop = "6px";
+        return separator;
     }
 
     public show() {
+        this.refresh();
         this._panel.isVisible = true;
-        if(!this.hasBeenOpened) QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
-        if(SoundManager.instance) {
+        if (!this.hasBeenOpened) {
+            QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
+        }
+        if (SoundManager.instance) {
             SoundManager.instance.stopSFX("click");
-            SoundManager.instance.playSFX("click", {autoplay: true});
+            SoundManager.instance.playSFX("click", { autoplay: true });
         }
         this.hasBeenOpened = true;
     }
 
     public hide() {
         this._panel.isVisible = false;
-        if(SoundManager.instance) {
+        if (SoundManager.instance) {
             SoundManager.instance.stopSFX("click");
-            SoundManager.instance.playSFX("click", {autoplay: true});
+            SoundManager.instance.playSFX("click", { autoplay: true });
         }
     }
 
     public addEntryToQuest(quest: Quest | undefined, entry: string) {
-        if (quest) {
-            if (!this._journalEntry.has(quest)) {
-                this._journalEntry.set(quest, []);
-            }
-            if(!this._journalEntry.get(quest)?.includes(entry)) this._journalEntry.get(quest)?.push(entry);
+        if (!quest) return;
+
+        if (!this._journalEntry.has(quest)) {
+            this._journalEntry.set(quest, []);
         }
+
+        const entries = this._journalEntry.get(quest)!;
+        if (!entries.includes(entry)) {
+            entries.push(entry);
+        }
+
         this.refresh();
     }
 }
