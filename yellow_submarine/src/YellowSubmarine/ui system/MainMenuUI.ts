@@ -32,6 +32,7 @@ export class MainMenuUI extends UI {
         super();
         this._optionMenuUI = new OptionsMenuUI(this);
         this._panel = new StackPanel();
+        this._panel.zIndex = 2;
         this._panel.width = "300px";
         this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
         this._panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;

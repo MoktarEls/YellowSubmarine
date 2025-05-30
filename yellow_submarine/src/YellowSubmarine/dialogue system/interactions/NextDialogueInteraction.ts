@@ -1,7 +1,7 @@
 ﻿import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
-import {DialogueInteraction} from "@/YellowSubmarine/interaction system/interactions/DialogueInteraction";
+import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
 import {AbstractMesh} from "@babylonjs/core";
-import {DialogueInteractionUI} from "@/YellowSubmarine/interaction system/ui/DialogueInteractionUI";
+import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
 
 export class NextDialogueInteraction extends DialogueInteraction{
 

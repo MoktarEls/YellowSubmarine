@@ -41,8 +41,8 @@ export class InteractionManager{
     }
 
     public makeInteractionUnavailable(interaction: AbstractInteraction){
-        this._currentInteraction = undefined;
         this.onInteractionUnavailable.notifyObservers(interaction);
+        this._currentInteraction = undefined;
     }
 
     public executeInteraction(){

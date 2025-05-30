@@ -2,7 +2,7 @@
 import {Control, TextBlock} from "@babylonjs/gui";
 import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 
-export class IslandsUI extends UI{
+export class ShowKeyZoneNameUI extends UI{
 
     private _textBlock: TextBlock;
 
@@ -13,6 +13,7 @@ export class IslandsUI extends UI{
     constructor() {
         super();
         this._textBlock = new TextBlock();
+        this._textBlock.zIndex = 1;
         KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.show(keyzone))
     }
 
