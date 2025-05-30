@@ -11,9 +11,10 @@ export class KeyZone {
     private  _disabled = false;
     private _mesh!:AbstractMesh;
     private _physicsAggregate?: PhysicsAggregate;
-    private _conversationProvider: IConversationProvider[] = [];
+    private _conversationProviders: IConversationProvider[] = [];
 
-    public static onAnyKeyZoneEntered: Observable<KeyZone> = new Observable();
+    public static readonly onAnyKeyZoneEntered: Observable<KeyZone> = new Observable();
+    public static readonly onAnyKeyZoneExited: Observable<KeyZone> = new Observable();
 
     public set name(value: string) {
         this._name = value;
@@ -36,6 +37,9 @@ export class KeyZone {
         this.detectionZone.onMeshEnter.add( () => {
             KeyZone.onAnyKeyZoneEntered.notifyObservers(this);
             this.discovered = true;
+        });
+        this.detectionZone.onMeshExit.add(() => {
+            KeyZone.onAnyKeyZoneExited.notifyObservers(this);
         });
     }
     public get detectionZone(): MeshDetectionZone {
@@ -69,8 +73,12 @@ export class KeyZone {
         this._physicsAggregate = physicsAggregate;
     }
 
+    public get conversationProviders(): IConversationProvider[] {
+        return this._conversationProviders;
+    }
+
     public addConversationProvider(conversationProvider: IConversationProvider) {
-        this._conversationProvider.push(conversationProvider);
+        this._conversationProviders.push(conversationProvider);
     }
 
 }

@@ -28,8 +28,8 @@ export class NPCFactory {
         });
         pedro.detectionZone = new CylindricalDetectionZone( {
             height: 8,
-            diameterTop: 45,
-            diameterBottom: 45,
+            diameterTop: 100,
+            diameterBottom: 100,
         }, true);
 
         pedro.detectionZone.zone.position.set(0, -11, 0);

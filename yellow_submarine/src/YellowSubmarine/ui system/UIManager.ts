@@ -1,12 +1,13 @@
 import {AdvancedDynamicTexture} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
-import {DialogueInteractionUI} from "@/YellowSubmarine/interaction system/ui/DialogueInteractionUI";
+import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/interaction system/ui/WorldInteractionUI";
-import {IslandsUI} from "@/YellowSubmarine/interaction system/ui/IslandsUI";
+import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
 import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
+import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
 
 
 export class UIManager {
@@ -15,15 +16,23 @@ export class UIManager {
 
     private _worldInteractionUI: WorldInteractionUI = new WorldInteractionUI();
     private _dialogueInteractionUI: DialogueInteractionUI = new DialogueInteractionUI();
-    private _islandsUI: IslandsUI = new IslandsUI();
+    private _showConversationProviderUI: ShowConversationProviderUI = new ShowConversationProviderUI();
+    private _islandsUI: ShowKeyZoneNameUI = new ShowKeyZoneNameUI();
     private _mainMenuUI: MainMenuUI;
     private _optionsMenuUI;
     private _questUI: QuestUI = new QuestUI();
     private _journalUI: JournalUI = new JournalUI();
 
+    private static _instance: UIManager;
+
+    public static get instance(): UIManager {
+        return this._instance;
+    }
 
     constructor(private _canvas: HTMLCanvasElement) {
+        UIManager._instance = this;
         this._ui.addControl(this._worldInteractionUI.controlNode);
+        this._ui.addControl(this._showConversationProviderUI.controlNode);
         this._ui.addControl(this._dialogueInteractionUI.controlNode);
         this._ui.addControl(this._islandsUI.controlNode);
         this._mainMenuUI = new MainMenuUI();
@@ -33,6 +42,10 @@ export class UIManager {
         this._mainMenuUI.canvas = _canvas;
         this._ui.addControl(this._questUI.controlNode);
         this._ui.addControl(this._journalUI.controlNode);
+    }
+
+    public get ui(): AdvancedDynamicTexture {
+        return this._ui;
     }
 
     public showMainMenu(): void {
