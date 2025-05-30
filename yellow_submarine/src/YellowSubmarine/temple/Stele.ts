@@ -10,6 +10,7 @@ import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
 import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
+import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 
 export class Stele implements IConversationProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -35,6 +36,10 @@ export class Stele implements IConversationProvider {
                 if(quest) quest.startQuest();
                 quest = QuestManager.instance.getQuest("dreamland");
                 if(quest) quest.updateCurrentStepStatus();
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("temple_quest"), "La stèle nous a donnés des informations sur les rangés : `\n" +
+                    " - La ligne du haut regarde les cieux \n" +
+                    " - La ligne du milieu respire l’air \n" +
+                    " - La ligne du bas touche la terre");
             })
         this.conversation = conversationBuilder.build();
         this.conversation.conversationProvider = this;

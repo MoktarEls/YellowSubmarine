@@ -4,6 +4,7 @@ import { Quest } from "@/YellowSubmarine/quest system/Quest";
 import { Game } from "@/YellowSubmarine/Game";
 import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { KeyboardEventTypes } from "@babylonjs/core";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class JournalUI extends UI {
 
@@ -106,10 +107,18 @@ export class JournalUI extends UI {
 
     public show() {
         this._panel.isVisible = true;
+        if(SoundManager.instance) {
+            SoundManager.instance.stopSFX("click");
+            SoundManager.instance.playSFX("click", {autoplay: true});
+        }
     }
 
     public hide() {
         this._panel.isVisible = false;
+        if(SoundManager.instance) {
+            SoundManager.instance.stopSFX("click");
+            SoundManager.instance.playSFX("click", {autoplay: true});
+        }
     }
 
     public addEntryToQuest(quest: Quest | undefined, entry: string) {
