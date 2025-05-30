@@ -83,7 +83,7 @@ export class JournalUI extends UI {
 
             lines.forEach((line) => {
                 const entryText = new TextBlock();
-                entryText.text = `- ${line}`;
+                entryText.text = `▣ ${line}`;
                 entryText.color = "#FFFFFF";
                 entryText.fontSize = 17;
                 entryText.textWrapping = true;
