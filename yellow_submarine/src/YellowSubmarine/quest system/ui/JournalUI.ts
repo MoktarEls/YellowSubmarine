@@ -6,7 +6,9 @@ import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { KeyboardEventTypes } from "@babylonjs/core";
 
 export class JournalUI extends UI {
+
     private _panel: StackPanel;
+    private _container: Rectangle;
     private _journalEntry: Map<Quest, Array<string>> = new Map();
     private static _instance: JournalUI;
 
@@ -29,6 +31,20 @@ export class JournalUI extends UI {
         this._panel.spacing = 20;
         this._panel.isVisible = false;
 
+        const container = new Rectangle();
+        container.background = "rgba(0, 0, 0, 0.4)";
+        container.thickness = 0;
+        container.cornerRadius = 10;
+        container.height = "100%";
+        container.paddingBottom = "5px";
+        container.width = "100%";
+        container.paddingLeft = "10px";
+        container.paddingRight = "10px";
+        container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+        this._container = container;
+        this._panel.addControl(this._container);
+
+
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "j" && state) {
@@ -44,16 +60,6 @@ export class JournalUI extends UI {
             this._panel.clearControls();
 
             this._journalEntry.forEach((lines, quest) => {
-                const container = new Rectangle();
-                container.background = "rgba(0, 0, 0, 0.4)";
-                container.thickness = 0;
-                container.cornerRadius = 10;
-                container.height = "100%";
-                container.paddingBottom = "5px";
-                container.width = "100%";
-                container.paddingLeft = "10px";
-                container.paddingRight = "10px";
-                container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
 
                 const questGrid = new Grid();
                 questGrid.height = "100%";
@@ -65,7 +71,7 @@ export class JournalUI extends UI {
                 questGrid.width = "100%";
 
                 const titleText = new TextBlock();
-                titleText.text = "\n" + `🧭 ${quest.name}`;
+                titleText.text = "\n" + `⛋ ${quest.name}`;
                 titleText.color = "white";
                 titleText.fontSize = 20;
                 titleText.fontWeight = "bold";
@@ -89,10 +95,11 @@ export class JournalUI extends UI {
                 stepText.paddingRight = "10px";
                 stepText.paddingTop = "10px";
                 stepText.paddingBottom = "10px";
-                questGrid.addControl(titleText, 0, 0); // ligne 0, colonne 0
+                questGrid.addControl(titleText, 0, 0);
                 questGrid.addControl(stepText, 0, 1);
-                container.addControl(questGrid);
-                this._panel.addControl(container);
+
+                this._container.addControl(questGrid);
+                this._panel.addControl(this._container);
             });
         }
     }
