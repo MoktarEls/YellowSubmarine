@@ -65,8 +65,6 @@ export class SlideAnimationUI {
     public async startSlideshow(): Promise<void> {
         if (this._slides.length === 0) return;
 
-        SoundManager.instance.playMUSIC("pedro", { autoplay: true, loop: true });
-
         this.currentIndex = 0;
 
         await this.fadeInPanel(500);
