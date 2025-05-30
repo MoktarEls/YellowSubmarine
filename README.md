@@ -1,8 +1,18 @@
 # GoW-2025-Yellow-Submarine
 Ce projet participe à **Games on Web 2025 : "Dreamland"**
 
-**Membres de l'équipe** : Oscar BELKADI, Moktar EL SHERIF, Omar ABOUDOU  
-**Lien du jeu** : **[Yellow Submarine](https://moktarels.github.io/YellowSubmarine/)**
+**Membres de l'équipe** : 
+- Omar ABOUDOU
+- Oscar BELKADI,
+- Moktar EL SHERIF,
+
+**Lien du jeu** : **[Jouez à Yellow Submarine !](https://moktarels.github.io/YellowSubmarine/)**
+
+**Lien utiles** : 
+- **Lien du dépôt du concours** : **[Dépôt concours](https://github.com/gamesonweb/dreamland-MoktarEls)**
+- **Lien dépôt personnel au cas où la taille de notre code dépasse la limite prévue** : **[Dépôt personnel](https://github.com/MoktarEls/YellowSubmarine)**
+
+*Note* : Il y a exactement le même contenue sur les deux dépôts.
 
 ---
 ## 📖 Présentation
