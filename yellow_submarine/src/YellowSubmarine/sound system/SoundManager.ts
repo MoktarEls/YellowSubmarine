@@ -17,6 +17,7 @@ export class SoundManager {
     private _UIVolume : number;
     private _MUSICVolume : number;
 
+
     constructor() {
         SoundManager.instance = this;
         this._SFXVolume = 0.8;
@@ -34,6 +35,12 @@ export class SoundManager {
         });
         Game.scene.onReadyObservable.add(() => {
             this.playSFX("wind", {
+                loop: true,
+                autoplay: true,
+            });
+        })
+        Game.scene.onReadyObservable.add(() => {
+            this.playMUSIC("ambiant", {
                 loop: true,
                 autoplay: true,
             });
