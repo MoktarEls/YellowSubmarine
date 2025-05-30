@@ -78,9 +78,8 @@ export class TemplePuzzle {
         this._upperMiddleSocle = this.createSocle(new Vector3(0,0,-1).scale(20), Color3.Yellow());
         this._centerSocle = this.createSocle(Vector3.Zero());
 
-        // TODO: Test only, remove after
-        const grayBall = new TempleBall(new Vector3(40,0,20), Color3.Gray());
-        const yellowBall = new TempleBall(new Vector3(50,0,20), Color3.Yellow());
+        const grayBall = new TempleBall(new Vector3(40,5,20), Color3.Gray());
+        const yellowBall = new TempleBall(new Vector3(50,5,20), Color3.Yellow());
 
         this._lowerLeftSocle.meshImportedPromise.then(() => {
             this._lowerLeftSocle.placeBall(yellowBall);

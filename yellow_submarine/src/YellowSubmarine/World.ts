@@ -2,6 +2,8 @@ import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
+import {GlowLayer} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 export class World {
     private _sky: Sky;
 
@@ -27,7 +29,8 @@ export class World {
         this._sea = new Sea();
         this._submarine = new Submarine();
         this._sky = new Sky();
-
+        const glowLayer = new GlowLayer("", Game.scene);
+        glowLayer.intensity = 0.3;
     }
 
     public async init(): Promise<void> {
