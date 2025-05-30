@@ -72,10 +72,7 @@ export class Quest{
     }
 
     public nextStep() {
-        if(this._currentStepIndex === this._steps.length - 1){
-            this.stopQuest();
-        }
-        else {
+        if(!(this._currentStepIndex === this._steps.length - 1)){
             this._currentStepIndex++;
             this.playQuestSound();
         }

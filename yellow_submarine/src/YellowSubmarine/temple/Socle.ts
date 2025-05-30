@@ -91,7 +91,7 @@ export class Socle{
         this._mesh.physicsBody?.addConstraint(ball.physicsBody, this._lockConstraint);
         this._currentBall.socle = this;
         this._material.diffuseColor = new Color3(5,5,5);
-        SoundManager.instance.playSFX("socle");
+        if(SoundManager.instance) SoundManager.instance.playSFX("socle");
     }
 
     public letGoOfBall(){
@@ -99,7 +99,7 @@ export class Socle{
             this._currentBall = undefined;
             this._lockConstraint?.dispose();
             this._material.diffuseColor = new Color3(0.3,0.3,0.3);
-            SoundManager.instance.playSFX("socle");
+            if(SoundManager.instance) SoundManager.instance.playSFX("socle");
         }
     }
 
