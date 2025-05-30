@@ -1,4 +1,4 @@
-import { Rectangle } from "@babylonjs/gui";
+import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
@@ -11,6 +11,7 @@ export class SlideAnimationUI {
     private currentIndex = 0;
 
     private slidePanel: Rectangle;
+    private spaceLabel: TextBlock;
 
     constructor() {
         this.setSlides();
@@ -19,9 +20,23 @@ export class SlideAnimationUI {
         this.slidePanel.width = "100%";
         this.slidePanel.height = "100%";
         this.slidePanel.isVisible = true;
-        this.slidePanel.background = "black";
         this.slidePanel.alpha = 0;
         this.ui.addControl(this.slidePanel);
+
+        this.spaceLabel = new TextBlock();
+        this.spaceLabel.text = "Space";
+        this.spaceLabel.color = "black";
+        this.spaceLabel.fontSize = 32;
+        this.spaceLabel.textHorizontalAlignment = TextBlock.HORIZONTAL_ALIGNMENT_RIGHT;
+        this.spaceLabel.textVerticalAlignment = TextBlock.VERTICAL_ALIGNMENT_BOTTOM;
+        this.spaceLabel.paddingRight = "40px";
+        this.spaceLabel.paddingBottom = "20px";
+        this.spaceLabel.zIndex = 1;
+
+        this.animateBlinkingText(this.spaceLabel, 2000);
+
+        this.slidePanel.addControl(this.spaceLabel);
+
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "c" && state) {
@@ -29,6 +44,24 @@ export class SlideAnimationUI {
             }
         });
     }
+
+    private animateBlinkingText(textControl: TextBlock, duration= 1000) {
+        let startTime: number | null = null;
+
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+
+            const progress = (elapsed % duration) / duration;
+
+            textControl.alpha = 0.65 + 0.35 * Math.sin(progress * 2 * Math.PI);
+
+            requestAnimationFrame(animate);
+        };
+
+        requestAnimationFrame(animate);
+    }
+
 
     public async startSlideshow(): Promise<void> {
         if (this._slides.length === 0) return;
