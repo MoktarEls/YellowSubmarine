@@ -1,36 +1,21 @@
-# Yellow Submarine
-## Games on Web 2025 Participation -- Dreamland
+# GoW-2025-Yellow-Submarine
+Ce projet participe à **Games on Web 2025 : "Dreamland"**
 
-## Members : 
-- ABOUDOU Omar
-- BELKADI Oscar
-- EL SHERIF Moktar
+**Membres de l'équipe** : Oscar BELKADI, Moktar EL SHERIF, Omar ABOUDOU  
+**Lien du jeu** : **[Yellow Submarine ](https://moktarels.github.io/YellowSubmarine/)**
 
-## Description : 
+---
 
-You play a submariner who finds himself trapped in his own dreams and must solve puzzles in order to escape.
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/tcwhlYLU)
+## 📖 Présentation
+**Yellow Submarine** est un jeu d'exploration et de résolution d'énigmes dans un univers marin onirique. À bord de votre sous-marin jaune,
+parcourez une mer mystérieuse parsemée d’îles énigmatiques.
 
-## Where can I play ? : 
+**Nos Inspiration** sont simples. Nous voulions un jeu mélant exploration et énigme de manière à toucher un publique très large.
+L'idée nous est venue grâce à un jeu nommé **Outer Wilds**. Ce jeu consiste à résoudre une énigme à grande échelle dans un systeme solaire.
+C'est un jeu avec peu de mécanique de gameplay et touche un publique large avec une histoire incroyable. Nous avons fait ce jeu pour essayer de redonner aux joueurs
+l'envie de jouer à des petits jeux indépendants. La plus part des jeux sont maintenant des jeux compétitifs en ligne et nous voulions redonner l'envie de découvrir des jeux à ces joueurs.
 
-Here is the link : 
-`` not implemented yet ``
+---
+## 🎮 Comment jouer
 
-## Installations commands : 
-
-- Installing vue :
-    - `` npm i -g @vue/cli ``
-- Installing all the necessaries modules :
-    - `` cd yellow_submarine ``
-    - `` npm i ``
-    - if needed at the end : ``npm audit fix``
-
-## How to run the project :
-- Ensure you are in the correct folder :
-    - `` cd yellow_submarine ``
-
-- Launch the project :
-    - `` npm run serve ``
-
-  - Click on the following link or open a browser and paste the following link : 
-    - `` http://localhost:8080/ `` 
+![how-to-play.png](yellow_submarine/public/ui/how-to-play.png)
