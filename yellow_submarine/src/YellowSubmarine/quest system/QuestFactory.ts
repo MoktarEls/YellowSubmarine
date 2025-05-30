@@ -15,6 +15,7 @@ export class QuestFactory {
         const quest = new Quest("dreamland", "Le monde des rêves", "active", 0);
         const steps: QuestStep[] = [];
         steps.push(new QuestStep("Parlez à l'habitant de l'ile du Dophin"));
+        steps.push(new QuestStep("Ouvrir le journal en appuyant sur la touche J"));
         steps.push(new QuestStep("Aller voir le temple"));
         steps.push(new QuestStep("Parler aux différents habitants de chaque île"));
         quest.steps = steps;

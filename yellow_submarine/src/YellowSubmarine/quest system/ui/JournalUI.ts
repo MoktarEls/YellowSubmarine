@@ -12,6 +12,7 @@ export class JournalUI extends UI {
     private _container: Rectangle;
     private _journalEntry: Map<Quest, Array<string>> = new Map();
     private static _instance: JournalUI;
+    private hasBeenOpened = false;
 
     public static get instance(): JournalUI {
         return this._instance;
@@ -44,7 +45,6 @@ export class JournalUI extends UI {
         container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
         this._container = container;
         this._panel.addControl(this._container);
-
 
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
@@ -107,10 +107,12 @@ export class JournalUI extends UI {
 
     public show() {
         this._panel.isVisible = true;
+        if(!this.hasBeenOpened) QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
         if(SoundManager.instance) {
             SoundManager.instance.stopSFX("click");
             SoundManager.instance.playSFX("click", {autoplay: true});
         }
+        this.hasBeenOpened = true;
     }
 
     public hide() {
