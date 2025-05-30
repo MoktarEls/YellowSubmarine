@@ -436,7 +436,7 @@ export class KeyZoneFactory {
             NPCFactory.createGirl().then( (girl) => {
                 girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
                 girl.transformNode.parent = phareTransform;
-                const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(0,20,0)), Color3.Blue());
+                const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(-30,20,-30)), Color3.Blue());
                 const callBack = girl.conversation?.onConversationEnd.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
