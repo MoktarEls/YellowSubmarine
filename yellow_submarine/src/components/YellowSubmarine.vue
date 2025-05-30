@@ -2,6 +2,7 @@
   <div>
     <div v-show="isLoading" id="loadingScreen" :class="{ 'fade-out': isFadingOut }">
       <img :src="getLogoSrc()" alt="Logo" class="logo" />
+      <p class="fullscreen-tip">Pour une meilleure expérience, activez le plein écran via la touche F11.</p>
       <h1 class="wave-text">
         <span
             v-for="(letter, index) in loadingText"
@@ -74,6 +75,15 @@ canvas {
   height: 100vh;
   display: block;
 }
+
+.fullscreen-tip {
+  font-size: 1rem;
+  color: #cccccc;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 80%;
+}
+
 
 #loadingScreen {
   position: fixed;
