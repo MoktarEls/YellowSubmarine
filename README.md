@@ -2,11 +2,11 @@
 Ce projet participe à **Games on Web 2025 : "Dreamland"**
 
 **Membres de l'équipe** : Oscar BELKADI, Moktar EL SHERIF, Omar ABOUDOU  
-**Lien du jeu** : **[Yellow Submarine ](https://moktarels.github.io/YellowSubmarine/)**
+**Lien du jeu** : **[Yellow Submarine](https://moktarels.github.io/YellowSubmarine/)**
 
 ---
-
 ## 📖 Présentation
+![logo.png](yellow_submarine/public/logo.png)
 **Yellow Submarine** est un jeu d'exploration et de résolution d'énigmes dans un univers marin onirique. 
 À bord de votre sous-marin jaune, parcourez une mer mystérieuse parsemée d’îles énigmatiques aux habitants plus spéciaux les uns que les autres.
 
