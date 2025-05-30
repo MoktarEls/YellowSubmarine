@@ -27,13 +27,20 @@ export class World {
         this._sea = new Sea();
         this._submarine = new Submarine();
         this._sky = new Sky();
-        KeyZoneFactory.createDolphinIsland();
-        KeyZoneFactory.createTemple();
-        KeyZoneFactory.createBanquise();
-        KeyZoneFactory.createPhare();
-        KeyZoneFactory.createPoulpe();
-        KeyZoneFactory.createArchipel();
 
     }
+
+    public async init(): Promise<void> {
+
+        await Promise.all([
+            KeyZoneFactory.createDolphinIsland(),
+            KeyZoneFactory.createTemple(),
+            KeyZoneFactory.createBanquise(),
+            KeyZoneFactory.createPhare(),
+            KeyZoneFactory.createPoulpe(),
+            KeyZoneFactory.createArchipel()
+        ]);
+    }
+
 
 }
