@@ -7,6 +7,7 @@ import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/Spheric
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Player} from "@/YellowSubmarine/Player";
+import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
 
 export class TemplePuzzle {
     private _upperRightSocle: Socle;
@@ -100,6 +101,7 @@ export class TemplePuzzle {
         if(this.isAllBallPlacedOnASocle()){
             if(this.checkConfiguration()){
                 TemplePuzzle.onPuzzleResolved.notifyObservers();
+                SlideAnimationUI.instance.startSlideshow();
             }
             else{
                 TemplePuzzle.onPuzzleRejected.notifyObservers();

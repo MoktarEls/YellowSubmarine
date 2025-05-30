@@ -12,8 +12,14 @@ export class SlideAnimationUI {
 
     private slidePanel: Rectangle;
     private spaceLabel: TextBlock;
+    private static _instance: SlideAnimationUI;
+
+    public static get instance(): SlideAnimationUI {
+        return this._instance;
+    }
 
     constructor() {
+        SlideAnimationUI._instance = this;
         this.setSlides();
 
         this.slidePanel = new Rectangle("slidePanel");
@@ -36,13 +42,6 @@ export class SlideAnimationUI {
         this.animateBlinkingText(this.spaceLabel, 2000);
 
         this.slidePanel.addControl(this.spaceLabel);
-
-        Game.scene.onKeyboardObservable.add((eventData) => {
-            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if (eventData.event.key === "c" && state) {
-                this.startSlideshow();
-            }
-        });
     }
 
     private animateBlinkingText(textControl: TextBlock, duration= 1000) {
