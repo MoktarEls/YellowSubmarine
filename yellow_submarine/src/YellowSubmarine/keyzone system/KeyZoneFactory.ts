@@ -78,6 +78,8 @@ export class KeyZoneFactory {
             NPCFactory.createPedro().then( (pedro) => {
                 pedro.transformNode.position = new Vector3(-30, 15, -14);
                 pedro.transformNode.parent = _transformIsland;
+
+                island.addConversationProvider(pedro);
             });
         }
 
@@ -134,15 +136,15 @@ export class KeyZoneFactory {
 
             physicsBody.disablePreStep = false;
             Game.scene.onBeforeRenderObservable.addOnce(() => physicsBody.disablePreStep = true);
+
         }
-
-
-
 
         const stele = new Stele();
         const steleInteractionZone = stele.steleInteractionZone;
         steleInteractionZone.zone.parent = templeTransform;
         steleInteractionZone.zone.position = new Vector3(0,0,50);
+
+        temple.addConversationProvider(stele);
 
         const templePuzzle = new TemplePuzzle(templeTransform, new Vector3(0,0,0));
 
@@ -228,6 +230,7 @@ export class KeyZoneFactory {
                         fox.conversation?.onConversationEnd.remove(callBack ?? null);
                     }
                 });
+                banquise.addConversationProvider(fox);
             });
         }
 
@@ -299,6 +302,7 @@ export class KeyZoneFactory {
                         rabbit.conversation?.onConversationEnd.remove(callBack ?? null);
                     }
                 });
+                archipel.addConversationProvider(rabbit);
             });
 
 
@@ -372,6 +376,7 @@ export class KeyZoneFactory {
                         scribe.conversation?.onConversationEnd.remove(callBack ?? null);
                     }
                 });
+                poulpe.addConversationProvider(scribe);
             });
         }
 
@@ -443,6 +448,7 @@ export class KeyZoneFactory {
                         girl.conversation?.onConversationEnd.remove(callBack ?? null);
                     }
                 });
+                phare.addConversationProvider(girl);
             });
         }
 
