@@ -18,10 +18,10 @@ export class SlideAnimationUI {
         this.slidePanel = new Rectangle("slidePanel");
         this.slidePanel.width = "100%";
         this.slidePanel.height = "100%";
-        this.slidePanel.isVisible = false;
+        this.slidePanel.isVisible = true;
         this.slidePanel.background = "black";
+        this.slidePanel.alpha = 0;
         this.ui.addControl(this.slidePanel);
-
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "c" && state) {
@@ -32,12 +32,16 @@ export class SlideAnimationUI {
 
     public async startSlideshow(): Promise<void> {
         if (this._slides.length === 0) return;
-        SoundManager.instance.playMUSIC("pedro", {autoplay: true, loop: true});
-        this.currentIndex = 0;
-        this.showSlide(this.currentIndex);
-        this.slidePanel.isVisible = true;
 
-        const onKeyDown = (evt: KeyboardEvent) => {
+        SoundManager.instance.playMUSIC("pedro", { autoplay: true, loop: true });
+
+        this.currentIndex = 0;
+
+        await this.fadeInPanel(500);
+
+        this.showSlide(this.currentIndex);
+
+        const onKeyDown = async (evt: KeyboardEvent) => {
             if (evt.code === "Space") {
                 this.currentIndex++;
                 if (this.currentIndex < this._slides.length) {
@@ -51,6 +55,7 @@ export class SlideAnimationUI {
 
         window.addEventListener("keydown", onKeyDown);
     }
+
 
     private showSlide(index: number) {
         if(index != 0) this._slides[index-1].fadeOut(500);
@@ -70,13 +75,36 @@ export class SlideAnimationUI {
                 SoundManager.instance.playSFX("whale", {autoplay: true, loop: false});
                 break;
             case 4:
+                SoundManager.instance.playSFX("plock");
                 break;
             case 5:
+                SoundManager.instance.playSFX("stars", {autoplay: true, loop: false});
                 SoundManager.instance.playSFX("snoring", {autoplay: true, loop: false});
                 break;
             case 6:
                 SoundManager.instance.stopSFX("snoring");
+
         }
+    }
+
+    private fadeInPanel(duration: number): Promise<void> {
+        return new Promise((resolve) => {
+            this.slidePanel.alpha = 0;
+
+            const scene = Game.scene;
+            const startTime = performance.now();
+
+            const observer = scene.onBeforeRenderObservable.add(() => {
+                const elapsed = performance.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                this.slidePanel.alpha = progress;
+
+                if (progress >= 1) {
+                    scene.onBeforeRenderObservable.remove(observer);
+                    resolve();
+                }
+            });
+        });
     }
 
     public setSlides() {
