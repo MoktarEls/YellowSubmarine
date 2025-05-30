@@ -8,6 +8,9 @@ import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
+import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {UI} from "@/YellowSubmarine/ui system/UI";
+import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
 
 
 export class UIManager {
@@ -22,6 +25,7 @@ export class UIManager {
     private _optionsMenuUI;
     private _questUI: QuestUI = new QuestUI();
     private _journalUI: JournalUI = new JournalUI();
+    private _slideAnimationUI: SlideAnimationUI;
 
     private static _instance: UIManager;
 
@@ -42,6 +46,7 @@ export class UIManager {
         this._mainMenuUI.canvas = _canvas;
         this._ui.addControl(this._questUI.controlNode);
         this._ui.addControl(this._journalUI.controlNode);
+        this._slideAnimationUI = new SlideAnimationUI();
     }
 
     public get ui(): AdvancedDynamicTexture {
