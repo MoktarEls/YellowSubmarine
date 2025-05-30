@@ -78,9 +78,6 @@ export class SlideAnimationUI {
                 this.currentIndex++;
                 if (this.currentIndex < this._slides.length) {
                     this.showSlide(this.currentIndex);
-                } else {
-                    window.removeEventListener("keydown", onKeyDown);
-                    this.slidePanel.isVisible = false;
                 }
             }
         };
