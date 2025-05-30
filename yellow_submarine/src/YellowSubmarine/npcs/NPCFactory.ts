@@ -35,17 +35,21 @@ export class NPCFactory {
         pedro.detectionZone.zone.position.set(0, -11, 0);
 
         pedro.conversation = new ConversationBuilder()
-            .say("OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !!!!!")
+            .say("[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
             .then("Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
-            .then("Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez vide et ça mord pas trop au bout de ma canne... ")
-            .then("Mais ! Y'a un p'tit endroit au nord d'ici un peu particulier.")
-            .then("Y'avait deux boules et plein de poteaux, j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
+            .then("Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
+            .then("Mais ! Y'a un [c=blue]p'tit endroit au nord d'ici [/c] un peu particulier.")
+            .then("[c=blue] Y'avait deux boules et plein de poteaux [/c], j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
             .then("Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
-            .then("Aussi ! Information capital !!! Si tu as un journal dans ton sous-marin tu peux prendre des notes sur tout ce que tu vas découvrir pour ne pas oublier d'information")
-            .then("Hésite pas à aller voir les habitants des autres, ils devraient pouvoir t'aider !")
-            .then("Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt....................... zzZZZzzzzzZZzzzzzzzz)")
+            .then("Aussi ! [g]Information capital !!! [/g] Si tu as un journal dans ton sous-marin [g]tu peux prendre des notes[/g] sur tout ce que tu vas découvrir pour ne pas oublier d'information")
+            .then("Hésite pas à aller voir [g][c=blue]les habitants des autres îles[/c][/g], ils devraient pouvoir t'aider !")
+            .then("Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt................zzZZZzzzzzZZzzzzzzzz)")
             .setOnEnding(() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Pedro s'est endormie");
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Il y aurait un endroit interessant au nord de l'ile des dauphins");
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Deux boules ? seraient déjà présentes");
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Vu le manque de place, je vais pouvoir en prendre qu'une seule à la fois..");
+
                 QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
             })
             .build();
@@ -81,11 +85,11 @@ export class NPCFactory {
         }, true);
 
         fox.conversation = new ConversationBuilder()
-            .say("Je sais pas si tu vois la même chose que moi (peut-être que c'est un mirage). Y'a une piste de bowling là-bas où y'a les quilles qui sortent de l'eau.")
+            .say("Je sais pas si tu vois la même chose que moi [i](peut-être que c'est un mirage).[/i] Y'a une [g]piste de bowling là-bas[/g] où y'a les quilles qui sortent de l'eau.")
             .then("Y'a une sorte de boule de bowling qui était sur l'île. J'ai essayé de jouer avec des quilles en glace mais ça a pas trop marché.")
             .then("Parmi les quilles j'ai mis une bouteille que j'ai trouvée dans le coin et bizarrement, quand j'ai fait un STRIKE ! Y'a une note qui est sortie.")
-            .then("Y'avait marqué ça : « Redina, la plus forte, restait en retrait afin de couvrir leurs arrières »")
-            .then("Bizarre l'ambiance... J'en ai marre de jouer au bowling donc j'te donne la boule ! Mais prends-en soin !")
+            .then("Y'avait marqué ça : [c=blue]« Redina, la plus forte, restait en retrait afin de couvrir leurs arrières »[/c]")
+            .then("Bizarre l'ambiance... J'en ai marre de jouer au bowling donc [g]j'te donne la boule[/g] ! Mais prends-en soin !")
             .then("Allez, je vais jouer à la pétanque moi...")
             .setOnEnding(() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "D'après Crimson : Redina, la plus forte, restait en retrait afin de couvrir leurs arrières");
@@ -124,24 +128,24 @@ export class NPCFactory {
 
         scientific.conversation = new ConversationBuilder()
             .say("Si je suis la trajectoire de cette étoile, alors je peux peut-être réussir à démontrer que e = m6 !")
-            .then("Oh salut toi ! T'as un sacré sous-marin ! J'adore les sous-marins tu tombes à pic !")
-            .then("Pour la peine, je vais te présenter les conclusions de mon expérience AHAH prépare toi à en prendre plein la vue !")
-            .then("J'ai trouvé une boule de couleurs avec deux parchemins. Commençons par les FAITS !")
-            .then("Fait numéro 1 : la boule est d'une couleur spécifique... Hmmmm...... Ok soit.")
-            .then("Fait numéro 2 : les textes parlent de je ne sais pas trop quoi à vrai dire. Mais ! J'ai l'impression que les couleurs sont importantes !")
+            .then("Oh salut toi ! T'as un sacré sous-marin ! [i]J'adore[/i] les sous-marins tu tombes à pic !")
+            .then("Pour la peine, je vais te présenter les conclusions de mon expérience, prépare toi à en prendre plein la vue !")
+            .then("J'ai trouvé [c=blue]une boule de couleurs avec deux parchemins[/c]. Commençons par les FAITS !")
+            .then("Fait numéro 1 : la boule est [g]d'une couleur spécifique[/g]... Hmmmm...... Ok soit.")
+            .then("Fait numéro 2 : les textes parlent de...je ne sais pas trop quoi à vrai dire. Mais ! J'ai l'impression que [g]les couleurs sont importantes ![/g]")
             .then("Fait numéro 3 : les deux parchemins racontes la chose suivante : \n" +
-                " - Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche \n" +
-                " - Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet ")
+                " [c=blue] - Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche[/c] \n" +
+                " [c=blue] - Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet[/c] ")
             .then("Maintenant, passons à la THEORIE !")
             .then("Théorie numéro 1 : une boule de couleur a une position unique. Mais où ??? AHHH Je ne comprends pas....")
-            .then("Théorie numéro 2 : il existe d'autres boules de couleur car mes deux indices parlent de couleurs différentes de celle de ma boule !")
-            .then("Et voilà c'est un peu tout ce que j'ai, je suis dans une sacrée impasse. Je vais sûrement rater le prix Nobel cette année.....")
+            .then("Théorie numéro 2 : Si la théorie 1 est correcte, alors la solution du puzzle doit dépendre de ses boules et [g]EST UNIQUE[/g].")
+            .then("Et voilà c'est un peu tout ce que j'ai, je suis dans une sacrée impasse. Je vais sûrement rater le prix Nobel cette année...")
             .then("Allez j'te laisse la boule, je suis passé à autre chose ! Tu me diras une prochaine fois si ça t'a été utile !")
             .then("À la revoyure !")
             .setOnEnding(() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), ("Rosa a trouvée ces deux phrases :" +
-                    "\n - Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
-                    "\n - Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
+                    "\n Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
+                    "\n Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
             })
             .build();
 
@@ -180,16 +184,16 @@ export class NPCFactory {
         scribe.conversation = new ConversationBuilder()
             .say("Que penses-tu de mon prochain poème jeune étranger ?")
             .then("[g]Ballade d’un Génie Naufragé[/g]")
-            .then("[i]Je suis ce grand Marcel, qu’aucun vent ne dérange, Poète illustre et fier, perdu sur cet étrange Territoire obscur, bordé par l’inconnu, Où des piliers sans fin soutiennent l’absolu.[/i]")
-            .then("[i]Je ne sais point comment j’ai pu atterrir ici, Mais l’endroit me salue d’un silence exquis. Tantôt le ciel s’emplit de choses voltigeantes, Tantôt le vide plane, en formes déchirantes.[/i]")
-            .then("[i]Sur le rivage nu, comme un don du destin, J’aperçus une orbe, d’un éclat si divin Que mon esprit, troublé par tant de magnificence, Faillit se noyer dans sa propre éloquence.[/i]")
-            .then("[i]Juste à côté dormait, message dans bouteille, Un parchemin d’échos, d’une main non pareille. Il était écrit, sans honte ni limite : [/i] [c=blue]« Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest ». Ah ! Que cette phrase est d’un raffinement leste ![/c]")
-            .then("[i]Moi seul, Marcel, pouvais en saisir l’essence, Car mon verbe est plus fort que toute connaissance.[/i]")
-            .then("[i]Je retourne à présent vers la fontaine noire, Dont l’encre tachera les vers de ma mémoire.[/i]")
-            .then("Voila ! J'espère que ce ne fut pas un peu trop long. Maintenant file je dois me concentrer !")
+            .then("[i]Je suis ce grand Marcel, qu’aucun vent ne dérange\n, Poète illustre et fier, perdu sur cet étrange \n Territoire obscur, bordé par l’inconnu, \n Où des piliers sans fin soutiennent l’absolu.[/i]")
+            .then("[i]Je ne sais point comment j’ai pu atterrir ici,\n Mais l’endroit me salue d’un silence exquis.\n Tantôt le ciel s’emplit de choses voltigeantes, \n Tantôt le vide plane, en formes déchirantes.[/i]")
+            .then("[i]Sur le rivage nu, comme un don du destin, \n J’aperçus une orbe, d’un éclat si divin \n Que mon esprit, troublé par tant de magnificence,\n Faillit se noyer dans sa propre éloquence.[/i]")
+            .then("[i]Juste à côté dormait, message dans bouteille,\n Un parchemin d’échos, d’une main non pareille. \n Il était écrit, sans honte ni limite : \n [/i] [c=blue]« Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest ».[/c] Ah ! Que cette phrase est d’un raffinement leste !")
+            .then("[i]Moi seul, Marcel, pouvais en saisir l’essence, \n Car mon verbe est plus fort que toute connaissance. [/i]")
+            .then("[i]Je retourne à présent vers la fontaine noire,\n Dont l’encre tachera les vers de ma mémoire.[/i]")
+            .then("Voila ! J'espère que ce ne fut pas un peu trop long. \n Maintenant file je dois me concentrer !")
             .setOnEnding(() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
-                    " - Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
+                    "Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
             })
             .build();
 
@@ -232,7 +236,7 @@ export class NPCFactory {
         rabbit.conversation = new ConversationBuilder()
             .say("[i][c=blue]Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée....[/i][/c]")
             .then("Hmmmm... Qu'est-ce que ça peut vouloir dire....")
-            .then("AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+            .then("[g][c=red]AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH[/c][/g]")
             .then("TU M'AS FAIS PEUR !!!!")
             .then("TIENS PREND ÇA ! ET PARS LOIN D'ICI SANS REVENIR !!!!!!!!!!!!!!!!")
             .setOnEnding(() => {

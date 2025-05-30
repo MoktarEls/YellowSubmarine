@@ -53,18 +53,16 @@ export class QuestUI extends UI {
             titleText.fontSize = 20;
             titleText.fontWeight = "bold";
             titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            titleText.height = "28px";
-            titleText.paddingBottom = "6px";
+            titleText.height = "40px";
 
             const stepText = new TextBlock();
             stepText.text = quest.steps[quest.currentStepIndex].description;
             stepText.color = "#FFFFFF";
             stepText.fontSize = 17;
             stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            stepText.height = "28px";
+            stepText.height = "40px";
             stepText.textWrapping = true;
             stepText.paddingLeft = "16px"; // Décalage à droite
-            stepText.paddingBottom = "10px";
 
             container.addControl(titleText);
             container.addControl(stepText);

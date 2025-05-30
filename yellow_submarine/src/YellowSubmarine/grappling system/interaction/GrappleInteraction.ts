@@ -18,7 +18,7 @@ export class GrappleInteraction extends WorldInteraction{
     }
 
     public get description(): string {
-        return "Grapple";
+        return "Attraper";
     }
 
     public executeInteraction(): void {
