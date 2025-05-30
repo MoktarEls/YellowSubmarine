@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="isLoading" id="loadingScreen" :class="{ 'fade-out': isFadingOut }">
-      <img src="/logo.png" alt="Logo" class="logo" />
+      <img :src="getLogoSrc()" alt="Logo" class="logo" />
       <h1 class="wave-text">
         <span
             v-for="(letter, index) in loadingText"
@@ -31,7 +31,14 @@ export default defineComponent({
     const isLoading = ref(true);
     const isFadingOut = ref(false);
     const loadingText = 'Chargement...'.split('');
-    return { isLoading, isFadingOut, loadingText };
+
+    const getLogoSrc = () => {
+      return process.env.NODE_ENV === "production"
+          ? "/YellowSubmarine/logo.png"
+          : "/logo.png";
+    };
+
+    return { isLoading, isFadingOut, loadingText, getLogoSrc };
   },
   async mounted() {
     const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
