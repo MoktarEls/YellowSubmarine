@@ -1,5 +1,5 @@
 import {
-    AbstractMesh, DepthRenderer, GeometryBufferRenderer, Material, MirrorTexture,
+    AbstractMesh, DepthRenderer, Effect, GeometryBufferRenderer, Material, MirrorTexture,
     MultiRenderTarget, Nullable, Plane, RenderTargetTexture, Scene,
     ShaderMaterial, Texture, Vector2, Vector3, Vector4
 } from "@babylonjs/core";
@@ -19,6 +19,7 @@ export class ReflectiveToonWaterMaterial {
     private _renderListPredicate: (mesh: AbstractMesh) => boolean;
 
     protected constructor() {
+        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         ReflectiveToonWaterMaterial._instance = this;
         this._scene = Game.scene;
         const camera = this._scene.activeCamera;
@@ -45,14 +46,14 @@ export class ReflectiveToonWaterMaterial {
         this._material.setFloat("depthMaximumDistance", 10.0);
         this._material.setTexture("linearDepthTexture", this._depthMap);
         this._material.setVector4("surfaceNoiseST", new Vector4(1, 4, 0, 0));
-        this._material.setTexture("surfaceNoiseTexture", new Texture("/textures/PerlinNoise.png"));
+        this._material.setTexture("surfaceNoiseTexture", new Texture("textures/PerlinNoise.png"));
         this._material.setFloat("surfaceNoiseCutoff", 0.85);
         this._material.setFloat("foamMaxDistance", 0.6);
         this._material.setFloat("foamMinDistance", 0.04);
         this._material.setVector2("surfaceNoiseScroll", new Vector2(0.03, 0.03));
         this._material.setVector4("surfaceDistortionST", new Vector4(1,1,0,0));
         this._material.setFloat("surfaceDistortionAmount", 0.27);
-        this._material.setTexture("surfaceDistortionTexture", new Texture("/textures/WaterDistortion.png"));
+        this._material.setTexture("surfaceDistortionTexture", new Texture("textures/WaterDistortion.png"));
         Game.scene.onBeforeRenderObservable.add(() => {
             this._material.setFloat("timeOfTheDay", Sky.instance.dayNightCycle.timeOfTheDay);
         })

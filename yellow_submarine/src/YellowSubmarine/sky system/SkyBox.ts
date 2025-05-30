@@ -1,5 +1,5 @@
 import {
-    Color3, CubeTexture,
+    Color3, CubeTexture, Effect,
     Mesh,
     MeshBuilder,
     ShaderMaterial, Texture
@@ -26,13 +26,15 @@ export class SkyBox {
     private _mesh: Mesh;
 
     constructor() {
+        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         SkyBox._instance = this;
         this._mesh = MeshBuilder.CreateBox("skyBox", { size: 10000 }, Game.scene);
         this._mesh.infiniteDistance = true;
         this._mesh.isPickable = false;
 
         this._shaderMaterial = new ShaderMaterial("skyboxMaterial", Game.scene, {
-            vertex: "skyboxShader", fragment: "skyboxShader",
+            vertex: "skyboxShader",
+            fragment: "skyboxShader",
         },{
             attributes: ["position", "uv"],
             uniforms: ["worldViewProjection", "timeOfTheDay"],
@@ -44,21 +46,21 @@ export class SkyBox {
         })
 
         this._daySkyboxTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/alternate day/px.png",
-            "/textures/skybox/alternate day/pz.png",
-            "/textures/skybox/alternate day/py.png",
-            "/textures/skybox/alternate day/nx.png",
-            "/textures/skybox/alternate day/nz.png",
-            "/textures/skybox/alternate day/ny.png"
+            "textures/skybox/alternate day/px.png",
+            "textures/skybox/alternate day/pz.png",
+            "textures/skybox/alternate day/py.png",
+            "textures/skybox/alternate day/nx.png",
+            "textures/skybox/alternate day/nz.png",
+            "textures/skybox/alternate day/ny.png"
         ], Game.scene);
         this._daySkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
         this._nightSkyboxTexture = CubeTexture.CreateFromImages([
-            "/textures/skybox/alternate night/px.png",
-            "/textures/skybox/alternate night/pz.png",
-            "/textures/skybox/alternate night/py.png",
-            "/textures/skybox/alternate night/nx.png",
-            "/textures/skybox/alternate night/nz.png",
-            "/textures/skybox/alternate night/ny.png"
+            "textures/skybox/alternate night/px.png",
+            "textures/skybox/alternate night/pz.png",
+            "textures/skybox/alternate night/py.png",
+            "textures/skybox/alternate night/nx.png",
+            "textures/skybox/alternate night/nz.png",
+            "textures/skybox/alternate night/ny.png"
         ], Game.scene);
         this._nightSkyboxTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
