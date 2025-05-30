@@ -50,8 +50,11 @@ export class MainMenuUI extends UI {
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if(eventData.event.key === "Escape" && state && !this.optionsMenuUI.controlNode.isVisible){
-                if(this._canvas)
-                    this._panel.isVisible ? this.onPlayPressed() : this.show();
+
+                if(this._canvas && !this._panel.isVisible){
+                    this.show();
+                }
+
             }
         });
     }
