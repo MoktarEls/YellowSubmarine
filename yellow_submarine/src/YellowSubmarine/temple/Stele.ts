@@ -32,7 +32,7 @@ export class Stele implements IConversationProvider {
             .then("La ligne du bas touche la terre")
             .setOnEnding(() => {
                 let quest = QuestManager.instance.getQuest("temple_quest");
-                if(quest) quest.state = "active";
+                if(quest) quest.startQuest();
                 quest = QuestManager.instance.getQuest("dreamland");
                 if(quest) quest.updateCurrentStepStatus();
             })

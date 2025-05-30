@@ -10,7 +10,7 @@ export class RemoveTempleBallInteraction extends WorldInteraction{
     }
 
     public get description(): string {
-        return "Remove";
+        return "Retirer";
     }
 
     executeInteraction(): void {

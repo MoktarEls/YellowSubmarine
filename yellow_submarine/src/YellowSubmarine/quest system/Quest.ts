@@ -1,4 +1,5 @@
 import {QuestStep} from "@/YellowSubmarine/quest system/QuestStep";
+import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 
 export type QuestState = 'inactive' | 'active' | 'completed';
 
@@ -60,12 +61,12 @@ export class Quest{
 
     public startQuest() {
         this._state = "active";
-        console.log(`Quête "${this._name}" commencée`);
+        QuestUI.instance.refresh();
     }
 
     public stopQuest() {
         this._state = "completed";
-        console.log(`Quête "${this._name}" fini`);
+        QuestUI.instance.refresh();
     }
 
     public nextStep() {
@@ -74,8 +75,9 @@ export class Quest{
         }
         else {
             this._currentStepIndex++;
-            console.log(`Quête "${this._name}" passe à l'étape suivante`)
         }
+        QuestUI.instance.refresh();
+
     }
 
     public updateCurrentStepStatus() {

@@ -1,19 +1,26 @@
 import { UI } from "@/YellowSubmarine/ui system/UI";
 import { Control, Rectangle, StackPanel, TextBlock } from "@babylonjs/gui";
-import { Game } from "@/YellowSubmarine/Game";
 import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { Quest } from "@/YellowSubmarine/quest system/Quest";
 
 export class QuestUI extends UI {
+
     private _panel: StackPanel;
+    private static _instance: QuestUI;
+
 
     get controlNode(): Control {
         return this._panel;
     }
 
+    public static get instance(): QuestUI {
+        return this._instance;
+    }
+
     constructor() {
         super();
 
+        QuestUI._instance = this;
         this._panel = new StackPanel();
         this._panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._panel.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
@@ -24,17 +31,13 @@ export class QuestUI extends UI {
         this._panel.isVertical = true;
         this._panel.spacing = 10;
 
-        Game.scene.onBeforeRenderObservable.add(() => {
-            this.refresh();
-        });
     }
 
-    private refresh() {
+    public refresh() {
         this._panel.clearControls();
         const activeQuests = QuestManager.instance.getAllActiveQuests();
 
         if (activeQuests.length === 0) {
-            // On affiche quand même un séparateur vide
             this._panel.addControl(this.createSeparator());
             return;
         }
@@ -43,9 +46,7 @@ export class QuestUI extends UI {
             const container = new StackPanel();
             container.isVertical = true;
             container.width = "100%";
-            //container.paddingTop = "5px";
 
-            // Titre
             const titleText = new TextBlock();
             titleText.text = `⛋ ${quest.name}`;
             titleText.color = "white";
@@ -55,7 +56,6 @@ export class QuestUI extends UI {
             titleText.height = "28px";
             titleText.paddingBottom = "6px";
 
-            // Description avec un léger décalage à droite
             const stepText = new TextBlock();
             stepText.text = quest.steps[quest.currentStepIndex].description;
             stepText.color = "#FFFFFF";

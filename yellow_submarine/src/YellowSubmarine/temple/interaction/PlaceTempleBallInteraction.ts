@@ -10,7 +10,7 @@ export class PlaceTempleBallInteraction extends WorldInteraction{
     }
 
     public get description(): string {
-        return "Place";
+        return "Poser";
     }
 
     executeInteraction(): void {

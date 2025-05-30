@@ -5,7 +5,7 @@ import {AbstractMesh} from "@babylonjs/core";
 export class StartConversationInteraction extends WorldInteraction{
 
     public get description(): string {
-        return `Talk`;
+        return `Parler`;
     }
 
     constructor(private _conversation: Conversation) {
