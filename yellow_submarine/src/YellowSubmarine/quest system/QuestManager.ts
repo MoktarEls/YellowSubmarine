@@ -22,9 +22,7 @@ export class QuestManager {
                 }
             })
         });
-
         this.getQuest("dreamland")?.startQuest();
-
     }
 
     public getQuest(id: string): Quest | undefined {

@@ -19,7 +19,7 @@ export class QuestFactory {
         steps.push(new QuestStep("Parler aux différents habitants de chaque île"));
         quest.steps = steps;
         TemplePuzzle.onPuzzleResolved.add(() => {
-            quest.state = "completed";
+            quest.stopQuest();
         });
         return quest;
     }

@@ -16,6 +16,7 @@ import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {RemoveTempleBallInteraction} from "@/YellowSubmarine/temple/interaction/RemoveTempleBallInteraction";
 import {PlaceTempleBallInteraction} from "@/YellowSubmarine/temple/interaction/PlaceTempleBallInteraction";
 import {CellMaterial} from "@babylonjs/materials";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class Socle{
     public get currentBall(): TempleBall | undefined{
@@ -90,6 +91,7 @@ export class Socle{
         this._mesh.physicsBody?.addConstraint(ball.physicsBody, this._lockConstraint);
         this._currentBall.socle = this;
         this._material.diffuseColor = new Color3(5,5,5);
+        if(SoundManager.instance) SoundManager.instance.playSFX("socle");
     }
 
     public letGoOfBall(){
@@ -97,6 +99,7 @@ export class Socle{
             this._currentBall = undefined;
             this._lockConstraint?.dispose();
             this._material.diffuseColor = new Color3(0.3,0.3,0.3);
+            if(SoundManager.instance) SoundManager.instance.playSFX("socle");
         }
     }
 

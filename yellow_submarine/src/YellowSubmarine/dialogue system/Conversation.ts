@@ -11,6 +11,7 @@ export class Conversation {
     private _onEnding = (): void => {return};
 
     private _conversationProvider?: IConversationProvider;
+    private _hasBeenRead = false;
 
     public static onAnyDialogueStart:Observable<AbstractDialogueNode> = new Observable();
     public static onAnyConversationStart: Observable<Conversation> = new Observable();
@@ -82,7 +83,8 @@ export class Conversation {
         this.onConversationEnd.notifyObservers(this);
         Conversation.onAnyConversationEnd.notifyObservers(this);
         ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
-        this._onEnding();
+        if(!this._hasBeenRead) this._onEnding();
+        this._hasBeenRead = true;
     }
 
     public isInProgress(): boolean {
