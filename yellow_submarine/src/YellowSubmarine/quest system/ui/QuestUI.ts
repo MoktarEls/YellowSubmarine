@@ -29,7 +29,7 @@ export class QuestUI extends UI {
         this._panel.paddingRight = "10px";
         this._panel.paddingTop = "20px";
         this._panel.isVertical = true;
-        this._panel.spacing = 10;
+        this._panel.spacing = 25;
 
     }
 
