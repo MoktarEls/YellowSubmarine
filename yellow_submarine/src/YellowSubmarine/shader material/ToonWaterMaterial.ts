@@ -18,7 +18,6 @@ export class ToonWaterMaterial {
     private _renderListPredicate: (mesh: AbstractMesh) => boolean;
 
     protected constructor() {
-        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         this._scene = Game.scene;
         const camera = this._scene.activeCamera;
 

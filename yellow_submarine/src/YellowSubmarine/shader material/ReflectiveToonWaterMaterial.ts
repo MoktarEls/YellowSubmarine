@@ -19,7 +19,6 @@ export class ReflectiveToonWaterMaterial {
     private _renderListPredicate: (mesh: AbstractMesh) => boolean;
 
     protected constructor() {
-        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         ReflectiveToonWaterMaterial._instance = this;
         this._scene = Game.scene;
         const camera = this._scene.activeCamera;

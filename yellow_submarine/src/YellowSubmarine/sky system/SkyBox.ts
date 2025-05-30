@@ -26,7 +26,6 @@ export class SkyBox {
     private _mesh: Mesh;
 
     constructor() {
-        Effect.ShadersRepository = "/YellowSubmarine/shaders/";
         SkyBox._instance = this;
         this._mesh = MeshBuilder.CreateBox("skyBox", { size: 10000 }, Game.scene);
         this._mesh.infiniteDistance = true;

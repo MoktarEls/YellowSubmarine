@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { Game } from "@/YellowSubmarine/Game";
-import { Engine, HavokPlugin } from "@babylonjs/core";
+import { Effect, Engine, HavokPlugin } from "@babylonjs/core";
 import HavokPhysics from "@babylonjs/havok";
 
 export default defineComponent({
@@ -35,7 +35,12 @@ export default defineComponent({
   },
   async mounted() {
     const canvas = document.getElementById("mainCanvas") as HTMLCanvasElement;
-    Engine.ShadersRepository = "../shaders/";
+    Effect.ShadersRepository = process.env.NODE_ENV === "production"
+        ? "/YellowSubmarine/shaders/"
+        : "/shaders/";
+    Engine.ShadersRepository = process.env.NODE_ENV === "production"
+        ? "/YellowSubmarine/shaders/"
+        : "/shaders/";
 
     const havok = await HavokPhysics();
     const havokPlugin = new HavokPlugin(true, havok);
