@@ -36,8 +36,8 @@ export class WorldInteractionUI extends UI{
         this._container.isVisible = true;
 
         const rec1 = new Rectangle();
-        rec1.width = "280px";
-        rec1.height = "100px";
+        rec1.width = "180px";
+        rec1.height = "60px";
         rec1.cornerRadius = 60;
         rec1.color = "rgb(168, 98, 68)";
         rec1.thickness = 4;
@@ -45,14 +45,14 @@ export class WorldInteractionUI extends UI{
         this._container.addControl(rec1);
 
         const label1 = new TextBlock();
-        label1.fontSize = 45;
+        label1.fontSize = 30;
         label1.text = `${interaction.description}`;
         rec1.addControl(label1);
 
         // Deuxième rectangle avec son label
         const rec2 = new Rectangle();
-        rec2.width = "100px";
-        rec2.height = "85px";
+        rec2.width = "80px";
+        rec2.height = "70px";
         rec2.cornerRadius = 60;
         rec2.color = "rgb(168, 98, 68)";
         rec2.thickness = 4;
@@ -62,15 +62,14 @@ export class WorldInteractionUI extends UI{
         this._container.addControl(rec2);
 
         const label2 = new TextBlock();
-        label2.fontSize = 60;
+        label2.fontSize = 45;
         label2.text = `${interaction.simplifiedCode}`;
         label2.fontWeight = "bold";
         label2.paddingTop = "6px";
         rec2.addControl(label2);
 
-
         this._container.linkWithMesh(interaction.mesh ?? null);
-        this._container.linkOffsetY = "-140px";
+        this._container.linkOffsetY = "-50px";
 
     }
 

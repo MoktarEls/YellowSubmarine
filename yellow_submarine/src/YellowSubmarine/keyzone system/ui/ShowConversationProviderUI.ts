@@ -48,16 +48,16 @@ export class ShowConversationProviderUI extends UI{
             console.log(conversationProvider);
 
             const rec1 = new Rectangle();
-            rec1.width = "280px";
-            rec1.height = "100px";
+            rec1.width = "180px";
+            rec1.height = "60px";
             rec1.cornerRadius = 60;
             rec1.color = "rgb(168, 98, 68)";
             rec1.thickness = 4;
             rec1.background = "rgb(255, 199, 130)";
 
             const label1 = new TextBlock();
-            label1.fontSize = 45;
-            label1.text = `...`;
+            label1.fontSize = 30;
+            label1.text = `● ● ●`;
             rec1.addControl(label1);
 
             UIManager.instance.ui.addControl(rec1);
@@ -66,7 +66,7 @@ export class ShowConversationProviderUI extends UI{
             const mesh = conversationProvider.mesh;
             if(mesh){
                 rec1.linkWithMesh(mesh);
-                rec1.linkOffsetY = "-140px";
+                rec1.linkOffsetY = "-50px";
             }
 
         }
