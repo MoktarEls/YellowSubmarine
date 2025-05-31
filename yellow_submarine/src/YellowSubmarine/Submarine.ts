@@ -186,6 +186,7 @@ export class Submarine {
         particleSystem.maxEmitBox = new Vector3(0.5, 0, 0);
 
         particleSystem.color1 = new Color4(1, 1, 1, 1);
+        particleSystem.color2 = new Color4(1, 1, 1, 0.5);
         particleSystem.colorDead = new Color4(1, 1, 1, 0);
 
         particleSystem.minSize = 0.5;
