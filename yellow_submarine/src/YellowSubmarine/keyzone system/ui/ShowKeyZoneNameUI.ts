@@ -24,9 +24,9 @@ export class ShowKeyZoneNameUI extends UI {
         this._container.width = "25%";
         this._container.height = "80px";
         this._container.cornerRadius = 12;
-        this._container.color = "white"; // Bordure blanche
-        this._container.thickness = 2; // Epaisseur de bordure
-        this._container.background = "rgba(0, 0, 0, 0.6)"; // Fond noir semi-transparent
+        this._container.color = "white";
+        this._container.thickness = 2;
+        this._container.background = "rgba(0, 0, 0, 0.6)";
         this._container.alpha = 0;
         this._container.addControl(this._textBlock);
         this._container.zIndex = 1;
@@ -43,12 +43,12 @@ export class ShowKeyZoneNameUI extends UI {
             this._container.left = "20px";
             this._container.top = "-20px";
 
-            this._textBlock.fontSize = "28px"; // Agrandi pour correspondre à la taille du rectangle
+            this._textBlock.fontSize = "28px";
             this._textBlock.fontStyle = "normal";
         } else {
             this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this._container.top = "30px";
+            this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            this._container.paddingBottom = "30px";
 
             this._textBlock.fontSize = "36px";
             this._textBlock.fontStyle = "bold";
