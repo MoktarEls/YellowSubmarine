@@ -1,51 +1,80 @@
-﻿import {UI} from "@/YellowSubmarine/ui system/UI";
-import {Control, TextBlock} from "@babylonjs/gui";
-import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
+﻿import { UI } from "@/YellowSubmarine/ui system/UI";
+import { Control, TextBlock, Rectangle } from "@babylonjs/gui";
+import { KeyZone } from "@/YellowSubmarine/keyzone system/KeyZone";
 
-export class ShowKeyZoneNameUI extends UI{
+export class ShowKeyZoneNameUI extends UI {
 
+    private _container: Rectangle;
     private _textBlock: TextBlock;
 
     get controlNode(): Control {
-        return this._textBlock;
+        return this._container;
     }
 
     constructor() {
         super();
+
         this._textBlock = new TextBlock();
-        this._textBlock.zIndex = 1;
-        KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.show(keyzone))
+        this._textBlock.color = "white";
+        this._textBlock.textWrapping = true;
+        this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+        this._textBlock.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+
+        this._container = new Rectangle();
+        this._container.width = "25%";
+        this._container.height = "80px";
+        this._container.cornerRadius = 12;
+        this._container.color = "white"; // Bordure blanche
+        this._container.thickness = 2; // Epaisseur de bordure
+        this._container.background = "rgba(0, 0, 0, 0.6)"; // Fond noir semi-transparent
+        this._container.alpha = 0;
+        this._container.addControl(this._textBlock);
+        this._container.zIndex = 1;
+
+        KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.show(keyzone));
     }
 
     public show(keyzone: KeyZone) {
-
-        this._textBlock.isVisible = true;
         this._textBlock.text = keyzone.name;
 
-        if(keyzone.discovered) {
-            this._textBlock.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-            this._textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            this._textBlock.paddingLeft = "20px";
-            this._textBlock.paddingBottom = "20px";
-            this._textBlock.color = "white";
-            this._textBlock.fontSize = "24px";
-            this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+        if (keyzone.discovered) {
+            this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+            this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            this._container.left = "20px";
+            this._container.top = "-20px";
 
+            this._textBlock.fontSize = "28px"; // Agrandi pour correspondre à la taille du rectangle
+            this._textBlock.fontStyle = "normal";
         } else {
-            this._textBlock.color = "white";
-            this._textBlock.fontSize = "48px";
+            this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+            this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+            this._container.top = "30px";
+
+            this._textBlock.fontSize = "36px";
             this._textBlock.fontStyle = "bold";
-            this._textBlock.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            this._textBlock.textVerticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-            this._textBlock.paddingTop = "30px";
         }
 
+        this.fadeTo(1, 300);
+
         setTimeout(() => {
-            this._textBlock.isVisible = false;
+            this.fadeTo(0, 500);
         }, 3000);
     }
 
+    private fadeTo(targetAlpha: number, duration: number) {
+        const startAlpha = this._container.alpha;
+        const startTime = performance.now();
 
+        const animate = (time: number) => {
+            const elapsed = time - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            this._container.alpha = startAlpha + (targetAlpha - startAlpha) * progress;
 
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
 
+        requestAnimationFrame(animate);
+    }
 }

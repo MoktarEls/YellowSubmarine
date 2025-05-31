@@ -2,6 +2,7 @@
 import {AbstractMesh, Observable, PhysicsAggregate} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
 import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class KeyZone {
 
@@ -35,6 +36,10 @@ export class KeyZone {
     public set detectionZone(value: MeshDetectionZone) {
         this._detectionZone = value;
         this.detectionZone.onMeshEnter.add( () => {
+            SoundManager.instance.playSFX("zone", {
+                loop: false,
+                autoplay: true
+            });
             KeyZone.onAnyKeyZoneEntered.notifyObservers(this);
             this.discovered = true;
         });
