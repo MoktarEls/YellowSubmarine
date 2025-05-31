@@ -12,8 +12,11 @@ import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonSh
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import { ParticleSystem, TransformNode, Color4 } from "@babylonjs/core";
+
 
 export class Submarine {
+
     private _physicsAggregate?: PhysicsAggregate;
 
     public get mesh(): AbstractMesh{
@@ -41,6 +44,7 @@ export class Submarine {
         this._grappler = new Grappler();
         this.meshCreationPromise = this.createMesh(Game.scene);
         this.meshCreationPromise.then((mesh) => {
+            this.createWaterParticles();
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();
             this.addVolumetricLight();
@@ -119,6 +123,7 @@ export class Submarine {
         this._grappler.letGoOfObject();
     }
 
+
     private async createMesh(scene: Scene) {
         const result = await SceneLoader.ImportMeshAsync("", "models/objects/", "submarine.glb", scene);
         const rootMesh = result.meshes[0] as Mesh;
@@ -156,6 +161,52 @@ export class Submarine {
         this.mesh.receiveShadows = true;
         return this._mesh;
     }
+
+
+    private _waveParticleSystem?: ParticleSystem;
+    private _waveEmitter?: TransformNode;
+
+    private createWaterParticles() {
+        const scene = Game.scene;
+
+        this._waveEmitter = new TransformNode("waveEmitter", scene);
+        this._waveEmitter.parent = this._mesh;
+        this._waveEmitter.position = new Vector3(0, 0, -2.5); // ajuster si besoin
+
+        const particleSystem = new ParticleSystem("waves", 1000, scene);
+        particleSystem.particleTexture = new Texture("textures/flare.png", scene);
+
+        const emitterMesh = MeshBuilder.CreateSphere("waveEmitterMesh", { diameter: 0.1 }, scene);
+        emitterMesh.parent = this._mesh;
+        emitterMesh.position = new Vector3(0, -0.1, -2.5);
+        emitterMesh.isVisible = false;
+        particleSystem.emitter = emitterMesh;
+
+        particleSystem.minEmitBox = new Vector3(-0.5, 0, 0); // zone de spawn
+        particleSystem.maxEmitBox = new Vector3(0.5, 0, 0);
+
+        particleSystem.color1 = new Color4(1, 1, 1, 1);
+        particleSystem.colorDead = new Color4(1, 1, 1, 0);
+
+        particleSystem.minSize = 0.5;
+        particleSystem.maxSize = 0.7;
+        particleSystem.minLifeTime = 0.6;
+        particleSystem.maxLifeTime = 0.7;
+
+        particleSystem.emitRate = 5;
+        particleSystem.blendMode = ParticleSystem.BLENDMODE_ADD;
+
+        particleSystem.minEmitPower = 0.5;
+        particleSystem.maxEmitPower = 1;
+        particleSystem.updateSpeed = 0.02;
+
+        particleSystem.direction1 = new Vector3(0, 1, -0.5);
+        particleSystem.direction2 = new Vector3(0, 1.2, -1);
+
+
+        this._waveParticleSystem = particleSystem;
+    }
+
 
 
     private createSpotlight() {
@@ -220,6 +271,7 @@ export class Submarine {
     private update() {
         this.updateRotationSpeed();
         this.updateMovementSpeed();
+        this.updateWaveParticles();
     }
 
     private updateMovementSpeed() {
@@ -251,6 +303,24 @@ export class Submarine {
             body.applyForce(this._mesh.right.scale(direction * this._rotationForce), body.getObjectCenterWorld().add(this._mesh.forward));
 
         }
+
+    private updateWaveParticles() {
+        if (!this._physicsAggregate || !this._waveParticleSystem) return;
+
+        const velocity = this._physicsAggregate.body.getLinearVelocity();
+        const speed = velocity.length();
+
+        if (speed > 0.6) {
+            if (!this._waveParticleSystem.isStarted()) {
+                this._waveParticleSystem.start();
+            }
+        } else {
+            if (this._waveParticleSystem.isStarted()) {
+                this._waveParticleSystem.stop();
+            }
+        }
+    }
+
 
 
     private isForwardPressed() {
