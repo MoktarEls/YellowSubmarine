@@ -2,10 +2,12 @@ import { UI } from "@/YellowSubmarine/ui system/UI";
 import { Control, Rectangle, StackPanel, TextBlock } from "@babylonjs/gui";
 import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { Quest } from "@/YellowSubmarine/quest system/Quest";
+import {Animation} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class QuestUI extends UI {
 
-    private _panel: StackPanel;
+    private readonly _panel: StackPanel;
     private static _instance: QuestUI;
 
 
@@ -42,10 +44,11 @@ export class QuestUI extends UI {
             return;
         }
 
-        activeQuests.forEach((quest: Quest) => {
+        activeQuests.forEach((quest: Quest, index) => {
             const container = new StackPanel();
             container.isVertical = true;
             container.width = "100%";
+            container.alpha = 0;
 
             const titleText = new TextBlock();
             titleText.text = `⛋ ${quest.name}`;
@@ -62,14 +65,33 @@ export class QuestUI extends UI {
             stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
             stepText.height = "40px";
             stepText.textWrapping = true;
-            stepText.paddingLeft = "16px"; // Décalage à droite
+            stepText.paddingLeft = "16px";
 
             container.addControl(titleText);
             container.addControl(stepText);
             container.addControl(this.createSeparator());
 
             this._panel.addControl(container);
+
+            // Animation alpha
+            const fadeAnim = new Animation(
+                "fadeInQuest",
+                "alpha",
+                60,
+                Animation.ANIMATIONTYPE_FLOAT,
+                Animation.ANIMATIONLOOPMODE_CONSTANT
+            );
+            fadeAnim.setKeys([
+                { frame: 0, value: 0 },
+                { frame: 20, value: 1 }
+            ]);
+            container.animations = [fadeAnim];
+
+            setTimeout(() => {
+                Game.scene.beginAnimation(container, 0, 20, false);
+            }, index * 150);
         });
+
     }
 
     private createSeparator(): Rectangle {
