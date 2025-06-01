@@ -79,8 +79,8 @@ export class DayNightCycle {
 
         const hemi = this._sun.hemiLight;
         if (hemi) {
-            const dayColor = Color3.FromHexString("#b6e8ff");
-            const nightColor = Color3.FromHexString("#1a1a2e");
+            const dayColor = Color3.FromHexString("#a6fff5");
+            const nightColor = Color3.FromHexString("#27274f");
             hemi.diffuse = Color3.Lerp(nightColor, dayColor, smooth);
         }
 
