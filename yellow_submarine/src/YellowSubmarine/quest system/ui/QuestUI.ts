@@ -4,6 +4,7 @@ import { QuestManager } from "@/YellowSubmarine/quest system/QuestManager";
 import { Quest } from "@/YellowSubmarine/quest system/Quest";
 import {Animation} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
+import {DayNightCycle} from "@/YellowSubmarine/sky system/DayNightCycle";
 
 export class QuestUI extends UI {
 
@@ -19,6 +20,8 @@ export class QuestUI extends UI {
         return this._instance;
     }
 
+    private _isDay = true;
+
     constructor() {
         super();
 
@@ -32,6 +35,11 @@ export class QuestUI extends UI {
         this._panel.paddingTop = "20px";
         this._panel.isVertical = true;
         this._panel.spacing = 25;
+
+        DayNightCycle.onDayChanged.add(() => {
+            this._isDay = !this._isDay;
+            this.refresh();
+        })
 
     }
 
@@ -52,7 +60,7 @@ export class QuestUI extends UI {
 
             const titleText = new TextBlock();
             titleText.text = `⛋ ${quest.name}`;
-            titleText.color = "white";
+            titleText.color = this._isDay ? "black" : "white";
             titleText.fontSize = 20;
             titleText.fontWeight = "bold";
             titleText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -60,7 +68,7 @@ export class QuestUI extends UI {
 
             const stepText = new TextBlock();
             stepText.text = quest.steps[quest.currentStepIndex].description;
-            stepText.color = "#FFFFFF";
+            stepText.color = this._isDay ? "black" : "white";
             stepText.fontSize = 17;
             stepText.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
             stepText.height = "40px";

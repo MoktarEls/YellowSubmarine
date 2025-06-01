@@ -1,7 +1,7 @@
 import {Moon} from "@/YellowSubmarine/sky system/Moon";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {Sun} from "@/YellowSubmarine/sky system/Sun";
-import {Color3, Vector3} from "@babylonjs/core";
+import {Color3, Observable, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class DayNightCycle {
@@ -9,6 +9,8 @@ export class DayNightCycle {
     private _sun : Sun;
     private _moon : Moon;
     private _time = 0;
+    public static onDayChanged = new Observable<boolean>();
+    private _isDayTime = true;
 
     constructor(sky : Sky) {
         this._sun = sky.sun;
@@ -27,6 +29,7 @@ export class DayNightCycle {
     public get timeOfTheDay(): number{
         return this._time;
     }
+
 
 
     private updateBody(time: number): void {
@@ -80,6 +83,12 @@ export class DayNightCycle {
             const nightColor = Color3.FromHexString("#1a1a2e");
             hemi.diffuse = Color3.Lerp(nightColor, dayColor, smooth);
         }
+
+        if(this._isDayTime !== (normalized > 0.01)){
+            this._isDayTime = normalized > 0.01;
+            DayNightCycle.onDayChanged.notifyObservers(this._isDayTime);
+        }
+
         Game.scene.ambientColor = new Color3(1, 0, 0);
     }
 
