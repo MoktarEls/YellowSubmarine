@@ -30,7 +30,7 @@ export class Submarine {
     private static _instance: Submarine;
     private _mesh!: AbstractMesh;
 
-    private _movementForce = 2500000;
+    private _movementForce = 1250000;
 
     private _rotationForce = 300000;
     private _grappler: Grappler;
