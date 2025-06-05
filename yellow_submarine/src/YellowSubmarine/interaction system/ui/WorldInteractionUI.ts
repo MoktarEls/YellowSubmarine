@@ -2,6 +2,7 @@
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+import {World} from "@/YellowSubmarine/World";
 
 export class WorldInteractionUI extends UI{
 
@@ -16,15 +17,11 @@ export class WorldInteractionUI extends UI{
         this._container.scaleY = 0.5;
         this._container.scaleX = 0.5;
 
-        InteractionManager.instance.onInteractionAvailable.add((interaction) => {
-            if(interaction instanceof WorldInteraction) {
-                this.show(interaction);
-            }
+        World.instance.worldInteractionManager.onInteractionAvailable.add((interaction) => {
+            this.show(interaction);
         });
-        InteractionManager.instance.onInteractionUnavailable.add((interaction) => {
-            if(interaction instanceof WorldInteraction) {
+        World.instance.worldInteractionManager.onInteractionUnavailable.add((interaction) => {
                 this.hide();
-            }
         });
     }
 

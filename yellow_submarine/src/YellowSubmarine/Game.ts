@@ -19,7 +19,6 @@ export class Game{
     private _player!: Player;
     private _isGameFocused = false;
     private _camera: ConfigurableCamera;
-    private _interactionManager: InteractionManager;
     private _uiManager!: UIManager;
     private _soundManager!: SoundManager;
     private _questManager!: QuestManager;
@@ -59,10 +58,8 @@ export class Game{
         this._engine = new Engine(this._canvas);
         this._scene = new Scene(this._engine);
         this._scene.enablePhysics(new Vector3(0,-9.81,0), _havok);
-        this._interactionManager = new InteractionManager();
         this._camera = new ConfigurableCamera();
         this._world = new World();
-
 
         document.addEventListener("pointerlockchange", () => {
             this.updateFocusState(document.pointerLockElement === _canvas);
