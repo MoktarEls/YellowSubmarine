@@ -6,11 +6,11 @@ export abstract class DialogueNodeInteraction extends AbstractInteraction{
 
     public abstract get mesh():AbstractMesh | undefined;
 
-    public get conversation(): Dialogue{
-        return this._conversation;
+    public get _conversation(): Dialogue{
+        return this._dialogue;
     }
 
-    constructor(protected _conversation: Dialogue, code?: string, simplifiedCode?: string){
+    constructor(protected _dialogue: Dialogue, code?: string, simplifiedCode?: string){
         super(code, simplifiedCode);
     }
 

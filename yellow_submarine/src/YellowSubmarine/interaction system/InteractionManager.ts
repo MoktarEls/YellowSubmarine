@@ -49,6 +49,10 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
         return undefined;
     }
 
+    get availableInteractions(): Array<TInteraction> {
+        return this._availableInteractions.slice(0);
+    }
+
     public addToAvailableInteraction(interaction: TInteraction){
         if(!this._availableInteractions.includes(interaction)){
             this._availableInteractions.push(interaction);

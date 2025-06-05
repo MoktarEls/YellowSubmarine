@@ -4,7 +4,7 @@ import {AbstractMesh} from "@babylonjs/core";
 export class EndConversationInteraction extends DialogueNodeInteraction{
 
     protected _start(): void {
-        this._conversation.endDialogue();
+        this._dialogue.endDialogue();
         this.endOnNextFrame();
     }
 

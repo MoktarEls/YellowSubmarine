@@ -30,10 +30,10 @@ export class SimpleDialogueNode extends AbstractDialogueNode{
         this._interactionManager = new InteractionManager<DialogueNodeInteraction>();
         const nextNode = this.nextNode;
         if(nextNode) {
-            this._interactionManager.addToAvailableInteraction(new SwitchDialogueNodeInteraction(nextNode, this._dialogue, "Space", "_"));
+            this._interactionManager.addToAvailableInteraction(new SwitchDialogueNodeInteraction(nextNode, this._dialogue, "Space", "␣"));
         }
         else{
-            this._interactionManager.addToAvailableInteraction(new EndConversationInteraction(this._dialogue, "Space", "_"));
+            this._interactionManager.addToAvailableInteraction(new EndConversationInteraction(this._dialogue, "Space", "␣"));
         }
     }
 
