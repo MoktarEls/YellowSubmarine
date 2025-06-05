@@ -2,6 +2,7 @@ import {WorldInteraction} from "@/YellowSubmarine/world interaction system/inter
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {AbstractMesh} from "@babylonjs/core";
 import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class GrappleInteraction extends WorldInteraction{
 
@@ -21,14 +22,26 @@ export class GrappleInteraction extends WorldInteraction{
         return "Attraper";
     }
 
-    public executeInteraction(): void {
-        Grappler.instance.grappleObject(this._grabbableObject);
-        this.makeUnavailable();
-    }
-
     public get mesh(): AbstractMesh | undefined {
         return this._grabbableObject.mesh;
     }
+
+    protected _onAvailable(): void {
+        return;
+    }
+    protected _onUnavailable(): void {
+        return;
+    }
+
+    protected _start(): void {
+        Grappler.instance.grappleObject(this._grabbableObject);
+        this.endOnNextFrame();
+    }
+
+    protected _end(): void {
+        return;
+    }
+
 
 
 }

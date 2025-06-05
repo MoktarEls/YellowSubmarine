@@ -12,12 +12,25 @@ export class StartConversationInteraction extends WorldInteraction{
         super();
     }
 
-    executeInteraction(): void {
-        this._conversation.startConversation();
-    }
-
     get mesh(): AbstractMesh | undefined {
         return this._conversation.conversationProvider?.mesh;
+    }
+
+    protected _onAvailable(): void {
+        return
+    }
+
+    protected _onUnavailable(): void {
+        return;
+    }
+
+    protected _start(): void {
+        this._conversation.startConversation();
+        this.endOnNextFrame();
+    }
+
+    protected _end(): void {
+        return;
     }
 
 }

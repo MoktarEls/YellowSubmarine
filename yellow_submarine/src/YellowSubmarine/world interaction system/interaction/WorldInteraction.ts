@@ -3,8 +3,15 @@ import {AbstractMesh} from "@babylonjs/core";
 
 export abstract class WorldInteraction extends AbstractInteraction{
 
+    private static _code = "KeyE";
+    private static _simplifiedCode = "E";
+
+    static get simplifiedCode(): string {
+        return this._simplifiedCode;
+    }
+
     protected constructor() {
-        super("KeyE", "E");
+        super(WorldInteraction._code, WorldInteraction._simplifiedCode);
     }
 
     public abstract get description(): string

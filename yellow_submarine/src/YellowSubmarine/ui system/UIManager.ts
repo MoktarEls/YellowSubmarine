@@ -1,7 +1,7 @@
 import {AdvancedDynamicTexture} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
 import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
-import {WorldInteractionUI} from "@/YellowSubmarine/interaction system/ui/WorldInteractionUI";
+import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
 import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";

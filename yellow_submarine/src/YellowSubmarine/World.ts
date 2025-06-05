@@ -4,8 +4,9 @@ import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
 import {GlowLayer} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
+import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+import {WorldInteractionManager} from "@/YellowSubmarine/world interaction system/interaction/WorldInteractionManager";
 export class World {
 
     private static _instance: World;
@@ -18,13 +19,17 @@ export class World {
     private _submarine: Submarine;
     private _sky: Sky;
 
-    get worldInteractionManager(): InteractionManager<WorldInteraction> {
+    get worldInteractionManager(): WorldInteractionManager {
         return this._worldInteractionManager;
+    }
+
+    get submarine(): Submarine {
+        return this._submarine;
     }
 
     constructor() {
         World._instance = this;
-        this._worldInteractionManager = new InteractionManager<WorldInteraction>();
+        this._worldInteractionManager = new WorldInteractionManager();
         this._sea = new Sea();
         this._submarine = new Submarine();
         this._sky = new Sky();

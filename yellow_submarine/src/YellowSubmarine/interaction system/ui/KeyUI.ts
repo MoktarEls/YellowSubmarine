@@ -1,7 +1,7 @@
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 
-export class KeyboardKeyUI extends UI{
+export class KeyUI extends UI{
 
     private _rectangle: Rectangle;
     private _textBlock: TextBlock;

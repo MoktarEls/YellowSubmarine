@@ -1,5 +1,6 @@
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {Observable} from "@babylonjs/core";
+import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class AbstractInteraction {
 
@@ -56,19 +57,21 @@ export abstract class AbstractInteraction {
 
     public start(){
         this._onBeforeStartObservable.notifyObservers();
-        this._onStart();
+        this._start();
         this._onAfterStartObservable.notifyObservers();
     }
 
-    protected end(){
-        this._onBeforeEndObservable.notifyObservers();
-        this._onEnd();
-        this._onAfterEndObservable.notifyObservers();
+    protected endOnNextFrame(){
+        Game.scene.onBeforeRenderObservable.addOnce(() => {
+            this._onBeforeEndObservable.notifyObservers();
+            this._end();
+            this._onAfterEndObservable.notifyObservers();
+        });
     }
 
     protected abstract _onAvailable(): void;
     protected abstract _onUnavailable(): void;
-    protected abstract _onStart(): void;
-    protected abstract _onEnd(): void;
+    protected abstract _start(): void;
+    protected abstract _end(): void;
 
 }
