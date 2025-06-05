@@ -1,5 +1,5 @@
 ﻿import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
-import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
+import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {AbstractMesh} from "@babylonjs/core";
 
 export class StartConversationInteraction extends WorldInteraction{
@@ -9,7 +9,7 @@ export class StartConversationInteraction extends WorldInteraction{
     }
 
     constructor(private _conversation: Conversation) {
-        super("KeyE", "E");
+        super();
     }
 
     executeInteraction(): void {

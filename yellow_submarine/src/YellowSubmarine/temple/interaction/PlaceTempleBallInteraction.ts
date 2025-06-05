@@ -1,4 +1,4 @@
-import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
+import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {AbstractMesh} from "@babylonjs/core";
 import {Submarine} from "@/YellowSubmarine/Submarine";
