@@ -13,4 +13,10 @@ export class SizeTag extends BBTag {
         return newStyle;
     }
 
+    onClose(style: BBStyle): BBStyle {
+        const newStyle = { ...style };
+        delete newStyle.size;
+        return newStyle;
+    }
+
 }

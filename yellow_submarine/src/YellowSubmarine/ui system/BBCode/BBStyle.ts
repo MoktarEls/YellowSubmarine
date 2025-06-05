@@ -4,3 +4,5 @@
     color?: string;
     size?: number;
 }
+
+// TODO : Retirer cette interface, ne respecte pas OCP

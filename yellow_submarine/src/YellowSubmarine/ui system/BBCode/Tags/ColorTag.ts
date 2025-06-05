@@ -6,4 +6,10 @@ export class ColorTag extends BBTag {
         return {...style, color: this.param || style.color};
     }
 
+    onClose(style: BBStyle): BBStyle {
+        const newStyle = { ...style };
+        delete newStyle.color;
+        return newStyle;
+    }
+
 }

@@ -1,21 +1,24 @@
-﻿import {BBStyle} from "@/YellowSubmarine/ui system/BBCode/BBStyle";
-import {BBTag} from "@/YellowSubmarine/ui system/BBCode/BBTag";
-import {ItalicTag} from "@/YellowSubmarine/ui system/BBCode/Tags/ItalicTag";
-import {BoldTag} from "@/YellowSubmarine/ui system/BBCode/Tags/BoldTag";
-import {ColorTag} from "@/YellowSubmarine/ui system/BBCode/Tags/ColorTag";
-import {SizeTag} from "@/YellowSubmarine/ui system/BBCode/Tags/SizeTag";
+﻿import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
+import { BBTag } from "@/YellowSubmarine/ui system/BBCode/BBTag";
+import { ItalicTag } from "@/YellowSubmarine/ui system/BBCode/Tags/ItalicTag";
+import { BoldTag } from "@/YellowSubmarine/ui system/BBCode/Tags/BoldTag";
+import { ColorTag } from "@/YellowSubmarine/ui system/BBCode/Tags/ColorTag";
+import { SizeTag } from "@/YellowSubmarine/ui system/BBCode/Tags/SizeTag";
+import { BBContext } from "./BBContext";
 
-interface Segment { text: string; style: BBStyle; }
+interface Segment {
+    text: string;
+    style: BBStyle;
+}
 
 export class BBParser {
-
     private _registry = new Map<string, new (param?: string) => BBTag>();
 
     constructor() {
         this.initRegistry();
     }
 
-    private initRegistry(): void{
+    private initRegistry(): void {
         this._registry.set("i", ItalicTag);
         this._registry.set("g", BoldTag);
         this._registry.set("c", ColorTag);
@@ -24,49 +27,47 @@ export class BBParser {
 
     public parseBBCode(input: string): Segment[] {
         const segments: Segment[] = [];
-        const tagStack: BBTag[] = [];
-        const styleStack: BBStyle[] = [];
+        const context = new BBContext();
 
         let cursor = 0;
-        let currentStyle: BBStyle = {};
-
         const regex = /\[\/?([a-z]+)(?:=([^\]]+))?\]/ig;
         let match: RegExpExecArray | null;
 
         while ((match = regex.exec(input))) {
             const [full, name, param] = match;
             const isClosing = full.startsWith("[/");
-            const idx = match.index;
+            const index = match.index;
 
-            // 1) Texte avant le tag
-            if (idx > cursor) {
-                segments.push({ text: input.slice(cursor, idx), style: { ...currentStyle } });
+            if (index > cursor) {
+                segments.push({
+                    text: input.slice(cursor, index),
+                    style: { ...context.currentStyle }
+                });
             }
-            cursor = idx + full.length;
 
-            if (!isClosing) {
-                const TagClass = this._registry.get(name);
-                if (TagClass) {
-                    const tagInstance = new TagClass(param);
-                    tagStack.push(tagInstance);
-                    styleStack.push({ ...currentStyle }); // snapshot du style
-                    currentStyle = tagInstance.onOpen(currentStyle);
-                }
-            } else {
-                const last = tagStack.pop();
-                const previousStyle = styleStack.pop();
-                if (last && previousStyle) {
-                    currentStyle = previousStyle; // restore snapshot
-                }
-            }
+            cursor = index + full.length;
+            this.processTag(name, param, isClosing, context);
         }
 
         if (cursor < input.length) {
-            segments.push({ text: input.slice(cursor), style: { ...currentStyle } });
+            segments.push({
+                text: input.slice(cursor),
+                style: { ...context.currentStyle }
+            });
         }
 
         return segments;
     }
 
-
+    private processTag(name: string, param: string | undefined, isClosing: boolean, context: BBContext): void {
+        if (!isClosing) {
+            const TagClass = this._registry.get(name);
+            if (TagClass) {
+                const tag = new TagClass(param);
+                context.openTag(tag);
+            }
+        } else {
+            context.closeTag();
+        }
+    }
 }

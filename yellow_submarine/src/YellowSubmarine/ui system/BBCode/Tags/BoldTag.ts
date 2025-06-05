@@ -6,4 +6,10 @@ export class BoldTag extends BBTag {
         return {...style, bold: true};
     }
 
+    onClose(style: BBStyle): BBStyle {
+        const newStyle = { ...style };
+        delete newStyle.bold;
+        return newStyle;
+    }
+
 }
