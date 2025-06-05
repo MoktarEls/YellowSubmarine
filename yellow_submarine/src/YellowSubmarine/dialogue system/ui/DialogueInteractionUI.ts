@@ -61,7 +61,7 @@ export class DialogueInteractionUI extends UI {
 
         this._textAnimator = new TextAnimator();
 
-        Conversation.onAnyConversationStart.add((conv) => {
+        Conversation.onBeforeAnyConversationStartObservable.add((conv) => {
             this._container.isVisible = true;
             if (conv.conversationProvider?.mesh) {
                 this._container.linkWithMesh(conv.conversationProvider.mesh);
@@ -69,7 +69,7 @@ export class DialogueInteractionUI extends UI {
             }
         });
 
-        Conversation.onAnyConversationEnd.add(() => {
+        Conversation.onBeforeAnyConversationEndObservable.add(() => {
             this._stopBlink();
             this._container.isVisible = false;
         });
@@ -117,7 +117,7 @@ export class DialogueInteractionUI extends UI {
         this._textAnimator.resetAdvance();
         this._verticalStack.clearControls();
 
-        const advanceObserver = Conversation.onAdvanceDialogueRequested.add(() => {
+        const advanceObserver = Conversation.onAdvanceDialogueRequestedObservable.add(() => {
             this._textAnimator.requestAdvance();
         });
 
@@ -158,7 +158,7 @@ export class DialogueInteractionUI extends UI {
         }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
-        Conversation.onAdvanceDialogueRequested.remove(advanceObserver);
+        Conversation.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
         await this._startBlink();
     }
 

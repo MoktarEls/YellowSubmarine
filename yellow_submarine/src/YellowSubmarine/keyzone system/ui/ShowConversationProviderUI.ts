@@ -8,8 +8,8 @@ import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
-import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
-import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
+import {SwitchDialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
+import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
 import {World} from "@/YellowSubmarine/World";
 
 export class ShowConversationProviderUI extends UI{
@@ -23,15 +23,15 @@ export class ShowConversationProviderUI extends UI{
         this._container.isVisible = true;
         KeyZone.onAnyKeyZoneEntered.add(this.createUIs.bind(this));
         KeyZone.onAnyKeyZoneExited.add(this.destroyUIs.bind(this));
-        Conversation.onAnyConversationStart.add(this.hideUIs.bind(this));
-        Conversation.onAnyConversationEnd.add(this.showUIs.bind(this));
+        Conversation.onBeforeAnyConversationStartObservable.add(this.hideUIs.bind(this));
+        Conversation.onBeforeAnyConversationEndObservable.add(this.showUIs.bind(this));
         World.instance.worldInteractionManager.onInteractionAvailable.add( (interaction) => {
-            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueInteraction ){
+            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
                 this.hideUIs();
             }
         });
         World.instance.worldInteractionManager.onInteractionUnavailable.add( (interaction) => {
-            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueInteraction ){
+            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
                 this.showUIs();
             }
         });
