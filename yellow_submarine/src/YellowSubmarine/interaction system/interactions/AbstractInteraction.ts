@@ -5,8 +5,10 @@ export abstract class AbstractInteraction {
 
     private _onAvailableObservable: Observable<void> = new Observable();
     private _onUnavailableObservable: Observable<void> = new Observable();
-    private _onStartObservable: Observable<void> = new Observable();
-    private _onEndObservable: Observable<void> = new Observable();
+    private _onBeforeStartObservable: Observable<void> = new Observable();
+    private _onAfterStartObservable: Observable<void> = new Observable();
+    private _onBeforeEndObservable: Observable<void> = new Observable();
+    private _onAfterEndObservable: Observable<void> = new Observable();
 
     get code(): string {
         return this._code;
@@ -24,23 +26,23 @@ export abstract class AbstractInteraction {
         return this._onUnavailableObservable;
     }
 
-    get onStartObservable(): Observable<void> {
-        return this._onStartObservable;
+    get onBeforeStartObservable(): Observable<void> {
+        return this._onBeforeStartObservable;
     }
 
-    get onEndObservable(): Observable<void> {
-        return this._onEndObservable;
+    get onAfterStartObservable(): Observable<void> {
+        return this._onAfterStartObservable;
     }
 
-    protected constructor(private _interactionManager: InteractionManager, protected _code: string, protected _simplifiedCode: string) {}
-
-    public makeAvailable(){
-        this._interactionManager.addToAvailableInteraction(this);
+    get onBeforeEndObservable(): Observable<void> {
+        return this._onBeforeEndObservable;
     }
 
-    public makeUnavailable(){
-        this._interactionManager.removeFromAvailableInteraction(this);
+    get onAfterEndObservable(): Observable<void> {
+        return this._onAfterEndObservable;
     }
+
+    protected constructor(protected _code: string, protected _simplifiedCode: string) {}
 
     public onAvailable(){
         this._onAvailable();
@@ -52,14 +54,14 @@ export abstract class AbstractInteraction {
         this._onUnavailableObservable.notifyObservers();
     }
 
-    public onStart(){
+    public start(){
         this._onStart();
-        this._onStartObservable.notifyObservers();
+        this._onBeforeStartObservable.notifyObservers();
     }
 
-    public onEnd(){
+    protected end(){
         this._onEnd();
-        this._onEndObservable.notifyObservers();
+        this._onBeforeEndObservable.notifyObservers();
     }
 
     protected abstract _onAvailable(): void;
