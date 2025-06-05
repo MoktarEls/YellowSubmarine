@@ -1,6 +1,6 @@
 ﻿export abstract class AbstractDialogueNode {
 
-    private _text = "";
+    private _text = "NO TEXT";
     private _nextNode: AbstractDialogueNode | undefined = undefined;
 
     public get text() : string {

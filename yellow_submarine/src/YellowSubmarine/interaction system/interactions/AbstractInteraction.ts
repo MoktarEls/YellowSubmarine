@@ -1,4 +1,3 @@
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {Observable} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 

@@ -8,6 +8,7 @@ import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCa
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Player} from "@/YellowSubmarine/Player";
 import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {Game} from "@/YellowSubmarine/Game";
 
 export class TemplePuzzle {
     private _upperRightSocle: Socle;
@@ -64,7 +65,7 @@ export class TemplePuzzle {
             ConfigurableCamera.instance.cameraConfiguration = this._cameraConfiguration;
         });
         this._detectionZone.onMeshExit.add(() => {
-            ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
+            ConfigurableCamera.instance.cameraConfiguration = Game.player.playerCameraConfiguration;
         })
         Submarine.instance.meshCreationPromise.then((mesh) => {
             this._detectionZone.addMeshToDetect(mesh);

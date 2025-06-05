@@ -79,10 +79,10 @@ export class TempleBall {
         this._detectionZone.onMeshEnter.add(() => {
             if(Grappler.instance.hasAnObjectGrappled || this._socle) return
 
-            this._grappleInteraction.makeAvailable();
+            // this._grappleInteraction.makeAvailable();
         })
         this._detectionZone.onMeshExit.add(() => {
-            this._grappleInteraction.makeUnavailable();
+            // this._grappleInteraction.makeUnavailable();
         })
     }
 

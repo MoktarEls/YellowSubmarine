@@ -325,19 +325,19 @@ export class Submarine {
 
 
     private isForwardPressed() {
-        return Player.isMoveForwardPressed();
+        return Game.player.isMoveForwardPressed();
     }
 
     private isBackwardPressed() {
-        return Player.isMoveBackwardPressed();
+        return Game.player.isMoveBackwardPressed();
     }
 
     private isRightPressed() {
-        return Player.isTurnRightPressed();
+        return Game.player.isTurnRightPressed();
     }
 
     private isLeftPressed() {
-        return Player.isTurnLeftPressed();
+        return Game.player.isTurnLeftPressed();
     }
 
 

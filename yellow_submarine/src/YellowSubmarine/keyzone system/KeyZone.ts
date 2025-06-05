@@ -62,7 +62,7 @@ export class KeyZone {
     public set mesh(value: AbstractMesh) {
         this._mesh = value;
         this._detectionZone.zone.parent = this._mesh;
-        World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
+        World.instance.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
             this.detectionZone.addMeshToDetect(mesh);
         });
     }

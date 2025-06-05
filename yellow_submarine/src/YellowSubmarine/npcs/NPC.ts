@@ -75,8 +75,8 @@ export class NPC implements IConversationProvider {
             this._conversation.conversationProvider = this;
 
             this._conversation?.onConversationEnd.add( () =>  {
-                if(this._playerDetectionZone?.isInZone(World.submarine.mesh)){
-                    this._startConversationInteraction?.makeAvailable();
+                if(this._playerDetectionZone?.isInZone(World.instance.submarine.mesh)){
+                    // this._startConversationInteraction?.makeAvailable();
                 }
             });
 
@@ -94,17 +94,17 @@ export class NPC implements IConversationProvider {
         if(this._playerDetectionZone){
             this._playerDetectionZone.onMeshEnter.add( () => {
                 if(this._startConversationInteraction && !this._conversation?.isInProgress()){
-                    this._startConversationInteraction.makeAvailable();
+                    // this._startConversationInteraction.makeAvailable();
                 }
             } );
 
             this._playerDetectionZone.onMeshExit.add( () => {
                 if(this._startConversationInteraction){
-                    this._startConversationInteraction.makeUnavailable();
+                    // this._startConversationInteraction.makeUnavailable();
                 }
             } );
 
-            World.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
+            World.instance.submarine.meshCreationPromise.then((mesh: AbstractMesh) => {
                 if(this._playerDetectionZone){
                     this._playerDetectionZone.addMeshToDetect(mesh);
                 }

@@ -54,12 +54,12 @@ export class Stele implements IConversationProvider {
         if(this._steleInteractionZone) {
             this._steleInteractionZone.onMeshEnter.add(() => {
                 if (this._startConversationInteraction) {
-                    this._startConversationInteraction.makeAvailable();
+                    // this._startConversationInteraction.makeAvailable();
                 }
             })
             this._steleInteractionZone.onMeshExit.add(() => {
                 if(this._startConversationInteraction) {
-                    this._startConversationInteraction.makeUnavailable();
+                    // this._startConversationInteraction.makeUnavailable();
                 }
             })
             Submarine.instance.meshCreationPromise.then((mesh) => {

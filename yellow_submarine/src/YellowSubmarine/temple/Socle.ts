@@ -116,19 +116,19 @@ export class Socle{
     }
 
     private makeInteractionAvailable(){
-        this._placeTempleBallInteraction.makeUnavailable();
+/*        this._placeTempleBallInteraction.makeUnavailable();
         this._removeTempleBallInteraction.makeUnavailable();
         if(this._currentBall && !Submarine.instance.templeBall){
             this._removeTempleBallInteraction.makeAvailable();
         }
         else if(!this._currentBall && Submarine.instance.templeBall){
             this._placeTempleBallInteraction.makeAvailable();
-        }
+        }*/
     }
 
     private makeInteractionUnavailable(){
-        this._placeTempleBallInteraction.makeUnavailable();
-        this._removeTempleBallInteraction.makeUnavailable();
+/*        this._placeTempleBallInteraction.makeUnavailable();
+        this._removeTempleBallInteraction.makeUnavailable();*/
     }
 
 }

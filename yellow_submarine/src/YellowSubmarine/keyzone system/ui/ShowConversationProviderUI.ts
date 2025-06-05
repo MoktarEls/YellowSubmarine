@@ -10,6 +10,7 @@ import {
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
 import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
+import {World} from "@/YellowSubmarine/World";
 
 export class ShowConversationProviderUI extends UI{
 
@@ -24,12 +25,12 @@ export class ShowConversationProviderUI extends UI{
         KeyZone.onAnyKeyZoneExited.add(this.destroyUIs.bind(this));
         Conversation.onAnyConversationStart.add(this.hideUIs.bind(this));
         Conversation.onAnyConversationEnd.add(this.showUIs.bind(this));
-        InteractionManager.instance.onInteractionAvailable.add( (interaction) => {
+        World.instance.worldInteractionManager.onInteractionAvailable.add( (interaction) => {
             if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueInteraction ){
                 this.hideUIs();
             }
         });
-        InteractionManager.instance.onInteractionUnavailable.add( (interaction) => {
+        World.instance.worldInteractionManager.onInteractionUnavailable.add( (interaction) => {
             if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueInteraction ){
                 this.showUIs();
             }

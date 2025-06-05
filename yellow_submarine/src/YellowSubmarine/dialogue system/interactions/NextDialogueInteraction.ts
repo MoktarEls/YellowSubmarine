@@ -9,7 +9,19 @@ export class NextDialogueInteraction extends DialogueInteraction{
         super("Space", "_");
     }
 
-    executeInteraction(): void {
+    get mesh(): AbstractMesh | undefined {
+        return this._conversation.conversationProvider?.mesh;
+    }
+
+    protected _onAvailable(): void {
+        return;
+    }
+
+    protected _onUnavailable(): void {
+        return;
+    }
+
+    protected _start(): void {
         if(!DialogueInteractionUI.isTextFullyDisplayed){
             Conversation.onAdvanceDialogueRequested.notifyObservers();
             return;
@@ -17,8 +29,7 @@ export class NextDialogueInteraction extends DialogueInteraction{
         this._conversation.next();
     }
 
-    get mesh(): AbstractMesh | undefined {
-        return this._conversation.conversationProvider?.mesh;
+    protected _end(): void {
+        return;
     }
-
 }

@@ -43,12 +43,12 @@ export class Game{
         return Game._instance._isGameFocused;
     }
 
+    public static get player(): Player {
+        return Game._instance._player;
+    }
+
     public async init(): Promise<void> {
         await this._world.init();
-        this._player = new Player();
-        this._soundManager = new SoundManager();
-        this._uiManager = new UIManager(this._canvas);
-        this._questManager = new QuestManager();
     }
 
 
@@ -60,6 +60,10 @@ export class Game{
         this._scene.enablePhysics(new Vector3(0,-9.81,0), _havok);
         this._camera = new ConfigurableCamera();
         this._world = new World();
+        this._player = new Player();
+        this._soundManager = new SoundManager();
+        this._uiManager = new UIManager(this._canvas);
+        this._questManager = new QuestManager();
 
         document.addEventListener("pointerlockchange", () => {
             this.updateFocusState(document.pointerLockElement === _canvas);

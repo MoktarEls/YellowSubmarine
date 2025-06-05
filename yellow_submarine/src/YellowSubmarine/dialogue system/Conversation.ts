@@ -4,12 +4,16 @@ import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interac
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {Player} from "@/YellowSubmarine/Player";
 import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {Game} from "@/YellowSubmarine/Game";
+import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
+import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
 
 export class Conversation {
 
     private _onEnding = (): void => {return};
 
+    private _dialogueInteractionManager: InteractionManager<DialogueInteraction> = new InteractionManager<DialogueInteraction>();
     private _conversationProvider?: IConversationProvider;
     private _hasBeenRead = false;
 
@@ -61,7 +65,7 @@ export class Conversation {
         this.onConversationStart.notifyObservers(this);
         Conversation.onAnyConversationStart.notifyObservers(this);
         this.enterNode(<AbstractDialogueNode>this._currentNode);
-        this._nextInteraction.makeAvailable();
+        // this._nextInteraction.makeAvailable();
         const cameraConfiguration = this._conversationProvider?.cameraConfiguration
         if(cameraConfiguration) {
             ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
@@ -79,10 +83,9 @@ export class Conversation {
 
     private endConversation() {
         this._currentNode = undefined;
-        this._nextInteraction.makeUnavailable();
         this.onConversationEnd.notifyObservers(this);
         Conversation.onAnyConversationEnd.notifyObservers(this);
-        ConfigurableCamera.instance.cameraConfiguration = Player.playerCameraConfiguration;
+        ConfigurableCamera.instance.cameraConfiguration = Game.player.playerCameraConfiguration;
         if(!this._hasBeenRead) this._onEnding();
         this._hasBeenRead = true;
     }
