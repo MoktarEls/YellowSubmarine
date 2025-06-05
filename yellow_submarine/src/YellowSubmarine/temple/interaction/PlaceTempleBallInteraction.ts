@@ -17,14 +17,6 @@ export class PlaceTempleBallInteraction extends WorldInteraction{
         return this._socle.mesh;
     }
 
-    protected _onAvailable(): void {
-        return;
-    }
-
-    protected _onUnavailable(): void {
-        return;
-    }
-
     protected _start(): void {
         const templeBall = Submarine.instance.templeBall;
         if(templeBall) {
@@ -33,10 +25,6 @@ export class PlaceTempleBallInteraction extends WorldInteraction{
             Submarine.instance.letGoOfBall();
         }
         this.endOnNextFrame();
-    }
-
-    protected _end(): void {
-        return;
     }
 
 }

@@ -26,20 +26,9 @@ export class GrappleInteraction extends WorldInteraction{
         return this._grabbableObject.mesh;
     }
 
-    protected _onAvailable(): void {
-        return;
-    }
-    protected _onUnavailable(): void {
-        return;
-    }
-
     protected _start(): void {
         Grappler.instance.grappleObject(this._grabbableObject);
         this.endOnNextFrame();
-    }
-
-    protected _end(): void {
-        return;
     }
 
 

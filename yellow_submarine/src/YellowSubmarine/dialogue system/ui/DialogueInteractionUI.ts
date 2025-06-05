@@ -1,6 +1,6 @@
 ﻿import { UI } from "@/YellowSubmarine/ui system/UI";
 import { Control, Rectangle, Image, StackPanel } from "@babylonjs/gui";
-import { Conversation } from "@/YellowSubmarine/dialogue system/Conversation";
+import { Dialogue } from "@/YellowSubmarine/dialogue system/Dialogue";
 import { Utils } from "@/YellowSubmarine/Utils";
 import { TextLayoutManager } from "@/YellowSubmarine/ui system/TextLayoutManager";
 import {TextAnimator} from "@/YellowSubmarine/ui system/TextAnimator";
@@ -61,20 +61,20 @@ export class DialogueInteractionUI extends UI {
 
         this._textAnimator = new TextAnimator();
 
-        Conversation.onBeforeAnyConversationStartObservable.add((conv) => {
+        Dialogue.onBeforeAnyDialogueStartObservable.add((conv) => {
             this._container.isVisible = true;
-            if (conv.conversationProvider?.mesh) {
-                this._container.linkWithMesh(conv.conversationProvider.mesh);
+            if (conv.dialogueProvider?.mesh) {
+                this._container.linkWithMesh(conv.dialogueProvider.mesh);
                 this._container.linkOffsetY = this.CONTAINER_OFFSET_Y;
             }
         });
 
-        Conversation.onBeforeAnyConversationEndObservable.add(() => {
+        Dialogue.onBeforeAnyDialogueEndObservable.add(() => {
             this._stopBlink();
             this._container.isVisible = false;
         });
 
-        Conversation.onAnyDialogueStart.add((dialog) =>
+        Dialogue.onAnyDialogueStart.add((dialog) =>
             this.showText(dialog.text, this.TEXT_SPEED)
         );
     }
@@ -117,7 +117,7 @@ export class DialogueInteractionUI extends UI {
         this._textAnimator.resetAdvance();
         this._verticalStack.clearControls();
 
-        const advanceObserver = Conversation.onAdvanceDialogueRequestedObservable.add(() => {
+        const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
             this._textAnimator.requestAdvance();
         });
 
@@ -158,7 +158,7 @@ export class DialogueInteractionUI extends UI {
         }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
-        Conversation.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
+        Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
         await this._startBlink();
     }
 

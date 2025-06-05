@@ -1,16 +1,16 @@
 ﻿import {AbstractInteraction} from "@/YellowSubmarine/interaction system/interactions/AbstractInteraction";
 import {AbstractMesh} from "@babylonjs/core";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
 export abstract class DialogueNodeInteraction extends AbstractInteraction{
 
     public abstract get mesh():AbstractMesh | undefined;
 
-    public get conversation(): Conversation{
+    public get conversation(): Dialogue{
         return this._conversation;
     }
 
-    constructor(protected _conversation: Conversation, code: string, simplifiedCode: string){
+    constructor(protected _conversation: Dialogue, code?: string, simplifiedCode?: string){
         super(code, simplifiedCode);
     }
 

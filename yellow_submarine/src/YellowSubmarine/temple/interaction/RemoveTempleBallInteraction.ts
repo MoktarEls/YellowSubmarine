@@ -17,14 +17,6 @@ export class RemoveTempleBallInteraction extends WorldInteraction{
         return this._socle.mesh;
     }
 
-    protected _onAvailable(): void {
-        return;
-    }
-
-    protected _onUnavailable(): void {
-        return;
-    }
-
     protected _start(): void {
         const templeBall = this._socle.currentBall;
         if(templeBall && !Submarine.instance.templeBall){
@@ -34,11 +26,5 @@ export class RemoveTempleBallInteraction extends WorldInteraction{
         }
         this.endOnNextFrame();
     }
-
-    protected _end(): void {
-        return;
-    }
-
-
 
 }

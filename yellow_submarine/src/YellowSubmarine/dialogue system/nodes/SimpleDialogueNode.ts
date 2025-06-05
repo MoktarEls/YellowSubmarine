@@ -14,10 +14,6 @@ export class SimpleDialogueNode extends AbstractDialogueNode{
         return this._nextNode;
     }
 
-    public set nextNode(value: AbstractDialogueNode | undefined) {
-        this._nextNode = value;
-    }
-
     public isFinal(): boolean {
         return this.nextNode === undefined;
     }
@@ -34,10 +30,10 @@ export class SimpleDialogueNode extends AbstractDialogueNode{
         this._interactionManager = new InteractionManager<DialogueNodeInteraction>();
         const nextNode = this.nextNode;
         if(nextNode) {
-            this._interactionManager.addToAvailableInteraction(new SwitchDialogueNodeInteraction(nextNode, this._conversation, "Space", "_"));
+            this._interactionManager.addToAvailableInteraction(new SwitchDialogueNodeInteraction(nextNode, this._dialogue, "Space", "_"));
         }
         else{
-            this._interactionManager.addToAvailableInteraction(new EndConversationInteraction(this._conversation, "Space", "_"));
+            this._interactionManager.addToAvailableInteraction(new EndConversationInteraction(this._dialogue, "Space", "_"));
         }
     }
 

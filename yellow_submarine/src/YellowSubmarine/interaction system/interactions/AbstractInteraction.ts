@@ -42,7 +42,14 @@ export abstract class AbstractInteraction {
         return this._onAfterEndObservable;
     }
 
-    protected constructor(protected _code: string, protected _simplifiedCode: string) {}
+    protected _code: string;
+
+    protected _simplifiedCode: string;
+
+    protected constructor(code?: string, simplifiedCode?: string) {
+        this._code = code ?? "";
+        this._simplifiedCode = simplifiedCode ?? "";
+    }
 
     public onAvailable(){
         this._onAvailable();
@@ -68,9 +75,15 @@ export abstract class AbstractInteraction {
         });
     }
 
-    protected abstract _onAvailable(): void;
-    protected abstract _onUnavailable(): void;
+    protected _onAvailable(): void{
+        return;
+    }
+    protected _onUnavailable(): void{
+        return;
+    }
     protected abstract _start(): void;
-    protected abstract _end(): void;
+    protected _end(): void{
+        return;
+    }
 
 }

@@ -1,12 +1,12 @@
 import {AbstractMesh} from "@babylonjs/core";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 
-export interface IConversationProvider {
+export interface IDialogueProvider {
 
     get name(): string;
     get mesh(): AbstractMesh | undefined;
-    get conversation(): Conversation | undefined;
+    get conversation(): Dialogue | undefined;
     get cameraConfiguration(): CameraConfiguration | undefined;
 
 }

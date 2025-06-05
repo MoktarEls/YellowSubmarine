@@ -1,4 +1,4 @@
-﻿import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+﻿import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {AbstractMesh} from "@babylonjs/core";
 
@@ -8,29 +8,17 @@ export class StartConversationInteraction extends WorldInteraction{
         return `Parler`;
     }
 
-    constructor(private _conversation: Conversation) {
+    constructor(private _conversation: Dialogue) {
         super();
     }
 
     get mesh(): AbstractMesh | undefined {
-        return this._conversation.conversationProvider?.mesh;
-    }
-
-    protected _onAvailable(): void {
-        return
-    }
-
-    protected _onUnavailable(): void {
-        return;
+        return this._conversation.dialogueProvider?.mesh;
     }
 
     protected _start(): void {
-        this._conversation.startConversation();
+        this._conversation.startDialogue();
         this.endOnNextFrame();
-    }
-
-    protected _end(): void {
-        return;
     }
 
 }

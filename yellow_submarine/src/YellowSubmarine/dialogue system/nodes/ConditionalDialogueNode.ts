@@ -1,13 +1,14 @@
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
-export class ConditionalDialogueNode extends AbstractDialogueNode {
+export class ConditionalDialogueNode extends SimpleDialogueNode {
 
     private _trueNode: AbstractDialogueNode | undefined;
     private _falseNode: AbstractDialogueNode | undefined;
 
-    constructor(private _condition: () => boolean) {
-        super();
+    constructor(dialogue: Dialogue, private _condition: () => boolean) {
+        super(dialogue);
     }
 
     public set trueNode(node: AbstractDialogueNode | undefined) {
@@ -34,13 +35,7 @@ export class ConditionalDialogueNode extends AbstractDialogueNode {
         return;
     }
 
-    isFinal(): boolean {
-        return this.getNextNode() === undefined;
-    }
-
-    private getNextNode(): AbstractDialogueNode | undefined {
+    get nextNode(): AbstractDialogueNode | undefined {
         return this._condition() ? this._trueNode : this._falseNode;
     }
-
-
 }

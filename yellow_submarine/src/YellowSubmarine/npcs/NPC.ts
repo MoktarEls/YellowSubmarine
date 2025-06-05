@@ -1,18 +1,18 @@
 ﻿import {AbstractMesh, TransformNode} from "@babylonjs/core";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
 import {World} from "@/YellowSubmarine/World";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 
-export class NPC implements IConversationProvider {
+export class NPC implements IDialogueProvider {
 
     private _name = "undefined";
     private _mesh?: AbstractMesh;
-    private _conversation?: Conversation;
+    private _conversation?: Dialogue;
     private _startConversationInteraction?: StartConversationInteraction;
     private _playerDetectionZone?: MeshDetectionZone;
     private _cameraConfiguration?: CameraConfiguration;
@@ -64,17 +64,17 @@ export class NPC implements IConversationProvider {
         return this._playerDetectionZone;
     }
 
-    public get conversation(): Conversation | undefined {
+    public get conversation(): Dialogue | undefined {
         return this._conversation;
     }
 
-    public set conversation(conversation: Conversation | undefined) {
+    public set conversation(conversation: Dialogue | undefined) {
         if(conversation !== undefined) {
             this._startConversationInteraction = new StartConversationInteraction(conversation);
             this._conversation = conversation;
-            this._conversation.conversationProvider = this;
+            this._conversation.dialogueProvider = this;
 
-            this._conversation?.onBeforeConversationEndObservable.add( () =>  {
+            this._conversation?.onBeforeDialogueEndObservable.add( () =>  {
                 if(this._playerDetectionZone?.isInZone(World.instance.submarine.mesh)){
                     // this._startConversationInteraction?.makeAvailable();
                 }
@@ -84,7 +84,7 @@ export class NPC implements IConversationProvider {
         else{
             this._startConversationInteraction = undefined;
             if(this._conversation){
-                this._conversation.conversationProvider = undefined;
+                this._conversation.dialogueProvider = undefined;
             }
             this._conversation = undefined;
         }

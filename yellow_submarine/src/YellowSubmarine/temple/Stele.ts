@@ -1,20 +1,20 @@
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
-import {ConversationBuilder} from "@/YellowSubmarine/dialogue system/ConversationBuilder";
+import {DialogueBuilder} from "@/YellowSubmarine/dialogue system/DialogueBuilder";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
-import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 
-export class Stele implements IConversationProvider {
+export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
-    private _conversation!: Conversation;
+    private _conversation!: Dialogue;
     private _startConversationInteraction?: StartConversationInteraction
     private _cameraConfiguration!: CameraConfiguration;
 
@@ -27,7 +27,7 @@ export class Stele implements IConversationProvider {
         this._cameraConfiguration.distanceFromTarget = 20;
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
-        const conversationBuilder = new ConversationBuilder();
+        const conversationBuilder = new DialogueBuilder();
         conversationBuilder.say("La ligne du haut regarde les cieux")
             .then("La ligne du milieu respire l’air")
             .then("La ligne du bas touche la terre")
@@ -42,7 +42,7 @@ export class Stele implements IConversationProvider {
                     " - La ligne du bas touche la terre");
             })
         this.conversation = conversationBuilder.build();
-        this.conversation.conversationProvider = this;
+        this.conversation.dialogueProvider = this;
     }
 
     public get steleInteractionZone(): MeshDetectionZone {
@@ -68,11 +68,11 @@ export class Stele implements IConversationProvider {
         }
     }
 
-    public get conversation(): Conversation {
+    public get conversation(): Dialogue {
         return this._conversation;
     }
 
-    private set conversation(value: Conversation) {
+    private set conversation(value: Dialogue) {
         this._conversation = value;
         if(this._conversation) {
             this._startConversationInteraction = new StartConversationInteraction(this._conversation);

@@ -1,7 +1,7 @@
 ﻿import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {AbstractMesh, Observable, PhysicsAggregate} from "@babylonjs/core";
 import {World} from "@/YellowSubmarine/World";
-import {IConversationProvider} from "@/YellowSubmarine/dialogue system/IConversationProvider";
+import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class KeyZone {
@@ -12,7 +12,7 @@ export class KeyZone {
     private  _disabled = false;
     private _mesh!:AbstractMesh;
     private _physicsAggregate?: PhysicsAggregate;
-    private _conversationProviders: IConversationProvider[] = [];
+    private _conversationProviders: IDialogueProvider[] = [];
 
     public static readonly onAnyKeyZoneEntered: Observable<KeyZone> = new Observable();
     public static readonly onAnyKeyZoneExited: Observable<KeyZone> = new Observable();
@@ -78,11 +78,11 @@ export class KeyZone {
         this._physicsAggregate = physicsAggregate;
     }
 
-    public get conversationProviders(): IConversationProvider[] {
+    public get conversationProviders(): IDialogueProvider[] {
         return this._conversationProviders;
     }
 
-    public addConversationProvider(conversationProvider: IConversationProvider) {
+    public addConversationProvider(conversationProvider: IDialogueProvider) {
         this._conversationProviders.push(conversationProvider);
     }
 

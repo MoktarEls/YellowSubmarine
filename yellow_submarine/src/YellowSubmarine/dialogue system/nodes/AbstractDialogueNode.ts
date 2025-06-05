@@ -1,4 +1,4 @@
-﻿import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+﻿import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 
@@ -7,7 +7,7 @@ export abstract class AbstractDialogueNode {
     private _text = "NO TEXT";
     protected _interactionManager?: InteractionManager<DialogueNodeInteraction>;
 
-    constructor(protected _conversation: Conversation) {}
+    constructor(protected _dialogue: Dialogue) {}
 
     protected get text(): string {
         return this._text;

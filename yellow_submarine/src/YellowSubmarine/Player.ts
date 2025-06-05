@@ -3,7 +3,7 @@ import {Angle, KeyboardEventTypes, KeyboardInfo, Observable, PointerInfo, Scalar
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
 type CameraRotationInfo = {movementX: number, movementY: number};
 
@@ -32,8 +32,8 @@ export class Player {
         this.registerKeyboardInputs();
         this.registerPointerInputs();
         this.registerMouseWheelInputs();
-        Conversation.onBeforeAnyConversationStartObservable.add(() => this.disableMovement());
-        Conversation.onBeforeAnyConversationEndObservable.add(() => this.enableMovement());
+        Dialogue.onBeforeAnyDialogueStartObservable.add(() => this.disableMovement());
+        Dialogue.onBeforeAnyDialogueEndObservable.add(() => this.enableMovement());
     }
 
     public isMoveForwardPressed(): boolean {

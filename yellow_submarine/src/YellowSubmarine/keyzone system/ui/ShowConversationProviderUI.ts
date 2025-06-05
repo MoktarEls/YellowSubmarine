@@ -1,7 +1,7 @@
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Container, Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
-import {Conversation} from "@/YellowSubmarine/dialogue system/Conversation";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {
@@ -23,8 +23,8 @@ export class ShowConversationProviderUI extends UI{
         this._container.isVisible = true;
         KeyZone.onAnyKeyZoneEntered.add(this.createUIs.bind(this));
         KeyZone.onAnyKeyZoneExited.add(this.destroyUIs.bind(this));
-        Conversation.onBeforeAnyConversationStartObservable.add(this.hideUIs.bind(this));
-        Conversation.onBeforeAnyConversationEndObservable.add(this.showUIs.bind(this));
+        Dialogue.onBeforeAnyDialogueStartObservable.add(this.hideUIs.bind(this));
+        Dialogue.onBeforeAnyDialogueEndObservable.add(this.showUIs.bind(this));
         World.instance.worldInteractionManager.onInteractionAvailable.add( (interaction) => {
             if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
                 this.hideUIs();
