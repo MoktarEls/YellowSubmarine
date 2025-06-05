@@ -83,18 +83,22 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
 
     private selectInteractionAtIndex(index: number): TInteraction | undefined{
         this._selectedInteractionIndex = index;
-        if(this._selectedInteractionIndex >= this._availableInteractions.length){
-            this._selectedInteractionIndex = 0;
-        }
-        else if(this._selectedInteractionIndex < 0){
-            this._selectedInteractionIndex = this._availableInteractions.length - 1;
-        }
+        this.clampSelectedInteractionIndex();
 
         if(this._availableInteractions.length === 0){
             return undefined;
         }
         else{
             return this._availableInteractions[this._selectedInteractionIndex];
+        }
+    }
+
+    private clampSelectedInteractionIndex(){
+        if(this._selectedInteractionIndex >= this._availableInteractions.length){
+            this._selectedInteractionIndex = 0;
+        }
+        else if(this._selectedInteractionIndex < 0){
+            this._selectedInteractionIndex = this._availableInteractions.length - 1;
         }
     }
 
