@@ -7,8 +7,8 @@ export class ConditionalDialogueNode extends SimpleDialogueNode {
     private _trueNode: AbstractDialogueNode | undefined;
     private _falseNode: AbstractDialogueNode | undefined;
 
-    constructor(dialogue: Dialogue, private _condition: () => boolean) {
-        super(dialogue);
+    constructor(dialogue: Dialogue, text: string, private _condition: () => boolean) {
+        super(dialogue, text);
     }
 
     public set trueNode(node: AbstractDialogueNode | undefined) {

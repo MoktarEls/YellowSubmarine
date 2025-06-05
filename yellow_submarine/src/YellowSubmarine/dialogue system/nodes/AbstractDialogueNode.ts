@@ -4,18 +4,9 @@ import {InteractionManager} from "@/YellowSubmarine/interaction system/Interacti
 
 export abstract class AbstractDialogueNode {
 
-    private _text = "NO TEXT";
     protected _interactionManager?: InteractionManager<DialogueNodeInteraction>;
 
-    constructor(protected _dialogue: Dialogue) {}
-
-    protected get text(): string {
-        return this._text;
-    }
-
-    protected set text(value: string) {
-        this._text = value;
-    }
+    constructor(protected _dialogue: Dialogue, private _text = "NO TEXT") {}
 
     public abstract isFinal(): boolean;
 
@@ -33,9 +24,13 @@ export abstract class AbstractDialogueNode {
         return this._interactionManager;
     }
 
-    protected abstract _enter(): void;
+    protected _enter(){
+        return;
+    }
 
-    protected abstract _exit(): void;
+    protected _exit(){
+        return;
+    }
 
     protected abstract initializeInteractionManager(): void;
 

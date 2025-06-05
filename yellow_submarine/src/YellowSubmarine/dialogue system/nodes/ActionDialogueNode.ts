@@ -5,10 +5,9 @@ export class ActionDialogueNode extends SimpleDialogueNode{
 
     private readonly _executeOnEnter: boolean;
 
-    constructor(dialogue: Dialogue, private _action: () => void, executeOnEnter?: boolean) {
-        super(dialogue);
+    constructor(dialogue: Dialogue, text: string, private _action: () => void, executeOnEnter?: boolean) {
+        super(dialogue, text ?? "ACTION DIALOGUE NODE");
         this._executeOnEnter = executeOnEnter ?? false;
-        this.text = "ACTION DIALOGUE NODE";
     }
 
     public enter() {

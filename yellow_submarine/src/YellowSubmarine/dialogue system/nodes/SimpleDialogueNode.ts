@@ -5,25 +5,26 @@ import {
     SwitchDialogueNodeInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
 import {EndConversationInteraction} from "@/YellowSubmarine/dialogue system/interactions/EndConversationInteraction";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
 export class SimpleDialogueNode extends AbstractDialogueNode{
 
     private _nextNode: AbstractDialogueNode | undefined;
 
+    constructor(dialogue: Dialogue, text?: string) {
+        super(dialogue, text ?? "SIMPLE DIALOGUE NODE");
+    }
+
     public get nextNode(): AbstractDialogueNode | undefined {
         return this._nextNode;
     }
 
+    public set nextNode(value: AbstractDialogueNode | undefined) {
+        this._nextNode = value;
+    }
+
     public isFinal(): boolean {
         return this.nextNode === undefined;
-    }
-
-    _enter(): void {
-        return;
-    }
-
-    _exit(): void {
-        return;
     }
 
     protected initializeInteractionManager(): void {

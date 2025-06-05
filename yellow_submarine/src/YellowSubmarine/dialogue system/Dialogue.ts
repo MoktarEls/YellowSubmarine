@@ -7,9 +7,18 @@ import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProv
 import {Game} from "@/YellowSubmarine/Game";
 import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 
 
 export class Dialogue {
+
+    set rootNode(node: AbstractDialogueNode) {
+        this._rootNode = node;
+    }
+
+    get rootNode(): AbstractDialogueNode {
+        return this._rootNode;
+    }
 
     public static onBeforeAnyDialogueStartObservable: Observable<Dialogue> = new Observable();
     public static onAfterAnyDialogueStartObservable: Observable<Dialogue> = new Observable();
@@ -21,28 +30,14 @@ export class Dialogue {
     public onBeforeDialogueEndObservable: Observable<Dialogue> = new Observable();
     public onAfterDialogueEndObservable: Observable<Dialogue> = new Observable();
 
-    private _currentNode: AbstractDialogueNode | undefined = undefined;
+    private _rootNode!: AbstractDialogueNode;
+    private _currentNode: AbstractDialogueNode | undefined;
 
-    constructor(
-        private _dialogueProvider: IDialogueProvider,
-        private _rootNode: AbstractDialogueNode
-    ) {
+    constructor() {
         this.onBeforeDialogueStartObservable.add(() => Dialogue.onBeforeAnyDialogueStartObservable.notifyObservers(this) );
         this.onAfterDialogueStartObservable.add(() => Dialogue.onAfterAnyDialogueStartObservable.notifyObservers(this) );
         this.onBeforeDialogueEndObservable.add(() => Dialogue.onBeforeAnyDialogueEndObservable.notifyObservers(this) );
         this.onAfterDialogueEndObservable.add(() => Dialogue.onAfterAnyDialogueEndObservable.notifyObservers(this) );
-    }
-
-    public get dialogueProvider(): IDialogueProvider{
-        return this._dialogueProvider;
-    }
-
-    public get root(){
-        return this._rootNode;
-    }
-
-    public set root(value: AbstractDialogueNode){
-        this._rootNode = value;
     }
 
     public startDialogue(): void {
@@ -73,14 +68,15 @@ export class Dialogue {
     }
 
     public endDialogue() {
-    /*
+        /*
         this._currentNode = undefined;
         this.onConversationEnd.notifyObservers(this);
         Conversation.onAnyConversationEnd.notifyObservers(this);
         ConfigurableCamera.instance.cameraConfiguration = Game.player.playerCameraConfiguration;
         if(!this._hasBeenRead) this._onEnding();
         this._hasBeenRead = true;
-    */
+        */
+
     }
 
     public isInProgress(): boolean {

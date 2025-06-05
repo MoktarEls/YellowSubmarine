@@ -3,7 +3,6 @@ import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
-import {DialogueBuilder} from "@/YellowSubmarine/dialogue system/DialogueBuilder";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
@@ -11,6 +10,8 @@ import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProv
 import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
+import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
+import {DialogueBuilder} from "@/YellowSubmarine/dialogue system/DialogueBuilder";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -27,6 +28,21 @@ export class Stele implements IDialogueProvider {
         this._cameraConfiguration.distanceFromTarget = 20;
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
+        const dialogueBuilder = new DialogueBuilder()
+            .chainSimpleNode("La ligne du haut regarde les cieux")
+            .chainSimpleNode("La ligne du milieu respire l'air")
+            .chainSimpleNode("La ligne du bas touche la terre")
+            .chainActionNode("Logger un truc", () => console.log("UNN TRUUUUCCCC !!!"))
+            .chainConditionalNode("Dis de manière aléatoire soit oui soit non", () => Math.random() > 0.5)
+
+
+        dialogueBuilder.trueBuilder.chainSimpleNode("OUI");
+        dialogueBuilder.falseBuilder.chainSimpleNode("NON");
+
+        const dialogue = dialogueBuilder.trueBuilder.dialogue
+        dialogue.rootNode
+
+        /*
         const conversationBuilder = new DialogueBuilder();
         conversationBuilder.say("La ligne du haut regarde les cieux")
             .then("La ligne du milieu respire l’air")
@@ -42,7 +58,7 @@ export class Stele implements IDialogueProvider {
                     " - La ligne du bas touche la terre");
             })
         this.conversation = conversationBuilder.build();
-        this.conversation.dialogueProvider = this;
+        this.conversation.dialogueProvider = this;*/
     }
 
     public get steleInteractionZone(): MeshDetectionZone {

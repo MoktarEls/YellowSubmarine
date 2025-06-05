@@ -22,20 +22,12 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         return this._selectionInteractionManager;
     }
 
-    constructor(dialogue: Dialogue, private _choices: AbstractDialogueNode[]) {
-        super(dialogue);
+    constructor(dialogue: Dialogue, text: string, private _choices: AbstractDialogueNode[]) {
+        super(dialogue, text);
     }
 
-    isFinal(): boolean {
+    public isFinal(): boolean {
         return this._choices.length === 0;
-    }
-
-    protected _enter(): void {
-
-    }
-
-    protected _exit(): void {
-
     }
 
     protected initializeInteractionManager(): void {
@@ -49,7 +41,6 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         this._selectionInteractionManager.addToAvailableInteraction(new SelectPreviousInteraction(this._interactionManager,"ArrowLeft","←"));
         this._selectionInteractionManager.addToAvailableInteraction(new SelectPreviousInteraction(this._interactionManager,"Space","␣"));
         this._selectionInteractionManager.addToAvailableInteraction(new SelectNextInteraction(this._interactionManager,"ArrowRight","→"));
-
 
     }
 
