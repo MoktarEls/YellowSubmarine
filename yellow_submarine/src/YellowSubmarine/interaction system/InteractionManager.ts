@@ -4,52 +4,45 @@ import {Player} from "@/YellowSubmarine/Player";
 
 export class InteractionManager{
 
-    private static _instance: InteractionManager;
 
-    public static get instance(): InteractionManager {
-        return this._instance;
-    }
-
-    // private _interactionArray: Array<AbstractInteraction> = new Array<AbstractInteraction>();
+    private _availableInteractions: Array<AbstractInteraction> = new Array<AbstractInteraction>();
     private _currentInteraction?: AbstractInteraction;
 
-    public onInteractionAvailable: Observable<AbstractInteraction>;
-    public onInteractionUnavailable: Observable<AbstractInteraction>;
+    public _onInteractionAvailable: Observable<AbstractInteraction> = new Observable();
+    public _onInteractionUnavailable: Observable<AbstractInteraction> = new Observable();
 
-    constructor() {
-        InteractionManager._instance = this;
-        this.onInteractionAvailable = new Observable<AbstractInteraction>();
-        this.onInteractionUnavailable = new Observable<AbstractInteraction>();
-        Player.onPlayerPressedAKey.add( (eventData) => {
+    public _onBeforeInteractionStart: Observable<AbstractInteraction> = new Observable();
+    public _onAfterInteractionStart: Observable<AbstractInteraction> = new Observable();
 
-            if(
-                eventData.type === KeyboardEventTypes.KEYDOWN &&
-                this._currentInteraction &&
-                eventData.event.code === this._currentInteraction.code
-            ) {
-                this.executeInteraction();
-            }
-        } )
+    public _onBeforeInteractionEnd: Observable<AbstractInteraction> = new Observable();
+    public _onAfterInteractionEnd: Observable<AbstractInteraction> = new Observable();
+
+    public addToAvailableInteraction(interaction: AbstractInteraction){
+        throw new Error("Not implemented");
     }
 
-    public makeInteractionAvailable(interaction: AbstractInteraction){
-        if(this._currentInteraction) {
-            this.makeInteractionUnavailable(this._currentInteraction);
-        }
-        this._currentInteraction = interaction;
-        this.onInteractionAvailable.notifyObservers(interaction);
+    public removeFromAvailableInteraction(interaction: AbstractInteraction){
+        throw new Error("Not implemented");
     }
 
-    public makeInteractionUnavailable(interaction: AbstractInteraction){
-        this.onInteractionUnavailable.notifyObservers(interaction);
-        this._currentInteraction = undefined;
+    public selectNextInteraction(): AbstractInteraction | undefined {
+        throw new Error("Not implemented");
     }
 
-    public executeInteraction(){
-        const interaction = this._currentInteraction;
-        if(interaction){
-            interaction.executeInteraction();
-        }
+    public selectPreviousInteraction(): AbstractInteraction | undefined {
+        throw new Error("Not implemented");
+    }
+
+    public get selectedInteraction(): AbstractInteraction | undefined {
+        throw new Error("Not implemented");
+    }
+
+    public startSelectedInteraction(){
+        throw new Error("Not implemented");
+    }
+
+    public startInteraction(interaction: AbstractInteraction){
+        throw new Error("Not implemented");
     }
 
 }
