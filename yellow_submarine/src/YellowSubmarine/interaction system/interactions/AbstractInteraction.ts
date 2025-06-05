@@ -55,13 +55,15 @@ export abstract class AbstractInteraction {
     }
 
     public start(){
-        this._onStart();
         this._onBeforeStartObservable.notifyObservers();
+        this._onStart();
+        this._onAfterStartObservable.notifyObservers();
     }
 
     protected end(){
-        this._onEnd();
         this._onBeforeEndObservable.notifyObservers();
+        this._onEnd();
+        this._onAfterEndObservable.notifyObservers();
     }
 
     protected abstract _onAvailable(): void;
