@@ -11,7 +11,7 @@ import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-import {DialogueBuilder} from "@/YellowSubmarine/dialogue system/DialogueBuilder";
+import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeBuilder";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -28,10 +28,20 @@ export class Stele implements IDialogueProvider {
         this._cameraConfiguration.distanceFromTarget = 20;
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
-        const dialogueBuilder = new DialogueBuilder()
+        const dialogueBuilder = new DialogueNodeBuilder()
             .chainSimpleNode("La ligne du haut regarde les cieux")
             .chainSimpleNode("La ligne du milieu respire l'air")
             .chainSimpleNode("La ligne du bas touche la terre")
+            .chainActionNode("Mise à jour du journal et de la quête", () => {
+                let quest = QuestManager.instance.getQuest("temple_quest");
+                if(quest) quest.startQuest();
+                quest = QuestManager.instance.getQuest("dreamland");
+                if(quest) quest.updateCurrentStepStatus();
+                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("temple_quest"), "La stèle nous a donnés des informations sur les rangés : `\n" +
+                    " - La ligne du haut regarde les cieux \n" +
+                    " - La ligne du milieu respire l’air \n" +
+                    " - La ligne du bas touche la terre");
+            })
             .chainActionNode("Logger un truc", () => console.log("UNN TRUUUUCCCC !!!"))
             .chainConditionalNode("Dis de manière aléatoire soit oui soit non", () => Math.random() > 0.5)
 

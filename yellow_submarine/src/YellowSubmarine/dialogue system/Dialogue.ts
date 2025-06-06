@@ -12,32 +12,25 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 
 export class Dialogue {
 
-    set rootNode(node: AbstractDialogueNode) {
-        this._rootNode = node;
-    }
+    public static onAnyDialogueStartedObservable: Observable<Dialogue> = new Observable();
+    public static onAnyDialogueEndedObservable: Observable<Dialogue> = new Observable();
 
-    get rootNode(): AbstractDialogueNode {
+    public onDialogueStartedObservable: Observable<Dialogue> = new Observable();
+    public onDialogueEndedObservable: Observable<Dialogue> = new Observable();
+
+    private _currentNode: AbstractDialogueNode | undefined;
+
+    public get rootNode(): AbstractDialogueNode {
         return this._rootNode;
     }
 
-    public static onBeforeAnyDialogueStartObservable: Observable<Dialogue> = new Observable();
-    public static onAfterAnyDialogueStartObservable: Observable<Dialogue> = new Observable();
-    public static onBeforeAnyDialogueEndObservable: Observable<Dialogue> = new Observable();
-    public static onAfterAnyDialogueEndObservable: Observable<Dialogue> = new Observable();
+    public get dialogueProvider(): IDialogueProvider{
+        return this._dialogueProvider;
+    }
 
-    public onBeforeDialogueStartObservable: Observable<Dialogue> = new Observable();
-    public onAfterDialogueStartObservable: Observable<Dialogue> = new Observable();
-    public onBeforeDialogueEndObservable: Observable<Dialogue> = new Observable();
-    public onAfterDialogueEndObservable: Observable<Dialogue> = new Observable();
-
-    private _rootNode!: AbstractDialogueNode;
-    private _currentNode: AbstractDialogueNode | undefined;
-
-    constructor() {
-        this.onBeforeDialogueStartObservable.add(() => Dialogue.onBeforeAnyDialogueStartObservable.notifyObservers(this) );
-        this.onAfterDialogueStartObservable.add(() => Dialogue.onAfterAnyDialogueStartObservable.notifyObservers(this) );
-        this.onBeforeDialogueEndObservable.add(() => Dialogue.onBeforeAnyDialogueEndObservable.notifyObservers(this) );
-        this.onAfterDialogueEndObservable.add(() => Dialogue.onAfterAnyDialogueEndObservable.notifyObservers(this) );
+    constructor(private _rootNode: AbstractDialogueNode, private _dialogueProvider: IDialogueProvider) {
+        this.onDialogueStartedObservable.add(() => Dialogue.onAnyDialogueStartedObservable.notifyObservers(this) );
+        this.onDialogueEndedObservable.add(() => Dialogue.onAnyDialogueEndedObservable.notifyObservers(this) );
     }
 
     public startDialogue(): void {
@@ -52,22 +45,22 @@ export class Dialogue {
             ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
         }
         */
-        this.onBeforeDialogueStartObservable.notifyObservers(this);
-        this.switchNode(this._rootNode);
-        this.onAfterDialogueStartObservable.notifyObservers(this);
+        // TODO : Add the camera changing logic to the npc
+        const cameraConfiguration = this._dialogueProvider?.cameraConfiguration
+        if(cameraConfiguration) {
+            ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
+        }
+        this.advanceDialogue();
+        this.onDialogueStartedObservable.notifyObservers(this);
     }
 
-    public switchNode(newNode: AbstractDialogueNode){
-        if(this._currentNode){
-            this._currentNode.exit();
-        }
-        this._currentNode = newNode;
-        if(this._currentNode){
-            this._currentNode.enter();
+    public advanceDialogue(): void {
+        this._currentNode = this._currentNode ? this._currentNode?.next : this._rootNode;
+        if(!this._currentNode) {
         }
     }
 
-    public endDialogue() {
+    private endDialogue() {
         /*
         this._currentNode = undefined;
         this.onConversationEnd.notifyObservers(this);
@@ -76,7 +69,8 @@ export class Dialogue {
         if(!this._hasBeenRead) this._onEnding();
         this._hasBeenRead = true;
         */
-
+        ConfigurableCamera.instance.cameraConfiguration = Game.player.playerCameraConfiguration;
+        this.onDialogueEndedObservable.notifyObservers(this);
     }
 
     public isInProgress(): boolean {

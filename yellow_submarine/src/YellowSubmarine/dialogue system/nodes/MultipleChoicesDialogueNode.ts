@@ -1,47 +1,65 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
-import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
-import {
-    SwitchDialogueNodeInteraction
-} from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
-import {
-    InteractionManagerInteraction
-} from "@/YellowSubmarine/interaction system/interactions/special interactions/InteractionManagerInteraction";
-import {
-    SelectNextInteraction
-} from "@/YellowSubmarine/interaction system/interactions/special interactions/SelectNextInteraction";
-import {
-    SelectPreviousInteraction
-} from "@/YellowSubmarine/interaction system/interactions/special interactions/SelectPreviousInteraction";
-import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
+import {Observable} from "@babylonjs/core";
 
 export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
 
-    private _selectionInteractionManager?: InteractionManager<InteractionManagerInteraction<DialogueNodeInteraction>>;
-    public get selectionInteractionManager() {
-        return this._selectionInteractionManager;
+    private _choices: AbstractDialogueNode[] = [];
+    private _currentChoiceIndex = 0;
+
+    private _onChosenChildChangedObservable: Observable<AbstractDialogueNode> = new Observable<AbstractDialogueNode>();
+    private _onNoChildIsChosenObservable: Observable<void> = new Observable();
+
+    public get onChosenChildChangedObservable(){
+        return this._onChosenChildChangedObservable;
     }
 
-    constructor(dialogue: Dialogue, text: string, private _choices: AbstractDialogueNode[]) {
-        super(dialogue, text);
+    public get onNoChildIsChosenObservable(){
+        return this._onNoChildIsChosenObservable;
     }
 
-    public isFinal(): boolean {
-        return this._choices.length === 0;
+    constructor(text: string) {
+        super(text);
     }
 
-    protected initializeInteractionManager(): void {
-        this._interactionManager = new InteractionManager();
-        for (let i = 0; i < this._choices.length; i++) {
-            const choice = this._choices[i];
-            const switchNodeInteraction = new SwitchDialogueNodeInteraction(choice, this._dialogue, `Digit${i}`, `${i}`);
-            this._interactionManager.addToAvailableInteraction(switchNodeInteraction);
+    public addChoice(choice: AbstractDialogueNode): void {
+        this._choices.push(choice);
+    }
+
+    public updateChoice(newChoice: AbstractDialogueNode, index: number): void {
+        this._choices[index] = newChoice;
+    }
+
+    public choose(choice: AbstractDialogueNode) {
+        const currentChoice = this.next;
+        if(this._choices.includes(choice)) {
+            this._currentChoiceIndex = this._choices.indexOf(choice);
         }
-        this._selectionInteractionManager = new InteractionManager();
-        this._selectionInteractionManager.addToAvailableInteraction(new SelectPreviousInteraction(this._interactionManager,"ArrowLeft","←"));
-        this._selectionInteractionManager.addToAvailableInteraction(new SelectPreviousInteraction(this._interactionManager,"Space","␣"));
-        this._selectionInteractionManager.addToAvailableInteraction(new SelectNextInteraction(this._interactionManager,"ArrowRight","→"));
-
+        else {
+            this._currentChoiceIndex = 0;
+        }
+        const newChoice = this.next;
+        if(currentChoice !== newChoice) {
+            if(newChoice){
+                this._onChosenChildChangedObservable.notifyObservers(newChoice);
+            }
+            else{
+                this._onNoChildIsChosenObservable.notifyObservers();
+            }
+        }
     }
+
+    get children(): AbstractDialogueNode[] {
+        return this._choices.slice();
+    }
+
+    get mainText(): string {
+        return this._text;
+    }
+
+    get next(): AbstractDialogueNode | undefined {
+        return this._choices[this._currentChoiceIndex];
+    }
+
+
 
 }

@@ -74,7 +74,7 @@ export class NPC implements IDialogueProvider {
             this._conversation = conversation;
             this._conversation.dialogueProvider = this;
 
-            this._conversation?.onBeforeDialogueEndObservable.add( () =>  {
+            this._conversation?.onDialogueEndedObservable.add( () =>  {
                 if(this._playerDetectionZone?.isInZone(World.instance.submarine.mesh)){
                     // this._startConversationInteraction?.makeAvailable();
                 }

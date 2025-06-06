@@ -1,37 +1,19 @@
-﻿import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
-import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+﻿export abstract class AbstractDialogueNode {
 
-export abstract class AbstractDialogueNode {
+    protected _text: string;
 
-    protected _interactionManager?: InteractionManager<DialogueNodeInteraction>;
-
-    constructor(protected _dialogue: Dialogue, private _text = "NO TEXT") {}
-
-    public abstract isFinal(): boolean;
-
-    public enter(): void {
-        this.initializeInteractionManager()
-        this._enter();
+    constructor(text: string) {
+        this._text = text;
     }
 
-    public exit(): void {
-        this._exit();
-        this._interactionManager = undefined;
-    }
+    public abstract get mainText(): string;
 
-    public get interactionManager(): InteractionManager<DialogueNodeInteraction> | undefined {
-        return this._interactionManager;
-    }
+    public abstract get children(): AbstractDialogueNode[];
 
-    protected _enter(){
-        return;
-    }
+    public abstract get next(): AbstractDialogueNode | undefined
 
-    protected _exit(){
-        return;
+    public isFinal(){
+        return this.next === undefined;
     }
-
-    protected abstract initializeInteractionManager(): void;
 
 }

@@ -61,7 +61,7 @@ export class DialogueInteractionUI extends UI {
 
         this._textAnimator = new TextAnimator();
 
-        Dialogue.onBeforeAnyDialogueStartObservable.add((conv) => {
+        Dialogue.onAnyDialogueStartedObservable.add((conv) => {
             this._container.isVisible = true;
             if (conv.dialogueProvider?.mesh) {
                 this._container.linkWithMesh(conv.dialogueProvider.mesh);
@@ -69,7 +69,7 @@ export class DialogueInteractionUI extends UI {
             }
         });
 
-        Dialogue.onBeforeAnyDialogueEndObservable.add(() => {
+        Dialogue.onAnyDialogueEndedObservable.add(() => {
             this._stopBlink();
             this._container.isVisible = false;
         });

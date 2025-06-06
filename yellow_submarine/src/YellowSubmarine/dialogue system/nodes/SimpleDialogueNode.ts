@@ -1,41 +1,13 @@
-﻿import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
-import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
-import {
-    SwitchDialogueNodeInteraction
-} from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
-import {EndConversationInteraction} from "@/YellowSubmarine/dialogue system/interactions/EndConversationInteraction";
-import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
+import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SingleChildDialogueNode";
 
-export class SimpleDialogueNode extends AbstractDialogueNode{
+export class SimpleDialogueNode extends SingleChildDialogueNode{
 
-    private _nextNode: AbstractDialogueNode | undefined;
-
-    constructor(dialogue: Dialogue, text?: string) {
-        super(dialogue, text ?? "SIMPLE DIALOGUE NODE");
+    constructor(text: string) {
+        super(text);
     }
 
-    public get nextNode(): AbstractDialogueNode | undefined {
-        return this._nextNode;
-    }
-
-    public set nextNode(value: AbstractDialogueNode | undefined) {
-        this._nextNode = value;
-    }
-
-    public isFinal(): boolean {
-        return this.nextNode === undefined;
-    }
-
-    protected initializeInteractionManager(): void {
-        this._interactionManager = new InteractionManager<DialogueNodeInteraction>();
-        const nextNode = this.nextNode;
-        if(nextNode) {
-            this._interactionManager.addToAvailableInteraction(new SwitchDialogueNodeInteraction(nextNode, this._dialogue, "Space", "␣"));
-        }
-        else{
-            this._interactionManager.addToAvailableInteraction(new EndConversationInteraction(this._dialogue, "Space", "␣"));
-        }
+    get mainText(): string {
+        return this._text;
     }
 
 }

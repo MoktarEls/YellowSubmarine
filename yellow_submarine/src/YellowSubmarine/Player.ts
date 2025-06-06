@@ -32,8 +32,8 @@ export class Player {
         this.registerKeyboardInputs();
         this.registerPointerInputs();
         this.registerMouseWheelInputs();
-        Dialogue.onBeforeAnyDialogueStartObservable.add(() => this.disableMovement());
-        Dialogue.onBeforeAnyDialogueEndObservable.add(() => this.enableMovement());
+        Dialogue.onAnyDialogueStartedObservable.add(() => this.disableMovement());
+        Dialogue.onAnyDialogueEndedObservable.add(() => this.enableMovement());
     }
 
     public isMoveForwardPressed(): boolean {

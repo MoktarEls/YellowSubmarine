@@ -1,41 +1,56 @@
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
-import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
-export class ConditionalDialogueNode extends SimpleDialogueNode {
+export class ConditionalDialogueNode extends AbstractDialogueNode {
 
-    private _trueNode: AbstractDialogueNode | undefined;
-    private _falseNode: AbstractDialogueNode | undefined;
+    private _condition: (() => boolean);
+    private _trueNode?: AbstractDialogueNode;
+    private _falseNode?: AbstractDialogueNode;
 
-    constructor(dialogue: Dialogue, text: string, private _condition: () => boolean) {
-        super(dialogue, text);
-    }
-
-    public set trueNode(node: AbstractDialogueNode | undefined) {
-        this._trueNode = node;
-    }
-
-    public get trueNode(): AbstractDialogueNode | undefined {
+    get trueNode(): AbstractDialogueNode | undefined {
         return this._trueNode;
     }
 
-    public set falseNode(node: AbstractDialogueNode | undefined) {
-        this._trueNode = node;
+    set trueNode(value: AbstractDialogueNode | undefined) {
+        this._trueNode = value;
     }
 
-    public get falseNode(): AbstractDialogueNode | undefined {
-        return this._trueNode;
+    get falseNode(): AbstractDialogueNode | undefined {
+        return this._falseNode;
     }
 
-    enter(): void {
-        return;
+    set falseNode(value: AbstractDialogueNode | undefined) {
+        this._falseNode = value;
     }
 
-    exit(): void {
-        return;
+    constructor(condition: () => boolean, trueNode: AbstractDialogueNode, falseNode?: AbstractDialogueNode) {
+        super("ConditionalDialogueNode");
+        this._condition = condition;
+        this._trueNode = trueNode;
+        this._falseNode = falseNode;
     }
 
-    get nextNode(): AbstractDialogueNode | undefined {
+    get children(): AbstractDialogueNode[] {
+        const result: AbstractDialogueNode[] = [];
+        if(this._trueNode) {
+            result.push(this._trueNode);
+        }
+        if(this._falseNode) {
+            result.push(this._falseNode);
+        }
+        return result;
+    }
+
+    get mainText(): string {
+        return this.validChild?.mainText ?? this._text;
+    }
+
+    get next(): AbstractDialogueNode | undefined {
+        return this.validChild?.next;
+    }
+
+    private get validChild(): AbstractDialogueNode | undefined {
         return this._condition() ? this._trueNode : this._falseNode;
     }
+
+
 }

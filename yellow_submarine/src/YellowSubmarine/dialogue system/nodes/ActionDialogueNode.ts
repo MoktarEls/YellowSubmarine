@@ -1,26 +1,16 @@
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
+import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SingleChildDialogueNode";
 
-export class ActionDialogueNode extends SimpleDialogueNode{
+export class ActionDialogueNode extends SingleChildDialogueNode{
 
-    private readonly _executeOnEnter: boolean;
+    private _action: (() => void);
 
-    constructor(dialogue: Dialogue, text: string, private _action: () => void, executeOnEnter?: boolean) {
-        super(dialogue, text ?? "ACTION DIALOGUE NODE");
-        this._executeOnEnter = executeOnEnter ?? false;
+    constructor(text: string, action: () => void) {
+        super(text);
+        this._action = action;
     }
 
-    public enter() {
-        super.enter();
-        if(this._executeOnEnter) {
-            this._action();
-        }
+    get mainText(): string {
+        return `[c=#0000ff][b]***${this._text}***[/b][/c]`;
     }
 
-    public exit() {
-        if(!this._executeOnEnter) {
-            this._action();
-        }
-        super.exit();
-    }
 }

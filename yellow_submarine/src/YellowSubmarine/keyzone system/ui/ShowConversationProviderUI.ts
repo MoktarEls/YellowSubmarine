@@ -23,8 +23,8 @@ export class ShowConversationProviderUI extends UI{
         this._container.isVisible = true;
         KeyZone.onAnyKeyZoneEntered.add(this.createUIs.bind(this));
         KeyZone.onAnyKeyZoneExited.add(this.destroyUIs.bind(this));
-        Dialogue.onBeforeAnyDialogueStartObservable.add(this.hideUIs.bind(this));
-        Dialogue.onBeforeAnyDialogueEndObservable.add(this.showUIs.bind(this));
+        Dialogue.onAnyDialogueStartedObservable.add(this.hideUIs.bind(this));
+        Dialogue.onAnyDialogueEndedObservable.add(this.showUIs.bind(this));
         World.instance.worldInteractionManager.onInteractionAvailable.add( (interaction) => {
             if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
                 this.hideUIs();
