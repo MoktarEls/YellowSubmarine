@@ -40,22 +40,28 @@ export class MainMenuUI extends UI {
         this._panel.paddingLeft = "60px";
         this._panel.spacing = 20;
 
-        const playButton = new ButtonUI("Jouer", () => this.onPlayPressed(), {
-            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
-            paddingBottom: "10px"
-        });
-        const optionsButton = new ButtonUI("Options", () => this.onOptionsPressed(), {
-            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
-            paddingBottom: "10px"
-        });
-        const howToPlayButton = new ButtonUI("How to Play", () => this.showHowToPlay(), {
-            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
-            paddingBottom: "10px"
-        });
+        const buttonStyle = {
+            button: {
+                width: "100%",
+                height: "60px",
+                color: "white",
+                background: "rgba(255, 255, 255, 0.05)",
+                horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
+                paddingBottom: "10px",
+                fontSize: "28px",
+                fontStyle: "bold",
+                cornerRadius: 10,
+                thickness: 1
+            },
+            text: {
+                textHorizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
+                paddingLeft: "20px",
+            }
+        }
 
-        playButton.addTextPaddingLeft(20);
-        optionsButton.addTextPaddingLeft(20);
-        howToPlayButton.addTextPaddingLeft(20);
+        const playButton = new ButtonUI("Jouer", () => this.onPlayPressed(), buttonStyle);
+        const optionsButton = new ButtonUI("Options", () => this.onOptionsPressed(), buttonStyle);
+        const howToPlayButton = new ButtonUI("How to Play", () => this.showHowToPlay(), buttonStyle);
 
         this._panel.addControl(playButton.controlNode);
         this._panel.addControl(optionsButton.controlNode);

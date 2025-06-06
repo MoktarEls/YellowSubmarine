@@ -35,10 +35,23 @@ export class OptionsMenuUI extends UI {
             SoundManager.instance.UIVolume = value;
         });
 
-        const backButton = new ButtonUI("Retour", () => this.hide(), {
-            height: "40px",
-            width: "60%"
-        });
+
+        const buttonStyle = {
+            button: {
+                width: "60%",
+                height: "40px",
+                color: "white",
+                background: "rgba(255, 255, 255, 0.05)",
+                horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_CENTER,
+                paddingBottom: "10px",
+                fontSize: "28px",
+                fontStyle: "bold",
+                cornerRadius: 10,
+                thickness: 1
+            }
+        }
+
+        const backButton = new ButtonUI("Retour", () => this.hide(), buttonStyle);
 
         this._panel.addControl(backButton.controlNode);
 
