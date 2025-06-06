@@ -1,26 +1,21 @@
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {
-    Button,
     Control,
     StackPanel,
 } from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes} from "@babylonjs/core";
 import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
-import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
+import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
 
 export class MainMenuUI extends UI {
 
     private _panel: StackPanel;
     private _optionMenuUI : OptionsMenuUI;
-    private _canvas?: HTMLCanvasElement;
     private _howToPlay: ImageUI;
 
-    public set canvas(canvas : HTMLCanvasElement) {
-        this._canvas = canvas;
-    }
 
     public get controlNode(): Control {
         return this._panel;
@@ -32,9 +27,11 @@ export class MainMenuUI extends UI {
 
     constructor() {
         super();
+
         this._howToPlay = new ImageUI("ui/how-to-play.png");
         this._howToPlay.controlNode.isVisible = false;
         this._optionMenuUI = new OptionsMenuUI(this);
+
         this._panel = new StackPanel();
         this._panel.zIndex = 2;
         this._panel.width = "300px";
@@ -43,63 +40,43 @@ export class MainMenuUI extends UI {
         this._panel.paddingLeft = "60px";
         this._panel.spacing = 20;
 
-        const playButton = MainMenuUI.createButton("Jouer", () => this.onPlayPressed());
-        const optionsButton = MainMenuUI.createButton("Options", () => this.onOptionsPressed());
-        const howToPlayButton = MainMenuUI.createButton("How to Play", () => this.showHowToPlay());
-        const quitButton = MainMenuUI.createButton("Quitter", () => this.onQuitPressed());
+        const playButton = new ButtonUI("Jouer", () => this.onPlayPressed(), {
+            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
+            paddingBottom: "10px"
+        });
+        const optionsButton = new ButtonUI("Options", () => this.onOptionsPressed(), {
+            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
+            paddingBottom: "10px"
+        });
+        const howToPlayButton = new ButtonUI("How to Play", () => this.showHowToPlay(), {
+            horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_LEFT,
+            paddingBottom: "10px"
+        });
 
-        this._panel.addControl(playButton);
-        this._panel.addControl(optionsButton);
-        this._panel.addControl(howToPlayButton);
-        //this._panel.addControl(quitButton);
+        playButton.addTextPaddingLeft(20);
+        optionsButton.addTextPaddingLeft(20);
+        howToPlayButton.addTextPaddingLeft(20);
+
+        this._panel.addControl(playButton.controlNode);
+        this._panel.addControl(optionsButton.controlNode);
+        this._panel.addControl(howToPlayButton.controlNode);
 
         this.show();
 
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if(eventData.event.key === "Escape" && state && !this.optionsMenuUI.controlNode.isVisible){
-                if(this._canvas && !this._panel.isVisible){
+                if(UIManager.instance.canvas && !this._panel.isVisible){
                     this.show();
                 }
             }
             if(eventData.event.key === "Escape" && state && this._howToPlay.controlNode.isVisible){
-                if(this._canvas){
+                if(UIManager.instance.canvas){
                     this.hideHowToPlay();
                     this.show();
                 }
             }
         });
-    }
-
-    public static createButton(text: string, callback: () => void): Button {
-        const button = Button.CreateSimpleButton(text.toLowerCase(), text);
-        button.width = "100%";
-        button.height = "60px";
-        button.color = "white";
-        button.background = "rgba(255, 255, 255, 0.05)";
-        button.fontSize = "28px";
-        button.fontStyle = "bold";
-        button.textBlock!.textHorizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-        button.textBlock!.paddingLeft = "20px";
-        button.cornerRadius = 10;
-        button.thickness = 1;
-        button.paddingBottom = "10px";
-
-        button.onPointerEnterObservable.add(() => {
-            button.background = "rgba(255, 255, 255, 0.2)";
-        });
-        button.onPointerOutObservable.add(() => {
-            button.background = "rgba(255, 255, 255, 0.05)";
-        });
-
-        button.onPointerUpObservable.add(callback);
-        button.onPointerUpObservable.add(() => {
-            if (SoundManager.instance) {
-                SoundManager.instance.stopUI("click");
-                SoundManager.instance.playUI("click", {autoplay: true, loop: false});
-            }
-        });
-        return button;
     }
 
     public show() {
@@ -111,8 +88,8 @@ export class MainMenuUI extends UI {
     }
 
     private onPlayPressed() {
-        if(this._canvas) {
-            this._canvas.requestPointerLock();
+        if(UIManager.instance.canvas) {
+            UIManager.instance.canvas.requestPointerLock();
             this.hide();
         }
     }

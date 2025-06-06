@@ -4,6 +4,7 @@ import { MainMenuUI } from "@/YellowSubmarine/ui system/MainMenuUI";
 import { Game } from "@/YellowSubmarine/Game";
 import { KeyboardEventTypes } from "@babylonjs/core";
 import { SoundManager } from "@/YellowSubmarine/sound system/SoundManager";
+import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
 
 export class OptionsMenuUI extends UI {
 
@@ -34,14 +35,12 @@ export class OptionsMenuUI extends UI {
             SoundManager.instance.UIVolume = value;
         });
 
-        const backButton = MainMenuUI.createButton("Retour", () => {
-            this.hide();
+        const backButton = new ButtonUI("Retour", () => this.hide(), {
+            height: "40px",
+            width: "60%"
         });
-        backButton.width = "300px";
-        backButton.height = "40px";
-        backButton.color = "white";
-        backButton.background = "rgba(255, 255, 255, 0.05)";
-        this._panel.addControl(backButton);
+
+        this._panel.addControl(backButton.controlNode);
 
         this._panel.isVisible = false;
 
