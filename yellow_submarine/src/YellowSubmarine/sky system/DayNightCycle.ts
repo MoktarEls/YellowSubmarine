@@ -9,8 +9,8 @@ export class DayNightCycle {
     private _sun : Sun;
     private _moon : Moon;
     private _time = 0;
-    public static onDayChanged = new Observable<boolean>();
-    public static _isDayTime = true;
+    public static onDayChanged = new Observable<number>();
+    public static _sunPhase : number;
 
     constructor(sky : Sky) {
         this._sun = sky.sun;
@@ -22,6 +22,10 @@ export class DayNightCycle {
             this._sun.update(this._time);
             this._moon.update(this._time);
         });
+    }
+
+    public static isDay(): boolean {
+        return DayNightCycle._sunPhase > 0;
     }
 
     public get timeOfTheDay(): number{

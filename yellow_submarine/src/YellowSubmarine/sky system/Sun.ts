@@ -49,21 +49,21 @@ export class Sun extends HemisphericCelestialBody {
         this.updateLight();
     }
 
-    protected override updateLight(){
+    protected override updateLight() {
         const sunPos = this.position;
         const sunRadius = this._defaultPosition.length();
+        const inclination = Math.PI / 6;
+        const maxHeight = sunRadius * Math.sin(inclination); // 🔧 hauteur max réelle
         const sunHeight = sunPos.y;
 
-        const normalized = Math.max(0, Math.min(sunHeight / sunRadius, 1));
-        const smooth = Math.pow(normalized, 1.5);
+        // Valeur normalisée entre -1 et 1
+        const normalized = Math.max(-1, Math.min(sunHeight / maxHeight, 1));
+        const smooth = Math.max(0, normalized); // utile pour effets visuels
 
+        // Màj intensité
         this.light.intensity = smooth * this._intensity;
 
-        if (normalized <= 0.01) {
-            this.light.setEnabled(false);
-        } else {
-            this.light.setEnabled(true);
-        }
+        this.light.setEnabled(smooth > 0.01);
 
         if (smooth > 0 && smooth < 0.3) {
             const sunsetColor = Color3.FromHexString("#ff884d");
@@ -72,17 +72,18 @@ export class Sun extends HemisphericCelestialBody {
             this.light.diffuse = Color3.White();
         }
 
-        const hemi = this.hemiLight;
-        if (hemi) {
+        if (this.hemiLight) {
             const dayColor = Color3.FromHexString("#a6fff5");
             const nightColor = Color3.FromHexString("#27274f");
-            hemi.diffuse = Color3.Lerp(nightColor, dayColor, smooth);
+            this.hemiLight.diffuse = Color3.Lerp(nightColor, dayColor, smooth);
         }
 
-        if(DayNightCycle._isDayTime !== (normalized > 0.01)){
-            DayNightCycle._isDayTime = normalized > 0.01;
-            DayNightCycle.onDayChanged.notifyObservers(DayNightCycle._isDayTime);
+        const previousPhase = DayNightCycle._sunPhase;
+        DayNightCycle._sunPhase = normalized;
+
+        if ((previousPhase > 0) !== (normalized > 0)) {
+            DayNightCycle.onDayChanged.notifyObservers(normalized);
         }
-        Game.scene.ambientColor = new Color3(1, 0, 0);
+        console.log(DayNightCycle._sunPhase);
     }
 }
