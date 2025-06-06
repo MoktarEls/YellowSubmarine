@@ -2,7 +2,7 @@ import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/Dia
 import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 
-export class MultipleChoicesNodeDialogueBuilder extends DialogueNodeBuilder<MultipleChoicesDialogueNode>{
+export class MultipleChoicesNodeDialogueBuilder extends DialogueNodeBuilder<MultipleChoicesDialogueNode, number | undefined>{
 
     protected chain(nodeToChain: AbstractDialogueNode, index: number | undefined): void {
         if(!index){

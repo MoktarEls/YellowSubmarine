@@ -3,8 +3,4 @@ import {SingleChildNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/
 
 export class SimpleNodeDialogueBuilder extends SingleChildNodeDialogueBuilder<SimpleDialogueNode>{
 
-    constructor(text: string) {
-        super(new SimpleDialogueNode(text));
-    }
-
  }

@@ -34,7 +34,7 @@ export class NPCFactory {
 
         pedro.detectionZone.zone.position.set(0, -11, 0);
 
-        pedro.conversation = new DialogueNodeBuilder()
+        pedro.dialogue = new DialogueNodeBuilder()
             .say("[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
             .then("Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
             .then("Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
@@ -84,7 +84,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        fox.conversation = new DialogueNodeBuilder()
+        fox.dialogue = new DialogueNodeBuilder()
             .say("Je sais pas si tu vois la même chose que moi [i](peut-être que c'est un mirage).[/i] Y'a une [g]piste de bowling là-bas[/g] où y'a les quilles qui sortent de l'eau.")
             .then("Y'a une sorte de boule de bowling qui était sur l'île. J'ai essayé de jouer avec des quilles en glace mais ça a pas trop marché.")
             .then("Parmi les quilles j'ai mis une bouteille que j'ai trouvée dans le coin et bizarrement, quand j'ai fait un STRIKE ! Y'a une note qui est sortie.")
@@ -126,7 +126,7 @@ export class NPCFactory {
         }, true);
 
 
-        scientific.conversation = new DialogueNodeBuilder()
+        scientific.dialogue = new DialogueNodeBuilder()
             .say("Si je suis la trajectoire de cette étoile, alors je peux peut-être réussir à démontrer que e = m6 !")
             .then("Oh salut toi ! T'as un sacré sous-marin ! [i]J'adore[/i] les sous-marins tu tombes à pic !")
             .then("Pour la peine, je vais te présenter les conclusions de mon expérience, prépare toi à en prendre plein la vue !")
@@ -181,7 +181,7 @@ export class NPCFactory {
             diameterBottom: 45,
         }, true);
 
-        scribe.conversation = new DialogueNodeBuilder()
+        scribe.dialogue = new DialogueNodeBuilder()
             .say("Que penses-tu de mon prochain poème jeune étranger ?")
             .then("[g]Ballade d’un Génie Naufragé[/g]")
             .then("[i]Je suis ce grand Marcel, qu’aucun vent ne dérange\n, Poète illustre et fier, perdu sur cet étrange \n Territoire obscur, bordé par l’inconnu, \n Où des piliers sans fin soutiennent l’absolu.[/i]")
@@ -233,7 +233,7 @@ export class NPCFactory {
 
         rabbit.detectionZone.zone.position.set(0, -2, 0);
 
-        rabbit.conversation = new DialogueNodeBuilder()
+        rabbit.dialogue = new DialogueNodeBuilder()
             .say("[i][c=blue]Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée....[/i][/c]")
             .then("Hmmmm... Qu'est-ce que ça peut vouloir dire....")
             .then("[g][c=red]AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH[/c][/g]")

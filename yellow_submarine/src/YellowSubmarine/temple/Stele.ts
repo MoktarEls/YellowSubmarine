@@ -13,6 +13,10 @@ import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeBuilder";
 import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
+import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
+import {ConditionalNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalNodeDialogueBuilder";
+import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
+import {ActionNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionNodeDialogueBuilder";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -29,37 +33,23 @@ export class Stele implements IDialogueProvider {
         this._cameraConfiguration.distanceFromTarget = 20;
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
-        const dialogue = new SimpleNodeDialogueBuilder("La ligne du haut regarde les cieux")
-            .chainSimpleNode("La ligne du milieu respire l'air").resultBuilder
-            .chainSimpleNode("La ligne du milieu respire l'air").resultBuilder
-            .chainSimpleNode("La ligne du bas touche la terre").resultBuilder
-            .chainActionNode("Mise à jour du journal et de la quête", () => {
-                let quest = QuestManager.instance.getQuest("temple_quest");
-                if(quest) quest.startQuest();
-                quest = QuestManager.instance.getQuest("dreamland");
-                if(quest) quest.updateCurrentStepStatus();
-                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("temple_quest"), "La stèle nous a donnés des informations sur les rangés : `\n" +
-                    " - La ligne du haut regarde les cieux \n" +
-                    " - La ligne du milieu respire l’air \n" +
-                    " - La ligne du bas touche la terre");
-            }).resultBuilder.build(this);
-        /*
-        const conversationBuilder = new DialogueBuilder();
-        conversationBuilder.say("La ligne du haut regarde les cieux")
-            .then("La ligne du milieu respire l’air")
-            .then("La ligne du bas touche la terre")
-            .setOnEnding(() => {
-                let quest = QuestManager.instance.getQuest("temple_quest");
-                if(quest) quest.startQuest();
-                quest = QuestManager.instance.getQuest("dreamland");
-                if(quest) quest.updateCurrentStepStatus();
-                JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("temple_quest"), "La stèle nous a donnés des informations sur les rangés : `\n" +
-                    " - La ligne du haut regarde les cieux \n" +
-                    " - La ligne du milieu respire l’air \n" +
-                    " - La ligne du bas touche la terre");
-            })
-        this.conversation = conversationBuilder.build();
-        this.conversation.dialogueProvider = this;*/
+        const dialogueBuilder =
+            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleNodeDialogueBuilder, this, "La ligne du haut regarde les cieux")
+            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "La ligne du milieu respire l'air").resultBuilder
+            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "La ligne du bas touche la terre").resultBuilder
+            .chainNode(ActionDialogueNode, ActionNodeDialogueBuilder, undefined,
+                "Mise à jour du journal et de la quête", () => {
+                    let quest = QuestManager.instance.getQuest("temple_quest");
+                    if(quest) quest.startQuest();
+                    quest = QuestManager.instance.getQuest("dreamland");
+                    if(quest) quest.updateCurrentStepStatus();
+                    JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("temple_quest"), "La stèle nous a donnés des informations sur les rangés : `\n" +
+                        " - La ligne du haut regarde les cieux \n" +
+                        " - La ligne du milieu respire l’air \n" +
+                        " - La ligne du bas touche la terre");
+                }
+            ).resultBuilder;
+        this.dialogue = dialogueBuilder.dialogue;
     }
 
     public get steleInteractionZone(): MeshDetectionZone {
@@ -85,11 +75,11 @@ export class Stele implements IDialogueProvider {
         }
     }
 
-    public get conversation(): Dialogue {
+    public get dialogue(): Dialogue {
         return this._conversation;
     }
 
-    private set conversation(value: Dialogue) {
+    private set dialogue(value: Dialogue) {
         this._conversation = value;
         if(this._conversation) {
             this._startConversationInteraction = new StartConversationInteraction(this._conversation);

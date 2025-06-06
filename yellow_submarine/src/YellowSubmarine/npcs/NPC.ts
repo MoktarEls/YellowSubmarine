@@ -64,7 +64,7 @@ export class NPC implements IDialogueProvider {
         return this._playerDetectionZone;
     }
 
-    public get conversation(): Dialogue | undefined {
+    public get dialogue(): Dialogue | undefined {
         return this._conversation;
     }
 

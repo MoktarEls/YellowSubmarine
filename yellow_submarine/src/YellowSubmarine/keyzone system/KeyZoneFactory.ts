@@ -224,10 +224,10 @@ export class KeyZoneFactory {
                 fox.transformNode.position = new Vector3(-8, 1.4, 0);
                 fox.transformNode.parent = banquiseTransform;
                 const ball = new TempleBall(fox.transformNode.absolutePosition.add(new Vector3(0,20,0)), Color3.Green());
-                const callBack = fox.conversation?.onDialogueEndedObservable.add(() => {
+                const callBack = fox.dialogue?.onDialogueEndedObservable.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
-                        fox.conversation?.onDialogueEndedObservable.remove(callBack ?? null);
+                        fox.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
                     }
                 });
                 banquise.addConversationProvider(fox);
@@ -296,10 +296,10 @@ export class KeyZoneFactory {
                 rabbit.transformNode.position = new Vector3(-0.8, 5.2, -0.7);
                 rabbit.transformNode.parent = archipelTransform;
                 const ball = new TempleBall(rabbit.transformNode.absolutePosition.add(new Vector3(0,20,0)), Color3.Red());
-                const callBack = rabbit.conversation?.onDialogueEndedObservable.add(() => {
+                const callBack = rabbit.dialogue?.onDialogueEndedObservable.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
-                        rabbit.conversation?.onDialogueEndedObservable.remove(callBack ?? null);
+                        rabbit.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
                     }
                 });
                 archipel.addConversationProvider(rabbit);
@@ -370,10 +370,10 @@ export class KeyZoneFactory {
                 scribe.transformNode.position = new Vector3(-1.57, 0.8, 5.8);
                 scribe.transformNode.parent = poulpeTransform;
                 const ball = new TempleBall(scribe.transformNode.absolutePosition.add(new Vector3(0,20,0)), Color3.Purple());
-                const callBack = scribe.conversation?.onDialogueEndedObservable.add(() => {
+                const callBack = scribe.dialogue?.onDialogueEndedObservable.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
-                        scribe.conversation?.onDialogueEndedObservable.remove(callBack ?? null);
+                        scribe.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
                     }
                 });
                 poulpe.addConversationProvider(scribe);
@@ -442,10 +442,10 @@ export class KeyZoneFactory {
                 girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
                 girl.transformNode.parent = phareTransform;
                 const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(-30,20,-30)), Color3.Blue());
-                const callBack = girl.conversation?.onDialogueEndedObservable.add(() => {
+                const callBack = girl.dialogue?.onDialogueEndedObservable.add(() => {
                     if(!Submarine.instance.templeBall){
                         Submarine.instance.grabBall(ball);
-                        girl.conversation?.onDialogueEndedObservable.remove(callBack ?? null);
+                        girl.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
                     }
                 });
                 phare.addConversationProvider(girl);

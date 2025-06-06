@@ -6,7 +6,7 @@ export interface IDialogueProvider {
 
     get name(): string;
     get mesh(): AbstractMesh | undefined;
-    get conversation(): Dialogue | undefined;
+    get dialogue(): Dialogue | undefined;
     get cameraConfiguration(): CameraConfiguration | undefined;
 
 }
