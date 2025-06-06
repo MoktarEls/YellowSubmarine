@@ -12,11 +12,11 @@ import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfigu
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeBuilder";
-import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
+import {SimpleDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleDialogueNodeBuilder";
 import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
-import {ConditionalNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalNodeDialogueBuilder";
+import {ConditionalDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalDialogueNodeBuilder";
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
-import {ActionNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionNodeDialogueBuilder";
+import {ActionDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionDialogueNodeBuilder";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -34,10 +34,10 @@ export class Stele implements IDialogueProvider {
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
         const dialogueBuilder =
-            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleNodeDialogueBuilder, this, "La ligne du haut regarde les cieux")
-            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "La ligne du milieu respire l'air").resultBuilder
-            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "La ligne du bas touche la terre").resultBuilder
-            .chainNode(ActionDialogueNode, ActionNodeDialogueBuilder, undefined,
+            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleDialogueNodeBuilder, this, "La ligne du haut regarde les cieux")
+            .chainNode(SimpleDialogueNode, SimpleDialogueNodeBuilder, undefined, "La ligne du milieu respire l'air").resultBuilder
+            .chainNode(SimpleDialogueNode, SimpleDialogueNodeBuilder, undefined, "La ligne du bas touche la terre").resultBuilder
+            .chainNode(ActionDialogueNode, ActionDialogueNodeBuilder, undefined,
                 "Mise à jour du journal et de la quête", () => {
                     let quest = QuestManager.instance.getQuest("temple_quest");
                     if(quest) quest.startQuest();

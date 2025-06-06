@@ -3,13 +3,13 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
 import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
 import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
-import {MultipleChoicesNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesNodeDialogueBuilder";
-import {ConditionalNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalNodeDialogueBuilder";
-import {SingleChildNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SingleChildNodeDialogueBuilder";
+import {MultipleChoicesDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesDialogueNodeBuilder";
+import {ConditionalDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalDialogueNodeBuilder";
+import {SingleChildDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SingleChildDialogueNodeBuilder";
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
-import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
-import {ActionNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionNodeDialogueBuilder";
+import {SimpleDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleDialogueNodeBuilder";
+import {ActionDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionDialogueNodeBuilder";
 
 /*export type DialogueBuildingResult<
     CurrentNodeType extends AbstractDialogueNode,
@@ -145,19 +145,19 @@ export abstract class DialogueNodeBuilder<NodeType extends AbstractDialogueNode,
     }
 
     public static createSimpleNodeRootedDialogue(dialogueProvider: IDialogueProvider, text: string){
-        return new SimpleNodeDialogueBuilder(new SimpleDialogueNode(text), dialogueProvider);
+        return new SimpleDialogueNodeBuilder(new SimpleDialogueNode(text), dialogueProvider);
     }
 
     public static createActionNodeRootedDialogue(dialogueProvider: IDialogueProvider, text: string, action: () => void){
-        return new ActionNodeDialogueBuilder(new ActionDialogueNode(text, action), dialogueProvider);
+        return new ActionDialogueNodeBuilder(new ActionDialogueNode(text, action), dialogueProvider);
     }
 
     public static createConditionalNodeRootedDialogue(dialogueProvider: IDialogueProvider, condition: () => boolean, trueNode?: AbstractDialogueNode, falseNode?: AbstractDialogueNode){
-        return new ConditionalNodeDialogueBuilder(new ConditionalDialogueNode(condition, trueNode, falseNode), dialogueProvider);
+        return new ConditionalDialogueNodeBuilder(new ConditionalDialogueNode(condition, trueNode, falseNode), dialogueProvider);
     }
 
     public static createMultipleChoicesNodeRootedDialogue(dialogueProvider: IDialogueProvider, text: string){
-        return new MultipleChoicesNodeDialogueBuilder(new MultipleChoicesDialogueNode(text), dialogueProvider);
+        return new MultipleChoicesDialogueNodeBuilder(new MultipleChoicesDialogueNode(text), dialogueProvider);
     }
 
     protected abstract chain(nodeToChain: AbstractDialogueNode, index: IndexType): void;
@@ -175,22 +175,22 @@ export abstract class DialogueNodeBuilder<NodeType extends AbstractDialogueNode,
     }
 
     protected createSubSimpleNodeBuilder(node: SimpleDialogueNode){
-        const subBuilder = new SimpleNodeDialogueBuilder(node, this._dialogueProvider);
+        const subBuilder = new SimpleDialogueNodeBuilder(node, this._dialogueProvider);
         subBuilder._dialogue = this._dialogue;
         return subBuilder;
     }
     protected createSubActionNodeBuilder(node: ActionDialogueNode){
-        const subBuilder = new ActionNodeDialogueBuilder(node, this._dialogueProvider);
+        const subBuilder = new ActionDialogueNodeBuilder(node, this._dialogueProvider);
         subBuilder._dialogue = this._dialogue;
         return subBuilder;
     }
     protected createSubConditionalNodeBuilder(node: ConditionalDialogueNode){
-        const subBuilder = new ConditionalNodeDialogueBuilder(node, this._dialogueProvider);
+        const subBuilder = new ConditionalDialogueNodeBuilder(node, this._dialogueProvider);
         subBuilder._dialogue = this._dialogue;
         return subBuilder;
     }
     protected createSubMultipleChoiceNodeBuilder(node: MultipleChoicesDialogueNode){
-        const subBuilder = new MultipleChoicesNodeDialogueBuilder(node, this._dialogueProvider);
+        const subBuilder = new MultipleChoicesDialogueNodeBuilder(node, this._dialogueProvider);
         subBuilder._dialogue = this._dialogue;
         return subBuilder;
     }

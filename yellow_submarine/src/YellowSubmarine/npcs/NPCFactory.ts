@@ -8,7 +8,7 @@ import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/Dia
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
+import {SimpleDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleDialogueNodeBuilder";
 
 export class NPCFactory {
 
@@ -35,9 +35,9 @@ export class NPCFactory {
 
         pedro.detectionZone.zone.position.set(0, -11, 0);
         pedro.dialogue =
-            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleNodeDialogueBuilder, pedro, "[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
-            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.").resultBuilder
-            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, )
+            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleDialogueNodeBuilder, pedro, "[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
+            .chainNode(SimpleDialogueNode, SimpleDialogueNodeBuilder, undefined, "Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.").resultBuilder
+            .chainNode(SimpleDialogueNode, SimpleDialogueNodeBuilder, undefined, )
 
 
             /*.say("[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
