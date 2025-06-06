@@ -99,7 +99,7 @@ export class SkyBox {
 */
     }
 
-    private initColors(material: ShaderMaterial): void {
+    /*private initColors(material: ShaderMaterial): void {
         material.setColor3("dayTop", new Color3(0.3, 0.78, 0.98));       // #3580d9
         material.setColor3("dayBottom", new Color3(1.0, 0.94, 0.80)); // bleu très clair avec un ton chaud
 
@@ -113,7 +113,7 @@ export class SkyBox {
         material.setColor3("nightBottom", new Color3(0.23, 0.29, 0.42)); // #0b1b36
 
 
-    }
+    }*/
 
 
 
