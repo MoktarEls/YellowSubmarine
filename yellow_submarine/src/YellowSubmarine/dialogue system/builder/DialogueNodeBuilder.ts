@@ -6,6 +6,8 @@ import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nod
 import {MultipleChoicesNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesNodeDialogueBuilder";
 import {ConditionalNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalNodeDialogueBuilder";
 import {SingleChildNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SingleChildNodeDialogueBuilder";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
+import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 
 export type DialogueBuildingResult<CurrentBuilderType extends AbstractDialogueNode,ResultType extends AbstractDialogueNode> = { currentBuilder: DialogueNodeBuilder<CurrentBuilderType>, resultBuilder: DialogueNodeBuilder<ResultType> };
 
@@ -108,5 +110,8 @@ export abstract class DialogueNodeBuilder<T extends AbstractDialogueNode> {
         subBuilder._root = parentBuilder._root;
         return subBuilder;
     }
-    
+
+    public build(dialogueProvider: IDialogueProvider): Dialogue{
+        return new Dialogue(this._root, dialogueProvider);
+    }
 }
