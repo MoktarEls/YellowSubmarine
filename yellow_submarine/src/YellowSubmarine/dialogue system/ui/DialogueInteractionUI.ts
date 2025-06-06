@@ -131,7 +131,7 @@ export class DialogueInteractionUI extends UI {
         const { lines, segments } = this._layoutManager.layout(text, maxWidth);
 
         const maxFontSize = Math.max(
-            ...segments.map((s) => s.style.size || this.TEXT_DEFAULT_FONT_SIZE)
+            ...segments.map((s) => s.style.size as number || this.TEXT_DEFAULT_FONT_SIZE)
         );
         const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
 

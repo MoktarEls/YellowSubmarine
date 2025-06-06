@@ -51,7 +51,7 @@ export class TextLayoutManager {
         let currentWidth = 0;
 
         for (const segment of segments) {
-            const fontSize = segment.style.size || this.defaultFontSize;
+            const fontSize = segment.style.size as number || this.defaultFontSize;
             const segWidth = this.getTextWidth(segment.text, fontSize) + this.horizontalPadding * 2;
 
             if (currentWidth + segWidth <= maxWidth) {
@@ -123,8 +123,8 @@ export class TextLayoutManager {
     private applyStyle(tb: TextBlock, style: BBStyle, padding: number, defaultFontSize: number) {
         tb.fontWeight = style.bold ? "bold" : "normal";
         tb.fontStyle = style.italic ? "italic" : "normal";
-        tb.color = style.color || "black";
-        tb.fontSize = style.size || defaultFontSize;
+        tb.color = style.color as string || "black";
+        tb.fontSize = style.size as number || defaultFontSize;
         tb.paddingLeft = `${padding}px`;
         tb.paddingRight = `${padding}px`;
     }

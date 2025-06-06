@@ -3,7 +3,6 @@ import {
     Button,
     Control,
     StackPanel,
-    TextBlock
 } from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes} from "@babylonjs/core";

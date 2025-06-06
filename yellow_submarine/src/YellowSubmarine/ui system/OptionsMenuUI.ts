@@ -1,5 +1,5 @@
 import { UI } from "@/YellowSubmarine/ui system/UI";
-import { Button, Control, Slider, StackPanel, TextBlock, Rectangle, Grid } from "@babylonjs/gui";
+import { Control, Slider, StackPanel, TextBlock } from "@babylonjs/gui";
 import { MainMenuUI } from "@/YellowSubmarine/ui system/MainMenuUI";
 import { Game } from "@/YellowSubmarine/Game";
 import { KeyboardEventTypes } from "@babylonjs/core";
