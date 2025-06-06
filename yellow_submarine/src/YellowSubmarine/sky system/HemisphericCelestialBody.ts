@@ -58,4 +58,13 @@ export abstract class HemisphericCelestialBody extends CelestialBody{
         return light;
     }
 
+    public update(time: number){
+        return;
+    }
+
+    protected updateLight() {
+        return;
+    }
+
+
 }
