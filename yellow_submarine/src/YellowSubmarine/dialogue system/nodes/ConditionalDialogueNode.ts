@@ -22,7 +22,7 @@ export class ConditionalDialogueNode extends AbstractDialogueNode {
         this._falseNode = value;
     }
 
-    constructor(condition: () => boolean, trueNode: AbstractDialogueNode, falseNode?: AbstractDialogueNode) {
+    constructor(condition: () => boolean, trueNode?: AbstractDialogueNode, falseNode?: AbstractDialogueNode) {
         super("ConditionalDialogueNode");
         this._condition = condition;
         this._trueNode = trueNode;

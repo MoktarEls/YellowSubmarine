@@ -8,6 +8,8 @@ import {ConditionalNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/
 import {SingleChildNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SingleChildNodeDialogueBuilder";
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
+import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
+import {ActionNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionNodeDialogueBuilder";
 
 export type DialogueBuildingResult<CurrentBuilderType extends AbstractDialogueNode,ResultType extends AbstractDialogueNode> = { currentBuilder: DialogueNodeBuilder<CurrentBuilderType>, resultBuilder: DialogueNodeBuilder<ResultType> };
 
@@ -96,6 +98,33 @@ export abstract class DialogueNodeBuilder<T extends AbstractDialogueNode> {
         };
     }
 
+    public build(dialogueProvider: IDialogueProvider): Dialogue{
+        return new Dialogue(this._root, dialogueProvider);
+    }
+
+    public static createSimpleNodeRootedDialogue(text: string){
+        return this.createDialogueBuilder<SimpleDialogueNode, SimpleNodeDialogueBuilder>(SimpleNodeDialogueBuilder, text);
+    }
+
+    public static createActionNodeRootedDialogue(text: string, action: () => void){
+        return this.createDialogueBuilder<ActionDialogueNode, ActionNodeDialogueBuilder>(ActionNodeDialogueBuilder, text);
+    }
+
+    public static createConditionalNodeRootedDialogue(condition: () => boolean, trueNode?: AbstractDialogueNode, falseNode?: AbstractDialogueNode){
+        return this.createDialogueBuilder<ConditionalDialogueNode, ConditionalNodeDialogueBuilder>(ConditionalNodeDialogueBuilder, condition, trueNode, falseNode);
+    }
+
+    public static createMultipleChoicesNodeRootedDialogue(){
+        return this.createDialogueBuilder<MultipleChoicesDialogueNode, MultipleChoicesNodeDialogueBuilder>(MultipleChoicesNodeDialogueBuilder, )
+    }
+
+    private static createDialogueBuilder<RootNodeType extends AbstractDialogueNode, BuilderType extends DialogueNodeBuilder<RootNodeType>>(
+        rootNodeConstructorClass: ( new (...args: any[]) => BuilderType ),
+        ...builderArgs: any[]
+    ): BuilderType {
+        return new rootNodeConstructorClass(builderArgs);
+    }
+
     protected abstract chain(nodeToChain: AbstractDialogueNode, index?: number): void;
 
     protected static createSubBuilder<
@@ -111,7 +140,5 @@ export abstract class DialogueNodeBuilder<T extends AbstractDialogueNode> {
         return subBuilder;
     }
 
-    public build(dialogueProvider: IDialogueProvider): Dialogue{
-        return new Dialogue(this._root, dialogueProvider);
-    }
+
 }
