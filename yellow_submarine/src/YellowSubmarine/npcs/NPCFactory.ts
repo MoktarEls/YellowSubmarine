@@ -4,10 +4,11 @@ import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/Cylin
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
-import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeBuilder";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
+import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
+import {SimpleNodeDialogueBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleNodeDialogueBuilder";
 
 export class NPCFactory {
 
@@ -33,9 +34,13 @@ export class NPCFactory {
         }, true);
 
         pedro.detectionZone.zone.position.set(0, -11, 0);
+        pedro.dialogue =
+            DialogueNodeBuilder.createNewDialogueBuilder(SimpleDialogueNode, SimpleNodeDialogueBuilder, pedro, "[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
+            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, "Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.").resultBuilder
+            .chainNode(SimpleDialogueNode, SimpleNodeDialogueBuilder, undefined, )
 
-        pedro.dialogue = new DialogueNodeBuilder()
-            .say("[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
+
+            /*.say("[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
             .then("Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
             .then("Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
             .then("Mais ! Y'a un [c=blue]p'tit endroit au nord d'ici [/c] un peu particulier.")
@@ -52,7 +57,7 @@ export class NPCFactory {
 
                 QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
             })
-            .build();
+            .build();*/
 
         pedro.cameraConfiguration = new CameraConfiguration();
         pedro.cameraConfiguration.target = pedro.transformNode;
