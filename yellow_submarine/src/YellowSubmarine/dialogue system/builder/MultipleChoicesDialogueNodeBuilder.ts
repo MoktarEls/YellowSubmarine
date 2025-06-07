@@ -1,11 +1,11 @@
-import {DialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeBuilder";
+import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
 import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 
-export class MultipleChoicesDialogueNodeBuilder extends DialogueNodeBuilder<MultipleChoicesDialogueNode, number | undefined>{
+export class MultipleChoicesDialogueNodeBuilder extends DialogueNodeChainingBuilder<number | "add", MultipleChoicesDialogueNode>{
 
-    protected chain(nodeToChain: AbstractDialogueNode, index: number | undefined): void {
-        if(!index){
+    protected chain(nodeToChain: AbstractDialogueNode, index: number | "add"): void {
+        if(index === "add"){
             this._node.addChoice(nodeToChain);
         }
         else{

@@ -1,4 +1,11 @@
-﻿export abstract class AbstractDialogueNode {
+﻿import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
+import {Constructor} from "@babylonjs/core";
+
+export abstract class AbstractDialogueNode {
+
+    static getBuilderCtor(): new () => any{
+        throw new Error(`${this.name} must hide getBuilderCtor !`);
+    }
 
     protected _text: string;
 

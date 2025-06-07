@@ -61,12 +61,10 @@ export class DialogueInteractionUI extends UI {
 
         this._textAnimator = new TextAnimator();
 
-        Dialogue.onAnyDialogueStartedObservable.add((conv) => {
+        Dialogue.onAnyDialogueStartedObservable.add((dialogue) => {
             this._container.isVisible = true;
-            if (conv.dialogueProvider?.mesh) {
-                this._container.linkWithMesh(conv.dialogueProvider.mesh);
-                this._container.linkOffsetY = this.CONTAINER_OFFSET_Y;
-            }
+            this._container.linkWithMesh(dialogue.dialogueProvider?.mesh ?? null );
+            this._container.linkOffsetY = this.CONTAINER_OFFSET_Y;
         });
 
         Dialogue.onAnyDialogueEndedObservable.add(() => {
@@ -74,8 +72,8 @@ export class DialogueInteractionUI extends UI {
             this._container.isVisible = false;
         });
 
-        Dialogue.onAnyDialogueStart.add((dialog) =>
-            this.showText(dialog.text, this.TEXT_SPEED)
+        Dialogue.onAnyDialogueNodeStartedObservable.add((result) =>
+            this.showText(result.node.mainText, this.TEXT_SPEED)
         );
     }
 
@@ -117,9 +115,11 @@ export class DialogueInteractionUI extends UI {
         this._textAnimator.resetAdvance();
         this._verticalStack.clearControls();
 
-        const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
+        // TODO: For test purposes instantly display the entire text
+        this._textAnimator.requestAdvance();
+        /*const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
             this._textAnimator.requestAdvance();
-        });
+        });*/
 
         const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
@@ -158,7 +158,7 @@ export class DialogueInteractionUI extends UI {
         }
 
         DialogueInteractionUI._isTextFullyDisplayed = true;
-        Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
+        // Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
         await this._startBlink();
     }
 

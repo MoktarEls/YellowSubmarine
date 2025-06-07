@@ -1,6 +1,7 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
+import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
 
-export abstract class SingleChildDialogueNode extends AbstractDialogueNode{
+export abstract class SingleChildDialogueNode extends AbstractDialogueNode {
 
     private _nextNode: AbstractDialogueNode | undefined;
 
@@ -18,4 +19,5 @@ export abstract class SingleChildDialogueNode extends AbstractDialogueNode{
         }
         return [];
     }
+
 }

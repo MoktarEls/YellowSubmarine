@@ -3,13 +3,8 @@ import {Container, Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {KeyZone} from "@/YellowSubmarine/keyzone system/KeyZone";
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
-import {
-    StartConversationInteraction
-} from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
-import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
-import {SwitchDialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
-import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
+import {StartDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/StartDialogueInteraction";
+import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
 import {World} from "@/YellowSubmarine/World";
 
 export class ShowConversationProviderUI extends UI{
@@ -26,12 +21,12 @@ export class ShowConversationProviderUI extends UI{
         Dialogue.onAnyDialogueStartedObservable.add(this.hideUIs.bind(this));
         Dialogue.onAnyDialogueEndedObservable.add(this.showUIs.bind(this));
         World.instance.worldInteractionManager.onInteractionAvailable.add( (interaction) => {
-            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
+            if(interaction instanceof StartDialogueInteraction || interaction instanceof DialogueInteraction ){
                 this.hideUIs();
             }
         });
         World.instance.worldInteractionManager.onInteractionUnavailable.add( (interaction) => {
-            if(interaction instanceof StartConversationInteraction || interaction instanceof DialogueNodeInteraction ){
+            if(interaction instanceof StartDialogueInteraction || interaction instanceof DialogueInteraction ){
                 this.showUIs();
             }
         });

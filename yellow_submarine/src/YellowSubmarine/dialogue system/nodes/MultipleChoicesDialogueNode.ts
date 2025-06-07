@@ -1,10 +1,13 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {Observable} from "@babylonjs/core";
+import {
+    MultipleChoicesDialogueNodeBuilder
+} from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesDialogueNodeBuilder";
 
 export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
 
     private _choices: AbstractDialogueNode[] = [];
-    private _currentChoiceIndex = 0;
+    private _currentSelectionIndex = 0;
 
     private _onChosenChildChangedObservable: Observable<AbstractDialogueNode> = new Observable<AbstractDialogueNode>();
     private _onNoChildIsChosenObservable: Observable<void> = new Observable();
@@ -29,13 +32,25 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         this._choices[index] = newChoice;
     }
 
+    public selectNext(){
+        this._currentSelectionIndex = (((this._currentSelectionIndex + 1) % this._choices.length) + this._choices.length) % this._choices.length;
+    }
+
+    public selectPrevious(){
+        this._currentSelectionIndex = (((this._currentSelectionIndex - 1) % this._choices.length) + this._choices.length) % this._choices.length;
+    }
+
+    public get selectedNode(){
+        return this.next;
+    }
+
     public choose(choice: AbstractDialogueNode) {
         const currentChoice = this.next;
         if(this._choices.includes(choice)) {
-            this._currentChoiceIndex = this._choices.indexOf(choice);
+            this._currentSelectionIndex = this._choices.indexOf(choice);
         }
         else {
-            this._currentChoiceIndex = 0;
+            this._currentSelectionIndex = 0;
         }
         const newChoice = this.next;
         if(currentChoice !== newChoice) {
@@ -57,9 +72,8 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
     }
 
     get next(): AbstractDialogueNode | undefined {
-        return this._choices[this._currentChoiceIndex];
+        return this._choices[this._currentSelectionIndex];
     }
-
 
 
 }

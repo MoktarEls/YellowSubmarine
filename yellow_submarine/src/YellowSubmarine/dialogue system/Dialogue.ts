@@ -1,36 +1,69 @@
 ﻿import {Observable} from "@babylonjs/core";
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
-import {SwitchDialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/SwitchDialogueNodeInteraction";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
-import {Player} from "@/YellowSubmarine/Player";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 import {Game} from "@/YellowSubmarine/Game";
-import {DialogueNodeInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueNodeInteraction";
-import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
-import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
-
 
 export class Dialogue {
 
-    public static onAnyDialogueStartedObservable: Observable<Dialogue> = new Observable();
-    public static onAnyDialogueEndedObservable: Observable<Dialogue> = new Observable();
+    private static _onAnyDialogueStartedObservable: Observable<Dialogue> = new Observable();
+    private static _onAnyDialogueEndedObservable: Observable<Dialogue> = new Observable();
+    private static _onAnyDialogueNodeStartedObservable: Observable<{dialogue: Dialogue, node: AbstractDialogueNode}> = new Observable();
 
-    public onDialogueStartedObservable: Observable<Dialogue> = new Observable();
-    public onDialogueEndedObservable: Observable<Dialogue> = new Observable();
+    private _onDialogueStartedObservable: Observable<void> = new Observable();
+    private _onDialogueEndedObservable: Observable<void> = new Observable();
+    private _onDialogueNodeStartedObservable: Observable<AbstractDialogueNode> = new Observable();
+
+    static get onAnyDialogueStartedObservable(): Observable<Dialogue> {
+        return this._onAnyDialogueStartedObservable;
+    }
+
+    static get onAnyDialogueEndedObservable(): Observable<Dialogue> {
+        return this._onAnyDialogueEndedObservable;
+    }
+
+    static get onAnyDialogueNodeStartedObservable(): Observable<{ dialogue: Dialogue; node: AbstractDialogueNode }> {
+        return this._onAnyDialogueNodeStartedObservable;
+    }
+
+    get onDialogueStartedObservable(): Observable<void> {
+        return this._onDialogueStartedObservable;
+    }
+
+    get onDialogueEndedObservable(): Observable<void> {
+        return this._onDialogueEndedObservable;
+    }
+
+    get onDialogueNodeStartedObservable(): Observable<AbstractDialogueNode> {
+        return this._onDialogueNodeStartedObservable;
+    }
 
     private _currentNode: AbstractDialogueNode | undefined;
+
+    public get currentNode(): AbstractDialogueNode | undefined {
+        return this._currentNode;
+    }
 
     public get rootNode(): AbstractDialogueNode {
         return this._rootNode;
     }
 
-    public get dialogueProvider(): IDialogueProvider{
+    public get dialogueProvider(): IDialogueProvider | undefined {
         return this._dialogueProvider;
     }
 
-    constructor(private _rootNode: AbstractDialogueNode, private _dialogueProvider: IDialogueProvider) {
-        this.onDialogueStartedObservable.add(() => Dialogue.onAnyDialogueStartedObservable.notifyObservers(this) );
-        this.onDialogueEndedObservable.add(() => Dialogue.onAnyDialogueEndedObservable.notifyObservers(this) );
+    public set dialogueProvider(value: IDialogueProvider | undefined) {
+        this._dialogueProvider = value;
+    }
+
+
+    private _dialogueProvider: IDialogueProvider | undefined;
+
+    constructor(private _rootNode: AbstractDialogueNode, dialogueProvider?: IDialogueProvider) {
+        this._dialogueProvider = dialogueProvider;
+        this._onDialogueStartedObservable.add(() => Dialogue._onAnyDialogueStartedObservable.notifyObservers(this) );
+        this._onDialogueEndedObservable.add(() => Dialogue._onAnyDialogueEndedObservable.notifyObservers(this) );
+        this._onDialogueNodeStartedObservable.add((node) => Dialogue._onAnyDialogueNodeStartedObservable.notifyObservers({dialogue:this, node: node}) );
     }
 
     public startDialogue(): void {
@@ -50,13 +83,17 @@ export class Dialogue {
         if(cameraConfiguration) {
             ConfigurableCamera.instance.cameraConfiguration = cameraConfiguration;
         }
-        this.advanceDialogue();
-        this.onDialogueStartedObservable.notifyObservers(this);
+        this.goToNextNode();
+        this._onDialogueStartedObservable.notifyObservers();
     }
 
-    public advanceDialogue(): void {
+    public goToNextNode(): void {
         this._currentNode = this._currentNode ? this._currentNode?.next : this._rootNode;
-        if(!this._currentNode) {
+        if(this._currentNode) {
+            this._onDialogueNodeStartedObservable.notifyObservers(this._currentNode);
+        }
+        else{
+            this.endDialogue();
         }
     }
 
@@ -70,7 +107,7 @@ export class Dialogue {
         this._hasBeenRead = true;
         */
         ConfigurableCamera.instance.cameraConfiguration = Game.player.playerCameraConfiguration;
-        this.onDialogueEndedObservable.notifyObservers(this);
+        this._onDialogueEndedObservable.notifyObservers();
     }
 
     public isInProgress(): boolean {

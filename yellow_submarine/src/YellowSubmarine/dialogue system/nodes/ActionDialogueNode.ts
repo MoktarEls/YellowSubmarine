@@ -1,4 +1,5 @@
 import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SingleChildDialogueNode";
+import {ActionDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionDialogueNodeBuilder";
 
 export class ActionDialogueNode extends SingleChildDialogueNode{
 

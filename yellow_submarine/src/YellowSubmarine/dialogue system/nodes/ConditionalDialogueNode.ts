@@ -1,4 +1,5 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
+import {ConditionalDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalDialogueNodeBuilder";
 
 export class ConditionalDialogueNode extends AbstractDialogueNode {
 
@@ -18,7 +19,7 @@ export class ConditionalDialogueNode extends AbstractDialogueNode {
         return this._falseNode;
     }
 
-    set falseNode(value: AbstractDialogueNode | undefined) {
+    set falseNode(value: AbstractDialogueNode| undefined) {
         this._falseNode = value;
     }
 
