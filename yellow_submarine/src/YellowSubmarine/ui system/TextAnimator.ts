@@ -1,6 +1,6 @@
 ﻿import { Utils } from "@/YellowSubmarine/Utils";
-import {StyledTextBlock} from "@/YellowSubmarine/ui system/TextLayoutManager";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import {StyledTextBlock} from "@/YellowSubmarine/ui system/TextBlockFactory";
 
 export class TextAnimator {
     private _advanceRequested = false;
