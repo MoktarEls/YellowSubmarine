@@ -18,12 +18,13 @@ export class WorldInteractionUI extends UI{
 
         InteractionManager.instance.onInteractionAvailable.add((interaction) => {
             if(interaction instanceof WorldInteraction) {
-                this.show(interaction);
+                this.display(interaction);
             }
         });
         InteractionManager.instance.onInteractionUnavailable.add((interaction) => {
             if(interaction instanceof WorldInteraction) {
                 this.hide();
+                this._container.linkWithMesh(null);
             }
         });
     }
@@ -32,7 +33,7 @@ export class WorldInteractionUI extends UI{
         return this._container;
     }
 
-    private show(interaction: WorldInteraction): void {
+    private display(interaction: WorldInteraction): void {
         this._container.isVisible = true;
 
         const rec1 = new Rectangle();
@@ -73,8 +74,4 @@ export class WorldInteractionUI extends UI{
 
     }
 
-    private hide() {
-        this._container.isVisible = false;
-        this._container.linkWithMesh(null);
-    }
 }

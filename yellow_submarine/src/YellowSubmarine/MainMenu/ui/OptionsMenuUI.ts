@@ -1,10 +1,10 @@
 import { UI } from "@/YellowSubmarine/ui system/UI";
 import { Control, Slider, StackPanel, TextBlock } from "@babylonjs/gui";
-import { MainMenuUI } from "@/YellowSubmarine/ui system/MainMenuUI";
 import { Game } from "@/YellowSubmarine/Game";
 import { KeyboardEventTypes } from "@babylonjs/core";
 import { SoundManager } from "@/YellowSubmarine/sound system/SoundManager";
 import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
 export class OptionsMenuUI extends UI {
 
@@ -14,7 +14,7 @@ export class OptionsMenuUI extends UI {
         return this._panel;
     }
 
-    constructor(private _mainMenu: MainMenuUI) {
+    constructor() {
         super();
         this._panel = new StackPanel();
         this._panel.zIndex = 2;
@@ -51,7 +51,10 @@ export class OptionsMenuUI extends UI {
             }
         }
 
-        const backButton = new ButtonUI("Retour", () => this.hide(), buttonStyle);
+        const backButton = new ButtonUI("Retour", () => {
+            this.hide()
+            UIManager.instance.showUI("mainMenu");
+        }, buttonStyle);
 
         this._panel.addControl(backButton.controlNode);
 
@@ -114,12 +117,4 @@ export class OptionsMenuUI extends UI {
         this._panel.addControl(container);
     }
 
-    public show() {
-        this._panel.isVisible = true;
-    }
-
-    public hide() {
-        this._panel.isVisible = false;
-        this._mainMenu.show();
-    }
 }

@@ -5,32 +5,19 @@ import {
 } from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes} from "@babylonjs/core";
-import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
-import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
 
 export class MainMenuUI extends UI {
 
-    private _panel: StackPanel;
-    private _optionMenuUI : OptionsMenuUI;
-    private _howToPlay: ImageUI;
-
+    private readonly _panel: StackPanel;
 
     public get controlNode(): Control {
         return this._panel;
     }
 
-    public get optionsMenuUI(): OptionsMenuUI {
-        return this._optionMenuUI;
-    }
-
     constructor() {
         super();
-
-        this._howToPlay = new ImageUI("ui/how-to-play.png");
-        this._howToPlay.controlNode.isVisible = false;
-        this._optionMenuUI = new OptionsMenuUI(this);
 
         this._panel = new StackPanel();
         this._panel.zIndex = 2;
@@ -61,7 +48,7 @@ export class MainMenuUI extends UI {
 
         const playButton = new ButtonUI("Jouer", () => this.onPlayPressed(), buttonStyle);
         const optionsButton = new ButtonUI("Options", () => this.onOptionsPressed(), buttonStyle);
-        const howToPlayButton = new ButtonUI("How to Play", () => this.showHowToPlay(), buttonStyle);
+        const howToPlayButton = new ButtonUI("How to Play", () => this.onHowToPressed(), buttonStyle);
 
         this._panel.addControl(playButton.controlNode);
         this._panel.addControl(optionsButton.controlNode);
@@ -71,26 +58,19 @@ export class MainMenuUI extends UI {
 
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if(eventData.event.key === "Escape" && state && !this.optionsMenuUI.controlNode.isVisible){
-                if(UIManager.instance.canvas && !this._panel.isVisible){
+            if(eventData.event.key === "Escape" && state && UIManager.instance.isVisible("optionsMenu")){
+                if(UIManager.instance.canvas){
+                    UIManager.instance.hideUI("optionsMenu");
                     this.show();
                 }
             }
-            if(eventData.event.key === "Escape" && state && this._howToPlay.controlNode.isVisible){
+            if(eventData.event.key === "Escape" && state && UIManager.instance.isVisible("howToPlay")){
                 if(UIManager.instance.canvas){
-                    this.hideHowToPlay();
+                    UIManager.instance.hideUI("howToPlay");
                     this.show();
                 }
             }
         });
-    }
-
-    public show() {
-        this._panel.isVisible = true;
-    }
-
-    public hide() {
-        this._panel.isVisible = false;
     }
 
     private onPlayPressed() {
@@ -101,22 +81,13 @@ export class MainMenuUI extends UI {
     }
 
     private onOptionsPressed() {
-        this._optionMenuUI.show();
         this.hide();
+        UIManager.instance.showUI("optionsMenu");
     }
 
-    private onQuitPressed() {
-        console.log("Quitter !");
-    }
-
-    private showHowToPlay(): void {
+    private onHowToPressed(): void {
         this.hide();
-        this._howToPlay.controlNode.isVisible = true;
-        UIManager.instance.ui.addControl(this._howToPlay.controlNode);
+        UIManager.instance.showUI("howToPlay");
     }
 
-    private hideHowToPlay(): void {
-        this._howToPlay.controlNode.isVisible = false;
-        UIManager.instance.ui.removeControl(this._howToPlay.controlNode);
-    }
 }

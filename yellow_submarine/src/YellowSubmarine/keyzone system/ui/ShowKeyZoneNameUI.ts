@@ -31,10 +31,10 @@ export class ShowKeyZoneNameUI extends UI {
         this._container.addControl(this._textBlock);
         this._container.zIndex = 1;
 
-        KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.show(keyzone));
+        KeyZone.onAnyKeyZoneEntered.add((keyzone) => this.showName(keyzone));
     }
 
-    public show(keyzone: KeyZone) {
+    private showName(keyzone: KeyZone) {
         this._textBlock.text = keyzone.name;
 
         if (keyzone.discovered) {

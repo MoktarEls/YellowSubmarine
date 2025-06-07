@@ -3,27 +3,39 @@ import {Game} from "@/YellowSubmarine/Game";
 import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
-import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
+import {MainMenuUI} from "@/YellowSubmarine/MainMenu/ui/MainMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
 import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {UI} from "@/YellowSubmarine/ui system/UI";
+import {OptionsMenuUI} from "@/YellowSubmarine/MainMenu/ui/OptionsMenuUI";
+import {HowToPlayUI} from "@/YellowSubmarine/MainMenu/ui/HowToPlayUI";
 
+type UiConstructor = new() => UI;
 
 export class UIManager {
 
     private _ui = AdvancedDynamicTexture.CreateFullscreenUI("_ui", undefined, Game.scene);
     private _canvas: HTMLCanvasElement;
 
-    private _worldInteractionUI: WorldInteractionUI = new WorldInteractionUI();
-    private _dialogueInteractionUI: DialogueInteractionUI = new DialogueInteractionUI();
-    private _showConversationProviderUI: ShowConversationProviderUI = new ShowConversationProviderUI();
-    private _islandsUI: ShowKeyZoneNameUI = new ShowKeyZoneNameUI();
-    private _mainMenuUI: MainMenuUI;
-    private _optionsMenuUI;
-    private _questUI: QuestUI = new QuestUI();
-    private _journalUI: JournalUI = new JournalUI();
-    private _slideAnimationUI: SlideAnimationUI;
+    private _uiMap:Map<string, UI> = new Map();
+    private _definitions: Record<string, UiConstructor> = {
+
+        mainMenu: MainMenuUI,
+        optionsMenu: OptionsMenuUI,
+        howToPlay: HowToPlayUI,
+        slideAnimation: SlideAnimationUI,
+
+        showConversationProvider: ShowConversationProviderUI,
+        island: ShowKeyZoneNameUI,
+
+        dialogueInteraction: DialogueInteractionUI,
+        worldInteraction: WorldInteractionUI,
+
+        quest: QuestUI,
+        journal: JournalUI,
+    }
 
     private static _instance: UIManager;
 
@@ -43,21 +55,27 @@ export class UIManager {
         UIManager._instance = this;
         this._canvas = canvas;
 
-        this._ui.addControl(this._worldInteractionUI.controlNode);
-        this._ui.addControl(this._showConversationProviderUI.controlNode);
-        this._ui.addControl(this._dialogueInteractionUI.controlNode);
-        this._ui.addControl(this._islandsUI.controlNode);
-        this._mainMenuUI = new MainMenuUI();
-        this._optionsMenuUI = this._mainMenuUI.optionsMenuUI;
-        this._ui.addControl(this._optionsMenuUI.controlNode);
-        this._ui.addControl(this._mainMenuUI.controlNode);
-        this._ui.addControl(this._questUI.controlNode);
-        this._ui.addControl(this._journalUI.controlNode);
-        this._slideAnimationUI = new SlideAnimationUI();
+        for(const [name, UIConstructor] of Object.entries(this._definitions)) {
+            const instance = new UIConstructor;
+            this._uiMap.set(name, instance);
+            this.ui.addControl(instance.controlNode);
+        }
     }
 
-    public showMainMenu(): void {
-        if(this._mainMenuUI)
-            this._mainMenuUI.show();
+    public get(name: string): UI | undefined{
+        return this._uiMap.get(name);
     }
+
+    public showUI(name: string): void {
+        this.get(name)?.show();
+    }
+
+    public hideUI(name: string): void {
+        this.get(name)?.hide();
+    }
+
+    public isVisible(name: string): boolean {
+        return <boolean> this.get(name)?.controlNode.isVisible;
+    }
+
 }

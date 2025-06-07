@@ -79,7 +79,7 @@ export class Game{
             this._isGameFocused = state;
             Game.onGameFocusChange.notifyObservers(this._isGameFocused);
             if (!this._isGameFocused) {
-                Game.uiManager.showMainMenu();
+                UIManager.instance.showUI("mainMenu");
             }
         }
     }

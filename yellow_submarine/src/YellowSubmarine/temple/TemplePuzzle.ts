@@ -8,6 +8,7 @@ import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCa
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Player} from "@/YellowSubmarine/Player";
 import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
 export class TemplePuzzle {
     private _upperRightSocle: Socle;
@@ -99,7 +100,8 @@ export class TemplePuzzle {
         if(this.isAllBallPlacedOnASocle()){
             if(this.checkConfiguration()){
                 TemplePuzzle.onPuzzleResolved.notifyObservers();
-                SlideAnimationUI.instance.startSlideshow();
+                const slide: SlideAnimationUI = <SlideAnimationUI> UIManager.instance.get("slideAnimation");
+                slide.startSlideshow();
             }
             else{
                 TemplePuzzle.onPuzzleRejected.notifyObservers();

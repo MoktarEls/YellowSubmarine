@@ -7,8 +7,6 @@ import {InteractionManager} from "@/YellowSubmarine/interaction system/Interacti
 import {
     StartConversationInteraction
 } from "@/YellowSubmarine/dialogue system/interactions/StartConversationInteraction";
-import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
-import {NextDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/NextDialogueInteraction";
 import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
 
 export class ShowConversationProviderUI extends UI{
