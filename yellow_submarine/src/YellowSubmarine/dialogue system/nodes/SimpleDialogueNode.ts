@@ -11,4 +11,8 @@ export class SimpleDialogueNode extends SingleChildDialogueNode<SimpleDialogueNo
         return this._text;
     }
 
+    getBuilderCtor(){
+        return SimpleDialogueNodeBuilder;
+    }
+
 }

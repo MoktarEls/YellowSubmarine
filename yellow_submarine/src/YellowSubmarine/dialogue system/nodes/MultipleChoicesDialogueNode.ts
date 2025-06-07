@@ -75,5 +75,9 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode<MultipleCh
         return this._choices[this._currentSelectionIndex];
     }
 
+    getBuilderCtor(){
+        return MultipleChoicesDialogueNodeBuilder;
+    }
+
 
 }

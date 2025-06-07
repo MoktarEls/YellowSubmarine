@@ -9,6 +9,8 @@ import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfigu
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
 import {StartDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/StartDialogueInteraction";
+import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
+import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -26,10 +28,10 @@ export class Stele implements IDialogueProvider {
         this._cameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
 
         const dialogueBuilder = DialogueNodeChainingBuilder
-            .createNewSimpleDialogueNodeBuilder("La ligne du haut regarde les cieux")
-            .chainSimpleNode(undefined, "La ligne du milieu respire l'air")
-            .chainSimpleNode(undefined, "La ligne du bas touche la terre")
-            .chainActionNode(undefined, "Mise à jour du journal et de la quête", () => {
+            .createNewDialogueBuilder(SimpleDialogueNode,"La ligne du haut regarde les cieux")
+            .chainNode(SimpleDialogueNode,undefined, "La ligne du milieu respire l'air")
+            .chainNode(SimpleDialogueNode,undefined, "La ligne du bas touche la terre")
+            .chainNode(ActionDialogueNode,undefined, "Mise à jour du journal et de la quête", () => {
                 let quest = QuestManager.instance.getQuest("temple_quest");
                 if(quest) quest.startQuest();
                 quest = QuestManager.instance.getQuest("dreamland");

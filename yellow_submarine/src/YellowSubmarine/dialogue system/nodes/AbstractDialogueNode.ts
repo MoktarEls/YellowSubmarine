@@ -14,7 +14,7 @@ export abstract class AbstractDialogueNode<
     >
 > {
 
-    abstract getBuilderCtor(): new (node: SelfType) => BuilderType;
+    abstract getBuilderCtor(): new (node: any) => BuilderType
 
     protected _text: string;
 

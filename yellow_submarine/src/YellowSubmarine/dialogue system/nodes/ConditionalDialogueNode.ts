@@ -23,11 +23,9 @@ export class ConditionalDialogueNode extends AbstractDialogueNode<ConditionalDia
         this._falseNode = value;
     }
 
-    constructor(condition: () => boolean, trueNode?: AbstractDialogueNode<never, never, never>, falseNode?: AbstractDialogueNode<never, never, never>) {
+    constructor(condition: () => boolean) {
         super("ConditionalDialogueNode");
         this._condition = condition;
-        this._trueNode = trueNode;
-        this._falseNode = falseNode;
     }
 
     get children(): AbstractDialogueNode<never, never, never>[] {
@@ -51,6 +49,10 @@ export class ConditionalDialogueNode extends AbstractDialogueNode<ConditionalDia
 
     private get validChild(): AbstractDialogueNode<never, never, never> | undefined {
         return this._condition() ? this._trueNode : this._falseNode;
+    }
+
+    getBuilderCtor() {
+        return ConditionalDialogueNodeBuilder;
     }
 
 

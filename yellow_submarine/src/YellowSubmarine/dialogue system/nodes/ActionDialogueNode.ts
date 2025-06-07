@@ -14,4 +14,8 @@ export class ActionDialogueNode extends SingleChildDialogueNode<ActionDialogueNo
         return `[c=#0000ff][b]***${this._text}***[/b][/c]`;
     }
 
+    getBuilderCtor() {
+        return ActionDialogueNodeBuilder;
+    }
+
 }
