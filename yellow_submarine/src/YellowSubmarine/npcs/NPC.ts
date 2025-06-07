@@ -36,7 +36,6 @@ export class NPC implements IDialogueProvider {
         return this._mesh;
     }
 
-
     public get cameraConfiguration(): CameraConfiguration | undefined{
         return this._cameraConfiguration;
     }
@@ -51,7 +50,6 @@ export class NPC implements IDialogueProvider {
     public get transformNode(): TransformNode {
         return this._transformNode;
     }
-
 
     public set detectionZone(value: MeshDetectionZone | undefined ) {
         this._playerDetectionZone = value;
@@ -86,13 +84,13 @@ export class NPC implements IDialogueProvider {
         if(this._playerDetectionZone){
             this._playerDetectionZone.onMeshEnter.add( () => {
                 if(this._startConversationInteraction && !this._dialogue?.isInProgress()){
-                    // this._startConversationInteraction.makeAvailable();
+                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startConversationInteraction);
                 }
             } );
 
             this._playerDetectionZone.onMeshExit.add( () => {
                 if(this._startConversationInteraction){
-                    // this._startConversationInteraction.makeUnavailable();
+                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startConversationInteraction);
                 }
             } );
 
