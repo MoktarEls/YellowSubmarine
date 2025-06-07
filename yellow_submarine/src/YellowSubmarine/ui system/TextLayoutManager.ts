@@ -1,11 +1,7 @@
 ﻿import { BBParser } from "@/YellowSubmarine/ui system/BBCode/BBParser";
 import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
 import { Control, TextBlock, StackPanel } from "@babylonjs/gui";
-
-export interface StyledSegment {
-    text: string;
-    style: BBStyle;
-}
+import {Segment} from "@/YellowSubmarine/ui system/BBCode/Segment";
 
 export interface StyledTextBlock {
     tb: TextBlock;
@@ -29,7 +25,7 @@ export class TextLayoutManager {
         this.horizontalPadding = horizontalPadding;
     }
 
-    public layout(text: string, maxWidth: number): { lines: StyledSegment[][]; segments: StyledSegment[] } {
+    public layout(text: string, maxWidth: number): { lines: Segment[][]; segments: Segment[] } {
         const segments = this.parser.parseBBCode(text).map(s => ({
             text: s.text,
             style: s.style
@@ -45,9 +41,9 @@ export class TextLayoutManager {
         return this.ctx.measureText(text).width;
     }
 
-    private splitLines(segments: StyledSegment[], maxWidth: number): StyledSegment[][] {
-        const lines: StyledSegment[][] = [];
-        let currentLine: StyledSegment[] = [];
+    private splitLines(segments: Segment[], maxWidth: number): Segment[][] {
+        const lines: Segment[][] = [];
+        let currentLine: Segment[] = [];
         let currentWidth = 0;
 
         for (const segment of segments) {
@@ -87,7 +83,7 @@ export class TextLayoutManager {
      * Renvoie un tableau d'objets pour animer le texte.
      */
     public createTextBlocks(
-        lines: StyledSegment[][],
+        lines: Segment[][],
         lineHeight: number,
         textBlockHorizontalPadding: number,
         defaultFontSize: number
