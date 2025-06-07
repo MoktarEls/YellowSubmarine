@@ -1,6 +1,6 @@
 ﻿import { Utils } from "@/YellowSubmarine/Utils";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
-import {StyledTextBlock} from "@/YellowSubmarine/ui system/TextBlockFactory";
+import {displaySegment} from "@/YellowSubmarine/ui system/TextBlockFactory";
 
 export class TextAnimator {
     private _advanceRequested = false;
@@ -18,7 +18,7 @@ export class TextAnimator {
         this._advanceRequested = false;
     }
 
-    public async animateBlocks(blocks: StyledTextBlock[], speed: number) {
+    public async animateBlocks(blocks: displaySegment[], speed: number) {
         if(SoundManager.instance) SoundManager.instance.playSFX("text", {loop: true, autoplay: true});
         let skipped = false;
         for (const { tb, full } of blocks) {

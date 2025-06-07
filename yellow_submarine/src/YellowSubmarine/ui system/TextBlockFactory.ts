@@ -2,7 +2,7 @@
 import { Segment } from "@/YellowSubmarine/ui system/BBCode/Segment";
 import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
 
-export interface StyledTextBlock {
+export interface displaySegment {
     tb: TextBlock;
     full: string;
 }
@@ -16,9 +16,9 @@ export class TextBlockFactory {
     public create(
         lines: Segment[][],
         lineHeight: number
-    ): { panels: StackPanel[]; blocks: StyledTextBlock[] } {
+    ): { panels: StackPanel[]; blocks: displaySegment[] } {
         const panels: StackPanel[] = [];
-        const blocks: StyledTextBlock[] = [];
+        const blocks: displaySegment[] = [];
 
         for (const lineSegments of lines) {
             const row = new StackPanel();
