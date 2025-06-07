@@ -4,12 +4,12 @@ import {
     MultipleChoicesDialogueNodeBuilder
 } from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesDialogueNodeBuilder";
 
-export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
+export class MultipleChoicesDialogueNode extends AbstractDialogueNode<MultipleChoicesDialogueNode, number | "add", MultipleChoicesDialogueNodeBuilder>{
 
-    private _choices: AbstractDialogueNode[] = [];
+    private _choices: AbstractDialogueNode<never, never, never>[] = [];
     private _currentSelectionIndex = 0;
 
-    private _onChosenChildChangedObservable: Observable<AbstractDialogueNode> = new Observable<AbstractDialogueNode>();
+    private _onChosenChildChangedObservable: Observable<AbstractDialogueNode<never, never, never>> = new Observable<AbstractDialogueNode<never, never, never>>();
     private _onNoChildIsChosenObservable: Observable<void> = new Observable();
 
     public get onChosenChildChangedObservable(){
@@ -24,11 +24,11 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         super(text);
     }
 
-    public addChoice(choice: AbstractDialogueNode): void {
+    public addChoice(choice: AbstractDialogueNode<never, never, never>): void {
         this._choices.push(choice);
     }
 
-    public updateChoice(newChoice: AbstractDialogueNode, index: number): void {
+    public updateChoice(newChoice: AbstractDialogueNode<never, never, never>, index: number): void {
         this._choices[index] = newChoice;
     }
 
@@ -44,7 +44,7 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         return this.next;
     }
 
-    public choose(choice: AbstractDialogueNode) {
+    public choose(choice: AbstractDialogueNode<never, never, never>) {
         const currentChoice = this.next;
         if(this._choices.includes(choice)) {
             this._currentSelectionIndex = this._choices.indexOf(choice);
@@ -63,7 +63,7 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         }
     }
 
-    get children(): AbstractDialogueNode[] {
+    get children(): AbstractDialogueNode<never, never, never>[] {
         return this._choices.slice();
     }
 
@@ -71,7 +71,7 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode{
         return this._text;
     }
 
-    get next(): AbstractDialogueNode | undefined {
+    get next(): AbstractDialogueNode<never, never, never> | undefined {
         return this._choices[this._currentSelectionIndex];
     }
 

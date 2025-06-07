@@ -3,13 +3,21 @@ import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/S
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 
 export class SingleChildDialogueNodeBuilder<
-    NodeType extends SingleChildDialogueNode
+    SelfType extends SingleChildDialogueNodeBuilder<
+        SelfType,
+        NodeType
+    >,
+    NodeType extends SingleChildDialogueNode<
+        NodeType,
+        SelfType
+    >
 > extends DialogueNodeChainingBuilder<
+    SelfType,
     void,
     NodeType
 >{
 
-    protected chain(nodeToChain: AbstractDialogueNode, index: void): void {
+    protected chain(nodeToChain: AbstractDialogueNode<never, never, never>, index: void): void {
         this._node.nextNode = nodeToChain;
     }
 

@@ -7,15 +7,24 @@ import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Action
 import {ActionDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ActionDialogueNodeBuilder";
 
 export abstract class DialogueNodeChainingBuilder<
+    SelfType extends DialogueNodeChainingBuilder<
+        SelfType,
+        IndexType,
+        NodeType
+    >,
     IndexType,
-    NodeType extends AbstractDialogueNode
+    NodeType extends AbstractDialogueNode<
+        NodeType,
+        IndexType,
+        SelfType
+    >
 >{
     protected readonly _node: NodeType;
-    private _root: AbstractDialogueNode;
+    private _root: AbstractDialogueNode<any, any, any>;
 
     private _dialogueProvider: IDialogueProvider | undefined
 
-    public setDialogueProvider(value: IDialogueProvider | undefined): DialogueNodeChainingBuilder<IndexType, NodeType>  {
+    public setDialogueProvider(value: IDialogueProvider | undefined): DialogueNodeChainingBuilder<SelfType, IndexType, NodeType>  {
         this._dialogueProvider = value;
         return this;
     }
@@ -31,16 +40,16 @@ export abstract class DialogueNodeChainingBuilder<
         NewIndexType,
         NewNodeCtor extends (new (...args: any[]) => NewNodeType),
         NewBuilderCtor extends (new (node: NewNodeType) => NewBuilderType),
-        NewBuilderType extends DialogueNodeChainingBuilder<NewIndexType, NewNodeType> = InstanceType<NewBuilderCtor>,
-        NewNodeType extends AbstractDialogueNode = InstanceType<NewNodeCtor>,
+        NewBuilderType extends DialogueNodeChainingBuilder<NewBuilderType, NewIndexType, NewNodeType> = InstanceType<NewBuilderCtor> ,
+        NewNodeType extends AbstractDialogueNode<NewNodeType, NewIndexType, NewBuilderType> = InstanceType<NewNodeCtor>,
     >(
         nodeCtor: NewNodeCtor,
-        builderCtor: NewBuilderCtor,
         index: IndexType,
         ...nodeArgs: ConstructorParameters<NewNodeCtor>
     ): NewBuilderType {
         const newNode = new nodeCtor(...nodeArgs);
         this.chain(newNode, index);
+        const builderCtor = newNode.getBuilderCtor();
         return this.createSubBuilder<
             NewIndexType,
             NewNodeType,
@@ -48,64 +57,34 @@ export abstract class DialogueNodeChainingBuilder<
             NewBuilderCtor
         >
         (
-            builderCtor,
+            builderCtor as NewBuilderCtor,
             newNode
         );
     }
 
-    public chainSimpleNode(
-        index: IndexType,
-        ...nodeArgs: ConstructorParameters<typeof SimpleDialogueNode>
-    ): SimpleDialogueNodeBuilder{
-        return this.chainNode(
-            SimpleDialogueNode,
-            SimpleDialogueNodeBuilder,
-            index,
-            ...nodeArgs
-        );
-    }
-
-    public chainActionNode(
-        index: IndexType,
-        ...nodeArgs: ConstructorParameters<typeof ActionDialogueNode>
-    ): ActionDialogueNodeBuilder{
-        return this.chainNode(
-            ActionDialogueNode,
-            ActionDialogueNodeBuilder,
-            index,
-            ...nodeArgs
-        );
-    }
 
     // --------------------------------------- C R E A T I O N ---------------------------------------------------------
 
     private static createNewDialogueBuilder<
         NewIndexType,
-        NewNodeType extends AbstractDialogueNode,
-        NewBuilderType extends DialogueNodeChainingBuilder<NewIndexType, NewNodeType>,
         NewNodeCtor extends (new (...args: any[]) => NewNodeType),
         NewBuilderCtor extends (new (node: NewNodeType) => NewBuilderType),
+        NewBuilderType extends DialogueNodeChainingBuilder<NewBuilderType, NewIndexType, NewNodeType> = InstanceType<NewBuilderCtor> ,
+        NewNodeType extends AbstractDialogueNode<NewNodeType, NewIndexType, NewBuilderType> = InstanceType<NewNodeCtor>,
     >(
         nodeCtor: NewNodeCtor,
-        builderCtor: NewBuilderCtor,
         ...nodeCtorArgs: ConstructorParameters<NewNodeCtor>
     ): NewBuilderType{
         const rootNode = new nodeCtor(...nodeCtorArgs);
+        const builderCtor = rootNode.getBuilderCtor();
         return new builderCtor(rootNode)
     }
 
     public static createNewSimpleDialogueNodeBuilder(
         ...nodeArgs: ConstructorParameters<typeof SimpleDialogueNode>
     ){
-        return this.createNewDialogueBuilder<
-            void,
+        return this.createNewDialogueBuilder(
             SimpleDialogueNode,
-            SimpleDialogueNodeBuilder,
-            typeof SimpleDialogueNode,
-            typeof SimpleDialogueNodeBuilder
-        >(
-            SimpleDialogueNode,
-            SimpleDialogueNodeBuilder,
             ...nodeArgs
         )
     }
