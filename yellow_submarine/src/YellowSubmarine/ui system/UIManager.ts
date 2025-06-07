@@ -3,14 +3,14 @@ import {Game} from "@/YellowSubmarine/Game";
 import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
-import {MainMenuUI} from "@/YellowSubmarine/MainMenu/ui/MainMenuUI";
+import {MainMenuUI} from "@/YellowSubmarine/main menu/ui/MainMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
 import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
 import {UI} from "@/YellowSubmarine/ui system/UI";
-import {OptionsMenuUI} from "@/YellowSubmarine/MainMenu/ui/OptionsMenuUI";
-import {HowToPlayUI} from "@/YellowSubmarine/MainMenu/ui/HowToPlayUI";
+import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
+import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";
 
 type UiConstructor = new() => UI;
 
