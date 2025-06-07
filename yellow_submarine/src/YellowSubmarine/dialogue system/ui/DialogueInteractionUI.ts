@@ -51,10 +51,6 @@ export class DialogueInteractionUI extends UI {
         this.initTriangle();
 
         this._layoutManager = new TextLayoutManager(
-            (() => {
-                const canvas = document.createElement("canvas");
-                return canvas.getContext("2d")!;
-            })(),
             this.TEXT_DEFAULT_FONT_SIZE,
             this.TEXT_BLOCK_HORIZONTAL_PADDING
         );
@@ -112,6 +108,7 @@ export class DialogueInteractionUI extends UI {
     }
 
     private async showText(text: string, speed: number) {
+
         DialogueInteractionUI._isTextFullyDisplayed = false;
         this._stopBlink();
         this._textAnimator.resetAdvance();
@@ -149,6 +146,7 @@ export class DialogueInteractionUI extends UI {
         const contentHeight = lines.length * lineHeight;
         const totalHeight =
             contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
+
         this._container.height = `${totalHeight}px`;
 
         await this._textAnimator.animateBlocks(blocks, speed);

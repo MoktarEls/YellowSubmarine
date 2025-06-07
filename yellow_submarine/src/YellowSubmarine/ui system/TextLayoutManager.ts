@@ -15,14 +15,16 @@ export class TextLayoutManager {
     private horizontalPadding: number;
 
     constructor(
-        ctx: CanvasRenderingContext2D,
         defaultFontSize = 24,
         horizontalPadding = 4
     ) {
-        this.parser = new BBParser();
-        this.ctx = ctx;
         this.defaultFontSize = defaultFontSize;
         this.horizontalPadding = horizontalPadding;
+
+        this.parser = new BBParser();
+        const canvas = document.createElement("canvas");
+        this.ctx = canvas.getContext("2d")!;
+
     }
 
     public layout(text: string, maxWidth: number): { lines: Segment[][]; segments: Segment[] } {
@@ -78,10 +80,7 @@ export class TextLayoutManager {
         return lines;
     }
 
-    /**
-     * Crée les StackPanels (lignes) et TextBlocks (segments) formatés.
-     * Renvoie un tableau d'objets pour animer le texte.
-     */
+
     public createTextBlocks(
         lines: Segment[][],
         lineHeight: number,
