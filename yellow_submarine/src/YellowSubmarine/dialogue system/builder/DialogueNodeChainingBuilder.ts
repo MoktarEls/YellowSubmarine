@@ -1,6 +1,8 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
+import {SimpleDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleDialogueNodeBuilder";
+import {Constructor} from "@babylonjs/core";
 
 type IndexTypeOfNode<Node extends AbstractDialogueNode<any, any, any>> =
     Node extends AbstractDialogueNode<any, infer IndexType, any> ? IndexType : never;
@@ -13,6 +15,10 @@ type IndexTypeOfBuilder<Builder extends DialogueNodeChainingBuilder<any, any, an
 
 type NodeTypeOfBuilder<Builder extends DialogueNodeChainingBuilder<any, any, any>> =
     Builder extends DialogueNodeChainingBuilder<any, any, infer NodeType> ? NodeType : never;
+
+type IfVoid<T, Then, Else> = [T] extends [void] ? Then : Else;
+
+
 
 export abstract class DialogueNodeChainingBuilder<
     SelfType extends DialogueNodeChainingBuilder<
@@ -47,15 +53,28 @@ export abstract class DialogueNodeChainingBuilder<
     public chainNode<
         NewNodeCtor extends new (...args: any[]) => NewNodeType,
         NewNodeType extends AbstractDialogueNode<NewNodeType, NewIndexType, NewBuilderType> = InstanceType<NewNodeCtor>,
-        NewIndexType = IndexTypeOfNode<NewNodeType>,
         NewBuilderType extends DialogueNodeChainingBuilder<NewBuilderType, NewIndexType, NewNodeType> = BuilderTypeOfNode<NewNodeType>,
+        NewIndexType = IndexTypeOfBuilder<NewBuilderType>,
     >(
         nodeCtor: NewNodeCtor,
-        index: IndexType,
-        ...nodeArgs: ConstructorParameters<typeof nodeCtor>
+        ...args: IfVoid<
+            IndexType,
+            ConstructorParameters<NewNodeCtor>,
+            [index:IndexType, ...nodeArgs:ConstructorParameters<NewNodeCtor>]
+        >
     ): NewBuilderType {
+        let index;
+        let nodeArgs;
+        if(args.length > nodeCtor.length) {
+            index = args[0];
+            nodeArgs = args.slice(1);
+        }
+        else{
+            index = undefined;
+            nodeArgs = args;
+        }
         const newNode = new nodeCtor(...nodeArgs);
-        this.chain(newNode, index);
+        this.chain(newNode, index as IndexType);
         const builderCtor = newNode.getBuilderCtor();
         return this.createSubBuilder(
             builderCtor,
@@ -69,8 +88,8 @@ export abstract class DialogueNodeChainingBuilder<
     public static createNewDialogueBuilder<
         NewNodeCtor extends new (...args: any[]) => NewNodeType,
         NewNodeType extends AbstractDialogueNode<NewNodeType, NewIndexType, NewBuilderType> = InstanceType<NewNodeCtor>,
-        NewIndexType = IndexTypeOfNode<NewNodeType>,
-        NewBuilderType extends DialogueNodeChainingBuilder<NewBuilderType, NewIndexType, NewNodeType> = BuilderTypeOfNode<NewNodeType>
+        NewBuilderType extends DialogueNodeChainingBuilder<NewBuilderType, NewIndexType, NewNodeType> = BuilderTypeOfNode<NewNodeType>,
+        NewIndexType = IndexTypeOfBuilder<NewBuilderType>,
     >(
         nodeCtor:NewNodeCtor,
         ...nodeCtorArgs: ConstructorParameters<NewNodeCtor>

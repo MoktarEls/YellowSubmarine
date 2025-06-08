@@ -29,9 +29,9 @@ export class Stele implements IDialogueProvider {
 
         const dialogueBuilder = DialogueNodeChainingBuilder
             .createNewDialogueBuilder(SimpleDialogueNode,"La ligne du haut regarde les cieux")
-            .chainNode(SimpleDialogueNode,undefined, "La ligne du milieu respire l'air")
-            .chainNode(SimpleDialogueNode,undefined, "La ligne du bas touche la terre")
-            .chainNode(ActionDialogueNode,undefined, "Mise à jour du journal et de la quête", () => {
+            .chainNode(SimpleDialogueNode, "La ligne du milieu respire l'air")
+            .chainNode(SimpleDialogueNode, "La ligne du bas touche la terre")
+            .chainNode(ActionDialogueNode, "Mise à jour du journal et de la quête", () => {
                 let quest = QuestManager.instance.getQuest("temple_quest");
                 if(quest) quest.startQuest();
                 quest = QuestManager.instance.getQuest("dreamland");
