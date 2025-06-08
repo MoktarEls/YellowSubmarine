@@ -2,7 +2,6 @@
 import { Control, Rectangle, Image, StackPanel } from "@babylonjs/gui";
 import { Conversation } from "@/YellowSubmarine/dialogue system/Conversation";
 import { Utils } from "@/YellowSubmarine/Utils";
-import { TextLayoutManager } from "@/YellowSubmarine/ui system/TextLayoutManager";
 import {TextAnimator} from "@/YellowSubmarine/ui system/TextAnimator";
 import {TextBlockFactory} from "@/YellowSubmarine/ui system/TextBlockFactory";
 import {TextFormatter} from "@/YellowSubmarine/ui system/TextFormatter";
