@@ -12,7 +12,7 @@ export class BBTextBuilder {
         text: string,
         bbStyle?: BBStyle,
     ): BBTextBuilder {
-        this._segments.push(new BBSegment(text+"      ", bbStyle ??  BBStyle.NULL_STYLE) );
+        this._segments.push(new BBSegment(text, bbStyle ??  BBStyle.NULL_STYLE) );
         return this;
     }
 

@@ -15,8 +15,8 @@ export class BBTextBlockTestUI extends UI{
     constructor() {
         super();
         this._bbTextBlock = new BBTextBlock(new BBTextBuilder()
+            .addText("aurevoiry", new BBStyleBuilder().addTag(ItalicTag).addTag(SizeTag, 8).build())
             .addText("bonjour", new BBStyleBuilder().addTag(BoldTag).build())
-            .addText("aurevoir", new BBStyleBuilder().addTag(ItalicTag).addTag(SizeTag, 8).build())
             .addText("no more style")
             .build())
         console.log(this._bbTextBlock);
