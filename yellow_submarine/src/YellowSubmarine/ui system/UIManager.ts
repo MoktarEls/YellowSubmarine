@@ -11,6 +11,7 @@ import {SlideAnimationUI} from "@/YellowSubmarine/ui system/custom nodes/SlideAn
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
 import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";
+import {BBTextBlockTestUI} from "@/YellowSubmarine/BBCode/BBTextBlockTestUI";
 
 type UiConstructor = new() => UI;
 
@@ -35,6 +36,7 @@ export class UIManager {
 
         quest: QuestUI,
         journal: JournalUI,
+        bbTextBlockTestUI: BBTextBlockTestUI,
     }
 
     private static _instance: UIManager;

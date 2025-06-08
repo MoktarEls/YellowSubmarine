@@ -8,11 +8,11 @@ export class BBSegment {
     private static DEFAULT_COLOR = "black";
 
     public get fontSize() {
-        return (this.style.tags.find( (tag) => tag instanceof SizeTag )as SizeTag).size;
+        return (this.style.tags.find( (tag) => tag instanceof SizeTag )as SizeTag | undefined)?.size ?? BBSegment.DEFAULT_TEXT_SIZE;
     }
 
     public get color(): string {
-        return (this.style.tags.find( (tag) => tag instanceof ColorTag )as ColorTag).color;
+        return (this.style.tags.find( (tag) => tag instanceof ColorTag )as ColorTag | undefined)?.color ?? BBSegment.DEFAULT_COLOR;
     }
 
     constructor(

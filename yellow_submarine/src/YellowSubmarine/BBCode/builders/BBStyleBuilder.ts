@@ -19,7 +19,7 @@ export class BBStyleBuilder {
     }
 
     public build(): BBStyle{
-        throw new Error("Not implemented.");
+        return new BBStyle(this._tags.slice());
     }
 
 }

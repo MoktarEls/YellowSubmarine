@@ -1,33 +1,34 @@
 import {UI} from "@/YellowSubmarine/ui system/UI";
-import {Control, Rectangle, StackPanel, TextBlock} from "@babylonjs/gui";
+import {Control, StackPanel, TextBlock} from "@babylonjs/gui";
 import {BBText} from "@/YellowSubmarine/BBCode/BBText";
-import {Segment} from "@/YellowSubmarine/ui system/BBCodeOld/Segment";
 import {BBSegment} from "@/YellowSubmarine/BBCode/BBSegment";
 import {Game} from "@/YellowSubmarine/Game";
 
 export class BBTextBlock extends UI{
 
-    private _rectangle: Rectangle = new Rectangle();
+    private _container: StackPanel = new StackPanel();
 
     private _stackPanels: StackPanel[] = [];
     private _textBlocks: TextBlock[] = [];
-    private _heightInPixels = 0;
 
     get controlNode(): Control {
-        return this._rectangle;
+        return this._container;
     }
 
     constructor(private _bbtext: BBText) {
         super();
-        const segmentsLine = this.calculateSegmentsLine();
-        const textBlockLines = this.createTextBlocksLine(segmentsLine);
-        this.createStackPanels(textBlockLines);
-        this._rectangle.heightInPixels = this._heightInPixels;
+        this._container.isVertical = true;
+        this._container.width = "100%";
+        this._container.background = "gray";
+        this._container.onAfterDrawObservable.addOnce(() => {
+            const segmentsLine = this.calculateSegmentsLine();
+            this.createStackPanels(segmentsLine);
+        })
         // TODO: écouter l'event de change de taille du rectangle et réorganiser
     }
 
 
-    private createTextBlocksLine(segments: BBSegment[][]): TextBlock[][] {
+    /*private createTextBlocksLine(segments: BBSegment[][]): TextBlock[][] {
         const textBlockLines: TextBlock[][] = [];
         segments.forEach((segmentLine) => {
             const currentTextBlockLine: TextBlock[] = [];
@@ -37,6 +38,7 @@ export class BBTextBlock extends UI{
                 textBlock.resizeToFit = true;
                 textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
                 textBlock.text = segment.text;
+                textBlock.heightInPixels = 30;
                 segment.style.tags.forEach(
                     tag => tag.apply(textBlock)
                 );
@@ -46,10 +48,10 @@ export class BBTextBlock extends UI{
             textBlockLines.push(currentTextBlockLine);
         })
         return textBlockLines;
-    }
+    }*/
 
     private calculateSegmentsLine(): BBSegment[][]{
-        const maxWidth = this._rectangle.widthInPixels;
+        const maxWidth = this._container.widthInPixels;
         const lines: BBSegment[][] = [];
         let currentLine: BBSegment[] = [];
         let currentWidth = 0;
@@ -62,7 +64,6 @@ export class BBTextBlock extends UI{
                 currentLine.push(segment);
                 currentWidth += segWidth;
             } else {
-                // TODO : Optimiser pour faire moins de BBSegment
                 const parts = segment.text.split(/(\s+)/); // split on spaces
 
                 for (const part of parts) {
@@ -87,32 +88,72 @@ export class BBTextBlock extends UI{
         return lines;
     }
 
-    private createStackPanels(textBlockLines: TextBlock[][]) {
-        textBlockLines.forEach((line) => {
-            const stackPanel = new StackPanel();
-            const stackPanelHeight = Math.max(...line.map( textBlock => textBlock.heightInPixels)) * 1.2;
-            stackPanel.heightInPixels = stackPanelHeight;
-            stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-            stackPanel.isVertical = false;
-            line.forEach((textBlock) => {
-                stackPanel.addControl(textBlock);
-            })
-            this._stackPanels.push(stackPanel);
-            this._rectangle.addControl(stackPanel);
-            this._heightInPixels += stackPanelHeight;
-        })
-    }
-
     private getTextWidth(text: string, fontSize: number): number {
         const ctx = Game.canvas.getContext("2d");
         if(ctx){
             ctx.font = `${fontSize}px sans-serif`;
+            console.log("BIEN JOUE MINOO !!!!")
             return ctx.measureText(text).width;
         }
         else{
-            throw new Error("Impossible to calculate text width");
+            console.log("EHH NONON LELE SANG !!!!")
+            return 0;
         }
     }
 
+    private createStackPanels(segmentsLine: BBSegment[][]) {
+        segmentsLine.forEach(() => {
+            const stackPanel = new StackPanel();
+            this._stackPanels.push(stackPanel);
+            this._container.addControl(stackPanel);
+            stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+            stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            stackPanel.isVertical = false;
+            stackPanel.width = "100%";
+        })
+        this._stackPanels.forEach( (stackPanel) => {
+            stackPanel.onAfterDrawObservable.addOnce( () => {
+                const index = this._stackPanels.indexOf(stackPanel);
+                this.fillStackPanel(stackPanel, segmentsLine[index]);
+                const textBlocksInStackPanel = stackPanel.children as TextBlock[];
+                textBlocksInStackPanel.forEach((textBlock) => {
+                    textBlock.onAfterDrawObservable.addOnce( () => {
+                        stackPanel.heightInPixels = Math.max(0, stackPanel.heightInPixels, textBlock.heightInPixels) * 1.2;
+                        this.updateContainerHeight();
+                    })
+                })
+            })
+        });
+    }
+
+    private fillStackPanel(stackPanel: StackPanel, bbSegment: BBSegment[]) {
+        bbSegment.forEach((segment) => {
+            const textBlock = new TextBlock();
+            textBlock.textWrapping = false;
+            textBlock.resizeToFit = true;
+            textBlock.onAfterDrawObservable.addOnce( () => {
+                const spaceSize = this.getTextWidth(" ", segment.fontSize);
+                // console.log(spaceSize);
+                textBlock.paddingLeftInPixels = spaceSize;
+                textBlock.paddingRightInPixels = spaceSize;
+            })
+            textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            textBlock.text = segment.text;
+            console.log(textBlock.text);
+            segment.style.tags.forEach(
+                tag => tag.apply(textBlock)
+            );
+            stackPanel.addControl(textBlock);
+            this._textBlocks.push(textBlock);
+        })
+    }
+
+    private updateContainerHeight() {
+        let containerHeight = 0;
+        this._stackPanels.forEach((stackPanel: StackPanel) => {
+            containerHeight += Math.max(0, stackPanel.heightInPixels);
+        })
+        console.log(`Container new height = ${containerHeight}px`);
+        this._container.heightInPixels = containerHeight;
+    }
 }
