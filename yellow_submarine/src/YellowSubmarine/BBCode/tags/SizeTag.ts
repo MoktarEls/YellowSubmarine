@@ -3,6 +3,10 @@ import {TextBlock} from "@babylonjs/gui";
 
 export class SizeTag extends BBTag {
 
+    get size(): number {
+        return this._size;
+    }
+
     constructor(private _size: number) {
         super();
     }

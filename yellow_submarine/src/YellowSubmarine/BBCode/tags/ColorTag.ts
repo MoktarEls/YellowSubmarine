@@ -3,6 +3,10 @@ import {TextBlock} from "@babylonjs/gui";
 
 export class ColorTag extends BBTag {
 
+    get color(): string {
+        return this._color;
+    }
+
     constructor(private _color: string) {
         super();
     }
