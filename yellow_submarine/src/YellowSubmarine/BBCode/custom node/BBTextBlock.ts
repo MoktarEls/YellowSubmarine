@@ -19,36 +19,12 @@ export class BBTextBlock extends UI{
         super();
         this._container.isVertical = true;
         this._container.width = "100%";
-        this._container.background = "gray";
         this._container.onAfterDrawObservable.addOnce(() => {
             const segmentsLine = this.calculateSegmentsLine();
             this.createStackPanels(segmentsLine);
         })
         // TODO: écouter l'event de change de taille du rectangle et réorganiser
     }
-
-
-    /*private createTextBlocksLine(segments: BBSegment[][]): TextBlock[][] {
-        const textBlockLines: TextBlock[][] = [];
-        segments.forEach((segmentLine) => {
-            const currentTextBlockLine: TextBlock[] = [];
-            segmentLine.forEach((segment) => {
-                const textBlock = new TextBlock();
-                textBlock.textWrapping = false;
-                textBlock.resizeToFit = true;
-                textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-                textBlock.text = segment.text;
-                textBlock.heightInPixels = 30;
-                segment.style.tags.forEach(
-                    tag => tag.apply(textBlock)
-                );
-                currentTextBlockLine.push(textBlock);
-                this._textBlocks.push(textBlock);
-            })
-            textBlockLines.push(currentTextBlockLine);
-        })
-        return textBlockLines;
-    }*/
 
     private calculateSegmentsLine(): BBSegment[][]{
         const maxWidth = this._container.widthInPixels;
@@ -131,13 +107,14 @@ export class BBTextBlock extends UI{
             const textBlock = new TextBlock();
             textBlock.textWrapping = false;
             textBlock.resizeToFit = true;
-            textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             textBlock.text = segment.text;
 
+            // TODO : Need to try and fix vertical alignement because of characters that goes below and above.
             const spaceAfterTextBlock = new TextBlock();
             spaceAfterTextBlock.textWrapping = false;
             spaceAfterTextBlock.resizeToFit = true;
-            spaceAfterTextBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            spaceAfterTextBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             spaceAfterTextBlock.text = "c";
             spaceAfterTextBlock.alpha = 0;
             segment.style.tags.forEach(
