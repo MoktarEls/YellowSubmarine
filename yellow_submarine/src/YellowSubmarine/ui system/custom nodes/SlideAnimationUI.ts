@@ -1,6 +1,6 @@
 import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
-import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
+import {ImageUI} from "@/YellowSubmarine/ui system/custom nodes/ImageUI";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {UI} from "@/YellowSubmarine/ui system/UI";
 

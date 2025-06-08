@@ -1,5 +1,5 @@
-﻿import {BBTag} from "@/YellowSubmarine/ui system/BBCode/BBTag";
-import {BBStyle} from "@/YellowSubmarine/ui system/BBCode/BBStyle";
+﻿import {BBTag} from "@/YellowSubmarine/ui system/BBCodeOld/BBTag";
+import {BBStyle} from "@/YellowSubmarine/ui system/BBCodeOld/BBStyle";
 
 export class ColorTag extends BBTag {
     onOpen(style: BBStyle): BBStyle {

@@ -1,5 +1,5 @@
-﻿import { BBParser } from "@/YellowSubmarine/ui system/BBCode/BBParser";
-import { Segment } from "@/YellowSubmarine/ui system/BBCode/Segment";
+﻿import { BBParser } from "@/YellowSubmarine/ui system/BBCodeOld/BBParser";
+import { Segment } from "@/YellowSubmarine/ui system/BBCodeOld/Segment";
 
 export class TextFormatter {
     private parser: BBParser;

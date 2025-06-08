@@ -7,7 +7,7 @@ import {MainMenuUI} from "@/YellowSubmarine/main menu/ui/MainMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
-import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {SlideAnimationUI} from "@/YellowSubmarine/ui system/custom nodes/SlideAnimationUI";
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
 import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";

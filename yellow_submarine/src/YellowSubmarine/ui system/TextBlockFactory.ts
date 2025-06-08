@@ -1,6 +1,6 @@
 ﻿import { Control, StackPanel, TextBlock } from "@babylonjs/gui";
-import { Segment } from "@/YellowSubmarine/ui system/BBCode/Segment";
-import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
+import { Segment } from "@/YellowSubmarine/ui system/BBCodeOld/Segment";
+import { BBStyle } from "@/YellowSubmarine/ui system/BBCodeOld/BBStyle";
 
 export interface displaySegment {
     tb: TextBlock;

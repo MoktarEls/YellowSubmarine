@@ -1,4 +1,4 @@
-﻿import { BBStyle } from "@/YellowSubmarine/ui system/BBCode/BBStyle";
+﻿import { BBStyle } from "@/YellowSubmarine/ui system/BBCodeOld/BBStyle";
 
 export abstract class BBTag {
     constructor(public param?: string) {}

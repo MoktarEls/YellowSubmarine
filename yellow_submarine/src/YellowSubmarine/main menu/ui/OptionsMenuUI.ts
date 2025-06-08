@@ -3,7 +3,7 @@ import { Control, Slider, StackPanel, TextBlock } from "@babylonjs/gui";
 import { Game } from "@/YellowSubmarine/Game";
 import { KeyboardEventTypes } from "@babylonjs/core";
 import { SoundManager } from "@/YellowSubmarine/sound system/SoundManager";
-import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
+import {ButtonUI} from "@/YellowSubmarine/ui system/custom nodes/ButtonUI";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
 export class OptionsMenuUI extends UI {

@@ -1,6 +1,6 @@
 ﻿import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control} from "@babylonjs/gui";
-import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
+import {ImageUI} from "@/YellowSubmarine/ui system/custom nodes/ImageUI";
 
 export class HowToPlayUI extends UI {
 

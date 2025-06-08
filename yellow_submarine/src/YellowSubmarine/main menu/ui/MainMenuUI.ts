@@ -6,7 +6,7 @@ import {
 import {Game} from "@/YellowSubmarine/Game";
 import {KeyboardEventTypes} from "@babylonjs/core";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
-import {ButtonUI} from "@/YellowSubmarine/ui system/ButtonUI";
+import {ButtonUI} from "@/YellowSubmarine/ui system/custom nodes/ButtonUI";
 
 export class MainMenuUI extends UI {
 

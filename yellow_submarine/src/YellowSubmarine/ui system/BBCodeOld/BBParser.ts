@@ -1,10 +1,10 @@
-﻿import { BBTag } from "@/YellowSubmarine/ui system/BBCode/BBTag";
-import { ItalicTag } from "@/YellowSubmarine/ui system/BBCode/Tags/ItalicTag";
-import { BoldTag } from "@/YellowSubmarine/ui system/BBCode/Tags/BoldTag";
-import { ColorTag } from "@/YellowSubmarine/ui system/BBCode/Tags/ColorTag";
-import { SizeTag } from "@/YellowSubmarine/ui system/BBCode/Tags/SizeTag";
+﻿import { BBTag } from "@/YellowSubmarine/ui system/BBCodeOld/BBTag";
+import { ItalicTag } from "@/YellowSubmarine/ui system/BBCodeOld/Tags/ItalicTag";
+import { BoldTag } from "@/YellowSubmarine/ui system/BBCodeOld/Tags/BoldTag";
+import { ColorTag } from "@/YellowSubmarine/ui system/BBCodeOld/Tags/ColorTag";
+import { SizeTag } from "@/YellowSubmarine/ui system/BBCodeOld/Tags/SizeTag";
 import { BBContext } from "./BBContext";
-import {Segment} from "@/YellowSubmarine/ui system/BBCode/Segment";
+import {Segment} from "@/YellowSubmarine/ui system/BBCodeOld/Segment";
 
 export class BBParser {
     private _registry = new Map<string, new (param?: string) => BBTag>();
