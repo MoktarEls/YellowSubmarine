@@ -3,58 +3,82 @@ import {Game} from "@/YellowSubmarine/Game";
 import {DialogueInteractionUI} from "@/YellowSubmarine/dialogue system/ui/DialogueInteractionUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
-import {MainMenuUI} from "@/YellowSubmarine/ui system/MainMenuUI";
-import {OptionsMenuUI} from "@/YellowSubmarine/ui system/OptionsMenuUI";
+import {MainMenuUI} from "@/YellowSubmarine/main menu/ui/MainMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {ShowConversationProviderUI} from "@/YellowSubmarine/keyzone system/ui/ShowConversationProviderUI";
-import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
+import {SlideAnimationUI} from "@/YellowSubmarine/ui system/custom nodes/SlideAnimationUI";
 import {UI} from "@/YellowSubmarine/ui system/UI";
-import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
+import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
+import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";
 
+type UiConstructor = new() => UI;
 
 export class UIManager {
 
     private _ui = AdvancedDynamicTexture.CreateFullscreenUI("_ui", undefined, Game.scene);
+    private _canvas: HTMLCanvasElement;
 
-    private _worldInteractionUI: WorldInteractionUI = new WorldInteractionUI();
-    private _dialogueInteractionUI: DialogueInteractionUI = new DialogueInteractionUI();
-    private _showConversationProviderUI: ShowConversationProviderUI = new ShowConversationProviderUI();
-    private _islandsUI: ShowKeyZoneNameUI = new ShowKeyZoneNameUI();
-    private _mainMenuUI: MainMenuUI;
-    private _optionsMenuUI;
-    private _questUI: QuestUI = new QuestUI();
-    private _journalUI: JournalUI = new JournalUI();
-    private _slideAnimationUI: SlideAnimationUI;
+    private _uiMap:Map<string, UI> = new Map();
+    private _definitions: Record<string, UiConstructor> = {
+
+        mainMenu: MainMenuUI,
+        optionsMenu: OptionsMenuUI,
+        howToPlay: HowToPlayUI,
+        slideAnimation: SlideAnimationUI,
+
+        showConversationProvider: ShowConversationProviderUI,
+        island: ShowKeyZoneNameUI,
+
+        dialogueInteraction: DialogueInteractionUI,
+        worldInteraction: WorldInteractionUI,
+
+        quest: QuestUI,
+        journal: JournalUI,
+    }
 
     private static _instance: UIManager;
+    public static get canvasRenderingContext2D(){
+        return this._instance._ui.getContext();
+    }
 
     public static get instance(): UIManager {
         return this._instance;
-    }
-
-    constructor(private _canvas: HTMLCanvasElement) {
-        UIManager._instance = this;
-        this._ui.addControl(this._worldInteractionUI.controlNode);
-        this._ui.addControl(this._showConversationProviderUI.controlNode);
-        this._ui.addControl(this._dialogueInteractionUI.controlNode);
-        this._ui.addControl(this._islandsUI.controlNode);
-        this._mainMenuUI = new MainMenuUI();
-        this._optionsMenuUI = this._mainMenuUI.optionsMenuUI;
-        this._ui.addControl(this._optionsMenuUI.controlNode);
-        this._ui.addControl(this._mainMenuUI.controlNode);
-        this._mainMenuUI.canvas = _canvas;
-        this._ui.addControl(this._questUI.controlNode);
-        this._ui.addControl(this._journalUI.controlNode);
-        this._slideAnimationUI = new SlideAnimationUI();
     }
 
     public get ui(): AdvancedDynamicTexture {
         return this._ui;
     }
 
-    public showMainMenu(): void {
-        if(this._mainMenuUI)
-            this._mainMenuUI.show();
+    public get canvas(): HTMLCanvasElement {
+        return this._canvas;
     }
+
+    constructor(canvas: HTMLCanvasElement) {
+        UIManager._instance = this;
+        this._canvas = canvas;
+
+        for(const [name, UIConstructor] of Object.entries(this._definitions)) {
+            const instance = new UIConstructor;
+            this._uiMap.set(name, instance);
+            this.ui.addControl(instance.controlNode);
+        }
+    }
+
+    public get(name: string): UI | undefined{
+        return this._uiMap.get(name);
+    }
+
+    public showUI(name: string): void {
+        this.get(name)?.show();
+    }
+
+    public hideUI(name: string): void {
+        this.get(name)?.hide();
+    }
+
+    public isVisible(name: string): boolean {
+        return <boolean> this.get(name)?.controlNode.isVisible;
+    }
+
 }

@@ -1,25 +1,23 @@
 import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
-import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
-import {ImageUI} from "@/YellowSubmarine/ui system/ImageUI";
-import {KeyboardEventTypes} from "@babylonjs/core";
+import {ImageUI} from "@/YellowSubmarine/ui system/custom nodes/ImageUI";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import {UI} from "@/YellowSubmarine/ui system/UI";
 
-export class SlideAnimationUI {
-    private ui = UIManager.instance.ui;
+export class SlideAnimationUI extends UI{
+
     private _slides!: ImageUI[];
-    private currentIndex = 0;
-
     private slidePanel: Rectangle;
     private spaceLabel: TextBlock;
-    private static _instance: SlideAnimationUI;
 
-    public static get instance(): SlideAnimationUI {
-        return this._instance;
+    private currentIndex = 0;
+
+    public get controlNode(): Control {
+        return this.slidePanel;
     }
 
     constructor() {
-        SlideAnimationUI._instance = this;
+        super();
         this.setSlides();
 
         this.slidePanel = new Rectangle("slidePanel");
@@ -27,7 +25,6 @@ export class SlideAnimationUI {
         this.slidePanel.height = "100%";
         this.slidePanel.isVisible = true;
         this.slidePanel.alpha = 0;
-        this.ui.addControl(this.slidePanel);
 
         this.spaceLabel = new TextBlock();
         this.spaceLabel.text = "Space";
@@ -134,7 +131,7 @@ export class SlideAnimationUI {
         });
     }
 
-    public setSlides() {
+    private setSlides() {
         this._slides = [
             new ImageUI("ui/slides/slide1.png"),
             new ImageUI("ui/slides/slide2.png"),
@@ -145,4 +142,5 @@ export class SlideAnimationUI {
             new ImageUI("ui/slides/slide7.png"),
         ];
     }
+
 }

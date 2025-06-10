@@ -51,7 +51,7 @@ export class JournalUI extends UI {
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "j" && state) {
-                this._panel.isVisible ? this.hide() : this.show();
+                this._panel.isVisible ? this.hide() : this.display();
             }
         });
 
@@ -108,7 +108,7 @@ export class JournalUI extends UI {
         return separator;
     }
 
-    public show() {
+    public display() {
         this.refresh();
         this._panel.isVisible = true;
         if (!this.hasBeenOpened) {

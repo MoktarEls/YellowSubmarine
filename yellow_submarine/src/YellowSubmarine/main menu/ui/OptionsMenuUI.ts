@@ -1,9 +1,10 @@
 import { UI } from "@/YellowSubmarine/ui system/UI";
-import { Button, Control, Slider, StackPanel, TextBlock, Rectangle, Grid } from "@babylonjs/gui";
-import { MainMenuUI } from "@/YellowSubmarine/ui system/MainMenuUI";
+import { Control, Slider, StackPanel, TextBlock } from "@babylonjs/gui";
 import { Game } from "@/YellowSubmarine/Game";
 import { KeyboardEventTypes } from "@babylonjs/core";
 import { SoundManager } from "@/YellowSubmarine/sound system/SoundManager";
+import {ButtonUI} from "@/YellowSubmarine/ui system/custom nodes/ButtonUI";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
 
 export class OptionsMenuUI extends UI {
 
@@ -13,7 +14,7 @@ export class OptionsMenuUI extends UI {
         return this._panel;
     }
 
-    constructor(private _mainMenu: MainMenuUI) {
+    constructor() {
         super();
         this._panel = new StackPanel();
         this._panel.zIndex = 2;
@@ -34,14 +35,28 @@ export class OptionsMenuUI extends UI {
             SoundManager.instance.UIVolume = value;
         });
 
-        const backButton = MainMenuUI.createButton("Retour", () => {
-            this.hide();
-        });
-        backButton.width = "300px";
-        backButton.height = "40px";
-        backButton.color = "white";
-        backButton.background = "rgba(255, 255, 255, 0.05)";
-        this._panel.addControl(backButton);
+
+        const buttonStyle = {
+            button: {
+                width: "60%",
+                height: "40px",
+                color: "white",
+                background: "rgba(255, 255, 255, 0.05)",
+                horizontalAlignment: Control.HORIZONTAL_ALIGNMENT_CENTER,
+                paddingBottom: "10px",
+                fontSize: "28px",
+                fontStyle: "bold",
+                cornerRadius: 10,
+                thickness: 1
+            }
+        }
+
+        const backButton = new ButtonUI("Retour", () => {
+            this.hide()
+            UIManager.instance.showUI("mainMenu");
+        }, buttonStyle);
+
+        this._panel.addControl(backButton.controlNode);
 
         this._panel.isVisible = false;
 
@@ -102,12 +117,4 @@ export class OptionsMenuUI extends UI {
         this._panel.addControl(container);
     }
 
-    public show() {
-        this._panel.isVisible = true;
-    }
-
-    public hide() {
-        this._panel.isVisible = false;
-        this._mainMenu.show();
-    }
 }

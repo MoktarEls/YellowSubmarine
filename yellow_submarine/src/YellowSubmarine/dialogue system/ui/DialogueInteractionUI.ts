@@ -2,8 +2,9 @@
 import { Control, Rectangle, Image, StackPanel } from "@babylonjs/gui";
 import { Dialogue } from "@/YellowSubmarine/dialogue system/Dialogue";
 import { Utils } from "@/YellowSubmarine/Utils";
-import { TextLayoutManager } from "@/YellowSubmarine/ui system/TextLayoutManager";
 import {TextAnimator} from "@/YellowSubmarine/ui system/TextAnimator";
+import {TextBlockFactory} from "@/YellowSubmarine/ui system/TextBlockFactory";
+import {TextFormatter} from "@/YellowSubmarine/ui system/TextFormatter";
 
 export class DialogueInteractionUI extends UI {
 
@@ -31,8 +32,8 @@ export class DialogueInteractionUI extends UI {
 
     private static _isTextFullyDisplayed = false;
 
-
-    private _layoutManager: TextLayoutManager;
+    private _formatter: TextFormatter;
+    private _factory: TextBlockFactory;
     private _textAnimator: TextAnimator;
 
     public get controlNode(): Control {
@@ -50,15 +51,9 @@ export class DialogueInteractionUI extends UI {
         this.initStack();
         this.initTriangle();
 
-        this._layoutManager = new TextLayoutManager(
-            (() => {
-                const canvas = document.createElement("canvas");
-                return canvas.getContext("2d")!;
-            })(),
-            this.TEXT_DEFAULT_FONT_SIZE,
-            this.TEXT_BLOCK_HORIZONTAL_PADDING
-        );
 
+        this._formatter = new TextFormatter(this.TEXT_DEFAULT_FONT_SIZE, this.TEXT_BLOCK_HORIZONTAL_PADDING);
+        this._factory = new TextBlockFactory(this.TEXT_DEFAULT_FONT_SIZE, this.TEXT_BLOCK_HORIZONTAL_PADDING);
         this._textAnimator = new TextAnimator();
 
         Dialogue.onAnyDialogueStartedObservable.add((dialogue) => {
@@ -110,6 +105,7 @@ export class DialogueInteractionUI extends UI {
     }
 
     private async showText(text: string, speed: number) {
+
         DialogueInteractionUI._isTextFullyDisplayed = false;
         this._stopBlink();
         this._textAnimator.resetAdvance();
@@ -128,27 +124,19 @@ export class DialogueInteractionUI extends UI {
             this.TEXT_PADDING * 2 -
             this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
 
-        const { lines, segments } = this._layoutManager.layout(text, maxWidth);
+        const lines = this._formatter.format(text, maxWidth);
 
-        const maxFontSize = Math.max(
-            ...segments.map((s) => s.style.size || this.TEXT_DEFAULT_FONT_SIZE)
-        );
+        const maxFontSize = Math.max(...lines.flat().map(s => s.style.size as number ?? 24));
         const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
 
-        const { linesPanels, blocks } = this._layoutManager.createTextBlocks(
-            lines,
-            lineHeight,
-            this.TEXT_BLOCK_HORIZONTAL_PADDING,
-            this.TEXT_DEFAULT_FONT_SIZE
-        );
+        const {panels, blocks} = this._factory.create(lines, lineHeight);
 
-        linesPanels.forEach(linePanel => {
-            this._verticalStack.addControl(linePanel);
-        });
+        panels.forEach(panel => this._verticalStack.addControl(panel));
 
         const contentHeight = lines.length * lineHeight;
         const totalHeight =
             contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
+
         this._container.height = `${totalHeight}px`;
 
         await this._textAnimator.animateBlocks(blocks, speed);
