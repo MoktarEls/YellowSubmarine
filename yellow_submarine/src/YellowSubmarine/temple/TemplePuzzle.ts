@@ -7,7 +7,6 @@ import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/Spheric
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Player} from "@/YellowSubmarine/Player";
-import {SlideAnimationUI} from "@/YellowSubmarine/ui system/SlideAnimationUI";
 import {Game} from "@/YellowSubmarine/Game";
 import {SlideAnimationUI} from "@/YellowSubmarine/ui system/custom nodes/SlideAnimationUI";
 import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
@@ -132,7 +131,6 @@ export class TemplePuzzle {
                     return false;
                 }
             } else {
-                console.log("Some ball are not placed");
                 return false;
             }
         }
