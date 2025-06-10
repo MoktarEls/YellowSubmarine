@@ -9,7 +9,6 @@ export class TextAnimator {
         return this._advanceRequested;
     }
 
-
     public requestAdvance() {
         this._advanceRequested = true;
     }

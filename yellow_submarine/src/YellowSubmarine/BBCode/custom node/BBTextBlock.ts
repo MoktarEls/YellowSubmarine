@@ -2,7 +2,8 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, StackPanel, TextBlock} from "@babylonjs/gui";
 import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 import {BBSegment} from "@/YellowSubmarine/BBCode/BBSegment";
-import {Game} from "@/YellowSubmarine/Game";
+import {UIManager} from "@/YellowSubmarine/ui system/UIManager";
+import {ITextMetrics} from "@babylonjs/core";
 
 export class BBTextBlock extends UI{
 
@@ -18,12 +19,28 @@ export class BBTextBlock extends UI{
     constructor(private _bbtext: BBText) {
         super();
         this._container.isVertical = true;
-        this._container.width = "100%";
         this._container.onAfterDrawObservable.addOnce(() => {
-            const segmentsLine = this.calculateSegmentsLine();
-            this.createStackPanels(segmentsLine);
-        })
-        // TODO: écouter l'event de change de taille du rectangle et réorganiser
+            this.recreate();
+            // TODO: écouter l'event de change de taille du rectangle et réorganiser
+            // TODO: une manière de faire ça serait de retenir la width et la height de la frame précédente et voir si elle à changer ou pas.
+        });
+
+    }
+
+    public set bbText(bbText: BBText) {
+        this._bbtext = bbText;
+        this.recreate();
+    }
+
+    private recreate(){
+        this._textBlocks.forEach(tb => tb.dispose());
+        this._stackPanels.forEach(s => s.dispose());
+
+        this._textBlocks = [];
+        this._stackPanels = [];
+
+        const segmentsLine = this.calculateSegmentsLine();
+        this.createStackPanels(segmentsLine);
     }
 
     private calculateSegmentsLine(): BBSegment[][]{
@@ -33,8 +50,8 @@ export class BBTextBlock extends UI{
         let currentWidth = 0;
 
         for (const segment of this._bbtext.segments) {
-            const fontSize = segment.fontSize;
-            const segWidth = this.getTextWidth(segment.text, fontSize);
+            const fontSize = segment.fontSizeInPixels;
+            const segWidth = this.getTextMetrics(segment.text, fontSize).width;
 
             if (currentWidth + segWidth <= maxWidth) {
                 currentLine.push(segment);
@@ -45,7 +62,7 @@ export class BBTextBlock extends UI{
                 for (const part of parts) {
                     if (part.trim() === "") continue;
 
-                    const partWidth = this.getTextWidth(part, fontSize);
+                    const partWidth = this.getTextMetrics(part, fontSize).width;
                     if(currentWidth + partWidth < maxWidth) {
                         currentLine.push(new BBSegment(part, segment.style));
                         currentWidth += partWidth;
@@ -64,12 +81,11 @@ export class BBTextBlock extends UI{
         return lines;
     }
 
-    private getTextWidth(text: string, fontSize: number): number {
-        const canvas = document.createElement("canvas")
-        const ctx = canvas.getContext("2d");
+    private getTextMetrics(text: string, fontSize: number): ITextMetrics {
+        const ctx = UIManager.canvasRenderingContext2D;
         if(ctx){
             ctx.font = `${fontSize}px sans-serif`;
-            return ctx.measureText(text).width;
+            return ctx.measureText(text);
         }
         else{
             throw new Error("Could not get text width");
@@ -82,9 +98,8 @@ export class BBTextBlock extends UI{
             this._stackPanels.push(stackPanel);
             this._container.addControl(stackPanel);
             stackPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
-            stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+            stackPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             stackPanel.isVertical = false;
-            stackPanel.width = "100%";
         })
         this._stackPanels.forEach( (stackPanel) => {
             stackPanel.onAfterDrawObservable.addOnce( () => {
@@ -106,16 +121,19 @@ export class BBTextBlock extends UI{
 
             const textBlock = new TextBlock();
             textBlock.textWrapping = false;
-            textBlock.resizeToFit = true;
+            const textMetrics = this.getTextMetrics(segment.text.trim(), segment.fontSizeInPixels);
+            textBlock.widthInPixels = textMetrics.actualBoundingBoxRight - textMetrics.actualBoundingBoxLeft;
+            textBlock.heightInPixels = segment.fontSizeInPixels * 1.2;
+            textBlock.isHighlighted = true;
+            textBlock.highlightColor = "red"
             textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             textBlock.text = segment.text;
 
-            // TODO : Need to try and fix vertical alignement because of characters that goes below and above.
             const spaceAfterTextBlock = new TextBlock();
             spaceAfterTextBlock.textWrapping = false;
             spaceAfterTextBlock.resizeToFit = true;
             spaceAfterTextBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-            spaceAfterTextBlock.text = "c";
+            spaceAfterTextBlock.text = "J";
             spaceAfterTextBlock.alpha = 0;
             segment.style.tags.forEach(
                 tag => {

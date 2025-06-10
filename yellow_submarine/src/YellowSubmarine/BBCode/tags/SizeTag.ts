@@ -12,6 +12,6 @@ export class SizeTag extends BBTag {
     }
 
     apply(tb: TextBlock) {
-        tb.fontSize = this._size;
+        tb.fontSizeInPixels = this._size;
     }
 }

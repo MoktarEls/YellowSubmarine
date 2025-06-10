@@ -19,7 +19,7 @@ export class BBSegment {
         return trimedLeftText.length - trimedText.length;
     }
 
-    public get fontSize() {
+    public get fontSizeInPixels() {
         return (this.style.tags.find( (tag) => tag instanceof SizeTag )as SizeTag | undefined)?.size ?? BBSegment.DEFAULT_TEXT_SIZE;
     }
 

@@ -1,25 +1,28 @@
 ﻿import {BBTag} from "@/YellowSubmarine/BBCode/BBTag";
 import {BBStyle} from "@/YellowSubmarine/BBCode/BBStyle";
+import {CtorArgsChain} from "@/YellowSubmarine/Utils";
+import {NullTag} from "@/YellowSubmarine/BBCode/tags/NullTag";
 
 export class BBStyleBuilder {
 
-    private _tags: BBTag[] = [];
-
-    public addTag<
-        TagCtor extends new (...args: any[]) => TagType,
-        TagType extends BBTag = InstanceType<TagCtor>,
+    public static fromTagsAndArgs<
+        T extends unknown[]
     >
     (
-        tagCtor: TagCtor,
-        ...tagArgs: ConstructorParameters<TagCtor>
-    ): BBStyleBuilder{
-        const newTag = new tagCtor(tagArgs);
-        this._tags.push(newTag);
-        return this;
-    }
-
-    public build(): BBStyle{
-        return new BBStyle(this._tags.slice());
+        ...args: CtorArgsChain<BBTag,T>
+    ): BBStyle {
+        let currentIndex = 0;
+        const bbTags = [new NullTag()];
+        while (currentIndex < args.length) {
+            const ctor = args[currentIndex] as (new (...args: any[]) => any);
+            const numberOfParams = ctor.length;
+            const ctorArgs = args.slice(currentIndex, currentIndex + numberOfParams + 1);
+            const bbTag = new ctor(ctorArgs) as BBTag;
+            bbTags.push(bbTag);
+            console.log(bbTag);
+            currentIndex += numberOfParams + 1;
+        }
+        return new BBStyle(bbTags);
     }
 
 }

@@ -38,6 +38,9 @@ export class UIManager {
     }
 
     private static _instance: UIManager;
+    public static get canvasRenderingContext2D(){
+        return this._instance._ui.getContext();
+    }
 
     public static get instance(): UIManager {
         return this._instance;
