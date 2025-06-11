@@ -11,25 +11,37 @@ export class BBTextBlock extends UI{
 
     private _stackPanels: StackPanel[] = [];
     private _textBlocks: TextBlock[] = [];
+    private _bbtext?: BBText
 
     get controlNode(): Control {
         return this._container;
     }
 
-    constructor(private _bbtext: BBText) {
+
+
+    constructor() {
         super();
         this._container.isVertical = true;
-        this._container.onAfterDrawObservable.addOnce(() => {
-            this.recreate();
-            // TODO: écouter l'event de change de taille du rectangle et réorganiser
-            // TODO: une manière de faire ça serait de retenir la width et la height de la frame précédente et voir si elle à changer ou pas.
-        });
 
+    }
+
+    public showSubPortionOfCharacters(numberOfCharacters: number) {
+        // TODO : Make it so that the BBTextBlock only shows the @numberOfCharacters first characters
+        throw new Error("Not implemented");
+    }
+
+    public isTextFullyDisplayed(): boolean {
+        // TODO : Returns true if the entire text is visible and false otherwise
+        throw new Error("Not implemented");
     }
 
     public set bbText(bbText: BBText) {
         this._bbtext = bbText;
-        this.recreate();
+        this._container.onAfterDrawObservable.addOnce(() => {
+            this.recreate();
+            // TODO: écouter l'event de changement de taille du rectangle et réorganiser
+            // TODO: une manière de faire ça serait de retenir la width et la height de la frame précédente et voir si elle à changer ou pas.
+        });
     }
 
     private recreate(){
@@ -44,41 +56,46 @@ export class BBTextBlock extends UI{
     }
 
     private calculateSegmentsLine(): BBSegment[][]{
-        const maxWidth = this._container.widthInPixels;
-        const lines: BBSegment[][] = [];
-        let currentLine: BBSegment[] = [];
-        let currentWidth = 0;
+        if(this._bbtext){
+            const maxWidth = this._container.widthInPixels;
+            const lines: BBSegment[][] = [];
+            let currentLine: BBSegment[] = [];
+            let currentWidth = 0;
 
-        for (const segment of this._bbtext.segments) {
-            const fontSize = segment.fontSizeInPixels;
-            const segWidth = this.getTextMetrics(segment.text, fontSize).width;
+            for (const segment of this._bbtext.segments) {
+                const fontSize = segment.fontSizeInPixels;
+                const segWidth = this.getTextMetrics(segment.text, fontSize).width;
 
-            if (currentWidth + segWidth <= maxWidth) {
-                currentLine.push(segment);
-                currentWidth += segWidth;
-            } else {
-                const parts = segment.text.split(/(\s+)/); // split on spaces
+                if (currentWidth + segWidth <= maxWidth) {
+                    currentLine.push(segment);
+                    currentWidth += segWidth;
+                } else {
+                    const parts = segment.text.split(/(\s+)/); // split on spaces
 
-                for (const part of parts) {
-                    if (part.trim() === "") continue;
+                    for (const part of parts) {
+                        if (part.trim() === "") continue;
 
-                    const partWidth = this.getTextMetrics(part, fontSize).width;
-                    if(currentWidth + partWidth < maxWidth) {
-                        currentLine.push(new BBSegment(part, segment.style));
-                        currentWidth += partWidth;
+                        const partWidth = this.getTextMetrics(part, fontSize).width;
+                        if(currentWidth + partWidth < maxWidth) {
+                            currentLine.push(new BBSegment(part, segment.style));
+                            currentWidth += partWidth;
+                        }
+                        else{
+                            lines.push(currentLine);
+                            currentLine = [new BBSegment(part, segment.style)];
+                            currentWidth = partWidth;
+                        }
+
                     }
-                    else{
-                        lines.push(currentLine);
-                        currentLine = [new BBSegment(part, segment.style)];
-                        currentWidth = partWidth;
-                    }
-
                 }
             }
+
+            if (currentLine.length) lines.push(currentLine);
+            return lines;
         }
 
-        if (currentLine.length) lines.push(currentLine);
-        return lines;
+        return [];
+
     }
 
     private getTextMetrics(text: string, fontSize: number): ITextMetrics {

@@ -6,7 +6,7 @@ import {TextAnimator} from "@/YellowSubmarine/ui system/TextAnimator";
 import {TextBlockFactory} from "@/YellowSubmarine/ui system/TextBlockFactory";
 import {TextFormatter} from "@/YellowSubmarine/ui system/TextFormatter";
 
-export class DialogueInteractionUI extends UI {
+export class DialogueUI extends UI {
 
     private readonly CONTAINER_WIDTH = 0.4;
     private readonly CONTAINER_CORNER_RADIUS = 10;
@@ -106,7 +106,7 @@ export class DialogueInteractionUI extends UI {
 
     private async showText(text: string, speed: number) {
 
-        DialogueInteractionUI._isTextFullyDisplayed = false;
+        DialogueUI._isTextFullyDisplayed = false;
         this._stopBlink();
         this._textAnimator.resetAdvance();
         this._verticalStack.clearControls();
@@ -145,16 +145,16 @@ export class DialogueInteractionUI extends UI {
             blocks.forEach((b) => (b.tb.text = b.full));
         }
 
-        DialogueInteractionUI._isTextFullyDisplayed = true;
+        DialogueUI._isTextFullyDisplayed = true;
         // Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
         await this._startBlink();
     }
 
     private async _startBlink() {
-        if(!DialogueInteractionUI._isTextFullyDisplayed) return;
+        if(!DialogueUI._isTextFullyDisplayed) return;
         this._triangle.isVisible = true;
 
-        while (DialogueInteractionUI.isTextFullyDisplayed) {
+        while (DialogueUI.isTextFullyDisplayed) {
             this._triangle.alpha = 1;
             await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
             this._triangle.alpha = 0;
