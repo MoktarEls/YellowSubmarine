@@ -11,6 +11,8 @@ import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Simple
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
 import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
 import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
+import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
+import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 
 export class NPCFactory {
 
@@ -37,9 +39,10 @@ export class NPCFactory {
 
         pedro.detectionZone.zone.position.set(0, -11, 0);
         pedro.dialogue = DialogueNodeChainingBuilder
-            .createNewDialogueBuilder(MultipleChoicesDialogueNode,"[g]OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !! [/g]")
-            .chainNode(ConditionalDialogueNode, "add",() => true/*, "Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu."*/)
-            .chainNode(SimpleDialogueNode,true, "Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
+            .createNewDialogueBuilder(MultipleChoicesDialogueNode,new BBTextBuilder().addText("OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !!", BoldTag).build() )
+            .chainNode(ConditionalDialogueNode, "add",() => true)
+            .chainNode(SimpleDialogueNode, true,"Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
+            .chainNode(SimpleDialogueNode, "Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
             .chainNode(SimpleDialogueNode, "Mais ! Y'a un [c=blue]p'tit endroit au nord d'ici [/c] un peu particulier.")
             .chainNode(SimpleDialogueNode, "[c=blue] Y'avait deux boules et plein de poteaux [/c], j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
             .chainNode(SimpleDialogueNode, "Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
@@ -53,7 +56,8 @@ export class NPCFactory {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Vu le manque de place, je vais pouvoir en prendre qu'une seule à la fois..");
 
                 QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
-            }).build();
+            })
+            .setDialogueProvider(pedro).build();
 
         pedro.cameraConfiguration = new CameraConfiguration();
         pedro.cameraConfiguration.target = pedro.transformNode;
@@ -94,7 +98,8 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode, "Allez, je vais jouer à la pétanque moi...")
             .chainNode(ActionDialogueNode, "Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "D'après Crimson : Redina, la plus forte, restait en retrait afin de couvrir leurs arrières");
-            }).build();
+            })
+            .setDialogueProvider(fox).build();
 
         fox.cameraConfiguration = new CameraConfiguration();
         fox.cameraConfiguration.target = fox.transformNode;
@@ -146,7 +151,7 @@ export class NPCFactory {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), ("Rosa a trouvée ces deux phrases :" +
                     "\n Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
                     "\n Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
-            }).build();
+            }).setDialogueProvider(scientific).build();
 
 
 
@@ -193,7 +198,7 @@ export class NPCFactory {
             .chainNode(ActionDialogueNode,"Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
                     "Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
-            }).build();
+            }).setDialogueProvider(scribe).build();
 
 
         scribe.cameraConfiguration = new CameraConfiguration();
@@ -240,7 +245,7 @@ export class NPCFactory {
             .chainNode(ActionDialogueNode, "Mise à jour de la quête", () => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
                     " - Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée...")
-            }).build();
+            }).setDialogueProvider(rabbit).build();
 
 
 

@@ -1,5 +1,9 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {ConditionalDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/ConditionalDialogueNodeBuilder";
+import {BBText} from "@/YellowSubmarine/BBCode/BBText";
+import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
+import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
+import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
 
 export class ConditionalDialogueNode extends AbstractDialogueNode<ConditionalDialogueNode, boolean, ConditionalDialogueNodeBuilder> {
 
@@ -24,7 +28,7 @@ export class ConditionalDialogueNode extends AbstractDialogueNode<ConditionalDia
     }
 
     constructor(condition: () => boolean) {
-        super("ConditionalDialogueNode");
+        super(new BBTextBuilder().addText("CONDITIONAL DIALOGUE NODE", BoldTag, ColorTag, "red").build());
         this._condition = condition;
     }
 
@@ -39,8 +43,8 @@ export class ConditionalDialogueNode extends AbstractDialogueNode<ConditionalDia
         return result;
     }
 
-    get mainText(): string {
-        return this.validChild?.mainText ?? this._text;
+    get bbText(): BBText {
+        return this.validChild?.bbText ?? this._bbText;
     }
 
     get next(): AbstractDialogueNode<never, never, never> | undefined {

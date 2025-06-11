@@ -3,6 +3,7 @@ import {Observable} from "@babylonjs/core";
 import {
     MultipleChoicesDialogueNodeBuilder
 } from "@/YellowSubmarine/dialogue system/builder/MultipleChoicesDialogueNodeBuilder";
+import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 
 export class MultipleChoicesDialogueNode extends AbstractDialogueNode<MultipleChoicesDialogueNode, number | "add", MultipleChoicesDialogueNodeBuilder>{
 
@@ -18,10 +19,6 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode<MultipleCh
 
     public get onNoChildIsChosenObservable(){
         return this._onNoChildIsChosenObservable;
-    }
-
-    constructor(text: string) {
-        super(text);
     }
 
     public addChoice(choice: AbstractDialogueNode<never, never, never>): void {
@@ -65,10 +62,6 @@ export class MultipleChoicesDialogueNode extends AbstractDialogueNode<MultipleCh
 
     get children(): AbstractDialogueNode<never, never, never>[] {
         return this._choices.slice();
-    }
-
-    get mainText(): string {
-        return this._text;
     }
 
     get next(): AbstractDialogueNode<never, never, never> | undefined {

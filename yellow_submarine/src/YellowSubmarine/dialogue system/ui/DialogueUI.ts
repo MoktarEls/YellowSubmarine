@@ -114,9 +114,9 @@ export class DialogueUI extends UI {
 
         // TODO: For test purposes instantly display the entire text
         this._textAnimator.requestAdvance();
-        /!*const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
+        const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
             this._textAnimator.requestAdvance();
-        });*!/
+        });
 
         const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
@@ -161,7 +161,6 @@ export class DialogueUI extends UI {
             this._triangle.alpha = 0;
             await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
         }
-
 
     }
 

@@ -1,97 +1,77 @@
-﻿import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
-import {UI} from "@/YellowSubmarine/ui system/UI";
-import {Container, Control, Rectangle, StackPanel} from "@babylonjs/gui";
+﻿import {UI} from "@/YellowSubmarine/ui system/UI";
+import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {World} from "@/YellowSubmarine/World";
 import {KeyUI} from "@/YellowSubmarine/interaction system/ui/KeyUI";
-import {Submarine} from "@/YellowSubmarine/Submarine";
-import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
-import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
-import {SizeTag} from "@/YellowSubmarine/BBCode/tags/SizeTag";
+import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 
 export class WorldInteractionUI extends UI{
 
-    private _hContainer: StackPanel;
-    private _inputsUiContainer: StackPanel;
-    private _worldInteractionUiContainer: Rectangle;
-    private _bbTextBlock: BBTextBlock;
-
-    private _selectNextUi: KeyUI;
-    private _selectUi: KeyUI;
-    private _selectPreviousUi: KeyUI;
-
-    private _availableWorldInteractions: WorldInteraction[] = [];
-
-    public get controlNode(): Control {
-        return this._hContainer;
-    }
+    private _container: Rectangle;
+    private _keyUi: KeyUI;
+    private _label: TextBlock;
 
     constructor() {
         super();
-        this._hContainer = new StackPanel();
-        this._hContainer.isVertical = false;
-        this._hContainer.width = "150px"
-        this._hContainer.height = "100px"
-        Submarine.instance.meshCreationPromise.then( (mesh) => {
-            this._hContainer.linkWithMesh(mesh);
-            this._hContainer.linkOffsetY = "-10%";
-        })
+        this._container = new Rectangle();
+        this._container.width = "300px";
+        this._container.height = "200px";
+        this._container.thickness = 0;
+        this._container.scaleY = 0.5;
+        this._container.scaleX = 0.5;
 
-        this._bbTextBlock = new BBTextBlock();
-        this._worldInteractionUiContainer = new Rectangle();
-        this._worldInteractionUiContainer.width = "80%"
-        this._worldInteractionUiContainer.height = "100%"
-        this._worldInteractionUiContainer.color = "rgb(168, 98, 68)";
-        this._worldInteractionUiContainer.thickness = 4;
-        this._worldInteractionUiContainer.background = "rgb(255, 199, 130)";
-        this._worldInteractionUiContainer.addControl(this._bbTextBlock.controlNode);
+        const rec1 = new Rectangle();
+        rec1.width = "180px";
+        rec1.height = "60px";
+        rec1.cornerRadius = 60;
+        rec1.color = "rgb(168, 98, 68)";
+        rec1.thickness = 4;
+        rec1.background = "rgb(255, 199, 130)";
+        this._container.addControl(rec1);
 
-        this._hContainer.addControl(this._worldInteractionUiContainer);
+        this._label = new TextBlock();
+        this._label.fontSize = 30;
+        rec1.addControl(this._label);
 
-        this._inputsUiContainer = new StackPanel();
-        this._inputsUiContainer.isVertical = true;
-        this._inputsUiContainer.width = "20%";
-        this._inputsUiContainer.height = "100%";
-        this._hContainer.addControl(this._inputsUiContainer);
+        this._keyUi = new KeyUI(WorldInteraction.simplifiedCode);
+        this._keyUi.controlNode.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+        this._keyUi.controlNode.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        this._container.addControl(this._keyUi.controlNode);
 
-        this._selectNextUi = new KeyUI("🖱️▲");
-        this._selectUi = new KeyUI(WorldInteraction.simplifiedCode);
-        this._selectPreviousUi = new KeyUI("🖱️▼");
-
-        this._inputsUiContainer.addControl(this._selectNextUi.controlNode);
-        this._inputsUiContainer.addControl(this._selectUi.controlNode);
-        this._inputsUiContainer.addControl(this._selectPreviousUi.controlNode);
-
-        World.instance.worldInteractionManager.onInteractionAvailable.add( (worldInteraction) => {
-            this._availableWorldInteractions.push(worldInteraction);
-            this.updateVisibility();
-        })
-
-        World.instance.worldInteractionManager.onInteractionUnavailable.add( (worldInteraction) => {
-            this._availableWorldInteractions.splice(this._availableWorldInteractions.indexOf(worldInteraction), 1);
-            this.updateVisibility();
-        })
-
-        World.instance.worldInteractionManager.onInteractionSelected.add( (worldInteraction) => {
-            this._bbTextBlock.bbText = new BBTextBuilder().addText(worldInteraction.description, SizeTag, 30).build();
-        })
-
-        this.hide();
-    }
-
-    private updateVisibility() {
-        if(this._availableWorldInteractions.length <= 0){
+        World.instance.worldInteractionManager.onInteractionAvailable.add((interaction) => {
+            console.log(`WorldInteractionUI received the available interaction: ${interaction}`);
+            this.display(interaction);
+        });
+        World.instance.worldInteractionManager.onInteractionUnavailable.add((interaction) => {
             this.hide();
-        }else{
-            this.show();
-            if(this._availableWorldInteractions.length == 1){
-                this._selectPreviousUi.hide()
-                this._selectNextUi.hide()
+            this._container.linkWithMesh(null);
+        });
+
+        World.instance.worldInteractionManager.onInteractionStarted.add((interaction) => {
+            this.hide();
+            console.log(`WorldInteractionUI received the started interaction: ${interaction}`);
+        })
+
+        World.instance.worldInteractionManager.onInteractionEnded.add((interaction) => {
+            if(World.instance.worldInteractionManager.availableInteractions.length > 0){
+                this.show();
             }
             else{
-                this._selectPreviousUi.show()
-                this._selectNextUi.show()
+                this.hide();
             }
+            console.log(`WorldInteractionUI received the ended interaction: ${interaction}`);
+        })
 
-        }
     }
+
+    public get controlNode(): Control {
+        return this._container;
+    }
+
+    private display(interaction: WorldInteraction): void {
+        this._label.text = `${interaction.description}`
+        this._container.linkWithMesh(interaction.mesh ?? null);
+        this._container.linkOffsetY = "-50px";
+        this._container.isVisible = true;
+    }
+
 }

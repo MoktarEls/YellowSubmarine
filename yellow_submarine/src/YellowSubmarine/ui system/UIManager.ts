@@ -1,7 +1,5 @@
 import {AdvancedDynamicTexture} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
-// import {DialogueUI} from "@/YellowSubmarine/dialogue system/ui/DialogueUI";
-import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
 import {MainMenuUI} from "@/YellowSubmarine/main menu/ui/MainMenuUI";
 import {QuestUI} from "@/YellowSubmarine/quest system/ui/QuestUI";
@@ -11,6 +9,7 @@ import {SlideAnimationUI} from "@/YellowSubmarine/ui system/custom nodes/SlideAn
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
 import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";
+import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
 
 type UiConstructor = new() => UI;
 

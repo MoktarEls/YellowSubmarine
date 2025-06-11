@@ -1,4 +1,6 @@
 ﻿import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
+import {BBText} from "@/YellowSubmarine/BBCode/BBText";
+import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 
 export abstract class AbstractDialogueNode<
     SelfType extends AbstractDialogueNode<
@@ -16,13 +18,22 @@ export abstract class AbstractDialogueNode<
 
     abstract getBuilderCtor(): new (node: any) => BuilderType
 
-    protected _text: string;
+    protected _bbText: BBText;
 
-    constructor(text: string) {
-        this._text = text;
+    constructor(text: BBText | string) {
+        let bbText: BBText;
+        if(text instanceof BBText){
+            bbText = text;
+        }
+        else{
+            bbText = new BBTextBuilder().addText(text).build();
+        }
+        this._bbText = bbText;
     }
 
-    public abstract get mainText(): string;
+    public get bbText(): BBText{
+        return this._bbText;
+    }
 
     public abstract get children(): AbstractDialogueNode<never, never, never>[];
 

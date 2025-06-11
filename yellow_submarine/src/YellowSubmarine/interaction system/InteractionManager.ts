@@ -56,6 +56,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
     public addToAvailableInteraction(interaction: TInteraction){
         if(!this._availableInteractions.includes(interaction)){
             this._availableInteractions.push(interaction);
+            this._onInteractionAvailable.notifyObservers(interaction);
         }
     }
 
@@ -66,6 +67,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
             }
             const index = this._availableInteractions.indexOf(interaction);
             this._availableInteractions.splice(index, 1);
+            this.onInteractionUnavailable.notifyObservers(interaction);
         }
     }
 
@@ -133,6 +135,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
     public startSelectedInteraction(){
         const selectedInteraction = this.selectedInteraction;
         if(selectedInteraction){
+            console.log(`Starting interaction, ${selectedInteraction}`)
             this.startInteraction(selectedInteraction);
         }
         else{
@@ -142,11 +145,13 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
 
     public startInteraction(interaction: TInteraction){
         if(this.isAnInteractionInProgress()){
-            throw new Error("An interaction is already in progress");
+            console.log(`An interaction is already in progress`);
+            return;
         }
         this._inProgressInteraction = interaction;
         interaction.onStartedObservable.addOnce(() => this.afterInteractionStart(interaction));
         interaction.onEndedObservable.addOnce(() => this.afterInteractionEnd(interaction));
+        interaction.start()
     }
 
     private afterInteractionStart(interaction: TInteraction){

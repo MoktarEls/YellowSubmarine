@@ -41,8 +41,6 @@ export class ShowConversationProviderUI extends UI{
         for (let i = 0; i < conversationProviders.length; i++) {
             const conversationProvider = conversationProviders[i];
 
-            console.log(conversationProvider);
-
             const rec1 = new Rectangle();
             rec1.width = "180px";
             rec1.height = "60px";
