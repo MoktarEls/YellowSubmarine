@@ -1,6 +1,6 @@
 import {
     AbstractMesh, Color3, KeyboardEventTypes,
-    Mesh, MeshBuilder, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
+    Mesh, MeshBuilder, Observable, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
     Vector3, VolumetricLightScatteringPostProcess,
@@ -16,6 +16,13 @@ import { ParticleSystem, TransformNode, Color4 } from "@babylonjs/core";
 
 
 export class Submarine {
+
+    private static _onMeshCreated: Observable<AbstractMesh> = new Observable<AbstractMesh>();
+    private static _isMeshCreated = false;
+
+    public static get onMeshCreated(): Observable<AbstractMesh> {
+        return this._onMeshCreated;
+    }
 
     private _physicsAggregate?: PhysicsAggregate;
 
@@ -44,6 +51,8 @@ export class Submarine {
         this._grappler = new Grappler();
         this.meshCreationPromise = this.createMesh(Game.scene);
         this.meshCreationPromise.then((mesh) => {
+            Submarine._isMeshCreated = true;
+            Submarine.onMeshCreated.notifyObservers(mesh);
             this.createWaterParticles();
             this._grappler.owner = mesh.physicsBody ?? undefined;
             this._spotLight = this.createSpotlight();

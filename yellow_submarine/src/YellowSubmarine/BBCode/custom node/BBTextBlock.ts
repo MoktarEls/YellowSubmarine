@@ -17,8 +17,6 @@ export class BBTextBlock extends UI{
         return this._container;
     }
 
-
-
     constructor() {
         super();
         this._container.isVertical = true;

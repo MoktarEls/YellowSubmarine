@@ -1,4 +1,5 @@
-﻿import { Control, StackPanel, TextBlock } from "@babylonjs/gui";
+﻿/*
+import { Control, StackPanel, TextBlock } from "@babylonjs/gui";
 import { Segment } from "@/YellowSubmarine/ui system/BBCodeOld/Segment";
 import { BBStyle } from "@/YellowSubmarine/ui system/BBCodeOld/BBStyle";
 
@@ -53,3 +54,4 @@ export class TextBlockFactory {
         tb.paddingRight = `${this.textBlockHorizontalPadding}px`;
     }
 }
+*/

@@ -5,10 +5,8 @@ export abstract class AbstractInteraction {
 
     private _onAvailableObservable: Observable<void> = new Observable();
     private _onUnavailableObservable: Observable<void> = new Observable();
-    private _onBeforeStartObservable: Observable<void> = new Observable();
-    private _onAfterStartObservable: Observable<void> = new Observable();
-    private _onBeforeEndObservable: Observable<void> = new Observable();
-    private _onAfterEndObservable: Observable<void> = new Observable();
+    private _onStartedObservable: Observable<void> = new Observable();
+    private _onEndedObservable: Observable<void> = new Observable();
 
     get code(): string {
         return this._code;
@@ -26,20 +24,12 @@ export abstract class AbstractInteraction {
         return this._onUnavailableObservable;
     }
 
-    get onBeforeStartObservable(): Observable<void> {
-        return this._onBeforeStartObservable;
+    get onStartedObservable(): Observable<void> {
+        return this._onStartedObservable;
     }
 
-    get onAfterStartObservable(): Observable<void> {
-        return this._onAfterStartObservable;
-    }
-
-    get onBeforeEndObservable(): Observable<void> {
-        return this._onBeforeEndObservable;
-    }
-
-    get onAfterEndObservable(): Observable<void> {
-        return this._onAfterEndObservable;
+    get onEndedObservable(): Observable<void> {
+        return this._onEndedObservable;
     }
 
     protected _code: string;
@@ -62,16 +52,14 @@ export abstract class AbstractInteraction {
     }
 
     public start(){
-        this._onBeforeStartObservable.notifyObservers();
         this._start();
-        this._onAfterStartObservable.notifyObservers();
+        this._onStartedObservable.notifyObservers();
     }
 
     protected endOnNextFrame(){
         Game.scene.onBeforeRenderObservable.addOnce(() => {
-            this._onBeforeEndObservable.notifyObservers();
             this._end();
-            this._onAfterEndObservable.notifyObservers();
+            this._onEndedObservable.notifyObservers();
         });
     }
 

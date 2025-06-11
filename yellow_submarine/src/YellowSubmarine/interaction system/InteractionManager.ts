@@ -5,16 +5,16 @@ import {Player} from "@/YellowSubmarine/Player";
 export class InteractionManager<TInteraction extends AbstractInteraction>{
 
     private _availableInteractions: Array<TInteraction> = new Array<TInteraction>();
-    private _selectedInteractionIndex = -1;
+    private _selectedInteractionIndex = 0;
 
     private _onInteractionAvailable: Observable<TInteraction> = new Observable();
     private _onInteractionUnavailable: Observable<TInteraction> = new Observable();
 
-    private _onBeforeInteractionStart: Observable<TInteraction> = new Observable();
-    private _onAfterInteractionStart: Observable<TInteraction> = new Observable();
+    private _onInteractionStarted: Observable<TInteraction> = new Observable();
+    private _onInteractionEnded: Observable<TInteraction> = new Observable();
 
-    private _onBeforeInteractionEnd: Observable<TInteraction> = new Observable();
-    private _onAfterInteractionEnd: Observable<TInteraction> = new Observable();
+    private _onInteractionSelected: Observable<TInteraction> = new Observable();
+    private _onInteractionUnselected: Observable<TInteraction> = new Observable();
 
     private _inProgressInteraction?: TInteraction;
 
@@ -26,20 +26,20 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
         return this._onInteractionUnavailable;
     }
 
-    get onBeforeInteractionStart(): Observable<TInteraction> {
-        return this._onBeforeInteractionStart;
+    get onInteractionStarted(): Observable<TInteraction> {
+        return this._onInteractionStarted;
     }
 
-    get onAfterInteractionStart(): Observable<TInteraction> {
-        return this._onAfterInteractionStart;
+    get onInteractionEnded(): Observable<TInteraction> {
+        return this._onInteractionEnded;
     }
 
-    get onBeforeInteractionEnd(): Observable<TInteraction> {
-        return this._onBeforeInteractionEnd;
+    get onInteractionSelected(): Observable<TInteraction> {
+        return this._onInteractionSelected;
     }
 
-    get onAfterInteractionEnd(): Observable<TInteraction> {
-        return this._onAfterInteractionEnd;
+    get onInteractionUnselected(): Observable<TInteraction> {
+        return this._onInteractionUnselected;
     }
 
     get selectedInteraction(): TInteraction | undefined {
@@ -61,18 +61,38 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
 
     public removeFromAvailableInteraction(interaction: TInteraction){
         if(this._availableInteractions.includes(interaction)){
+            if(this.selectedInteraction === interaction){
+                this.selectNextInteraction();
+            }
             const index = this._availableInteractions.indexOf(interaction);
             this._availableInteractions.splice(index, 1);
         }
     }
 
     public selectNextInteraction(): TInteraction | undefined {
+        const oldSelectedInteraction = this.selectedInteraction;
+        if(oldSelectedInteraction){
+            this._onInteractionUnselected.notifyObservers(oldSelectedInteraction);
+        }
+        this._selectedInteractionIndex++;
+        const newSelectedInteraction = this.selectedInteraction;
+        if(newSelectedInteraction){
+            this._onInteractionSelected.notifyObservers(newSelectedInteraction);
+        }
         return this.selectInteractionAtIndex(++this._selectedInteractionIndex);
     }
 
     public selectPreviousInteraction(): TInteraction | undefined {
-        return this.selectInteractionAtIndex(--this._selectedInteractionIndex);
-    }
+        const oldSelectedInteraction = this.selectedInteraction;
+        if(oldSelectedInteraction){
+            this._onInteractionUnselected.notifyObservers(oldSelectedInteraction);
+        }
+        this._selectedInteractionIndex--;
+        const newSelectedInteraction = this.selectedInteraction;
+        if(newSelectedInteraction){
+            this._onInteractionSelected.notifyObservers(newSelectedInteraction);
+        }
+        return this.selectInteractionAtIndex(++this._selectedInteractionIndex);    }
 
     public selectInteraction(interaction: TInteraction): boolean{
         const interactionIsAvailable = this._availableInteractions.includes(interaction);
@@ -125,29 +145,16 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
             throw new Error("An interaction is already in progress");
         }
         this._inProgressInteraction = interaction;
-        interaction.onBeforeStartObservable.addOnce(() => this.beforeInteractionStart(interaction));
-        interaction.onAfterStartObservable.addOnce(() => this.afterInteractionStart(interaction));
-        interaction.onBeforeEndObservable.addOnce(() => this.beforeInteractionEnd(interaction));
-        interaction.onAfterEndObservable.addOnce(() => this.afterInteractionEnd(interaction));
-        this._onBeforeInteractionStart.notifyObservers(interaction);
-    }
-
-    private beforeInteractionStart(interaction: TInteraction){
-        this._inProgressInteraction = interaction;
-        this._onBeforeInteractionStart.notifyObservers(interaction);
-        this._inProgressInteraction.start();
+        interaction.onStartedObservable.addOnce(() => this.afterInteractionStart(interaction));
+        interaction.onEndedObservable.addOnce(() => this.afterInteractionEnd(interaction));
     }
 
     private afterInteractionStart(interaction: TInteraction){
-        this._onAfterInteractionStart.notifyObservers(interaction);
-    }
-
-    private beforeInteractionEnd(interaction: TInteraction){
-        this._onBeforeInteractionEnd.notifyObservers(interaction);
+        this._onInteractionStarted.notifyObservers(interaction);
     }
 
     private afterInteractionEnd(interaction: TInteraction){
-        this._onAfterInteractionEnd.notifyObservers(interaction);
+        this._onInteractionEnded.notifyObservers(interaction);
         this._inProgressInteraction = undefined;
     }
 

@@ -59,8 +59,8 @@ export class Game{
         this._scene = new Scene(this._engine);
         this._scene.enablePhysics(new Vector3(0,-9.81,0), _havok);
         this._camera = new ConfigurableCamera();
-        this._world = new World();
         this._player = new Player();
+        this._world = new World();
         this._soundManager = new SoundManager();
         this._uiManager = new UIManager(this._canvas);
         this._questManager = new QuestManager();

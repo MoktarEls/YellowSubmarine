@@ -1,4 +1,5 @@
-﻿import { UI } from "@/YellowSubmarine/ui system/UI";
+﻿/*
+import { UI } from "@/YellowSubmarine/ui system/UI";
 import { Control, Rectangle, Image, StackPanel } from "@babylonjs/gui";
 import { Dialogue } from "@/YellowSubmarine/dialogue system/Dialogue";
 import { Utils } from "@/YellowSubmarine/Utils";
@@ -113,9 +114,9 @@ export class DialogueUI extends UI {
 
         // TODO: For test purposes instantly display the entire text
         this._textAnimator.requestAdvance();
-        /*const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
+        /!*const advanceObserver = Dialogue.onAdvanceDialogueRequestedObservable.add(() => {
             this._textAnimator.requestAdvance();
-        });*/
+        });*!/
 
         const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
@@ -168,3 +169,4 @@ export class DialogueUI extends UI {
         this._triangle.isVisible = false;
     }
 }
+*/

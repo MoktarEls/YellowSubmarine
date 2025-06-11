@@ -1,4 +1,5 @@
-﻿import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
+﻿/*
+import {WorldInteraction} from "@/YellowSubmarine/interaction system/interactions/WorldInteraction";
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
@@ -74,4 +75,4 @@ export class WorldInteractionUI extends UI{
 
     }
 
-}
+}*/

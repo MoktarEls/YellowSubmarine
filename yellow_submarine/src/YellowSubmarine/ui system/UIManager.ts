@@ -1,6 +1,6 @@
 import {AdvancedDynamicTexture} from "@babylonjs/gui";
 import {Game} from "@/YellowSubmarine/Game";
-import {DialogueUI} from "@/YellowSubmarine/dialogue system/ui/DialogueUI";
+// import {DialogueUI} from "@/YellowSubmarine/dialogue system/ui/DialogueUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
 import {ShowKeyZoneNameUI} from "@/YellowSubmarine/keyzone system/ui/ShowKeyZoneNameUI";
 import {MainMenuUI} from "@/YellowSubmarine/main menu/ui/MainMenuUI";
@@ -30,7 +30,7 @@ export class UIManager {
         showConversationProvider: ShowConversationProviderUI,
         island: ShowKeyZoneNameUI,
 
-        dialogueInteraction: DialogueUI,
+        // dialogueInteraction: DialogueUI,
         worldInteraction: WorldInteractionUI,
 
         quest: QuestUI,

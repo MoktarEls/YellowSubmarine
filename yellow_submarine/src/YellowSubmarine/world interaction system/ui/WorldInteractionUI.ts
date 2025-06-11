@@ -5,6 +5,8 @@ import {World} from "@/YellowSubmarine/World";
 import {KeyUI} from "@/YellowSubmarine/interaction system/ui/KeyUI";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
+import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
+import {SizeTag} from "@/YellowSubmarine/BBCode/tags/SizeTag";
 
 export class WorldInteractionUI extends UI{
 
@@ -31,16 +33,17 @@ export class WorldInteractionUI extends UI{
         this._hContainer.height = "100px"
         Submarine.instance.meshCreationPromise.then( (mesh) => {
             this._hContainer.linkWithMesh(mesh);
-            this._hContainer.linkOffsetYInPixels = 300;
+            this._hContainer.linkOffsetY = "-10%";
         })
 
+        this._bbTextBlock = new BBTextBlock();
         this._worldInteractionUiContainer = new Rectangle();
         this._worldInteractionUiContainer.width = "80%"
         this._worldInteractionUiContainer.height = "100%"
         this._worldInteractionUiContainer.color = "rgb(168, 98, 68)";
         this._worldInteractionUiContainer.thickness = 4;
         this._worldInteractionUiContainer.background = "rgb(255, 199, 130)";
-        this._bbTextBlock = new BBTextBlock();
+        this._worldInteractionUiContainer.addControl(this._bbTextBlock.controlNode);
 
         this._hContainer.addControl(this._worldInteractionUiContainer);
 
@@ -60,17 +63,22 @@ export class WorldInteractionUI extends UI{
 
         World.instance.worldInteractionManager.onInteractionAvailable.add( (worldInteraction) => {
             this._availableWorldInteractions.push(worldInteraction);
-            this.updateDisplay();
+            this.updateVisibility();
         })
 
         World.instance.worldInteractionManager.onInteractionUnavailable.add( (worldInteraction) => {
             this._availableWorldInteractions.splice(this._availableWorldInteractions.indexOf(worldInteraction), 1);
-            this.updateDisplay();
+            this.updateVisibility();
         })
 
+        World.instance.worldInteractionManager.onInteractionSelected.add( (worldInteraction) => {
+            this._bbTextBlock.bbText = new BBTextBuilder().addText(worldInteraction.description, SizeTag, 30).build();
+        })
+
+        this.hide();
     }
 
-    private updateDisplay() {
+    private updateVisibility() {
         if(this._availableWorldInteractions.length <= 0){
             this.hide();
         }else{
@@ -80,10 +88,9 @@ export class WorldInteractionUI extends UI{
                 this._selectNextUi.hide()
             }
             else{
-                this._selectPreviousUi.hide()
-                this._selectNextUi.hide()
+                this._selectPreviousUi.show()
+                this._selectNextUi.show()
             }
-
 
         }
     }

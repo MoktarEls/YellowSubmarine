@@ -29,9 +29,9 @@ export class World {
 
     constructor() {
         World._instance = this;
-        this._worldInteractionManager = new WorldInteractionManager();
         this._sea = new Sea();
         this._submarine = new Submarine();
+        this._worldInteractionManager = new WorldInteractionManager();
         this._sky = new Sky();
         const glowLayer = new GlowLayer("", Game.scene);
         glowLayer.intensity = 0.3;

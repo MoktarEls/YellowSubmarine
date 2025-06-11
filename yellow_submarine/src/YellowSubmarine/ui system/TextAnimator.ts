@@ -1,4 +1,5 @@
-﻿import { Utils } from "@/YellowSubmarine/Utils";
+﻿/*
+import { Utils } from "@/YellowSubmarine/Utils";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import {displaySegment} from "@/YellowSubmarine/ui system/TextBlockFactory";
 
@@ -34,3 +35,4 @@ export class TextAnimator {
         if(SoundManager.instance) SoundManager.instance.stopSFX("text");
     }
 }
+*/

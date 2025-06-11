@@ -6,6 +6,10 @@ export abstract class WorldInteraction extends AbstractInteraction{
     private static _code = "KeyE";
     private static _simplifiedCode = "E";
 
+    static get code() {
+        return this._code;
+    }
+
     static get simplifiedCode(): string {
         return this._simplifiedCode;
     }

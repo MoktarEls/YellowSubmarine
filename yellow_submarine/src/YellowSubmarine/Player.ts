@@ -18,6 +18,18 @@ export class Player {
     private _onMouseWheelScrolledObservable: Observable<WheelEvent> = new Observable();
     private _onPointerObservable: Observable<PointerInfo> = new Observable();
 
+    public get onAnyKeyIsPressedObservable(): Observable<KeyboardInfo> {
+        return this._onAnyKeyIsPressedObservable;
+    }
+
+    public get onMouseWheelScrolledObservable(): Observable<WheelEvent> {
+        return this._onMouseWheelScrolledObservable;
+    }
+
+    public get onPointerObservable(): Observable<PointerInfo> {
+        return this._onPointerObservable;
+    }
+
     private _isForwardPressed = false;
     private _isBackwardPressed = false;
     private _isLeftPressed = false;
@@ -63,7 +75,7 @@ export class Player {
     private registerKeyboardInputs(){
         const scene = Game.scene;
         scene.onKeyboardObservable.add( (keyboardInfo) => {
-            if(Game.isGameFocused){
+            if(this.shouldListenToInputs()){
                 const state = keyboardInfo.type === KeyboardEventTypes.KEYDOWN;
                 switch(keyboardInfo.event.code){
                     case "KeyW":
@@ -89,7 +101,7 @@ export class Player {
     private registerPointerInputs() {
         const scene = Game.scene;
         scene.onPointerObservable.add((pointerInfo) => {
-            if(Game.isGameFocused){
+            if(this.shouldListenToInputs()){
                 this._onPointerObservable.notifyObservers(pointerInfo);
                 this.updateCameraParameter(pointerInfo);
             }
@@ -97,7 +109,7 @@ export class Player {
     }
 
     private initializeCameraParameter() {
-        Submarine.instance.meshCreationPromise.then((mesh) => {
+        Submarine.onMeshCreated.addOnce((mesh) => {
             this._playerCameraConfiguration.target = mesh;
             this._playerCameraConfiguration.distanceFromTarget = 25;
             this._playerCameraConfiguration.currentLowerBetaLimit = Angle.FromDegrees(30).radians();
@@ -120,9 +132,13 @@ export class Player {
     private registerMouseWheelInputs() {
         const canvas = Game.canvas;
         canvas.addEventListener("wheel", (event: WheelEvent) => {
-            if(Game.isGameFocused){
+            if(this.shouldListenToInputs()){
                 this._onMouseWheelScrolledObservable.notifyObservers(event);
             }
         });
+    }
+
+    private shouldListenToInputs(): boolean {
+        return Game.isGameFocused;
     }
 }
