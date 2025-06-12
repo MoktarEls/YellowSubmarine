@@ -3,9 +3,9 @@ import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Abst
 
 export class SimpleDialogueNode extends AbstractDialogueNode<void>{
 
-    private _nextNode: AbstractDialogueNode<never> | undefined;
+    private _nextNode: AbstractDialogueNode<any> | undefined;
 
-    get next(): AbstractDialogueNode<never> | undefined {
+    get next(): AbstractDialogueNode<any> | undefined {
         return undefined;
     }
 

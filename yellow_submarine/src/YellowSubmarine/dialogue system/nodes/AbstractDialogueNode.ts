@@ -23,7 +23,7 @@ export abstract class AbstractDialogueNode<IndexType> {
 
     public abstract get next(): AbstractDialogueNode<any> | undefined
 
-    public abstract getChild(index: IndexType);
-    public abstract setChild(index: IndexType, childToSet: AbstractDialogueNode<any>);
+    public abstract getChild(index: IndexType): AbstractDialogueNode<any> | undefined;
+    public abstract setChild(index: IndexType, childToSet: AbstractDialogueNode<any>): void;
 
 }
