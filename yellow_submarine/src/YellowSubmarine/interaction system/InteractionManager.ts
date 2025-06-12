@@ -1,7 +1,7 @@
 import {AbstractInteraction} from "@/YellowSubmarine/interaction system/interactions/AbstractInteraction";
 import {Observable} from "@babylonjs/core";
 
-export class InteractionManager<TInteraction extends AbstractInteraction>{
+export abstract class InteractionManager<TInteraction extends AbstractInteraction>{
 
     private _availableInteractions: TInteraction[] = [];
     private _selectedInteraction? : TInteraction;
@@ -45,7 +45,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
         return this._selectedInteraction;
     }
 
-    get availableInteractions(): Array<TInteraction> {
+    get availableInteractions(): TInteraction[] {
         return this._availableInteractions.slice(0);
     }
 
@@ -53,11 +53,18 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
         if(this.isInteractionUnavailable(interaction)){
             this._availableInteractions.push(interaction);
             this._onInteractionAvailable.notifyObservers(interaction);
+            if(!this._selectedInteraction){
+                this.selectInteraction(interaction);
+            }
         }
     }
 
     public removeFromAvailableInteraction(interaction: TInteraction){
         if(this.isInteractionAvailable(interaction)){
+            if(this._selectedInteraction === interaction){
+                this._selectedInteraction = undefined;
+                this._onInteractionUnselected.notifyObservers(interaction);
+            }
             this._availableInteractions.splice(this._availableInteractions.indexOf(interaction), 1);
             this._onInteractionUnavailable.notifyObservers(interaction);
         }
@@ -129,7 +136,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
     }
 
     private isInteractionUnavailable(interaction: TInteraction): boolean {
-        return !this.isInteractionUnavailable(interaction);
+        return !this.isInteractionAvailable(interaction);
     }
 
     private wrapIndex(index: number){
