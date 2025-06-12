@@ -4,8 +4,11 @@ import {Player} from "@/YellowSubmarine/Player";
 import {Game} from "@/YellowSubmarine/Game";
 import {World} from "@/YellowSubmarine/World";
 import {KeyboardEventTypes, KeyboardInfo} from "@babylonjs/core";
+import {KeyboardInput} from "@/YellowSubmarine/KeyboardInput";
 
 export class WorldInteractionManager extends InteractionManager<WorldInteraction>{
+
+    public static startInteractionInput = new KeyboardInput("KeyE","E");
 
     constructor() {
         super();
@@ -19,7 +22,7 @@ export class WorldInteractionManager extends InteractionManager<WorldInteraction
         })
         Game.player.onAnyKeyIsPressedObservable.add((keyboardInfo) => {
             if(
-                keyboardInfo.event.code === WorldInteraction.code
+                keyboardInfo.event.code === WorldInteractionManager.startInteractionInput.code
                 && keyboardInfo.type === KeyboardEventTypes.KEYUP
             ){
                 World.instance.worldInteractionManager.startSelectedInteraction();
