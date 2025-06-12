@@ -17,7 +17,7 @@ export class FirstTimeDialogueNode extends AbstractDialogueNode<boolean>{
         return index ? this._firstTimeNode : this._otherTimesNode;
     }
 
-    setChild(index: boolean, node: AbstractDialogueNode<any>): void {
+    setChild(node: AbstractDialogueNode<any>, index: boolean): void {
         if(index) {
             this._firstTimeNode = node;
         }

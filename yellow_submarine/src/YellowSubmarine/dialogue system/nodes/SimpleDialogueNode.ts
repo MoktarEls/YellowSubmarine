@@ -13,7 +13,7 @@ export class SimpleDialogueNode extends AbstractDialogueNode<void>{
         return this._nextNode;
     }
 
-    setChild(index: void, node: AbstractDialogueNode<any>): void {
+    setChild(node: AbstractDialogueNode<any>, index: void): void {
         this._nextNode = node;
     }
 
