@@ -3,6 +3,10 @@ import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/Abst
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 import {Game} from "@/YellowSubmarine/Game";
+import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
+import {StartDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/StartDialogueInteraction";
+import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteraction";
+import {DialogueInteractionManager} from "@/YellowSubmarine/dialogue system/interactions/DialogueInteractionManager";
 
 export class Dialogue {
 
@@ -13,6 +17,8 @@ export class Dialogue {
     private _onDialogueStartedObservable: Observable<void> = new Observable();
     private _onDialogueEndedObservable: Observable<void> = new Observable();
     private _onDialogueNodeStartedObservable: Observable<AbstractDialogueNode<any, any, any>> = new Observable();
+
+    private _dialogueInteractionManager : InteractionManager<DialogueInteraction> = new DialogueInteractionManager(this);
 
     static get onAnyDialogueStartedObservable(): Observable<Dialogue> {
         return this._onAnyDialogueStartedObservable;
@@ -55,7 +61,6 @@ export class Dialogue {
     public set dialogueProvider(value: IDialogueProvider | undefined) {
         this._dialogueProvider = value;
     }
-
 
     private _dialogueProvider: IDialogueProvider | undefined;
 
