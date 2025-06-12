@@ -45,12 +45,12 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
     }
 
     public static get isTextFullyDisplayed(): boolean {
-        // TODO :
-        return true;
+        throw new Error("Not Implemented");
     }
 
     public static displayEntireText() {
         // TODO : Finish displaying the text
+        throw new Error("Not Implemented");
     }
 
     constructor() {
@@ -68,13 +68,13 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
         });
 
         Dialogue.onAnyDialogueEndedObservable.add(() => {
-            this._stopBlink();
             this._container.isVisible = false;
         });
 
-        Dialogue.onAnyDialogueNodeStartedObservable.add((result) =>
-            this.showText(result.node.bbText, this.TEXT_SPEED)
-        );
+        Dialogue.onAnyDialogueNodeStartedObservable.add((result) =>{
+            // TODO : show the text progressively, than show the triangle when the text is fully shown
+            throw new Error("Not Implemented");
+        });
     }
 
     private initContainer() {
@@ -112,77 +112,6 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
     private initBBTextBlock(){
         this._bbTextBlock = new BBTextBlock();
         this._container.addControl(this._bbTextBlock.controlNode);
-    }
-
-    private async showText(bbText: BBText, speedCharactersPerSeconds: number) {
-
-        AbstractDialogueNodeUI._isTextFullyDisplayed = false;
-        this._stopBlink();
-        this._verticalStack.clearControls();
-        this._container.adaptHeightToChildren = true;
-
-        let numberOfCharactersToShow = 0;
-        let doneAnimatingText = false;
-        const animatorObserver = Game.scene.onBeforeRenderObservable.add(() => {
-            const deltaInSeconds = Game.engine.getDeltaTime() / 1000.0
-            this._bbTextBlock.showSubPortionOfCharacters(numberOfCharactersToShow);
-            numberOfCharactersToShow += deltaInSeconds;
-            if(this._bbTextBlock.isTextFullyDisplayed()){
-                AbstractDialogueNodeUI._isTextFullyDisplayed = true;
-                doneAnimatingText = true;
-            }
-        })
-
-        while(!doneAnimatingText){
-            await Utils.sleep(500);
-        }
-
-        /*const canvasWidth = document.querySelector("canvas")!.clientWidth;
-        const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
-        const maxWidth =
-            containerPixelWidth -
-            this.TEXT_PADDING * 2 -
-            this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
-
-        const lines = this._formatter.format(bbText, maxWidth);
-
-        const maxFontSize = Math.max(...lines.flat().map(s => s.style.size as number ?? 24));
-        const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
-
-        const {panels, blocks} = this._factory.create(lines, lineHeight);
-
-        panels.forEach(panel => this._verticalStack.addControl(panel));
-
-        const contentHeight = lines.length * lineHeight;
-        const totalHeight =
-            contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
-
-        this._container.height = `${totalHeight}px`;
-*/
-        // Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
-
-        this._bbTextBlock.bbText = bbText;
-        while(!this._bbTextBlock.isTextFullyDisplayed())
-        // TODO : Animate text appearing
-
-        await this._startBlink();
-    }
-
-    private async _startBlink() {
-        if(!AbstractDialogueNodeUI._isTextFullyDisplayed) return;
-        this._triangle.isVisible = true;
-
-        while (AbstractDialogueNodeUI.isTextFullyDisplayed) {
-            this._triangle.alpha = 1;
-            await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
-            this._triangle.alpha = 0;
-            await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
-        }
-
-    }
-
-    private _stopBlink() {
-        this._triangle.isVisible = false;
     }
 
 }
