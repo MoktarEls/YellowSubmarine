@@ -35,6 +35,6 @@ export abstract class AbstractDialogueNode<
         return this._bbText;
     }
 
-    public abstract get next(): AbstractDialogueNode<never, never, never> | undefined
+    public abstract get next(): AbstractDialogueNode<any, any, any> | undefined
 
 }

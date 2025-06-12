@@ -5,13 +5,13 @@ import {
 
 export class SimpleDialogueNode extends AbstractDialogueNode<SimpleDialogueNode, void, SimpleDialogueNodeChainingBuilder>{
 
-    private _nextNode: AbstractDialogueNode<any, any, any> | undefined;
+    private _nextNode: AbstractDialogueNode<never, never, never> | undefined;
 
-    public set nextNode(value: AbstractDialogueNode<any, any, any> | undefined) {
+    public set nextNode(value: AbstractDialogueNode<never, never, never> | undefined) {
         this._nextNode = value;
     }
 
-    public get nextNode(): AbstractDialogueNode<any, any, any> | undefined {
+    public get nextNode(): AbstractDialogueNode<never, never, never> | undefined {
         return this._nextNode;
     }
 
