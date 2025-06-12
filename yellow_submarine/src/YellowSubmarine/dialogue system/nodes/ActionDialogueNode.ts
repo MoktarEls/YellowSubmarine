@@ -8,8 +8,8 @@ export class ActionDialogueNode extends SingleChildDialogueNode{
 
     private readonly _executeOnStart: boolean;
 
-    constructor(text: string, private _action: () => void, executeOnStart?: boolean) {
-        super(new BBTextBuilder().addText(`***${text}***`, ColorTag, "blue", BoldTag).build());
+    constructor(private _text: string, private _action: () => void, executeOnStart?: boolean) {
+        super();
         this._executeOnStart = executeOnStart ?? false;
     }
 
@@ -23,6 +23,10 @@ export class ActionDialogueNode extends SingleChildDialogueNode{
         if(!this._executeOnStart) {
             this._action();
         }
+    }
+
+    get bbText(): BBText {
+        return new BBTextBuilder().addText(`***${this._text}***`, ColorTag, "blue", BoldTag).build();
     }
 
 

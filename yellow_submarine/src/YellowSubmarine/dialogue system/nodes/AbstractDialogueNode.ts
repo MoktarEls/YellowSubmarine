@@ -15,22 +15,7 @@ export abstract class AbstractDialogueNode<IndexType> {
         return this._onEndedObservable;
     }
 
-    protected _bbText: BBText;
-
-    constructor(text: BBText | string) {
-        let bbText: BBText;
-        if(text instanceof BBText){
-            bbText = text;
-        }
-        else{
-            bbText = new BBTextBuilder().addText(text).build();
-        }
-        this._bbText = bbText;
-    }
-
-    public get bbText(): BBText{
-        return this._bbText;
-    }
+    public abstract get bbText(): BBText;
 
     public Start(){
         this.onStart();

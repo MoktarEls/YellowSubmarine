@@ -3,6 +3,7 @@ import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {SizeTag} from "@/YellowSubmarine/BBCode/tags/SizeTag";
 import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
+import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 
 export class FirstTimeDialogueNode extends AbstractDialogueNode<boolean>{
 
@@ -12,7 +13,7 @@ export class FirstTimeDialogueNode extends AbstractDialogueNode<boolean>{
     private _isFirstTime = true;
 
     constructor() {
-        super(new BBTextBuilder().addText("!", SizeTag, 40, BoldTag, ColorTag, "blue").build());
+        super();
     }
 
     get next(): AbstractDialogueNode<any> | undefined {
@@ -32,6 +33,10 @@ export class FirstTimeDialogueNode extends AbstractDialogueNode<boolean>{
         else{
             this._otherTimesNode = node;
         }
+    }
+
+    get bbText(): BBText {
+        return new BBTextBuilder().addText("!", SizeTag, 40, BoldTag, ColorTag, "blue").build();
     }
 
     protected onStart(): void {

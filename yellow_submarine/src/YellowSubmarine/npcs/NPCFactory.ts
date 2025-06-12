@@ -13,6 +13,7 @@ import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/C
 import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
+import {FirstTimeDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/FirstTimeDialogueNode";
 
 export class NPCFactory {
 
@@ -49,7 +50,8 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode, "Aussi ! [g]Information capital !!! [/g] Si tu as un journal dans ton sous-marin [g]tu peux prendre des notes[/g] sur tout ce que tu vas découvrir pour ne pas oublier d'information")
             .chainNode(SimpleDialogueNode, "Hésite pas à aller voir [g][c=blue]les habitants des autres îles[/c][/g], ils devraient pouvoir t'aider !")
             .chainNode(SimpleDialogueNode, "Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt................zzZZZzzzzzZZzzzzzzzz)")
-            .chainNode(ActionDialogueNode, "Mise à jour de la quête",() => {
+            .chainNode(FirstTimeDialogueNode)
+            .chainNode(ActionDialogueNode, true,"Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Pedro s'est endormie");
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Il y aurait un endroit interessant au nord de l'ile des dauphins");
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Deux boules ? seraient déjà présentes");
