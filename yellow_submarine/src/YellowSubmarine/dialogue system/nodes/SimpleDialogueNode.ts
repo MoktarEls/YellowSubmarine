@@ -1,20 +1,17 @@
-import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
+import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SingleChildDialogueNode";
 
+export class SimpleDialogueNode extends SingleChildDialogueNode{
 
-export class SimpleDialogueNode extends AbstractDialogueNode<void>{
-
-    private _nextNode: AbstractDialogueNode<any> | undefined;
-
-    get next(): AbstractDialogueNode<any> | undefined {
-        return undefined;
+    protected onStart(): void {
+        return;
     }
 
-    getChild(index: void) {
-        return this._nextNode;
+    protected onEnd(): void {
+        return;
     }
 
-    setChild(node: AbstractDialogueNode<any>, index: void): void {
-        this._nextNode = node;
-    }
+
+
+
 
 }
