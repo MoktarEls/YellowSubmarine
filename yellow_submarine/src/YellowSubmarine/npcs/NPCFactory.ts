@@ -9,11 +9,11 @@ import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
-import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
-import {MultipleChoicesDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/MultipleChoicesDialogueNode";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 import {FirstTimeDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/FirstTimeDialogueNode";
+import {ItalicTag} from "@/YellowSubmarine/BBCode/tags/ItalicTag";
+import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
 
 export class NPCFactory {
 
@@ -40,15 +40,14 @@ export class NPCFactory {
 
         pedro.detectionZone.zone.position.set(0, -11, 0);
         pedro.dialogue = DialogueNodeChainingBuilder
-            .createNewDialogueBuilder(MultipleChoicesDialogueNode,new BBTextBuilder().addText("OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !!", BoldTag).build() )
-            .chainNode(ConditionalDialogueNode, "add",() => true)
-            .chainNode(SimpleDialogueNode, true,"Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
-            .chainNode(SimpleDialogueNode, "Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez [i]vide[/i] et ça mord pas trop au bout de ma canne... ")
-            .chainNode(SimpleDialogueNode, "Mais ! Y'a un [c=blue]p'tit endroit au nord d'ici [/c] un peu particulier.")
-            .chainNode(SimpleDialogueNode, "[c=blue] Y'avait deux boules et plein de poteaux [/c], j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..")
+            .createNewDialogueBuilder(SimpleDialogueNode,new BBTextBuilder().addText("OH CA VA PAS DE ME REVEILLER COMME CA ! MAIS QUI ES TU !!", BoldTag).build() )
+            .chainNode(SimpleDialogueNode, "Ca fais bien longtemps que j'ai pas vu quelqu'un comme toi ici ! Je me présente, je suis Pedro. Je pêche ici depuis bel lurette mon n'veu.")
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Ici, eh beh ici je sais pas trop comment te le décrire. C'est assez").addText("vide", ItalicTag).addText("et ça mord pas trop au bout de ma canne...").build() )
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Mais ! Y'a un").addText("p'tit endroit au nord d'ici", ColorTag, "blue").addText("un peu particulier.").build())
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Y'avait deux boules et plein de poteaux", ColorTag, "blue").addText(", j'ai pas tout compris et j'étais fatigué Ducoup j'suis parti..").build())
             .chainNode(SimpleDialogueNode, "Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
-            .chainNode(SimpleDialogueNode, "Aussi ! [g]Information capital !!! [/g] Si tu as un journal dans ton sous-marin [g]tu peux prendre des notes[/g] sur tout ce que tu vas découvrir pour ne pas oublier d'information")
-            .chainNode(SimpleDialogueNode, "Hésite pas à aller voir [g][c=blue]les habitants des autres îles[/c][/g], ils devraient pouvoir t'aider !")
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Aussi !").addText("Information capital !!!", BoldTag).addText("Si tu as un journal dans ton sous-marin").addText("tu peux prendre des notes",BoldTag).addText("sur tout ce que tu vas découvrir pour ne pas oublier d'information").build())
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Hésite pas à aller voir").addText("les habitants des autres îles", BoldTag, ColorTag, "blue").addText(", ils devraient pouvoir t'aider !").build())
             .chainNode(SimpleDialogueNode, "Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt................zzZZZzzzzzZZzzzzzzzz)")
             .chainNode(FirstTimeDialogueNode)
             .chainNode(ActionDialogueNode, true,"Mise à jour de la quête",() => {
