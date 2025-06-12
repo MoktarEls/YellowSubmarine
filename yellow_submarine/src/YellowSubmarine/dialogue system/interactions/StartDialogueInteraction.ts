@@ -16,9 +16,9 @@ export class StartDialogueInteraction extends WorldInteraction{
         return this._dialogue.dialogueProvider?.mesh;
     }
 
-    protected _start(): void {
+    protected onStart(): void {
         this._dialogue.startDialogue();
-        this._dialogue.onDialogueEndedObservable.addOnce(() => this.endOnNextFrame());
+        this._dialogue.onDialogueEndedObservable.addOnce(() => this.end());
     }
 
 }
