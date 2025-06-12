@@ -1,8 +1,6 @@
 import {AbstractDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/AbstractDialogueNode";
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
-import {SimpleDialogueNodeBuilder} from "@/YellowSubmarine/dialogue system/builder/SimpleDialogueNodeBuilder";
-import {Constructor} from "@babylonjs/core";
 
 type IndexTypeOfNode<Node extends AbstractDialogueNode<any, any, any>> =
     Node extends AbstractDialogueNode<any, infer IndexType, any> ? IndexType : never;

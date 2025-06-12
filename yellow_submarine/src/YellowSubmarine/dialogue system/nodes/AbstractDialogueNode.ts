@@ -35,12 +35,6 @@ export abstract class AbstractDialogueNode<
         return this._bbText;
     }
 
-    public abstract get children(): AbstractDialogueNode<never, never, never>[];
-
     public abstract get next(): AbstractDialogueNode<never, never, never> | undefined
-
-    public isFinal(){
-        return this.next === undefined;
-    }
 
 }

@@ -40,14 +40,13 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any,
     private _triangle!: Image;
     private _bbTextBlock!: BBTextBlock;
 
-    private static _isTextFullyDisplayed = false;
-
     public get controlNode(): Control {
         return this._container;
     }
 
     public static get isTextFullyDisplayed(): boolean {
-        return this._isTextFullyDisplayed;
+        // TODO :
+        return true;
     }
 
     public static displayEntireText() {
