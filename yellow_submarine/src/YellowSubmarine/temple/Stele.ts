@@ -7,7 +7,7 @@ import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProv
 import {AbstractMesh, Angle} from "@babylonjs/core";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
-import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
+import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/DialogueNodeChainingBuilder";
 import {StartDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/StartDialogueInteraction";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";

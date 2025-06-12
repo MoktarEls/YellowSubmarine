@@ -4,7 +4,7 @@ import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/Cylin
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
-import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
+import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/DialogueNodeChainingBuilder";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
 import {QuestManager} from "@/YellowSubmarine/quest system/QuestManager";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";

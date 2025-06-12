@@ -18,18 +18,9 @@ type IfVoid<T, Then, Else> = [T] extends [void] ? Then : Else;
 
 
 
-export abstract class DialogueNodeChainingBuilder<
-    SelfType extends DialogueNodeChainingBuilder<
-        SelfType,
-        IndexType,
-        NodeType
-    >,
+export class DialogueNodeChainingBuilder<
+    NodeType extends AbstractDialogueNode<IndexType>,
     IndexType,
-    NodeType extends AbstractDialogueNode<
-        NodeType,
-        IndexType,
-        SelfType
-    >
 >{
     protected readonly _node: NodeType;
     private _root: AbstractDialogueNode<any, any, any>;
@@ -73,7 +64,6 @@ export abstract class DialogueNodeChainingBuilder<
         }
         const newNode = new nodeCtor(...nodeArgs);
         this.chain(newNode, index as IndexType);
-        const builderCtor = newNode.getBuilderCtor();
         return this.createSubBuilder(
             builderCtor,
             newNode
@@ -121,6 +111,5 @@ export abstract class DialogueNodeChainingBuilder<
         return new Dialogue(this._root, this._dialogueProvider);
     }
 
-    protected abstract chain(nodeToChain: AbstractDialogueNode<any, any, any>, index: IndexType): void;
 
 }

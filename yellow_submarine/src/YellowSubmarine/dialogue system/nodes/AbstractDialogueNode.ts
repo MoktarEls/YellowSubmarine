@@ -1,22 +1,8 @@
-﻿import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/builder/DialogueNodeChainingBuilder";
+﻿import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/DialogueNodeChainingBuilder";
 import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 
-export abstract class AbstractDialogueNode<
-    SelfType extends AbstractDialogueNode<
-        SelfType,
-        IndexType,
-        BuilderType
-    >,
-    IndexType,
-    BuilderType extends DialogueNodeChainingBuilder<
-        BuilderType,
-        IndexType,
-        SelfType
-    >
-> {
-
-    abstract getBuilderCtor(): new (node: any) => BuilderType
+export abstract class AbstractDialogueNode<IndexType> {
 
     protected _bbText: BBText;
 
@@ -35,6 +21,9 @@ export abstract class AbstractDialogueNode<
         return this._bbText;
     }
 
-    public abstract get next(): AbstractDialogueNode<any, any, any> | undefined
+    public abstract get next(): AbstractDialogueNode<any> | undefined
+
+    public abstract getChild(index: IndexType);
+    public abstract setChild(index: IndexType, childToSet: AbstractDialogueNode<any>);
 
 }
