@@ -6,6 +6,7 @@ import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
+import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any, any, any>> extends UI{
     // TODO : Put in there all the logic that is shared across any dialogue node ui
@@ -25,7 +26,7 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any,
 
     private readonly TEXT_PADDING = 8;
     private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 2;
-    // private readonly TEXT_DEFAULT_FONT_SIZE = 24;
+    private readonly TEXT_DEFAULT_FONT_SIZE = 24;
     private readonly TEXT_LINE_SPACING = 8;
     private readonly TEXT_EXTRA_CONTAINER_MARGIN = 20;
     private readonly TEXT_SPEED = 20;
@@ -49,7 +50,7 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any,
         return this._isTextFullyDisplayed;
     }
 
-    static displayEntireText() {
+    public static displayEntireText() {
         // TODO : Finish displaying the text
     }
 
@@ -114,12 +115,28 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any,
         this._container.addControl(this._bbTextBlock.controlNode);
     }
 
-    private async showText(bbText: BBText, speed: number) {
+    private async showText(bbText: BBText, speedCharactersPerSeconds: number) {
 
         AbstractDialogueNodeUI._isTextFullyDisplayed = false;
         this._stopBlink();
         this._verticalStack.clearControls();
         this._container.adaptHeightToChildren = true;
+
+        let numberOfCharactersToShow = 0;
+        let doneAnimatingText = false;
+        const animatorObserver = Game.scene.onBeforeRenderObservable.add(() => {
+            const deltaInSeconds = Game.engine.getDeltaTime() / 1000.0
+            this._bbTextBlock.showSubPortionOfCharacters(numberOfCharactersToShow);
+            numberOfCharactersToShow += deltaInSeconds;
+            if(this._bbTextBlock.isTextFullyDisplayed()){
+                AbstractDialogueNodeUI._isTextFullyDisplayed = true;
+                doneAnimatingText = true;
+            }
+        })
+
+        while(!doneAnimatingText){
+            await Utils.sleep(500);
+        }
 
         /*const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
@@ -144,6 +161,9 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any,
         this._container.height = `${totalHeight}px`;
 */
         // Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
+
+        this._bbTextBlock.bbText = bbText;
+        while(!this._bbTextBlock.isTextFullyDisplayed())
         // TODO : Animate text appearing
 
         await this._startBlink();

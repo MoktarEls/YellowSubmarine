@@ -1,11 +1,10 @@
 import {AbstractInteraction} from "@/YellowSubmarine/interaction system/interactions/AbstractInteraction";
-import {KeyboardEventTypes, Observable} from "@babylonjs/core";
-import {Player} from "@/YellowSubmarine/Player";
+import {Observable} from "@babylonjs/core";
 
 export class InteractionManager<TInteraction extends AbstractInteraction>{
 
-    private _availableInteractions: Array<TInteraction> = new Array<TInteraction>();
-    private _selectedInteractionIndex = 0;
+    private _availableInteractions: TInteraction[] = [];
+    private _selectedInteraction? : TInteraction;
 
     private _onInteractionAvailable: Observable<TInteraction> = new Observable();
     private _onInteractionUnavailable: Observable<TInteraction> = new Observable();
@@ -43,10 +42,7 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
     }
 
     get selectedInteraction(): TInteraction | undefined {
-        if(this._selectedInteractionIndex >= 0 && this._selectedInteractionIndex < this._availableInteractions.length) {
-            return this._availableInteractions[this._selectedInteractionIndex];
-        }
-        return undefined;
+        return this._selectedInteraction;
     }
 
     get availableInteractions(): Array<TInteraction> {
@@ -54,113 +50,111 @@ export class InteractionManager<TInteraction extends AbstractInteraction>{
     }
 
     public addToAvailableInteraction(interaction: TInteraction){
-        if(!this._availableInteractions.includes(interaction)){
+        if(this.isInteractionUnavailable(interaction)){
             this._availableInteractions.push(interaction);
             this._onInteractionAvailable.notifyObservers(interaction);
         }
     }
 
     public removeFromAvailableInteraction(interaction: TInteraction){
-        if(this._availableInteractions.includes(interaction)){
-            if(this.selectedInteraction === interaction){
-                this.selectNextInteraction();
-            }
-            const index = this._availableInteractions.indexOf(interaction);
-            this._availableInteractions.splice(index, 1);
-            this.onInteractionUnavailable.notifyObservers(interaction);
+        if(this.isInteractionAvailable(interaction)){
+            this._availableInteractions.splice(this._availableInteractions.indexOf(interaction), 1);
+            this._onInteractionUnavailable.notifyObservers(interaction);
         }
     }
 
     public selectNextInteraction(): TInteraction | undefined {
-        const oldSelectedInteraction = this.selectedInteraction;
-        if(oldSelectedInteraction){
-            this._onInteractionUnselected.notifyObservers(oldSelectedInteraction);
-        }
-        this._selectedInteractionIndex++;
-        const newSelectedInteraction = this.selectedInteraction;
-        if(newSelectedInteraction){
-            this._onInteractionSelected.notifyObservers(newSelectedInteraction);
-        }
-        return this.selectInteractionAtIndex(++this._selectedInteractionIndex);
+        return this.selectInteractionWithDelta(1);
     }
 
     public selectPreviousInteraction(): TInteraction | undefined {
-        const oldSelectedInteraction = this.selectedInteraction;
-        if(oldSelectedInteraction){
-            this._onInteractionUnselected.notifyObservers(oldSelectedInteraction);
-        }
-        this._selectedInteractionIndex--;
-        const newSelectedInteraction = this.selectedInteraction;
-        if(newSelectedInteraction){
-            this._onInteractionSelected.notifyObservers(newSelectedInteraction);
-        }
-        return this.selectInteractionAtIndex(++this._selectedInteractionIndex);    }
-
-    public selectInteraction(interaction: TInteraction): boolean{
-        const interactionIsAvailable = this._availableInteractions.includes(interaction);
-        if(!interactionIsAvailable){
-            return false;
-        }
-        const index = this._availableInteractions.indexOf(interaction);
-        this.selectInteractionAtIndex(index);
-        return true;
+        return this.selectInteractionWithDelta(-1);
 
     }
 
-    private selectInteractionAtIndex(index: number): TInteraction | undefined{
-        this._selectedInteractionIndex = index;
-        this.clampSelectedInteractionIndex();
-
-        if(this._availableInteractions.length === 0){
-            return undefined;
+    public selectInteraction(newInteraction: TInteraction){
+        if(this.isInteractionAvailable(newInteraction)){
+            const currentlySelectedInteraction = this._selectedInteraction;
+            if(currentlySelectedInteraction == newInteraction){
+                this._selectedInteraction = undefined;
+                this._onInteractionUnselected.notifyObservers(currentlySelectedInteraction);
+            }
+            this._selectedInteraction = newInteraction;
+            this._onInteractionSelected.notifyObservers(newInteraction);
+            return newInteraction;
         }
         else{
-            return this._availableInteractions[this._selectedInteractionIndex];
+            throw new Error(`The interaction : ${newInteraction} can't be selected because, it is not available in the interaction manager : ${this}`);
         }
-    }
-
-    private clampSelectedInteractionIndex(){
-        if(this._selectedInteractionIndex >= this._availableInteractions.length){
-            this._selectedInteractionIndex = 0;
-        }
-        else if(this._selectedInteractionIndex < 0){
-            this._selectedInteractionIndex = this._availableInteractions.length - 1;
-        }
-    }
-
-    private isAnInteractionInProgress(): boolean{
-        return this._inProgressInteraction !== undefined;
     }
 
     public startSelectedInteraction(){
-        const selectedInteraction = this.selectedInteraction;
-        if(selectedInteraction){
-            console.log(`Starting interaction, ${selectedInteraction}`)
-            this.startInteraction(selectedInteraction);
+        if(this._inProgressInteraction){
+            throw new Error(`The selected interaction can't be started because an interaction is already in progress`)
         }
-        else{
-            throw new Error('Tried to start selected interaction but was undefined');
+
+        if(!this._selectedInteraction){
+            throw new Error(`The selected interaction can't be started because no interaction is selected.`);
         }
+
+        this._inProgressInteraction = this._selectedInteraction;
+        this._inProgressInteraction.onStartedObservable.addOnce(() => {
+            this._onInteractionStarted.notifyObservers(this._inProgressInteraction as TInteraction);
+        })
+        this._inProgressInteraction.onEndedObservable.addOnce( () => {
+            const endedInteraction = this._inProgressInteraction as TInteraction;
+            this._inProgressInteraction = undefined;
+            this._onInteractionEnded.notifyObservers(endedInteraction as TInteraction);
+        })
+        this._inProgressInteraction.start();
     }
 
     public startInteraction(interaction: TInteraction){
-        if(this.isAnInteractionInProgress()){
-            console.log(`An interaction is already in progress`);
-            return;
+        if(this.isInteractionUnavailable(interaction)){
+            throw new Error(`The interaction : ${interaction} can't be started because it is not registered in the interaction manager : ${this}`)
         }
-        this._inProgressInteraction = interaction;
-        interaction.onStartedObservable.addOnce(() => this.afterInteractionStart(interaction));
-        interaction.onEndedObservable.addOnce(() => this.afterInteractionEnd(interaction));
-        interaction.start()
+
+        if(this._inProgressInteraction){
+            throw new Error(`The interaction : ${interaction} can't be started because an interaction is already in progress`);
+        }
+
+        this.selectInteraction(interaction);
+        this.startSelectedInteraction();
     }
 
-    private afterInteractionStart(interaction: TInteraction){
-        this._onInteractionStarted.notifyObservers(interaction);
+    // ---------------------------------------------P R I V A T E---------------------------------------------------- //
+
+    private isInteractionAvailable(interaction: TInteraction): boolean {
+        return this._availableInteractions.includes(interaction);
     }
 
-    private afterInteractionEnd(interaction: TInteraction){
-        this._onInteractionEnded.notifyObservers(interaction);
-        this._inProgressInteraction = undefined;
+    private isInteractionUnavailable(interaction: TInteraction): boolean {
+        return !this.isInteractionUnavailable(interaction);
+    }
+
+    private wrapIndex(index: number){
+        return ((index % this._availableInteractions.length) + this._availableInteractions.length) % this._availableInteractions.length;
+    }
+
+    private selectInteractionWithDelta(delta: number){
+        const currentlySelectedInteraction = this._selectedInteraction;
+        if (currentlySelectedInteraction) {
+            const indexOfCurrentInteraction = this._availableInteractions.indexOf(currentlySelectedInteraction);
+            const index = this.wrapIndex(indexOfCurrentInteraction - delta);
+            this._selectedInteraction = undefined;
+            this._onInteractionUnselected.notifyObservers(currentlySelectedInteraction);
+            const newInteraction = this._availableInteractions[index];
+            this._selectedInteraction = newInteraction;
+            this._onInteractionSelected.notifyObservers(newInteraction);
+            return newInteraction;
+        }
+        else if(this._availableInteractions.length > 0){
+            const newInteraction = this._availableInteractions[delta > 0 ? 0 : this._availableInteractions.length - 1];
+            this._selectedInteraction = newInteraction;
+            this._onInteractionSelected.notifyObservers(newInteraction);
+            return newInteraction;
+        }
+        return undefined;
     }
 
 }

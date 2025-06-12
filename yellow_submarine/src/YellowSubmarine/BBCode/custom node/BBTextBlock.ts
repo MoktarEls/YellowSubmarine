@@ -11,7 +11,11 @@ export class BBTextBlock extends UI{
 
     private _stackPanels: StackPanel[] = [];
     private _textBlocks: TextBlock[] = [];
+    private _textBlocksSpaces: TextBlock[] = [];
     private _bbtext?: BBText
+    private _subPortionOfCharacters?: number = 0;
+    private _segmentLines: BBSegment[][] = [];
+
 
     get controlNode(): Control {
         return this._container;
@@ -24,13 +28,16 @@ export class BBTextBlock extends UI{
     }
 
     public showSubPortionOfCharacters(numberOfCharacters: number) {
-        // TODO : Make it so that the BBTextBlock only shows the @numberOfCharacters first characters
-        throw new Error("Not implemented");
+        this._subPortionOfCharacters = numberOfCharacters;
+        this.updateText();
     }
 
     public isTextFullyDisplayed(): boolean {
-        // TODO : Returns true if the entire text is visible and false otherwise
-        throw new Error("Not implemented");
+        return (!this._subPortionOfCharacters || this._subPortionOfCharacters >= this.numberOfCharactersInEntireText());
+    }
+
+    private numberOfCharactersInEntireText(){
+        return this._bbtext?.textAsString.length ?? 0
     }
 
     public set bbText(bbText: BBText) {
@@ -44,13 +51,26 @@ export class BBTextBlock extends UI{
 
     private recreate(){
         this._textBlocks.forEach(tb => tb.dispose());
+        this._textBlocksSpaces.forEach(tb => tb.dispose());
         this._stackPanels.forEach(s => s.dispose());
 
         this._textBlocks = [];
+        this._textBlocksSpaces = [];
         this._stackPanels = [];
 
-        const segmentsLine = this.calculateSegmentsLine();
-        this.createStackPanels(segmentsLine);
+        this._segmentLines = this.calculateSegmentsLine();
+        this.createStackPanels(this._segmentLines);
+    }
+
+    private getSegmentsIn1DimensionArray(){
+        const segments: BBSegment[] = [];
+        for (let i = 0; i < this._segmentLines.length; i++) {
+            const line = this._segmentLines[i];
+            for (let j = 0; j < line.length; j++) {
+                segments.push(line[j]);
+            }
+        }
+        return segments;
     }
 
     private calculateSegmentsLine(): BBSegment[][]{
@@ -159,6 +179,7 @@ export class BBTextBlock extends UI{
             stackPanel.addControl(textBlock);
             stackPanel.addControl(spaceAfterTextBlock);
             this._textBlocks.push(textBlock);
+            this._textBlocksSpaces.push(spaceAfterTextBlock);
         })
     }
 
@@ -171,4 +192,19 @@ export class BBTextBlock extends UI{
     }
 
 
+    private updateText() {
+        const segments = this.getSegmentsIn1DimensionArray();
+        let currentNumberOfCharacters = 0;
+        const numberOfCharactersToDisplay = this._subPortionOfCharacters ?? this.numberOfCharactersInEntireText();
+        let index = 0;
+        while(currentNumberOfCharacters < numberOfCharactersToDisplay && index < this._textBlocks.length) {
+            const currentSegment = segments[index];
+            const currentTextBlock = this._textBlocks[index];
+            const numberOfCharactersInCurrentSegment = currentSegment.text.length;
+            const numberOfCharactersToShow = Math.max(0,Math.min(numberOfCharactersToDisplay - currentNumberOfCharacters, numberOfCharactersInCurrentSegment));
+            currentTextBlock.text = currentSegment.text.slice(0, numberOfCharactersToShow);
+            index++;
+            currentNumberOfCharacters += numberOfCharactersToShow;
+        }
+    }
 }
