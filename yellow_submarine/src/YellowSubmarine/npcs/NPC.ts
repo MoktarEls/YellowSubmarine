@@ -13,7 +13,7 @@ export class NPC implements IDialogueProvider {
     private _name = "undefined";
     private _mesh?: AbstractMesh;
     private _dialogue?: Dialogue;
-    private _startConversationInteraction?: StartDialogueInteraction;
+    private _startDialogueInteraction?: StartDialogueInteraction;
     private _playerDetectionZone?: MeshDetectionZone;
     private _cameraConfiguration?: CameraConfiguration;
 
@@ -68,11 +68,11 @@ export class NPC implements IDialogueProvider {
 
     public set dialogue(dialogue: Dialogue | undefined) {
         if(dialogue !== undefined) {
-            this._startConversationInteraction = new StartDialogueInteraction(dialogue);
+            this._startDialogueInteraction = new StartDialogueInteraction(dialogue);
             this._dialogue = dialogue;
         }
         else{
-            this._startConversationInteraction = undefined;
+            this._startDialogueInteraction = undefined;
             if(this._dialogue){
                 this._dialogue.dialogueProvider = undefined;
             }
@@ -83,14 +83,14 @@ export class NPC implements IDialogueProvider {
     private setSignals(): void {
         if(this._playerDetectionZone){
             this._playerDetectionZone.onMeshEnter.add( () => {
-                if(this._startConversationInteraction && !this._dialogue?.isInProgress()){
-                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startConversationInteraction);
+                if(this._startDialogueInteraction && !this._dialogue?.isInProgress()){
+                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startDialogueInteraction);
                 }
             } );
 
             this._playerDetectionZone.onMeshExit.add( () => {
-                if(this._startConversationInteraction){
-                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startConversationInteraction);
+                if(this._startDialogueInteraction){
+                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startDialogueInteraction);
                 }
             } );
 

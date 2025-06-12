@@ -12,8 +12,8 @@ export abstract class DialogueInteraction extends AbstractInteraction{
         return this._dialogue;
     }
 
-    constructor(protected _dialogue: Dialogue, code?: string, simplifiedCode?: string){
-        super(code, simplifiedCode);
+    constructor(protected _dialogue: Dialogue){
+        super();
     }
 
 }

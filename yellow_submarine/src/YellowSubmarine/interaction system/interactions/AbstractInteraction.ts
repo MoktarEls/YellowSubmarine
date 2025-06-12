@@ -3,25 +3,25 @@ import {Game} from "@/YellowSubmarine/Game";
 
 export abstract class AbstractInteraction {
 
-    private _onStarted = new Observable<void>()
-    private _onEnded = new Observable<void>();
+    private _onStartedObservable = new Observable<void>()
+    private _onEndedObservable = new Observable<void>();
 
-    public get onStarted(){
-        return this._onStarted;
+    public get onStartedObservable(){
+        return this._onStartedObservable;
     }
 
-    public get onEnded(){
-        return this._onEnded;
+    public get onEndedObservable(){
+        return this._onEndedObservable;
     }
 
     public start(){
         this.onStart();
-        this._onStarted.notifyObservers();
+        this._onStartedObservable.notifyObservers();
     }
     protected abstract onStart(): void;
 
     protected end(){
-        this._onEnded.notifyObservers();
+        this._onEndedObservable.notifyObservers();
     }
 
 }
