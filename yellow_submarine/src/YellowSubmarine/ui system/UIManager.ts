@@ -21,20 +21,16 @@ export class UIManager {
 
     private _uiMap:Map<string, UI> = new Map();
     private _definitions: Record<string, UiConstructor> = {
-
-        mainMenu: MainMenuUI,
-        optionsMenu: OptionsMenuUI,
-        howToPlay: HowToPlayUI,
-        slideAnimation: SlideAnimationUI,
-
-        showConversationProvider: ShowConversationProviderUI,
-        island: ShowKeyZoneNameUI,
-
         dialogueNode: DialogueNodeUI,
         worldInteraction: WorldInteractionUI,
-
+        showConversationProvider: ShowConversationProviderUI,
+        island: ShowKeyZoneNameUI,
         quest: QuestUI,
         journal: JournalUI,
+        slideAnimation: SlideAnimationUI,
+        howToPlay: HowToPlayUI,
+        optionsMenu: OptionsMenuUI,
+        mainMenu: MainMenuUI,
     }
 
     private static _instance: UIManager;
@@ -58,9 +54,12 @@ export class UIManager {
         UIManager._instance = this;
         this._canvas = canvas;
 
+        let zIndex = 0;
         for(const [name, UIConstructor] of Object.entries(this._definitions)) {
             const instance = new UIConstructor;
             this._uiMap.set(name, instance);
+            const controlNode = instance.controlNode;
+            controlNode.zIndex = zIndex++;
             this.ui.addControl(instance.controlNode);
         }
     }

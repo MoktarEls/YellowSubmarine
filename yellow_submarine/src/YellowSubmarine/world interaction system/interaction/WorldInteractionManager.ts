@@ -12,14 +12,14 @@ export class WorldInteractionManager extends InteractionManager<WorldInteraction
 
     constructor() {
         super();
-        Game.player.onMouseWheelScrolledObservable.add((wheelEvent) => {
+/*        Game.player.onMouseWheelScrolledObservable.add((wheelEvent) => {
             if(wheelEvent.deltaY > 0){
                 World.instance.worldInteractionManager.selectNextInteraction();
             }
             else if(wheelEvent.deltaY < 0){
                 World.instance.worldInteractionManager.selectPreviousInteraction();
             }
-        })
+        })*/
         Game.player.onAnyKeyIsPressedObservable.add((keyboardInfo) => {
             if(
                 keyboardInfo.event.code === WorldInteractionManager.startInteractionInput.code

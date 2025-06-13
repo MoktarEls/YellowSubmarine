@@ -72,21 +72,24 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
 
     public selectNextInteraction(): TInteraction | undefined {
         if(this._inProgressInteraction){
-            throw new Error(`The next interaction can't be selected because an interaction is in progress.`);
+            console.log(`The next interaction can't be selected because an interaction is in progress.`);
+            return;
         }
         return this.selectInteractionWithDelta(1);
     }
 
     public selectPreviousInteraction(): TInteraction | undefined {
         if(this._inProgressInteraction){
-            throw new Error(`The previous interaction can't be selected because an interaction is in progress.`);
+            console.log(`The previous interaction can't be selected because an interaction is in progress.`);
+            return;
         }
         return this.selectInteractionWithDelta(-1);
     }
 
     public selectInteraction(newInteraction: TInteraction){
         if(this._inProgressInteraction){
-            throw new Error(`The interaction : ${newInteraction} can't be selected because an interaction is already in progress`);
+            console.log(`The interaction : ${newInteraction} can't be selected because an interaction is already in progress`);
+            return;
         }
 
         if(this.isInteractionAvailable(newInteraction)){
