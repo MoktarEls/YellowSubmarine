@@ -57,7 +57,6 @@ export class WorldInteractionUI extends UI{
             else{
                 this.hide();
             }
-            console.log(`WorldInteractionUI received the ended interaction: ${interaction}`);
         })
 
     }

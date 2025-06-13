@@ -33,12 +33,25 @@ export class BBTextBlock extends UI{
     }
 
     public showSubPortionOfCharacters(numberOfCharacters: number) {
-        this._subPortionOfCharacters = numberOfCharacters;
+        if(numberOfCharacters >= this.numberOfCharactersInEntireText()){
+            this._subPortionOfCharacters = undefined;
+        }
+        else{
+            this._subPortionOfCharacters = numberOfCharacters;
+        }
         this.updateText();
     }
 
+    public showEntireText(){
+        this.showSubPortionOfCharacters(this.numberOfCharactersInEntireText());
+    }
+
     public isTextFullyDisplayed(): boolean {
-        return (!this._subPortionOfCharacters || this._subPortionOfCharacters >= this.numberOfCharactersInEntireText());
+        if(this._subPortionOfCharacters === undefined) {
+            return true;
+        }
+        return this._subPortionOfCharacters >= this.numberOfCharactersInEntireText();
+
     }
 
     private numberOfCharactersInEntireText(){
@@ -164,7 +177,7 @@ export class BBTextBlock extends UI{
 /*            textBlock.isHighlighted = true;
             textBlock.highlightColor = "red"*/
             textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-            textBlock.text = segment.text;
+            // textBlock.text = segment.text;
 
             const spaceAfterTextBlock = new TextBlock();
             spaceAfterTextBlock.textWrapping = false;
@@ -182,6 +195,7 @@ export class BBTextBlock extends UI{
             stackPanel.addControl(spaceAfterTextBlock);
             this._textBlocks.push(textBlock);
             this._textBlocksSpaces.push(spaceAfterTextBlock);
+            this.updateText();
         })
     }
 

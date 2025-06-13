@@ -39,22 +39,23 @@ export class DialogueNodeUI extends UI{
     private _triangle!: Image;
     private _bbTextBlock!: BBTextBlock;
 
+    private static _instance : DialogueNodeUI;
+
     public get controlNode(): Control {
         return this._container;
     }
 
     public static get isTextFullyDisplayed(): boolean {
-        throw new Error("Not Implemented");
+        return this._instance._bbTextBlock.isTextFullyDisplayed();
     }
 
     public static displayEntireText() {
-        // TODO : Finish displaying the text
-        throw new Error("Not Implemented");
+        this._instance._bbTextBlock.showEntireText();
     }
 
     constructor() {
         super();
-
+        DialogueNodeUI._instance = this;
         this.initContainer();
         this.initTriangle();
         this.initBBTextBlock();
@@ -71,7 +72,9 @@ export class DialogueNodeUI extends UI{
 
         Dialogue.onAnyDialogueNodeStartedObservable.add((result) =>{
             // TODO : show the text progressively, than show the triangle when the text is fully shown
-            this._bbTextBlock.bbText = result.node.bbText;
+            this.showText(result.node.bbText, this.TEXT_SPEED);
+            /*this._bbTextBlock.bbText = result.node.bbText;
+            this._bbTextBlock.showSubPortionOfCharacters(6);*/
             // throw new Error("Not Implemented");
         });
     }
@@ -100,13 +103,77 @@ export class DialogueNodeUI extends UI{
         this._triangle.height = this.TRIANGLE_SIZE;
         this._triangle.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        this._triangle.isVisible = true;
+        this._triangle.isVisible = false;
+        this.blink();
         this._container.addControl(this._triangle);
     }
 
     private initBBTextBlock(){
         this._bbTextBlock = new BBTextBlock();
         this._container.addControl(this._bbTextBlock.controlNode);
+    }
+
+    private async showText(bbText: BBText, speedCharactersPerSeconds: number) {
+        this._triangle.isVisible = false;
+        this._bbTextBlock.bbText = bbText;
+        this._bbTextBlock.showSubPortionOfCharacters(0);
+
+        let numberOfCharactersToShow = 0;
+        let doneAnimatingText = false;
+        const animatorObserver = Game.scene.onBeforeRenderObservable.add(() => {
+            if(this._bbTextBlock.isTextFullyDisplayed()){
+                doneAnimatingText = true;
+                Game.scene.onBeforeRenderObservable.remove(animatorObserver);
+                return;
+            }
+            const deltaInSeconds = Game.engine.getDeltaTime() / 1000.0
+            this._bbTextBlock.showSubPortionOfCharacters(numberOfCharactersToShow);
+            numberOfCharactersToShow += deltaInSeconds * speedCharactersPerSeconds
+        })
+
+        while(!doneAnimatingText){
+            await Utils.sleep(500);
+        }
+        this._triangle.isVisible = true;
+
+        /*const canvasWidth = document.querySelector("canvas")!.clientWidth;
+        const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
+        const maxWidth =
+            containerPixelWidth -
+            this.TEXT_PADDING * 2 -
+            this.TEXT_BLOCK_HORIZONTAL_PADDING * 2;
+
+        const lines = this._formatter.format(bbText, maxWidth);
+
+        const maxFontSize = Math.max(...lines.flat().map(s => s.style.size as number ?? 24));
+        const lineHeight = maxFontSize * 1.2 + this.TEXT_LINE_SPACING;
+
+        const {panels, blocks} = this._factory.create(lines, lineHeight);
+
+        panels.forEach(panel => this._verticalStack.addControl(panel));
+
+        const contentHeight = lines.length * lineHeight;
+        const totalHeight =
+            contentHeight + this.TEXT_PADDING * 2 + this.TEXT_EXTRA_CONTAINER_MARGIN;
+
+        this._container.height = `${totalHeight}px`;
+*/
+        // Dialogue.onAdvanceDialogueRequestedObservable.remove(advanceObserver);
+    }
+
+    private async blink() {
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            this._triangle.alpha = 1;
+            await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
+            this._triangle.alpha = 0;
+            await Utils.sleep(this.TRIANGLE_BLINK_INTERVAL);
+        }
+
+    }
+
+    private _stopBlink() {
+        this._triangle.isVisible = false;
     }
 
 }
