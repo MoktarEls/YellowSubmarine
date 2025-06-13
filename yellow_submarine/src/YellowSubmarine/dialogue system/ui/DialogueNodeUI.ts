@@ -8,7 +8,7 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
 import {Game} from "@/YellowSubmarine/Game";
 
-export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>> extends UI{
+export class DialogueNodeUI extends UI{
     // TODO : Put in there all the logic that is shared across any dialogue node ui
     // TODO : Creates extension of this class for every types of dialogue node that need a specific logic
     // TODO : Logic shared : - Writing Main Text, With animation, And sound playing
@@ -24,7 +24,7 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
     private readonly CONTAINER_BACKGROUND = "rgb(255, 199, 130)";
     private readonly CONTAINER_OFFSET_Y = -200;
 
-    private readonly TEXT_PADDING = 8;
+    private readonly TEXT_PADDING = 16;
     private readonly TEXT_BLOCK_HORIZONTAL_PADDING = 2;
     private readonly TEXT_DEFAULT_FONT_SIZE = 24;
     private readonly TEXT_LINE_SPACING = 8;
@@ -73,7 +73,8 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
 
         Dialogue.onAnyDialogueNodeStartedObservable.add((result) =>{
             // TODO : show the text progressively, than show the triangle when the text is fully shown
-            throw new Error("Not Implemented");
+            this._bbTextBlock.bbText = result.node.bbText;
+            // throw new Error("Not Implemented");
         });
     }
 
@@ -87,8 +88,9 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
         this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
-        this._container.paddingLeft = `${this.TEXT_PADDING}px`;
+        this._container.paddingLeft = `${-this.TEXT_PADDING}px`;
         this._container.paddingRight = `${this.TEXT_PADDING}px`;
+        this._container.adaptHeightToChildren = true;
     }
 
     private initStack() {
@@ -105,7 +107,7 @@ export abstract class AbstractDialogueNodeUI<T extends AbstractDialogueNode<any>
         this._triangle.height = this.TRIANGLE_SIZE;
         this._triangle.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._triangle.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        this._triangle.isVisible = false;
+        this._triangle.isVisible = true;
         this._container.addControl(this._triangle);
     }
 

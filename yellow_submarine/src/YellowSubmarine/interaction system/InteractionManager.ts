@@ -50,10 +50,6 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
     }
 
     public addToAvailableInteraction(interaction: TInteraction){
-        if(this._inProgressInteraction){
-            throw new Error(`The interaction : ${interaction} can't be added because an interaction is in progress.`);
-        }
-
         if(this.isInteractionUnavailable(interaction)){
             this._availableInteractions.push(interaction);
             this._onInteractionAvailable.notifyObservers(interaction);
@@ -64,10 +60,6 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
     }
 
     public removeFromAvailableInteraction(interaction: TInteraction){
-        if(this._inProgressInteraction){
-            throw new Error(`The interaction : ${interaction} can't be removed because an interaction is in progress.`);
-        }
-
         if(this.isInteractionAvailable(interaction)){
             if(this._selectedInteraction === interaction){
                 this._selectedInteraction = undefined;

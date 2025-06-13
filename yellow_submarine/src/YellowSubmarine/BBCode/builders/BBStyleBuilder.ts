@@ -19,7 +19,6 @@ export class BBStyleBuilder {
             const ctorArgs = args.slice(currentIndex, currentIndex + numberOfParams + 1);
             const bbTag = new ctor(ctorArgs) as BBTag;
             bbTags.push(bbTag);
-            console.log(bbTag);
             currentIndex += numberOfParams + 1;
         }
         return new BBStyle(bbTags);

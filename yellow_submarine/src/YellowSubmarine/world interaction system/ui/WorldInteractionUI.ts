@@ -3,6 +3,7 @@ import {Control, Rectangle, TextBlock} from "@babylonjs/gui";
 import {World} from "@/YellowSubmarine/World";
 import {KeyUI} from "@/YellowSubmarine/interaction system/ui/KeyUI";
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
+import {WorldInteractionManager} from "@/YellowSubmarine/world interaction system/interaction/WorldInteractionManager";
 
 export class WorldInteractionUI extends UI{
 
@@ -32,13 +33,12 @@ export class WorldInteractionUI extends UI{
         this._label.fontSize = 30;
         rec1.addControl(this._label);
 
-        this._keyUi = new KeyUI(WorldInteraction.simplifiedCode);
+        this._keyUi = new KeyUI(WorldInteractionManager.startInteractionInput.simplifiedCode);
         this._keyUi.controlNode.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._keyUi.controlNode.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_RIGHT;
         this._container.addControl(this._keyUi.controlNode);
 
         World.instance.worldInteractionManager.onInteractionAvailable.add((interaction) => {
-            console.log(`WorldInteractionUI received the available interaction: ${interaction}`);
             this.display(interaction);
         });
         World.instance.worldInteractionManager.onInteractionUnavailable.add((interaction) => {
@@ -48,7 +48,6 @@ export class WorldInteractionUI extends UI{
 
         World.instance.worldInteractionManager.onInteractionStarted.add((interaction) => {
             this.hide();
-            console.log(`WorldInteractionUI received the started interaction: ${interaction}`);
         })
 
         World.instance.worldInteractionManager.onInteractionEnded.add((interaction) => {

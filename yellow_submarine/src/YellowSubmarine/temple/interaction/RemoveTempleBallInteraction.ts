@@ -17,14 +17,13 @@ export class RemoveTempleBallInteraction extends WorldInteraction{
         return this._socle.mesh;
     }
 
-    protected _start(): void {
+    protected onStart(): void {
         const templeBall = this._socle.currentBall;
         if(templeBall && !Submarine.instance.templeBall){
             this._socle.letGoOfBall();
             Submarine.instance.grabBall(templeBall);
-            console.log("REMOVING THE BALL !!!")
         }
-        this.endOnNextFrame();
+        this.end();
     }
 
 }

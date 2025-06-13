@@ -17,14 +17,13 @@ export class PlaceTempleBallInteraction extends WorldInteraction{
         return this._socle.mesh;
     }
 
-    protected _start(): void {
+    protected onStart(): void {
         const templeBall = Submarine.instance.templeBall;
         if(templeBall) {
-            console.log("PLACING THE BALL !!!", templeBall);
             this._socle.placeBall(templeBall);
             Submarine.instance.letGoOfBall();
         }
-        this.endOnNextFrame();
+        this.end();
     }
 
 }

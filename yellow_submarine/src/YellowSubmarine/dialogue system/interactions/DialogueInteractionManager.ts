@@ -3,6 +3,8 @@ import {DialogueInteraction} from "@/YellowSubmarine/dialogue system/interaction
 import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 import {AdvanceDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/AdvanceDialogueInteraction";
 import {KeyboardInput} from "@/YellowSubmarine/KeyboardInput";
+import {Game} from "@/YellowSubmarine/Game";
+import {KeyboardEventTypes} from "@babylonjs/core";
 
 export class DialogueInteractionManager extends InteractionManager<DialogueInteraction>{
 
@@ -18,6 +20,15 @@ export class DialogueInteractionManager extends InteractionManager<DialogueInter
         })
         this._dialogue.onDialogueEndedObservable.add(() => {
             this.removeFromAvailableInteraction(this._advanceDialogueInteraction);
+        })
+        Game.player.onAnyKeyIsPressedObservable.add((keyboardInfo) => {
+            if(
+                keyboardInfo.event.code === DialogueInteractionManager.advanceDialogueInput.code &&
+                keyboardInfo.type === KeyboardEventTypes.KEYUP &&
+                this._dialogue.isInProgress()
+            ) {
+                this.startInteraction(this._advanceDialogueInteraction);
+            }
         })
     }
 

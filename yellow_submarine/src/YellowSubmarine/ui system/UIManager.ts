@@ -10,6 +10,7 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {OptionsMenuUI} from "@/YellowSubmarine/main menu/ui/OptionsMenuUI";
 import {HowToPlayUI} from "@/YellowSubmarine/main menu/ui/HowToPlayUI";
 import {WorldInteractionUI} from "@/YellowSubmarine/world interaction system/ui/WorldInteractionUI";
+import {DialogueNodeUI} from "@/YellowSubmarine/dialogue system/ui/DialogueNodeUI";
 
 type UiConstructor = new() => UI;
 
@@ -29,7 +30,7 @@ export class UIManager {
         showConversationProvider: ShowConversationProviderUI,
         island: ShowKeyZoneNameUI,
 
-        // dialogueInteraction: DialogueUI,
+        dialogueNode: DialogueNodeUI,
         worldInteraction: WorldInteractionUI,
 
         quest: QuestUI,

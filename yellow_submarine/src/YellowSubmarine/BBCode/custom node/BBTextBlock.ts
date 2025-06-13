@@ -24,6 +24,10 @@ export class BBTextBlock extends UI{
     constructor() {
         super();
         this._container.isVertical = true;
+        this._container.adaptHeightToChildren = true;
+        this._container.width = "100%";
+        this._container.isHighlighted = true;
+        this._container.highlightColor = "red";
 
     }
 
@@ -144,7 +148,6 @@ export class BBTextBlock extends UI{
                 textBlocksInStackPanel.forEach((textBlock) => {
                     textBlock.onAfterDrawObservable.addOnce( () => {
                         stackPanel.heightInPixels = Math.max(0, stackPanel.heightInPixels, textBlock.heightInPixels * 1.2) ;
-                        this.updateContainerHeight();
                     })
                 })
             })
@@ -182,15 +185,6 @@ export class BBTextBlock extends UI{
             this._textBlocksSpaces.push(spaceAfterTextBlock);
         })
     }
-
-    private updateContainerHeight() {
-        let containerHeight = 0;
-        this._stackPanels.forEach((stackPanel: StackPanel) => {
-            containerHeight += Math.max(0, stackPanel.heightInPixels);
-        })
-        this._container.heightInPixels = containerHeight;
-    }
-
 
     private updateText() {
         const segments = this.getSegmentsIn1DimensionArray();
