@@ -159,9 +159,7 @@ export class BBTextBlock extends UI{
 
             const textBlock = new TextBlock();
             textBlock.textWrapping = false;
-            const textMetrics = this.getTextMetrics(segment.text.trim(), segment.fontSizeInPixels);
-            textBlock.widthInPixels = textMetrics.actualBoundingBoxRight - textMetrics.actualBoundingBoxLeft;
-            textBlock.heightInPixels = segment.fontSizeInPixels * 1.2;
+            textBlock.resizeToFit = true;
             textBlock.isHighlighted = true;
             textBlock.highlightColor = "red"
             textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
@@ -171,7 +169,7 @@ export class BBTextBlock extends UI{
             spaceAfterTextBlock.textWrapping = false;
             spaceAfterTextBlock.resizeToFit = true;
             spaceAfterTextBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-            spaceAfterTextBlock.text = "J";
+            spaceAfterTextBlock.text = "||";
             spaceAfterTextBlock.alpha = 0;
             segment.style.tags.forEach(
                 tag => {

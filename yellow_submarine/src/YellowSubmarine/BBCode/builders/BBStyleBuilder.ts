@@ -16,7 +16,7 @@ export class BBStyleBuilder {
         while (currentIndex < args.length) {
             const ctor = args[currentIndex] as (new (...args: any[]) => any);
             const numberOfParams = ctor.length;
-            const ctorArgs = args.slice(currentIndex, currentIndex + numberOfParams + 1);
+            const ctorArgs = args.slice(currentIndex + 1, currentIndex + 1 + numberOfParams);
             const bbTag = new ctor(ctorArgs) as BBTag;
             bbTags.push(bbTag);
             currentIndex += numberOfParams + 1;
