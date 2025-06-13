@@ -1,7 +1,7 @@
 ﻿import {BBTag} from "@/YellowSubmarine/BBCode/BBTag";
 import {BBStyle} from "@/YellowSubmarine/BBCode/BBStyle";
 import {CtorArgsChain} from "@/YellowSubmarine/Utils";
-import {NullTag} from "@/YellowSubmarine/BBCode/tags/NullTag";
+import {DefaultStyleTag} from "@/YellowSubmarine/BBCode/tags/DefaultStyleTag";
 
 export class BBStyleBuilder {
 
@@ -12,7 +12,7 @@ export class BBStyleBuilder {
         ...args: CtorArgsChain<BBTag,T>
     ): BBStyle {
         let currentIndex = 0;
-        const bbTags = [new NullTag()];
+        const bbTags = [new DefaultStyleTag()];
         while (currentIndex < args.length) {
             const ctor = args[currentIndex] as (new (...args: any[]) => any);
             const numberOfParams = ctor.length;

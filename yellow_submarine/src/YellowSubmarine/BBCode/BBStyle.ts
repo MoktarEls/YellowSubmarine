@@ -1,5 +1,4 @@
 ﻿import {BBTag} from "@/YellowSubmarine/BBCode/BBTag";
-import {NullTag} from "@/YellowSubmarine/BBCode/tags/NullTag";
 
 export class BBStyle {
 
