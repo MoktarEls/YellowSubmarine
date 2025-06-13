@@ -48,7 +48,7 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode, "Normalement tu devrais l'apercevoir d'ici ! Fais attention ! ")
             .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Aussi !").addText("Information capital !!!", BoldTag).addText("Si tu as un journal dans ton sous-marin").addText("tu peux prendre des notes",BoldTag).addText("sur tout ce que tu vas découvrir pour ne pas oublier d'information").build())
             .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Hésite pas à aller voir").addText("les habitants des autres îles", BoldTag, ColorTag, "blue").addText(", ils devraient pouvoir t'aider !").build())
-            .chainNode(SimpleDialogueNode, "Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt................zzZZZzzzzzZZzzzzzzzz)")
+            .chainNode(SimpleDialogueNode, "Bon aller moi je retourne pêcher (et dormir au passage... ça fais bieeeen ..... loongt.... ZzZz)")
             .chainNode(FirstTimeDialogueNode)
             .chainNode(ActionDialogueNode, true,"Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Pedro s'est endormie");

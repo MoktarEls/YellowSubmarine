@@ -82,9 +82,17 @@ export class Dialogue {
     }
 
     public goToNextNode(): void {
-        this._currentNode = this._currentNode ? this._currentNode?.next : this._rootNode;
+        const nextNode = this._currentNode ? this._currentNode?.next : this._rootNode;
+        if(this._currentNode){
+            this._currentNode.End(this);
+        }
+        this._currentNode = nextNode;
         if(this._currentNode) {
+            this._currentNode.Start(this);
             this._onDialogueNodeStartedObservable.notifyObservers(this._currentNode);
+            if(this._currentNode.isAutoSkipped){
+                this.goToNextNode();
+            }
         }
         else{
             this.endDialogue();

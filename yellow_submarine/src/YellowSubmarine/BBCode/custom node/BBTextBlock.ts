@@ -25,9 +25,10 @@ export class BBTextBlock extends UI{
         super();
         this._container.isVertical = true;
         this._container.adaptHeightToChildren = true;
+        this._container.clipContent = false;
         this._container.width = "100%";
-        this._container.isHighlighted = true;
-        this._container.highlightColor = "red";
+/*        this._container.isHighlighted = true;
+        this._container.highlightColor = "red";*/
 
     }
 
@@ -160,8 +161,8 @@ export class BBTextBlock extends UI{
             const textBlock = new TextBlock();
             textBlock.textWrapping = false;
             textBlock.resizeToFit = true;
-            textBlock.isHighlighted = true;
-            textBlock.highlightColor = "red"
+/*            textBlock.isHighlighted = true;
+            textBlock.highlightColor = "red"*/
             textBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
             textBlock.text = segment.text;
 
@@ -169,7 +170,7 @@ export class BBTextBlock extends UI{
             spaceAfterTextBlock.textWrapping = false;
             spaceAfterTextBlock.resizeToFit = true;
             spaceAfterTextBlock.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-            spaceAfterTextBlock.text = "||";
+            spaceAfterTextBlock.text = "|";
             spaceAfterTextBlock.alpha = 0;
             segment.style.tags.forEach(
                 tag => {

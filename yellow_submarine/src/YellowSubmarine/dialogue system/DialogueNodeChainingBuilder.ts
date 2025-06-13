@@ -42,7 +42,7 @@ export class DialogueNodeChainingBuilder<
     ): DialogueNodeChainingBuilder<NewNodeType> {
         let index;
         let nodeArgs;
-        if(args.length > nodeCtor.length) {
+        if(args.length > nodeCtor.constructor.length) {
             index = args[0];
             nodeArgs = args.slice(1);
         }

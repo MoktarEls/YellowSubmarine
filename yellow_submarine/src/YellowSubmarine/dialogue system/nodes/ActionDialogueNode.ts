@@ -3,6 +3,7 @@ import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
 import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
 export class ActionDialogueNode extends SingleChildDialogueNode{
 
@@ -13,13 +14,13 @@ export class ActionDialogueNode extends SingleChildDialogueNode{
         this._executeOnStart = executeOnStart ?? false;
     }
 
-    protected onStart(): void {
+    protected onStart(dialogue: Dialogue): void {
         if(this._executeOnStart) {
             this._action();
         }
     }
 
-    protected onEnd(): void {
+    protected onEnd(dialogue: Dialogue): void {
         if(!this._executeOnStart) {
             this._action();
         }

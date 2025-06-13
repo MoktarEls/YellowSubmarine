@@ -36,7 +36,6 @@ export class DialogueNodeUI extends UI{
     private readonly TRIANGLE_BLINK_INTERVAL = 300;
 
     private _container!: Rectangle;
-    private _verticalStack!: StackPanel;
     private _triangle!: Image;
     private _bbTextBlock!: BBTextBlock;
 
@@ -57,7 +56,6 @@ export class DialogueNodeUI extends UI{
         super();
 
         this.initContainer();
-        this.initStack();
         this.initTriangle();
         this.initBBTextBlock();
 
@@ -88,17 +86,12 @@ export class DialogueNodeUI extends UI{
         this._container.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
         this._container.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         this._container.isVisible = false;
-        this._container.paddingLeft = `${-this.TEXT_PADDING}px`;
+        this._container.paddingTop = `${this.TEXT_PADDING}px`;
+        this._container.paddingBottom = `${this.TEXT_PADDING}px`;
+        this._container.paddingLeft = `${this.TEXT_PADDING}px`;
         this._container.paddingRight = `${this.TEXT_PADDING}px`;
+        this._container.descendantsOnlyPadding = true;
         this._container.adaptHeightToChildren = true;
-    }
-
-    private initStack() {
-        this._verticalStack = new StackPanel();
-        this._verticalStack.isVertical = true;
-        this._verticalStack.width = "100%";
-        this._verticalStack.paddingBottom = "5px";
-        this._container.addControl(this._verticalStack);
     }
 
     private initTriangle() {

@@ -1,6 +1,7 @@
 import {SingleChildDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SingleChildDialogueNode";
 import {BBText} from "@/YellowSubmarine/BBCode/BBText";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
+import {Dialogue} from "@/YellowSubmarine/dialogue system/Dialogue";
 
 export class SimpleDialogueNode extends SingleChildDialogueNode{
 
@@ -15,11 +16,11 @@ export class SimpleDialogueNode extends SingleChildDialogueNode{
         return this._bbText;
     }
 
-    protected onStart(): void {
+    protected onStart(dialogue: Dialogue): void {
         return;
     }
 
-    protected onEnd(): void {
+    protected onEnd(dialogue: Dialogue): void {
         return;
     }
 
