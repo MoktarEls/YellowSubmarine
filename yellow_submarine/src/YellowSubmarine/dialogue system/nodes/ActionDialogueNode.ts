@@ -9,7 +9,7 @@ export class ActionDialogueNode extends SingleChildDialogueNode{
 
     private readonly _executeOnStart: boolean;
 
-    constructor(private _text: string, private _action: () => void, executeOnStart?: boolean) {
+    constructor(private _text: string, private _action: (() => void), executeOnStart: boolean | undefined) {
         super();
         this._executeOnStart = executeOnStart ?? false;
     }

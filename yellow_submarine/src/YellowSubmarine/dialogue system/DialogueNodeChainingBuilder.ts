@@ -6,7 +6,7 @@ type IndexTypeOfNode<
     Node extends AbstractDialogueNode<any>
 > = Node extends AbstractDialogueNode<infer IndexType> ? IndexType : never;
 
-type IfVoid<T, Then, Else> = [T] extends [void] ? Then : Else;
+type IfVoid<T, Then, Else> = T extends void ? Then : Else;
 
 export class DialogueNodeChainingBuilder<
     NodeType extends AbstractDialogueNode<any>,
@@ -42,7 +42,7 @@ export class DialogueNodeChainingBuilder<
     ): DialogueNodeChainingBuilder<NewNodeType> {
         let index;
         let nodeArgs;
-        if(args.length > nodeCtor.constructor.length) {
+        if(args.length > nodeCtor.length) {
             index = args[0];
             nodeArgs = args.slice(1);
         }

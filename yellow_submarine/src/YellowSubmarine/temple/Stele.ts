@@ -11,6 +11,7 @@ import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/Dia
 import {StartDialogueInteraction} from "@/YellowSubmarine/dialogue system/interactions/StartDialogueInteraction";
 import {SimpleDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/SimpleDialogueNode";
 import {ActionDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ActionDialogueNode";
+import {World} from "@/YellowSubmarine/World";
 
 export class Stele implements IDialogueProvider {
     private _steleInteractionZone!: MeshDetectionZone;
@@ -31,7 +32,7 @@ export class Stele implements IDialogueProvider {
             .createNewDialogueBuilder(SimpleDialogueNode,"La ligne du haut regarde les cieux")
             .chainNode(SimpleDialogueNode, "La ligne du milieu respire l'air")
             .chainNode(SimpleDialogueNode, "La ligne du bas touche la terre")
-            .chainNode(ActionDialogueNode, "Mise à jour du journal et de la quête", () => {
+            .chainNode(ActionDialogueNode, "Mise à jour du journal et de la quête",() => {
                 let quest = QuestManager.instance.getQuest("temple_quest");
                 if(quest) quest.startQuest();
                 quest = QuestManager.instance.getQuest("dreamland");
@@ -40,7 +41,7 @@ export class Stele implements IDialogueProvider {
                     " - La ligne du haut regarde les cieux \n" +
                     " - La ligne du milieu respire l’air \n" +
                     " - La ligne du bas touche la terre");
-            })
+            }, undefined)
             .setDialogueProvider(this);
 
         this.dialogue = dialogueBuilder.build();
@@ -55,12 +56,12 @@ export class Stele implements IDialogueProvider {
         if(this._steleInteractionZone) {
             this._steleInteractionZone.onMeshEnter.add(() => {
                 if (this._startDialogueInteraction) {
-                    // this._startConversationInteraction.makeAvailable();
+                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startDialogueInteraction);
                 }
             })
             this._steleInteractionZone.onMeshExit.add(() => {
                 if(this._startDialogueInteraction) {
-                    // this._startConversationInteraction.makeUnavailable();
+                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startDialogueInteraction);
                 }
             })
             Submarine.instance.meshCreationPromise.then((mesh) => {

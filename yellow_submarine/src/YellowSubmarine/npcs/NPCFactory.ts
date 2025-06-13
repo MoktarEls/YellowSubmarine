@@ -57,7 +57,7 @@ export class NPCFactory {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Vu le manque de place, je vais pouvoir en prendre qu'une seule à la fois..");
 
                 QuestManager.instance.getQuest("dreamland")?.updateCurrentStepStatus();
-            })
+            }, undefined)
             .setDialogueProvider(pedro).build();
 
         pedro.cameraConfiguration = new CameraConfiguration();
@@ -99,7 +99,7 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode, "Allez, je vais jouer à la pétanque moi...")
             .chainNode(ActionDialogueNode, "Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "D'après Crimson : Redina, la plus forte, restait en retrait afin de couvrir leurs arrières");
-            })
+            }, undefined)
             .setDialogueProvider(fox).build();
 
         fox.cameraConfiguration = new CameraConfiguration();
@@ -152,7 +152,7 @@ export class NPCFactory {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), ("Rosa a trouvée ces deux phrases :" +
                     "\n Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
                     "\n Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
-            }).setDialogueProvider(scientific).build();
+            }, undefined).setDialogueProvider(scientific).build();
 
 
 
@@ -199,7 +199,7 @@ export class NPCFactory {
             .chainNode(ActionDialogueNode,"Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
                     "Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
-            }).setDialogueProvider(scribe).build();
+            }, undefined).setDialogueProvider(scribe).build();
 
 
         scribe.cameraConfiguration = new CameraConfiguration();
@@ -246,7 +246,7 @@ export class NPCFactory {
             .chainNode(ActionDialogueNode, "Mise à jour de la quête", () => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
                     " - Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée...")
-            }).setDialogueProvider(rabbit).build();
+            }, undefined).setDialogueProvider(rabbit).build();
 
 
 
