@@ -238,9 +238,9 @@ export class NPCFactory {
         rabbit.detectionZone.zone.position.set(0, -2, 0);
 
         rabbit.dialogue = DialogueNodeChainingBuilder
-            .createNewDialogueBuilder(SimpleDialogueNode,"[i][c=blue]Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée....[/i][/c]")
+            .createNewDialogueBuilder(SimpleDialogueNode,new BBTextBuilder().addText("Trois sœurs, Redina, Greina, Bluella, voyant le nuage s'approcher, se dirigeaient à l'opposée....",ItalicTag, ColorTag, "blue").build())
             .chainNode(SimpleDialogueNode, "Hmmmm... Qu'est-ce que ça peut vouloir dire....")
-            .chainNode(SimpleDialogueNode, "[g][c=red]AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH[/c][/g]")
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",BoldTag,ColorTag, "red").build())
             .chainNode(SimpleDialogueNode, "TU M'AS FAIS PEUR !!!!")
             .chainNode(SimpleDialogueNode, "TIENS PREND ÇA ! ET PARS LOIN D'ICI SANS REVENIR !!!!!!!!!!!!!!!!")
             .chainNode(ActionDialogueNode, "Mise à jour de la quête", () => {
