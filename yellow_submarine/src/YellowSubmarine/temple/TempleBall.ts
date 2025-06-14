@@ -14,6 +14,7 @@ import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 import {Socle} from "@/YellowSubmarine/temple/Socle";
 import {CellMaterial} from "@babylonjs/materials";
 import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
+import {World} from "@/YellowSubmarine/World";
 
 export class TempleBall {
     private _detectionZone: SphericalDetectionZone;
@@ -78,11 +79,10 @@ export class TempleBall {
         });
         this._detectionZone.onMeshEnter.add(() => {
             if(Grappler.instance.hasAnObjectGrappled || this._socle) return
-
-            // this._grappleInteraction.makeAvailable();
+            World.instance.worldInteractionManager.addToAvailableInteraction(this._grappleInteraction)
         })
         this._detectionZone.onMeshExit.add(() => {
-            // this._grappleInteraction.makeUnavailable();
+            World.instance.worldInteractionManager.removeFromAvailableInteraction(this._grappleInteraction)
         })
     }
 

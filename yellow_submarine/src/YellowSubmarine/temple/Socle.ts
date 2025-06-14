@@ -17,6 +17,7 @@ import {RemoveTempleBallInteraction} from "@/YellowSubmarine/temple/interaction/
 import {PlaceTempleBallInteraction} from "@/YellowSubmarine/temple/interaction/PlaceTempleBallInteraction";
 import {CellMaterial} from "@babylonjs/materials";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
+import {World} from "@/YellowSubmarine/World";
 
 export class Socle{
     public get currentBall(): TempleBall | undefined{
@@ -116,19 +117,19 @@ export class Socle{
     }
 
     private makeInteractionAvailable(){
-/*        this._placeTempleBallInteraction.makeUnavailable();
-        this._removeTempleBallInteraction.makeUnavailable();
+        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._placeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._removeTempleBallInteraction);
         if(this._currentBall && !Submarine.instance.templeBall){
-            this._removeTempleBallInteraction.makeAvailable();
+            World.instance.worldInteractionManager.addToAvailableInteraction(this._removeTempleBallInteraction);
         }
         else if(!this._currentBall && Submarine.instance.templeBall){
-            this._placeTempleBallInteraction.makeAvailable();
-        }*/
+            World.instance.worldInteractionManager.addToAvailableInteraction(this._placeTempleBallInteraction);
+        }
     }
 
     private makeInteractionUnavailable(){
-/*        this._placeTempleBallInteraction.makeUnavailable();
-        this._removeTempleBallInteraction.makeUnavailable();*/
+        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._placeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._removeTempleBallInteraction);
     }
 
 }

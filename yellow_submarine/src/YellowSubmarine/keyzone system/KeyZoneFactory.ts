@@ -28,7 +28,7 @@ export class KeyZoneFactory {
 
     private static readonly _dolphinPosition: Vector3 = new Vector3(0,0,160);
     private static readonly _templePosition: Vector3 = new Vector3(0, 0, 500);
-    private static readonly _banquisePosition: Vector3 = new Vector3(-200, 0, 680);
+    private static readonly _banquisePosition: Vector3 = new Vector3(-200, -0.8, 680);
     private static readonly _archipelPosition: Vector3 = new Vector3(200, 0, 680);
     private static readonly _pharePosition: Vector3 = new Vector3(-250, 0, 420);
     private static readonly _poulpePosition: Vector3 = new Vector3(250, 0, 420);

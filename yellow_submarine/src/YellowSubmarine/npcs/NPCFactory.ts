@@ -91,11 +91,11 @@ export class NPCFactory {
         }, true);
 
         fox.dialogue = DialogueNodeChainingBuilder
-            .createNewDialogueBuilder(SimpleDialogueNode, "Je sais pas si tu vois la même chose que moi [i](peut-être que c'est un mirage).[/i] Y'a une [g]piste de bowling là-bas[/g] où y'a les quilles qui sortent de l'eau.")
+            .createNewDialogueBuilder(SimpleDialogueNode, new BBTextBuilder().addText("Je sais pas si tu vois la même chose que moi").addText("(peut-être que c'est un mirage).",ItalicTag).addText("Y'a une").addText("piste de bowling là-bas",BoldTag).addText("où y'a les quilles qui sortent de l'eau.").build())
             .chainNode(SimpleDialogueNode, "Y'a une sorte de boule de bowling qui était sur l'île. J'ai essayé de jouer avec des quilles en glace mais ça a pas trop marché.")
             .chainNode(SimpleDialogueNode, "Parmi les quilles j'ai mis une bouteille que j'ai trouvée dans le coin et bizarrement, quand j'ai fait un STRIKE ! Y'a une note qui est sortie.")
-            .chainNode(SimpleDialogueNode, "Y'avait marqué ça : [c=blue]« Redina, la plus forte, restait en retrait afin de couvrir leurs arrières »[/c]")
-            .chainNode(SimpleDialogueNode, "Bizarre l'ambiance... J'en ai marre de jouer au bowling donc [g]j'te donne la boule[/g] ! Mais prends-en soin !")
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Y'avait marqué ça :").addText("« Redina, la plus forte, restait en retrait afin de couvrir leurs arrières »",ColorTag,"blue").build())
+            .chainNode(SimpleDialogueNode, new BBTextBuilder().addText("Bizarre l'ambiance... J'en ai marre de jouer au bowling donc").addText("j'te donne la boule !",BoldTag).addText("Mais prends-en soin !").build())
             .chainNode(SimpleDialogueNode, "Allez, je vais jouer à la pétanque moi...")
             .chainNode(ActionDialogueNode, "Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "D'après Crimson : Redina, la plus forte, restait en retrait afin de couvrir leurs arrières");
@@ -134,17 +134,17 @@ export class NPCFactory {
 
         scientific.dialogue = DialogueNodeChainingBuilder
             .createNewDialogueBuilder(SimpleDialogueNode, "Si je suis la trajectoire de cette étoile, alors je peux peut-être réussir à démontrer que e = m6 !")
-            .chainNode(SimpleDialogueNode,"Oh salut toi ! T'as un sacré sous-marin ! [i]J'adore[/i] les sous-marins tu tombes à pic !")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Oh salut toi ! T'as un sacré sous-marin !").addText("J'adore",ItalicTag).addText("les sous-marins tu tombes à pic !").build())
             .chainNode(SimpleDialogueNode,"Pour la peine, je vais te présenter les conclusions de mon expérience, prépare toi à en prendre plein la vue !")
-            .chainNode(SimpleDialogueNode,"J'ai trouvé [c=blue]une boule de couleurs avec deux parchemins[/c]. Commençons par les FAITS !")
-            .chainNode(SimpleDialogueNode,"Fait numéro 1 : la boule est [g]d'une couleur spécifique[/g]... Hmmmm...... Ok soit.")
-            .chainNode(SimpleDialogueNode,"Fait numéro 2 : les textes parlent de...je ne sais pas trop quoi à vrai dire. Mais ! J'ai l'impression que [g]les couleurs sont importantes ![/g]")
-            .chainNode(SimpleDialogueNode,"Fait numéro 3 : les deux parchemins racontes la chose suivante : \n" +
-                " e] - SimpleDialogueNode,Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche[/c] \n" +
-                " e] - SimpleDialogueNode,Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet[/c] ")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("J'ai trouvé").addText("une boule de couleurs avec deux parchemins.",ColorTag,"blue").addText("Commençons par les FAITS !").build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Fait numéro 1 : la boule est").addText("d'une couleur spécifique...",BoldTag).addText("Hmmmm...... Ok soit.").build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Fait numéro 2 : les textes parlent de...je ne sais pas trop quoi à vrai dire. Mais ! J'ai l'impression que ").addText("les couleurs sont importantes !",BoldTag).build())
+            .chainNode(SimpleDialogueNode,"Fait numéro 3 : les deux parchemins racontes la chose suivante : ")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche",ColorTag,"blue").build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet",ColorTag,"blue").build())
             .chainNode(SimpleDialogueNode,"Maintenant, passons à la THEORIE !")
             .chainNode(SimpleDialogueNode,"Théorie numéro 1 : une boule de couleur a une position unique. Mais où ??? AHHH Je ne comprends pas....")
-            .chainNode(SimpleDialogueNode,"Théorie numéro 2 : Si la théorie 1 est correcte, alors la solution du puzzle doit dépendre de ses boules et [g]EST UNIQUE[/g].")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Théorie numéro 2 : Si la théorie 1 est correcte, alors la solution du puzzle doit dépendre de ses boules et ").addText("EST UNIQUE.",BoldTag).build())
             .chainNode(SimpleDialogueNode,"Et voilà c'est un peu tout ce que j'ai, je suis dans une sacrée impasse. Je vais sûrement rater le prix Nobel cette année...")
             .chainNode(SimpleDialogueNode,"Allez j'te laisse la boule, je suis passé à autre chose ! Tu me diras une prochaine fois si ça t'a été utile !")
             .chainNode(SimpleDialogueNode,"À la revoyure !")
@@ -188,14 +188,34 @@ export class NPCFactory {
 
         scribe.dialogue = DialogueNodeChainingBuilder
             .createNewDialogueBuilder(SimpleDialogueNode, "Que penses-tu de mon prochain poème jeune étranger ?")
-            .chainNode(SimpleDialogueNode,"[g]Ballade d’un Génie Naufragé[/g]")
-            .chainNode(SimpleDialogueNode,"[i]Je suis ce grand Marcel, qu’aucun vent ne dérange\n, Poète illustre et fier, perdu sur cet étrange \n Territoire obscur, bordé par l’inconnu, \n Où des piliers sans fin soutiennent l’absolu.[/i]")
-            .chainNode(SimpleDialogueNode,"[i]Je ne sais point comment j’ai pu atterrir ici,\n Mais l’endroit me salue d’un silence exquis.\n Tantôt le ciel s’emplit de choses voltigeantes, \n Tantôt le vide plane, en formes déchirantes.[/i]")
-            .chainNode(SimpleDialogueNode,"[i]Sur le rivage nu, comme un don du destin, \n J’aperçus une orbe, d’un éclat si divin \n Que mon esprit, troublé par tant de magnificence,\n Faillit se noyer dans sa propre éloquence.[/i]")
-            .chainNode(SimpleDialogueNode,"[i]Juste à côté dormait, message dans bouteille,\n Un parchemin d’échos, d’une main non pareille. \n Il était écrit, sans honte ni limite : \n [/i] [c=blue]« Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest ».[/c] Ah ! Que cette phrase est d’un raffinement leste !")
-            .chainNode(SimpleDialogueNode,"[i]Moi seul, Marcel, pouvais en saisir l’essence, \n Car mon verbe est plus fort que toute connaissance. [/i]")
-            .chainNode(SimpleDialogueNode,"[i]Je retourne à présent vers la fontaine noire,\n Dont l’encre tachera les vers de ma mémoire.[/i]")
-            .chainNode(SimpleDialogueNode,"Voila ! J'espère que ce ne fut pas un peu trop long. \n Maintenant file je dois me concentrer !")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Ballade d’un Génie Naufragé", BoldTag).build())
+
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Je suis ce grand Marcel, qu’aucun vent ne dérange", ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Poète illustre et fier, perdu sur cet étrange",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Territoire obscur, bordé par l’inconnu,",ItalicTag).build() )
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Où des piliers sans fin soutiennent l’absolu.",ItalicTag).build() )
+
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Je ne sais point comment j’ai pu atterrir ici,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Mais l’endroit me salue d’un silence exquis.",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Tantôt le ciel s’emplit de choses voltigeantes,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Tantôt le vide plane, en formes déchirantes.",ItalicTag).build())
+
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Sur le rivage nu, comme un don du destin,", ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("J’aperçus une orbe, d’un éclat si divin",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Que mon esprit, troublé par tant de magnificence,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Faillit se noyer dans sa propre éloquence.",ItalicTag).build())
+
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Juste à côté dormait, message dans bouteille,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Un parchemin d’échos, d’une main non pareille.",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Il était écrit, sans honte ni limite :",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("« Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest ».",ColorTag,"blue").build())
+            .chainNode(SimpleDialogueNode,"Ah ! Que cette phrase est d’un raffinement leste !")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Moi seul, Marcel, pouvais en saisir l’essence,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Car mon verbe est plus fort que toute connaissance. ",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Je retourne à présent vers la fontaine noire,",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Dont l’encre tachera les vers de ma mémoire.",ItalicTag).build())
+            .chainNode(SimpleDialogueNode,"Voila ! J'espère que ce ne fut pas un peu trop long.")
+            .chainNode(SimpleDialogueNode,"Maintenant file je dois me concentrer !")
             .chainNode(ActionDialogueNode,"Mise à jour de la quête",() => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), "Marcel nous indique dans son poeme interminable : \n " +
                     "Pendant que le soleil était au zénith, Un nuage grisâtre s’approchait depuis l’ouest")
