@@ -1,5 +1,5 @@
 import {World} from "@/YellowSubmarine/World";
-import {Engine, HavokPlugin, Observable, Scene, Vector3} from "@babylonjs/core";
+import {Color3, Engine, HavokPlugin, Observable, Scene, Vector3} from "@babylonjs/core";
 import {Player} from "@/YellowSubmarine/Player";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
