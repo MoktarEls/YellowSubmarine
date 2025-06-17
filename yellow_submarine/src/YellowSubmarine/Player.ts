@@ -1,5 +1,5 @@
 import {Game} from "@/YellowSubmarine/Game";
-import {Angle, KeyboardEventTypes, KeyboardInfo, Observable, PointerInfo, Scalar} from "@babylonjs/core";
+import {Angle, KeyboardEventTypes, KeyboardInfo, Observable, PointerInfo, Scalar, Vector3} from "@babylonjs/core";
 import {ConfigurableCamera} from "@/YellowSubmarine/camera system/ConfigurableCamera";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Submarine} from "@/YellowSubmarine/Submarine";
@@ -10,6 +10,8 @@ type CameraRotationInfo = {movementX: number, movementY: number};
 export class Player {
 
     private _playerCameraConfiguration: CameraConfiguration = new CameraConfiguration();
+    private _telescopeCameraConfiguration: CameraConfiguration = new CameraConfiguration();
+    private _isTelescopeMode = false;
     private _horizontalCameraSensitivity = 5;
     private _verticalCameraSensitivity = 5;
     private _isMovementEnabled = true;
@@ -46,6 +48,20 @@ export class Player {
         this.registerMouseWheelInputs();
         Dialogue.onAnyDialogueStartedObservable.add(() => this.disableMovement());
         Dialogue.onAnyDialogueEndedObservable.add(() => this.enableMovement());
+        Game.scene.onKeyboardObservable.add((eventData) => {
+            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
+            if (eventData.event.key === "t" && state) {
+                this._isTelescopeMode = !this._isTelescopeMode;
+                if(this._isTelescopeMode) {
+                    this._isMovementEnabled = false;
+                    ConfigurableCamera.instance.cameraConfiguration = this._telescopeCameraConfiguration;
+                }
+                else {
+                    this._isMovementEnabled = true;
+                    ConfigurableCamera.instance.cameraConfiguration = this._playerCameraConfiguration;
+                }
+            }
+        });
     }
 
     public isMoveForwardPressed(): boolean {
@@ -116,6 +132,13 @@ export class Player {
             this._playerCameraConfiguration.currentUpperBetaLimit = Angle.FromDegrees(85).radians();
             this._playerCameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
             this._playerCameraConfiguration.wantedBeta = Angle.FromDegrees(45).radians();
+
+            this._telescopeCameraConfiguration.target = Submarine.instance.telescopeTarget;
+            this._telescopeCameraConfiguration.distanceFromTarget = 0.2;
+            this._telescopeCameraConfiguration.currentLowerBetaLimit = Angle.FromDegrees(0).radians();
+            this._telescopeCameraConfiguration.currentUpperBetaLimit = Angle.FromDegrees(0).radians();
+            this._telescopeCameraConfiguration.wantedAlpha = Angle.FromDegrees(-90).radians();
+            this._telescopeCameraConfiguration.wantedBeta = Angle.FromDegrees(90).radians();
             ConfigurableCamera.instance.cameraConfiguration = this._playerCameraConfiguration;
         })
     }
