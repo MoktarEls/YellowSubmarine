@@ -18,6 +18,7 @@ export class RotateMirrorInteraction extends WorldInteraction{
 
     protected onStart(): void {
         this._mirror.rotate().then(() => this.end());
+        this._mirror.linkedMirror?.rotate();
     }
 
 }

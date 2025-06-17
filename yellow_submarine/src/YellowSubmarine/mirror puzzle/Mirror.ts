@@ -1,4 +1,4 @@
-import {AbstractMesh, Angle, MeshBuilder, Space, TransformNode, Vector3} from "@babylonjs/core";
+import {AbstractMesh, Angle, MeshBuilder, Observable, TransformNode} from "@babylonjs/core";
 import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
@@ -6,6 +6,7 @@ import {Submarine} from "@/YellowSubmarine/Submarine";
 import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
 import {Utils} from "@/YellowSubmarine/Utils";
+import {MirrorLightBeam} from "@/YellowSubmarine/mirror puzzle/MirrorLightBeam";
 
 export class Mirror {
 
@@ -25,6 +26,16 @@ export class Mirror {
 
     private _rotationSpeedInDegreesPerSeconds = 45;
     private _targetRotationInDegrees;
+
+    private _linkedMirror: Mirror | undefined;
+    public get linkedMirror(): Mirror | undefined {
+        return this._linkedMirror;
+    }
+    public set linkedMirror(value: Mirror | undefined) {
+        this._linkedMirror = value;
+    }
+
+    private _mirrorLightBeam: MirrorLightBeam;
 
     constructor(){
         this._transformNode = new TransformNode("mirrorTransformNode");
@@ -58,10 +69,14 @@ export class Mirror {
             const deltaInSeconds = Game.engine.getDeltaTime() / 1000;
             this.updateMirrorRotation(deltaInSeconds);
         })
+
+        this._mirrorLightBeam = new MirrorLightBeam(this);
+
+        // TODO : This is for testing, but by default, light beams aren't on
+        this._mirrorLightBeam.turnOn();
     }
 
     public async rotate(){
-        // this._transformNode.rotate(Vector3.Up(), Angle.FromDegrees(45).radians(), Space.WORLD);
         this._targetRotationInDegrees += 45;
 
         while(!this.rotationIsCaughtUp()){
