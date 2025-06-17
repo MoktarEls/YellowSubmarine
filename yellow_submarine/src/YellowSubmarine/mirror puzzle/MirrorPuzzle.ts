@@ -40,7 +40,7 @@ export class MirrorPuzzle {
 
         mirror1.linkedMirror = mirror3;
         mirror3.linkedMirror = mirror4;
-        mirror4.linkedMirror = mirror1;
+        mirror4.linkedMirror = mirror5;
         mirror5.linkedMirror = mirror1;
     }
 

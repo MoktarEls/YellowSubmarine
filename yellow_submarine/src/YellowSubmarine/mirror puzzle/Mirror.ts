@@ -66,7 +66,7 @@ export class Mirror implements IReceiveLight{
 
         this._playerDetectionZone = new SphericalDetectionZone({
             diameter: 5
-        });
+        }, true);
         this._playerDetectionZone.zone.parent = this._transformNode;
         Submarine.instance.meshCreationPromise.then(mesh => {
             this._playerDetectionZone.addMeshToDetect(mesh);
