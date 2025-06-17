@@ -28,4 +28,8 @@ export class MirrorLightBeam{
         this._lightBeamMesh.isVisible = false;
     }
 
+    public isOn(){
+        return this._lightBeamMesh.isVisible;
+    }
+
 }

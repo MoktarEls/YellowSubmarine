@@ -12,11 +12,30 @@ export class MirrorPuzzle {
     constructor() {
         // TODO : Create the light reactor
         this._lightReactor = new LightReactor();
-        const mirror1 = new Mirror();
-        mirror1.transformNode.position = new Vector3(5,2,0);
-        // TODO : Create the mirrors
 
+        // TODO : Create the mirrors
+        const mirror1 = new Mirror();
+        mirror1.transformNode.position = new Vector3(10,2,0);
+
+        const mirror2 = new Mirror();
+        mirror2.transformNode.position = new Vector3(-10,2,0);
+
+        const mirror3 = new Mirror();
+        mirror3.transformNode.position = new Vector3(-4,2,10);
+
+        const mirror4 = new Mirror();
+        mirror4.transformNode.position = new Vector3(4,2,10);
+
+        const mirror5 = new Mirror();
+        mirror5.transformNode.position = new Vector3(0,2,-10);
+
+        mirror1.nextLightReceiver = mirror2;
+        mirror2.nextLightReceiver = mirror5;
+        mirror5.nextLightReceiver = mirror4;
+        mirror4.nextLightReceiver = mirror3;
+        mirror3.nextLightReceiver = this._lightReactor;
         // TODO : Add the mirrors to the _mirrors array
+        this._mirrors.push(mirror1, mirror2, mirror3, mirror4, mirror5);
     }
 
 
