@@ -120,13 +120,6 @@ export class Submarine {
             }
         });
 
-        Game.scene.onKeyboardObservable.add( (eventData) => {
-            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if(eventData.event.key === "l" && state){
-                this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
-            }
-        });
-
         const mesh = MeshBuilder.CreateCylinder("mirrorDetectionMesh", {
             height: 10,
             diameterBottom: 0.2,
@@ -137,7 +130,17 @@ export class Submarine {
         this._mirrorDetectionZone = new MeshDetectionZone(mesh, true);
         this._mirrorDetectionZone.onMeshEnter.add((mesh) => {
             const mirror = Mirror.getMirrorFromMesh(mesh);
-            console.log(`Mirror detected : ${mirror}`);
+            if(this._spotLight){
+                if(this._spotLight.isEnabled()){
+                    console.log(`Mirror lit : ${mirror}`);
+                }
+                else{
+                    console.log("SPOTLIGHT IS NOT ENABLED")
+                }
+            }
+            else {
+                console.log("NO SPOTLIGHT");
+            }
         })
         this.meshCreationPromise.then((mesh) => {
             this._mirrorDetectionZone.zone.parent = mesh;
@@ -263,8 +266,7 @@ export class Submarine {
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "l" && state) {
-                const enabled = !this._spotLight?.isEnabled();
-                this._spotLight?.setEnabled(enabled);
+                this._spotLight?.setEnabled(!this._spotLight?.isEnabled());
             }
         });
 
