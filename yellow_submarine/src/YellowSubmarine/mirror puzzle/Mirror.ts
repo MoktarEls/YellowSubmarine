@@ -2,7 +2,7 @@ import {AbstractMesh, Angle, MeshBuilder, TransformNode, Vector3} from "@babylon
 import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 
-export class Mirror{
+export class Mirror implements IReceiveLight {
 
     private static meshToMirrorMap = new Map<AbstractMesh, Mirror>();
     private _transformNode: TransformNode = new TransformNode("MirrorTransformNode");
@@ -51,6 +51,11 @@ export class Mirror{
 
     public static getMirrorFromMesh(mesh: AbstractMesh): Mirror | undefined {
         return this.meshToMirrorMap.get(mesh);
+    }
+
+    receiveLight(): void {
+        // TODO : Transmit light to next light receiver if correctly rotated
+        throw new Error("Not implemented");
     }
 
 }
