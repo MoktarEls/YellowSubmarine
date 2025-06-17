@@ -1,5 +1,5 @@
 import {
-    AbstractMesh, Color3, KeyboardEventTypes,
+    AbstractMesh, Angle, Color3, KeyboardEventTypes,
     Mesh, MeshBuilder, Observable, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
@@ -13,6 +13,9 @@ import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import { ParticleSystem, TransformNode, Color4 } from "@babylonjs/core";
+import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
+import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
+import {Mirror} from "@/YellowSubmarine/mirror puzzle/Mirror";
 
 
 export class Submarine {
@@ -45,6 +48,11 @@ export class Submarine {
     public meshCreationPromise: Promise<AbstractMesh>;
 
     private _spotLight?: SpotLight;
+
+    private _mirrorDetectionZone: MeshDetectionZone;
+    public get mirrorDetectionZone(): MeshDetectionZone{
+        return this._mirrorDetectionZone;
+    }
 
     constructor() {
         Submarine._instance = this;
@@ -118,6 +126,24 @@ export class Submarine {
                 this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
             }
         });
+
+        const mesh = MeshBuilder.CreateCylinder("mirrorDetectionMesh", {
+            height: 10,
+            diameterBottom: 0.2,
+            diameterTop: 7,
+        })
+
+        mesh.rotate(Vector3.Right(), Angle.FromDegrees(90).radians());
+        this._mirrorDetectionZone = new MeshDetectionZone(mesh, true);
+        this._mirrorDetectionZone.onMeshEnter.add((mesh) => {
+            const mirror = Mirror.getMirrorFromMesh(mesh);
+            console.log(`Mirror detected : ${mirror}`);
+        })
+        this.meshCreationPromise.then((mesh) => {
+            this._mirrorDetectionZone.zone.parent = mesh;
+            this._mirrorDetectionZone.zone.position = new Vector3(0, 0,5);
+            this._mirrorDetectionZone.zone.material = new StandardMaterial("mirrorDetectionMat");
+        })
     }
 
     public get templeBall(): TempleBall | undefined {

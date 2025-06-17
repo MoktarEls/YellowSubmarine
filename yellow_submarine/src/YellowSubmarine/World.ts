@@ -7,6 +7,7 @@ import {Game} from "@/YellowSubmarine/Game";
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {WorldInteractionManager} from "@/YellowSubmarine/world interaction system/interaction/WorldInteractionManager";
+import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
 export class World {
 
     private static _instance: World;
@@ -38,15 +39,15 @@ export class World {
     }
 
     public async init(): Promise<void> {
-
-        await Promise.all([
+        const mirrorPuzzle = new MirrorPuzzle();
+        /*await Promise.all([
             KeyZoneFactory.createDolphinIsland(),
             KeyZoneFactory.createTemple(),
             KeyZoneFactory.createBanquise(),
             KeyZoneFactory.createPhare(),
             KeyZoneFactory.createPoulpe(),
             KeyZoneFactory.createArchipel()
-        ]);
+        ]);*/
     }
 
 

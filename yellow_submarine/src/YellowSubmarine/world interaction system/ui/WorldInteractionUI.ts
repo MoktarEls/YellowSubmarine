@@ -58,7 +58,7 @@ export class WorldInteractionUI extends UI{
                 this.hide();
             }
         })
-
+        this.hide();
     }
 
     public get controlNode(): Control {
