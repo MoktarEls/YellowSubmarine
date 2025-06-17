@@ -56,12 +56,12 @@ export class Stele implements IDialogueProvider {
         if(this._steleInteractionZone) {
             this._steleInteractionZone.onMeshEnter.add(() => {
                 if (this._startDialogueInteraction) {
-                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startDialogueInteraction);
+                    World.instance.worldInteractionManager.addToAvailableInteractions(this._startDialogueInteraction);
                 }
             })
             this._steleInteractionZone.onMeshExit.add(() => {
                 if(this._startDialogueInteraction) {
-                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startDialogueInteraction);
+                    World.instance.worldInteractionManager.removeFromAvailableInteractions(this._startDialogueInteraction);
                 }
             })
             Submarine.instance.meshCreationPromise.then((mesh) => {

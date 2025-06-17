@@ -17,8 +17,7 @@ export class RotateMirrorInteraction extends WorldInteraction{
     }
 
     protected onStart(): void {
-        this.end();
-        throw new Error("Rotate mirror not implemented.");
+        this._mirror.rotate().then(() => this.end());
     }
 
 }

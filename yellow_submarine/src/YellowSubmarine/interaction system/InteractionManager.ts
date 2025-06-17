@@ -49,7 +49,7 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
         return this._availableInteractions.slice(0);
     }
 
-    public addToAvailableInteraction(interaction: TInteraction){
+    public addToAvailableInteractions(interaction: TInteraction){
         if(this.isInteractionUnavailable(interaction)){
             this._availableInteractions.push(interaction);
             this._onInteractionAvailable.notifyObservers(interaction);
@@ -59,7 +59,7 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
         }
     }
 
-    public removeFromAvailableInteraction(interaction: TInteraction){
+    public removeFromAvailableInteractions(interaction: TInteraction){
         if(this.isInteractionAvailable(interaction)){
             if(this._selectedInteraction === interaction){
                 this._selectedInteraction = undefined;
@@ -109,11 +109,13 @@ export abstract class InteractionManager<TInteraction extends AbstractInteractio
 
     public startSelectedInteraction(){
         if(this._inProgressInteraction){
-            throw new Error(`The selected interaction can't be started because an interaction is already in progress`)
+            console.log(`The selected interaction can't be started because an interaction is already in progress`);
+            return;
         }
 
         if(!this._selectedInteraction){
-            throw new Error(`The selected interaction can't be started because no interaction is selected.`);
+            console.log(`The selected interaction can't be started because no interaction is selected.`);
+            return;
         }
 
         this._inProgressInteraction = this._selectedInteraction;

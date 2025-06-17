@@ -1,75 +1,88 @@
-import {AbstractMesh, Angle, MeshBuilder, TransformNode} from "@babylonjs/core";
-import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
+import {AbstractMesh, Angle, MeshBuilder, Space, TransformNode, Vector3} from "@babylonjs/core";
+import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
+import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
+import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
+import {Utils} from "@/YellowSubmarine/Utils";
 
-export class Mirror implements IReceiveLight {
+export class Mirror {
 
-    private _rotationSpeedInDegreesPerSeconds = 45;
-    private _targetAngleInDegrees: number;
-
-    private static meshToMirrorMap = new Map<AbstractMesh, Mirror>();
-    private _transformNode: TransformNode = new TransformNode("MirrorTransformNode");
+    private _transformNode: TransformNode;
     public get transformNode(): TransformNode {
         return this._transformNode;
     }
 
-    private _correctAngleInDegress: number;
-
-    private _nextLightReceiver?: IReceiveLight;
-    public get nextLightReceiver(): IReceiveLight | undefined {
-        return this._nextLightReceiver;
-    }
-    public set nextLightReceiver(value: IReceiveLight | undefined) {
-        this._nextLightReceiver = value;
-    }
-
-    private _mesh?: AbstractMesh;
-    public get mesh(): AbstractMesh | undefined {
+    private _mesh: AbstractMesh;
+    public get mesh() {
         return this._mesh;
     }
 
-    constructor(correctAngleInDegress: number, defaultAngle: number) {
-        this._correctAngleInDegress = correctAngleInDegress;
-        const mesh = MeshBuilder.CreateBox("mirrorMesh", {
-            width: 2,
+    private _rotateMirrorInteraction: RotateMirrorInteraction;
+
+    private _playerDetectionZone: MeshDetectionZone;
+
+    private _rotationSpeedInDegreesPerSeconds = 45;
+    private _targetRotationInDegrees;
+
+    constructor(){
+        this._transformNode = new TransformNode("mirrorTransformNode");
+
+        this._targetRotationInDegrees = this.currentRotationInDegrees();
+
+        this._mesh = MeshBuilder.CreateBox("mirrorMesh",{
             height: 2,
-            depth: 0.2,
+            width: 2,
+            depth: 0.2
+        });
+        this._mesh.parent = this._transformNode;
+
+        this._rotateMirrorInteraction = new RotateMirrorInteraction(this);
+
+        this._playerDetectionZone = new SphericalDetectionZone({
+            diameter: 5
+        });
+        this._playerDetectionZone.zone.parent = this._transformNode;
+        Submarine.instance.meshCreationPromise.then(mesh => {
+            this._playerDetectionZone.addMeshToDetect(mesh);
         })
-        mesh.parent = this._transformNode;
-        this._transformNode.rotation.y = Angle.FromDegrees(defaultAngle).radians();
-        this._targetAngleInDegrees = defaultAngle;
-        Mirror.meshToMirrorMap.set(mesh, this);
+        this._playerDetectionZone.onMeshEnter.add(() => {
+            World.instance.worldInteractionManager.addToAvailableInteractions(this._rotateMirrorInteraction);
+        })
+        this._playerDetectionZone.onMeshExit.add(() => {
+            World.instance.worldInteractionManager.removeFromAvailableInteractions(this._rotateMirrorInteraction);
+        })
+
+        Game.scene.onBeforeRenderObservable.add(() => {
+            const deltaInSeconds = Game.engine.getDeltaTime() / 1000;
+            this.updateMirrorRotation(deltaInSeconds);
+        })
     }
 
-    public isRotationCorrect(): boolean{
-        return Angle.FromRadians(this._transformNode.rotation.y).degrees() === this._correctAngleInDegress;
+    public async rotate(){
+        // this._transformNode.rotate(Vector3.Up(), Angle.FromDegrees(45).radians(), Space.WORLD);
+        this._targetRotationInDegrees += 45;
+
+        while(!this.rotationIsCaughtUp()){
+            await Utils.sleep(500);
+        }
     }
 
-    public rotate() {
-        // this._targetAngleInDegrees += LerpAngle(this._targetAngleInDegrees, this._targetAngleInDegrees + 45, 1);
-        this._targetAngleInDegrees += 45;
-    }
-
-    public get angleInDegrees(){
+    private currentRotationInDegrees(){
         return Angle.FromRadians(this._transformNode.rotation.y).degrees();
     }
 
-    public static getMirrorFromMesh(mesh: AbstractMesh): Mirror | undefined {
-        return this.meshToMirrorMap.get(mesh);
-    }
-
-    receiveLight(): void {
-        // TODO : Transmit light to next light receiver if correctly rotated
-        throw new Error("Not implemented");
-    }
-
-    private updateRotation(deltaInSeconds: number){
-        const currentRotationDeltaWithTarget = this._targetAngleInDegrees - Angle.FromRadians(this._transformNode.rotation.y).degrees();
-        if(Math.abs(currentRotationDeltaWithTarget) > 0.01 ){
-            const currentAngleInDegrees = Angle.FromRadians(this._transformNode.rotation.y).degrees();
-            const nextAngleInDegrees = Math.min(currentAngleInDegrees + this._rotationSpeedInDegreesPerSeconds * deltaInSeconds, this._targetAngleInDegrees);
-            this._transformNode.rotation.y = nextAngleInDegrees;
+    private updateMirrorRotation(deltaInSeconds: number){
+        if( !this.rotationIsCaughtUp() ){
+            const currentRotationInDegrees = this.currentRotationInDegrees();
+            const nextRotation = Math.min(this._targetRotationInDegrees, currentRotationInDegrees + this._rotationSpeedInDegreesPerSeconds * deltaInSeconds);
+            this._transformNode.rotation.y = Angle.FromDegrees(nextRotation).radians();
         }
+    }
+
+    private rotationIsCaughtUp(){
+        return Math.abs(this.currentRotationInDegrees() - this._targetRotationInDegrees) <= 0.01;
     }
 
 }
