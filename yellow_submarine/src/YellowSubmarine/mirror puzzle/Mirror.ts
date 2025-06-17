@@ -1,4 +1,4 @@
-import {AbstractMesh, Angle, MeshBuilder, Quaternion, Space, TransformNode, Vector3} from "@babylonjs/core";
+import {AbstractMesh, Angle, MeshBuilder, Quaternion, TransformNode} from "@babylonjs/core";
 import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
@@ -8,7 +8,6 @@ import {Game} from "@/YellowSubmarine/Game";
 import {Utils} from "@/YellowSubmarine/Utils";
 import {MirrorLightBeam} from "@/YellowSubmarine/mirror puzzle/MirrorLightBeam";
 import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
-import {LerpAngle} from "@babylonjs/core/Maths/math.scalar.functions";
 
 export class Mirror implements IReceiveLight{
 
@@ -26,6 +25,7 @@ export class Mirror implements IReceiveLight{
 
     private _playerDetectionZone: MeshDetectionZone;
 
+    private static DEGREES_PER_ROTATION = 45;
     private _rotationSpeedInDegreesPerSeconds = 45;
     private _targetRotationInDegrees;
 
@@ -45,14 +45,15 @@ export class Mirror implements IReceiveLight{
     }
     public set nextLightReceiver(value: IReceiveLight) {
         this._nextLightReceiver = value;
-        this._transformNode.rotation.y = Angle.FromDegrees(this.computeCorrectAngleInDegrees()).radians();
-        this._targetRotationInDegrees = this.computeCorrectAngleInDegrees();
+        this._transformNode.rotation.y = Angle.FromDegrees( (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360 ).radians();
+        this._targetRotationInDegrees = (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360;
     }
 
-    constructor(){
+    constructor(private _initialNumberOfRotation: number){
         this._transformNode = new TransformNode("mirrorTransformNode");
 
         this._targetRotationInDegrees = this.currentRotationInDegrees();
+        this._targetRotationInDegrees
 
         this._mesh = MeshBuilder.CreateBox("mirrorMesh",{
             height: 2,
@@ -90,7 +91,7 @@ export class Mirror implements IReceiveLight{
     }
 
     public async rotate(){
-        this._targetRotationInDegrees = (this._targetRotationInDegrees + 45) % 360;
+        this._targetRotationInDegrees = (this._targetRotationInDegrees + Mirror.DEGREES_PER_ROTATION) % 360;
 
         while(!this.rotationIsCaughtUp()){
             await Utils.sleep(500);

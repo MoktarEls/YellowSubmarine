@@ -14,7 +14,7 @@ export class BrokenMirror extends Mirror implements IDialogueProvider{
     private _dialogue: Dialogue;
 
     constructor(){
-        super();
+        super(0);
         this._dialogue = DialogueNodeChainingBuilder.createNewDialogueBuilder(SimpleDialogueNode, new BBTextBuilder().addText("Ce mirroir semble cassé !!", BoldTag, ColorTag, "red").build()).setDialogueProvider(this).build();
     }
 
