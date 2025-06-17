@@ -7,6 +7,7 @@ import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
 import {UI} from "@/YellowSubmarine/ui system/UI";
 import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
 import {Game} from "@/YellowSubmarine/Game";
+import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 
 export class DialogueNodeUI extends UI{
     // TODO : Put in there all the logic that is shared across any dialogue node ui
@@ -114,6 +115,7 @@ export class DialogueNodeUI extends UI{
     }
 
     private async showText(bbText: BBText, speedCharactersPerSeconds: number) {
+        if(SoundManager.instance) SoundManager.instance.playSFX("text", {loop: true, autoplay: true});
         this._triangle.isVisible = false;
         this._bbTextBlock.bbText = bbText;
         this._bbTextBlock.showSubPortionOfCharacters(0);
@@ -135,6 +137,7 @@ export class DialogueNodeUI extends UI{
             await Utils.sleep(500);
         }
         this._triangle.isVisible = true;
+        if(SoundManager.instance) SoundManager.instance.stopSFX("text");
 
         /*const canvasWidth = document.querySelector("canvas")!.clientWidth;
         const containerPixelWidth = canvasWidth * this.CONTAINER_WIDTH;
