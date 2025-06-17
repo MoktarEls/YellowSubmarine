@@ -1,4 +1,4 @@
-import {Angle, TransformNode} from "@babylonjs/core";
+import {AbstractMesh, Angle, TransformNode} from "@babylonjs/core";
 import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
 
 export class Mirror{
@@ -18,8 +18,14 @@ export class Mirror{
         this._nextLightReceiver = value;
     }
 
+    private _mesh!: AbstractMesh;
+    public get mesh(): AbstractMesh {
+        return this._mesh;
+    }
+
     constructor(correctAngleInDegress: number) {
         this._correctAngleInDegress = correctAngleInDegress;
+        // TODO : Initialize mesh
     }
 
     public isRotationCorrect(): boolean{
