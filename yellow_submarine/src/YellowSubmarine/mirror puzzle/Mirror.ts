@@ -1,11 +1,11 @@
-import {AbstractMesh, Angle, MeshBuilder, TransformNode, Vector3} from "@babylonjs/core";
+import {AbstractMesh, Angle, MeshBuilder, TransformNode} from "@babylonjs/core";
 import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
 import {Submarine} from "@/YellowSubmarine/Submarine";
-import {LerpAngle} from "@babylonjs/core/Maths/math.scalar.functions";
 
 export class Mirror implements IReceiveLight {
 
-    private _targetAngleInDegrees;
+    private _rotationSpeedInDegreesPerSeconds = 45;
+    private _targetAngleInDegrees: number;
 
     private static meshToMirrorMap = new Map<AbstractMesh, Mirror>();
     private _transformNode: TransformNode = new TransformNode("MirrorTransformNode");
@@ -13,7 +13,7 @@ export class Mirror implements IReceiveLight {
         return this._transformNode;
     }
 
-    private _correctAngleInDegress: number
+    private _correctAngleInDegress: number;
 
     private _nextLightReceiver?: IReceiveLight;
     public get nextLightReceiver(): IReceiveLight | undefined {
@@ -38,7 +38,6 @@ export class Mirror implements IReceiveLight {
         mesh.parent = this._transformNode;
         this._transformNode.rotation.y = Angle.FromDegrees(defaultAngle).radians();
         this._targetAngleInDegrees = defaultAngle;
-        Submarine.instance.mirrorDetectionZone.addMeshToDetect(mesh);
         Mirror.meshToMirrorMap.set(mesh, this);
     }
 
@@ -47,6 +46,7 @@ export class Mirror implements IReceiveLight {
     }
 
     public rotate() {
+        // this._targetAngleInDegrees += LerpAngle(this._targetAngleInDegrees, this._targetAngleInDegrees + 45, 1);
         this._targetAngleInDegrees += 45;
     }
 
@@ -61,6 +61,15 @@ export class Mirror implements IReceiveLight {
     receiveLight(): void {
         // TODO : Transmit light to next light receiver if correctly rotated
         throw new Error("Not implemented");
+    }
+
+    private updateRotation(deltaInSeconds: number){
+        const currentRotationDeltaWithTarget = this._targetAngleInDegrees - Angle.FromRadians(this._transformNode.rotation.y).degrees();
+        if(Math.abs(currentRotationDeltaWithTarget) > 0.01 ){
+            const currentAngleInDegrees = Angle.FromRadians(this._transformNode.rotation.y).degrees();
+            const nextAngleInDegrees = Math.min(currentAngleInDegrees + this._rotationSpeedInDegreesPerSeconds * deltaInSeconds, this._targetAngleInDegrees);
+            this._transformNode.rotation.y = nextAngleInDegrees;
+        }
     }
 
 }

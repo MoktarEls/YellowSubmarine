@@ -49,11 +49,6 @@ export class Submarine {
 
     private _spotLight?: SpotLight;
 
-    private _mirrorDetectionZone: MeshDetectionZone;
-    public get mirrorDetectionZone(): MeshDetectionZone{
-        return this._mirrorDetectionZone;
-    }
-
     constructor() {
         Submarine._instance = this;
         this._grappler = new Grappler();
@@ -120,33 +115,6 @@ export class Submarine {
             }
         });
 
-        const mesh = MeshBuilder.CreateCylinder("mirrorDetectionMesh", {
-            height: 10,
-            diameterBottom: 0.2,
-            diameterTop: 7,
-        })
-
-        mesh.rotate(Vector3.Right(), Angle.FromDegrees(90).radians());
-        this._mirrorDetectionZone = new MeshDetectionZone(mesh, true);
-        this._mirrorDetectionZone.onMeshEnter.add((mesh) => {
-            const mirror = Mirror.getMirrorFromMesh(mesh);
-            if(this._spotLight){
-                if(this._spotLight.isEnabled()){
-                    console.log(`Mirror lit : ${mirror}`);
-                }
-                else{
-                    console.log("SPOTLIGHT IS NOT ENABLED")
-                }
-            }
-            else {
-                console.log("NO SPOTLIGHT");
-            }
-        })
-        this.meshCreationPromise.then((mesh) => {
-            this._mirrorDetectionZone.zone.parent = mesh;
-            this._mirrorDetectionZone.zone.position = new Vector3(0, 0,5);
-            this._mirrorDetectionZone.zone.material = new StandardMaterial("mirrorDetectionMat");
-        })
     }
 
     public get templeBall(): TempleBall | undefined {
