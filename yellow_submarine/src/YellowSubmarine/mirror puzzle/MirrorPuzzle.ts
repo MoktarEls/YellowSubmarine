@@ -6,7 +6,6 @@ import {BrokenMirror} from "@/YellowSubmarine/mirror puzzle/BrokenMirror";
 export class MirrorPuzzle {
 
     private _transformNode: TransformNode = new TransformNode("MirrorPuzzleTransformNode");
-    private _mirrors: Mirror[] = [];
     private _lightReactor: LightReactor;
 
     constructor() {
@@ -17,7 +16,7 @@ export class MirrorPuzzle {
         const mirror1 = new Mirror();
         mirror1.transformNode.position = new Vector3(10,2,0);
 
-        const mirror2 = new Mirror();
+        const mirror2 = new BrokenMirror();
         mirror2.transformNode.position = new Vector3(-10,2,0);
 
         const mirror3 = new Mirror();
@@ -34,8 +33,6 @@ export class MirrorPuzzle {
         mirror5.nextLightReceiver = mirror4;
         mirror4.nextLightReceiver = mirror3;
         mirror3.nextLightReceiver = this._lightReactor;
-        // TODO : Add the mirrors to the _mirrors array
-        this._mirrors.push(mirror1, mirror2, mirror3, mirror4, mirror5);
     }
 
 
