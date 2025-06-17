@@ -18,8 +18,8 @@ export class Mirror{
         this._nextLightReceiver = value;
     }
 
-    private _mesh!: AbstractMesh;
-    public get mesh(): AbstractMesh {
+    private _mesh?: AbstractMesh;
+    public get mesh(): AbstractMesh | undefined {
         return this._mesh;
     }
 
