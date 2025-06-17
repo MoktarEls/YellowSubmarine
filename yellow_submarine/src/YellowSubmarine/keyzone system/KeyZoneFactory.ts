@@ -384,6 +384,7 @@ export class KeyZoneFactory {
     }
 
     public static async createPhare(){
+        // TODO : Create a rotating light for the phare
         const phareTransform: TransformNode = new TransformNode("phare transform");
         const phare = new KeyZone();
 
@@ -424,7 +425,6 @@ export class KeyZoneFactory {
             mergedMesh.parent = phareTransform;
             phare.mesh = mergedMesh;
             phareTransform.position = this._pharePosition;
-            //phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
