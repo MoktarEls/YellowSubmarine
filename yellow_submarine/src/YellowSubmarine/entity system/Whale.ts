@@ -9,8 +9,8 @@ import {
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
-import {Utils} from "@/YellowSubmarine/Utils";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {loadMesh} from "@/YellowSubmarine/Utils";
 
 export class Whale {
 
@@ -23,7 +23,7 @@ export class Whale {
     constructor() {
         this._entity = new FishEntity();
 
-        Utils.loadMesh("models/fish/whale.glb").then((result) => {
+        loadMesh("models/fish/whale.glb").then((result) => {
             const rootMesh = result.meshes[0] as Mesh;
             const childMeshes = rootMesh.getChildMeshes<Mesh>();
             const mergedMesh = Mesh.MergeMeshes(childMeshes, true, undefined, undefined, undefined, true);

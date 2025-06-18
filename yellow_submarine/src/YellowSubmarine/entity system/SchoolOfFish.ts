@@ -1,7 +1,7 @@
 import {AbstractMesh, MeshBuilder, Vector3} from "@babylonjs/core";
 import { Game } from "@/YellowSubmarine/Game";
 import { FishEntity } from "@/YellowSubmarine/entity system/FishEntity";
-import {Utils} from "@/YellowSubmarine/Utils";
+import {loadMesh} from "@/YellowSubmarine/Utils";
 
 export class SchoolOfFish {
     private _color: Record<number, string> = {
@@ -20,6 +20,8 @@ export class SchoolOfFish {
     constructor(position: Vector3) {
         this._center = position;
         this.createSchoolOfFish(30);
+
+
 
         Game.scene.onBeforeRenderObservable.add(() => {
             this._globalDirection = Vector3.Lerp(
@@ -68,7 +70,7 @@ export class SchoolOfFish {
         const index = Math.floor(Math.random() * 4) + 1;
         const color = this._color[index];
         const filename = `models/fish/${color}_fish.glb`;
-        await Utils.loadMesh(filename).then((result) => {
+        await loadMesh(filename).then((result) => {
             fish.mesh = result.meshes[0];
             if (result.animationGroups && result.animationGroups.length > 0) {
                 result.animationGroups.forEach(group => group.start(true));

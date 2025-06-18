@@ -1,5 +1,4 @@
 ﻿import {NPC} from "@/YellowSubmarine/npcs/NPC";
-import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
 import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
@@ -14,13 +13,14 @@ import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 import {FirstTimeDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/FirstTimeDialogueNode";
 import {ItalicTag} from "@/YellowSubmarine/BBCode/tags/ItalicTag";
 import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
+import {loadMesh} from "@/YellowSubmarine/Utils";
 
 export class NPCFactory {
 
     public static async createPedro(): Promise<NPC>{
         const pedro = new NPC();
         pedro.name = "Pedro";
-        Utils.loadMesh("models/characters/pedro.glb").then((result) => {
+        loadMesh("models/characters/pedro.glb").then((result) => {
             pedro.mesh = result.meshes[0];
             result.meshes.forEach((mesh) => {
                 const mat = mesh.material as PBRMaterial;
@@ -72,7 +72,7 @@ export class NPCFactory {
     public static async createFox(): Promise<NPC>{
         const fox = new NPC();
         fox.name = "Crimson";
-        Utils.loadMesh("models/characters/fox.glb").then((result) => {
+        loadMesh("models/characters/fox.glb").then((result) => {
             fox.mesh = result.meshes[0];
             result.meshes.forEach((mesh) => {
                 const mat = mesh.material as PBRMaterial;
@@ -113,7 +113,7 @@ export class NPCFactory {
     public static async createGirl(): Promise<NPC>{
         const scientific = new NPC();
         scientific.name = "Rosa";
-        Utils.loadMesh("models/characters/phare_girl.glb").then((result) => {
+        loadMesh("models/characters/phare_girl.glb").then((result) => {
             scientific.mesh = result.meshes[0];
             result.meshes.forEach((mesh) => {
                 const mat = mesh.material as PBRMaterial;
@@ -168,7 +168,7 @@ export class NPCFactory {
     public static async createScribe(): Promise<NPC>{
         const scribe = new NPC();
         scribe.name = "Marcel";
-        Utils.loadMesh("models/characters/scribe.glb").then((result) => {
+        loadMesh("models/characters/scribe.glb").then((result) => {
             scribe.mesh = result.meshes[0];
             result.meshes.forEach((mesh) => {
                 const mat = mesh.material as PBRMaterial;
@@ -234,7 +234,7 @@ export class NPCFactory {
         const rabbit = new NPC();
         rabbit.name = "Matthew";
 
-        Utils.loadMesh("models/characters/lapin.glb").then((result) => {
+        loadMesh("models/characters/lapin.glb").then((result) => {
             rabbit.mesh = result.meshes[0];
 
             result.meshes.forEach((mesh) => {
