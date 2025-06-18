@@ -35,7 +35,7 @@ export class World {
         this._submarine = new Submarine();
         this._worldInteractionManager = new WorldInteractionManager();
         this._sky = new Sky();
-        new SchoolOfFish(new Vector3(0, 3, 300));
+        new SchoolOfFish(new Vector3(0, 20, 0));
         new Whale();
         const glowLayer = new GlowLayer("", Game.scene);
         glowLayer.intensity = 0.3;

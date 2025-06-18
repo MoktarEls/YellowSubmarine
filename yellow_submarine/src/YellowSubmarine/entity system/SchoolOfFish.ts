@@ -2,6 +2,7 @@ import {AbstractMesh, MeshBuilder, Vector3} from "@babylonjs/core";
 import { Game } from "@/YellowSubmarine/Game";
 import { FishEntity } from "@/YellowSubmarine/entity system/FishEntity";
 import {loadMesh} from "@/YellowSubmarine/Utils";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class SchoolOfFish {
     private _color: Record<number, string> = {
@@ -21,48 +22,42 @@ export class SchoolOfFish {
         this._center = position;
         this.createSchoolOfFish(30);
 
-
-
         Game.scene.onBeforeRenderObservable.add(() => {
-            this._globalDirection = Vector3.Lerp(
-                this._globalDirection,
-                new Vector3(Math.cos(performance.now() * 0.0001), 0, Math.sin(performance.now() * 0.0001)).normalize(),
-                0.001
-            );
+            if (Submarine.instance?.mesh) {
+                this._center = Submarine.instance.mesh.position.clone();
+            }
 
             for (const fish of this._schoolOfFish) {
-                // Alignement
-                const alignFactor = 0.05;
-                fish.velocity = Vector3.Lerp(fish.velocity, this._globalDirection, alignFactor);
-
-                // Retour centre si hors zone
                 const toCenter = this._center.subtract(fish.mesh.position);
                 const distToCenter = toCenter.length();
 
+                // Retour vers le centre si trop loin
                 if (distToCenter > this._radius) {
-                    const returnStrength = 0.1;
+                    const returnStrength = 0.05;
                     const dirToCenter = toCenter.normalize();
                     fish.velocity = Vector3.Lerp(fish.velocity, dirToCenter, returnStrength);
                 }
 
-                // Variation aléatoire légère
+                // Ajout d'une direction de nage aléatoire
                 const randomInfluence = new Vector3(
-                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.02,
                     0,
-                    (Math.random() - 0.5) * 0.01
+                    (Math.random() - 0.5) * 0.02
                 );
                 fish.velocity.addInPlace(randomInfluence);
 
-                // Fixer y à 0 puis normaliser
+                // Éviter d’aller trop vite / stabiliser
                 fish.velocity.y = 0;
                 fish.velocity.normalize();
 
-                // Mouvement et rotation
-                fish.mesh.position.addInPlace(fish.velocity.scale(0.2));
-                const forward = fish.mesh.position.add(fish.velocity);
-                fish.mesh.lookAt(forward)
+                // Appliquer le mouvement
+                fish.mesh.position.addInPlace(fish.velocity.scale(0.15));
+
+                // Look dans la direction de la nage
+                fish.mesh.lookAt(fish.mesh.position.add(fish.velocity));
             }
         });
+
     }
 
     private async createFish(): Promise<FishEntity> {
