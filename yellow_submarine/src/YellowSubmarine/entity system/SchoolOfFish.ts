@@ -70,6 +70,9 @@ export class SchoolOfFish {
         const filename = `models/fish/${color}_fish.glb`;
         await Utils.loadMesh(filename).then((result) => {
             fish.mesh = result.meshes[0];
+            if (result.animationGroups && result.animationGroups.length > 0) {
+                result.animationGroups.forEach(group => group.start(true));
+            }
         });
         return fish;
     }
