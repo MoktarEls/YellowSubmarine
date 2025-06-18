@@ -1,11 +1,10 @@
 import {AbstractMesh, Vector3} from "@babylonjs/core";
 
 export class FishEntity {
-    private _mesh: AbstractMesh;
+    private _mesh!: AbstractMesh;
     private _velocity: Vector3;
 
-    constructor(mesh: AbstractMesh) {
-        this._mesh = mesh;
+    constructor() {
         this._velocity = Vector3.Zero();
     }
 

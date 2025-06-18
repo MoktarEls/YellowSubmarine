@@ -8,6 +8,7 @@ import {WorldInteraction} from "@/YellowSubmarine/world interaction system/inter
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {WorldInteractionManager} from "@/YellowSubmarine/world interaction system/interaction/WorldInteractionManager";
 import {SchoolOfFish} from "@/YellowSubmarine/entity system/SchoolOfFish";
+import {Whale} from "@/YellowSubmarine/entity system/Whale";
 export class World {
 
     private static _instance: World;
@@ -35,6 +36,7 @@ export class World {
         this._worldInteractionManager = new WorldInteractionManager();
         this._sky = new Sky();
         new SchoolOfFish(new Vector3(0, 3, 300));
+        new Whale();
         const glowLayer = new GlowLayer("", Game.scene);
         glowLayer.intensity = 0.3;
     }
