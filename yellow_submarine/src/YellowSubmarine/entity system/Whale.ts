@@ -1,29 +1,37 @@
 import {FishEntity} from "@/YellowSubmarine/entity system/FishEntity";
 import {
-    Mesh,
+    Matrix,
+    Mesh, MeshBuilder,
     PhysicsAggregate,
     PhysicsMotionType,
-    PhysicsShapeType,
+    PhysicsShapeType, Quaternion,
+    Scalar,
     Vector3
 } from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {Utils} from "@/YellowSubmarine/Utils";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
-export class Whale{
+export class Whale {
 
     private _entity: FishEntity;
     private _path: Vector3[];
     private _physicsAggregate?: PhysicsAggregate;
+    private _currentTargetIndex = 0;
+    private _speed = 20;
 
     constructor() {
         this._entity = new FishEntity();
+
         Utils.loadMesh("models/fish/whale.glb").then((result) => {
             const rootMesh = result.meshes[0] as Mesh;
             const childMeshes = rootMesh.getChildMeshes<Mesh>();
-            const mergedMesh = Mesh.MergeMeshes(childMeshes,true, undefined, undefined, undefined, true);
-            if(mergedMesh){
+            const mergedMesh = Mesh.MergeMeshes(childMeshes, true, undefined, undefined, undefined, true);
+
+            if (mergedMesh) {
                 this._entity.mesh = mergedMesh;
-                this._physicsAggregate = new PhysicsAggregate(this._entity.mesh, PhysicsShapeType.CONVEX_HULL,{
+                this._entity.mesh.position = new Vector3(82, 0, 222);
+                this._physicsAggregate = new PhysicsAggregate(this._entity.mesh, PhysicsShapeType.CONVEX_HULL, {
                     mass: 1,
                     friction: 0,
                     restitution: 0,
@@ -36,23 +44,63 @@ export class Whale{
                 });
                 this._physicsAggregate.body.setLinearDamping(1);
                 this._physicsAggregate.body.setAngularDamping(1);
-                this._physicsAggregate.body.getCollisionObservable();
-
                 this._entity.mesh.name = "whale";
-                this._entity.mesh.position = new Vector3(0, 0, 0);
             }
         });
+
+        // Chemin à suivre
         this._path = [
-            new Vector3(0, -2, 0),
-            new Vector3(20, -2, 10),
-            new Vector3(40, -2, 0),
-            new Vector3(20, -2, -10),
+            new Vector3(82, 0, 222),
+            new Vector3(173, 0, 497),
+            new Vector3(-7, 0, 687),
+            new Vector3(-168, 0, 471),
+            new Vector3(-83, 0, 329),
         ];
 
         Game.scene.onBeforeRenderObservable.add(() => this.update());
     }
 
     private update() {
+        if (!this._entity.mesh || !this._physicsAggregate) return;
 
+        const target = this._path[this._currentTargetIndex];
+        const position = this._entity.mesh.position;
+        const toTarget = target.subtract(position);
+        const distance = toTarget.length();
+
+        if (distance < 50) {
+            this._currentTargetIndex = (this._currentTargetIndex + 1) % this._path.length;
+        }
+
+        const direction = toTarget.normalize();
+
+        // Vitesse linéaire vers la cible (avance droit)
+        const velocity = direction.scale(this._speed);
+        this._physicsAggregate.body.setLinearVelocity(velocity);
+
+        // Calcul quaternion rotation pour que la baleine regarde vers la direction (Z avant)
+        const forward = direction;
+        const up = new Vector3(0, 1, 0);
+        const right = Vector3.Cross(up, forward).normalize();
+        const correctedUp = Vector3.Cross(forward, right);
+
+        const mat = Matrix.FromValues(
+            right.x, right.y, right.z, 0,
+            correctedUp.x, correctedUp.y, correctedUp.z, 0,
+            forward.x, forward.y, forward.z, 0,
+            0, 0, 0, 1
+        );
+
+        const targetRotation = Quaternion.FromRotationMatrix(mat);
+
+        // Récupérer la position actuelle du corps physique
+        const currentPos = this._physicsAggregate.body.transformNode.position;
+
+        // Appliquer position + rotation au corps physique
+        this._physicsAggregate.body.transformNode.position = currentPos;
+        this._physicsAggregate.body.transformNode.rotation = targetRotation.toEulerAngles();
+
+        this._physicsAggregate.body.setAngularVelocity(Vector3.Zero());
     }
+
 }
