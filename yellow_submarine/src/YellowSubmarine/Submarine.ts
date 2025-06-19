@@ -67,7 +67,6 @@ export class Submarine {
             const mapLimit = 1024;
             Game.scene.onBeforeRenderObservable.add(() => {
                 if (!this._physicsAggregate) return;
-
                 const body = this._physicsAggregate.body;
                 const pos = body.transformNode.position.clone();
 
@@ -79,7 +78,6 @@ export class Submarine {
         });
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
-
         });
 
         const keysDown = new Set<string>();

@@ -1,28 +1,29 @@
-import {FishEntity} from "@/YellowSubmarine/entity system/FishEntity";
+import { FishEntity } from "@/YellowSubmarine/entity system/FishEntity";
 import {
     Matrix,
-    Mesh, MeshBuilder,
+    Mesh,
+    MeshBuilder,
     PhysicsAggregate,
     PhysicsMotionType,
-    PhysicsShapeType, Quaternion,
-    Scalar,
+    PhysicsShapeType,
+    Quaternion,
     Vector3
 } from "@babylonjs/core";
-import {Game} from "@/YellowSubmarine/Game";
-import {Submarine} from "@/YellowSubmarine/Submarine";
-import {loadMesh} from "@/YellowSubmarine/Utils";
+import { Game } from "@/YellowSubmarine/Game";
+import { loadMesh } from "@/YellowSubmarine/Utils";
 
 export class Whale {
-
     private _entity: FishEntity;
-    private _path: Vector3[];
     private _physicsAggregate?: PhysicsAggregate;
-    private _currentTargetIndex = 0;
-    private _speed = 20;
+    private _angle = 0; // radians
+    private _speed = 0.2; // vitesse angulaire (rad/s)
+
+    // Paramètres de trajectoire
+    private _center = new Vector3(0, 0, 300);
+    private _radius = 80;
 
     constructor() {
         this._entity = new FishEntity();
-
         loadMesh("models/fish/whale.glb").then((result) => {
             const rootMesh = result.meshes[0] as Mesh;
             const childMeshes = rootMesh.getChildMeshes<Mesh>();
@@ -30,55 +31,51 @@ export class Whale {
 
             if (mergedMesh) {
                 this._entity.mesh = mergedMesh;
-                this._entity.mesh.position = new Vector3(82, 0, 222);
-                this._physicsAggregate = new PhysicsAggregate(this._entity.mesh, PhysicsShapeType.CONVEX_HULL, {
-                    mass: 1,
-                    friction: 0,
-                    restitution: 0,
-                    mesh: mergedMesh,
-                }, Game.scene);
-                this._physicsAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
+                mergedMesh.position = this._center;
+
+                this._physicsAggregate = new PhysicsAggregate(
+                    mergedMesh,
+                    PhysicsShapeType.MESH,
+                    { mass: 1 },
+                    Game.scene
+                );
+                this._physicsAggregate.transformNode.position = this._entity.mesh.position.clone();
                 this._physicsAggregate.body.setMassProperties({
                     inertia: new Vector3(0, 1, 0),
                     centerOfMass: this._entity.mesh.absolutePosition,
                 });
+                this._physicsAggregate.body.setMotionType(PhysicsMotionType.DYNAMIC);
                 this._physicsAggregate.body.setLinearDamping(1);
                 this._physicsAggregate.body.setAngularDamping(1);
+
                 this._entity.mesh.name = "whale";
             }
         });
 
-        // Chemin à suivre
-        this._path = [
-            new Vector3(82, 0, 222),
-            new Vector3(173, 0, 497),
-            new Vector3(-7, 0, 687),
-            new Vector3(-168, 0, 471),
-            new Vector3(-83, 0, 329),
-        ];
-
         Game.scene.onBeforeRenderObservable.add(() => this.update());
     }
 
+    private _computePositionOnCircle(angle: number): Vector3 {
+        return new Vector3(
+            this._center.x + this._radius * Math.cos(angle),
+            this._center.y,
+            this._center.z + this._radius * Math.sin(angle)
+        );
+    }
+
     private update() {
-        if (!this._entity.mesh || !this._physicsAggregate) return;
+        if (!this._physicsAggregate) return;
 
-        const target = this._path[this._currentTargetIndex];
-        const position = this._entity.mesh.position;
-        const toTarget = target.subtract(position);
-        const distance = toTarget.length();
+        const deltaTime = Game.engine.getDeltaTime() / 1000;
+        this._angle += this._speed * deltaTime;
 
-        if (distance < 50) {
-            this._currentTargetIndex = (this._currentTargetIndex + 1) % this._path.length;
-        }
+        const newPos = this._computePositionOnCircle(this._angle);
+        const currentPos = this._physicsAggregate.transformNode.position;
+        const direction = newPos.subtract(currentPos).normalize();
+        const velocity = direction.scale(this._speed * this._radius);
 
-        const direction = toTarget.normalize();
-
-        // Vitesse linéaire vers la cible (avance droit)
-        const velocity = direction.scale(this._speed);
         this._physicsAggregate.body.setLinearVelocity(velocity);
 
-        // Calcul quaternion rotation pour que la baleine regarde vers la direction (Z avant)
         const forward = direction;
         const up = new Vector3(0, 1, 0);
         const right = Vector3.Cross(up, forward).normalize();
@@ -92,15 +89,9 @@ export class Whale {
         );
 
         const targetRotation = Quaternion.FromRotationMatrix(mat);
+        this._physicsAggregate.transformNode.rotation = targetRotation.toEulerAngles();
 
-        // Récupérer la position actuelle du corps physique
-        const currentPos = this._physicsAggregate.body.transformNode.position;
-
-        // Appliquer position + rotation au corps physique
-        this._physicsAggregate.body.transformNode.position = currentPos;
-        this._physicsAggregate.body.transformNode.rotation = targetRotation.toEulerAngles();
-
+        // Stabiliser la rotation
         this._physicsAggregate.body.setAngularVelocity(Vector3.Zero());
     }
-
 }
