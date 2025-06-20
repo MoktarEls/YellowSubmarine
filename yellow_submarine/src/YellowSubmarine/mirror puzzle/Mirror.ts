@@ -4,7 +4,7 @@ import {
     ImportMeshAsync,
     Mesh,
     MeshBuilder,
-    Quaternion,
+    Quaternion, StandardMaterial,
     TransformNode,
     VertexBuffer
 } from "@babylonjs/core";
@@ -80,6 +80,7 @@ export class Mirror implements IReceiveLight{
             this._mesh = result.meshes[0];
             result.meshes[1].parent = this._mirrorTransformNode;
             result.meshes[2].parent = this._mirrorTransformNode;
+            result.meshes[2].material = new StandardMaterial("innerMirrorMaterial")
             result.meshes[3].parent = this._lifeSaverTransformNode;
             result.meshes[4].parent = this._lifeSaverTransformNode;
 
@@ -92,8 +93,8 @@ export class Mirror implements IReceiveLight{
         this._rotateMirrorInteraction = new RotateMirrorInteraction(this);
 
         this._playerDetectionZone = new SphericalDetectionZone({
-            diameter: 5
-        }, true);
+            diameter: 20
+        }, false);
         this._playerDetectionZone.zone.parent = this._transformNode;
         Submarine.instance.meshCreationPromise.then(mesh => {
             this._playerDetectionZone.addMeshToDetect(mesh);
