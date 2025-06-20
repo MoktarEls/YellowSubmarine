@@ -19,7 +19,8 @@ export class MirrorLightBeam{
         this._lightBeamMesh.parent = this._transformNode;
         this._lightBeamMesh.rotate(Vector3.Right(), Angle.FromDegrees(90).radians(), Space.WORLD);
         this._lightBeamMesh.position = new Vector3(0,0,2.5);
-        this._lightBeamMesh.scaling = new Vector3(4,1,4)
+        this._lightBeamMesh.scaling = new Vector3(4,1,4);
+        this._lightBeamMesh.rotate(Vector3.Up(), Angle.FromDegrees(22.5).radians(), Space.LOCAL);
         this.turnOff();
     }
 
