@@ -53,7 +53,6 @@ export class Mirror implements IReceiveLight{
         this._transformNode = new TransformNode("mirrorTransformNode");
 
         this._targetRotationInDegrees = this.currentRotationInDegrees();
-        this._targetRotationInDegrees
 
         Utils.loadMesh("models/objects/mirroir.glb").then((result) => {
             console.log(result.meshes);
