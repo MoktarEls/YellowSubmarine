@@ -1,22 +1,23 @@
 import {Mirror} from "@/YellowSubmarine/mirror puzzle/Mirror";
-import {TransformNode, Vector3} from "@babylonjs/core";
+import {Observable, TransformNode, Vector3} from "@babylonjs/core";
 import {LightReactor} from "@/YellowSubmarine/mirror puzzle/LightReactor";
 import {BrokenMirror} from "@/YellowSubmarine/mirror puzzle/BrokenMirror";
 
 export class MirrorPuzzle {
 
+    private _onPuzzleSolvedObservable: Observable<void> =  new Observable<void>();
+    public get onPuzzleSolvedObservable() {
+        return this._onPuzzleSolvedObservable;
+    }
     private _transformNode: TransformNode = new TransformNode("MirrorPuzzleTransformNode");
     private _lightReactor: LightReactor;
 
     constructor() {
-        // TODO : Create the light reactor
         this._lightReactor = new LightReactor();
-        this._lightReactor.onLightReceivedObservable.addOnce(() => {
-            console.log("Le phare est réparé !!");
-            console.log("Il faut mettre à jour la quête !!");
+        this._lightReactor.onLightReceivedObservable.add(() => {
+            this._onPuzzleSolvedObservable.notifyObservers();
         })
 
-        // TODO : Create the mirrors
         const mirror1 = new Mirror(5);
         mirror1.transformNode.position = new Vector3(10,2,0);
 
