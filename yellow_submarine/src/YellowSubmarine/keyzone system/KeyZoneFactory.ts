@@ -23,6 +23,7 @@ import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 import {CellMaterial} from "@babylonjs/materials";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
 
 export class KeyZoneFactory {
 
@@ -426,6 +427,9 @@ export class KeyZoneFactory {
             phare.mesh = mergedMesh;
             phareTransform.position = this._pharePosition;
 
+            const mirrorPuzzle = new MirrorPuzzle();
+            mirrorPuzzle.transformNode.parent = phareTransform;
+
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
                 type: PhysicsShapeType.MESH,
@@ -450,6 +454,7 @@ export class KeyZoneFactory {
                 });
                 phare.addConversationProvider(girl);
             });
+
         }
 
 

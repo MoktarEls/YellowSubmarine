@@ -39,15 +39,14 @@ export class World {
     }
 
     public async init(): Promise<void> {
-        const mirrorPuzzle = new MirrorPuzzle();
-        /*await Promise.all([
+        await Promise.all([
             KeyZoneFactory.createDolphinIsland(),
             KeyZoneFactory.createTemple(),
             KeyZoneFactory.createBanquise(),
             KeyZoneFactory.createPhare(),
             KeyZoneFactory.createPoulpe(),
             KeyZoneFactory.createArchipel()
-        ]);*/
+        ]);
     }
 
 

@@ -3,6 +3,9 @@ import {Observable, TransformNode} from "@babylonjs/core";
 
 export class LightReactor implements IReceiveLight{
     private _transformNode: TransformNode;
+    public get transformNode(){
+        return this._transformNode;
+    }
 
     private _onLightReceivedObservable: Observable<void>;
     public get onLightReceivedObservable(){

@@ -5,7 +5,7 @@ import {
     Mesh,
     MeshBuilder,
     Quaternion, StandardMaterial,
-    TransformNode,
+    TransformNode, Vector3,
     VertexBuffer
 } from "@babylonjs/core";
 import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
@@ -68,10 +68,13 @@ export class Mirror implements IReceiveLight{
 
     constructor(private _initialNumberOfRotation: number){
         this._transformNode = new TransformNode("transformNode");
+        this._transformNode.position = new Vector3(0,0,0);
         this._mirrorTransformNode = new TransformNode("mirrorTransformNode");
         this._lifeSaverTransformNode = new TransformNode("lifeSaverTransformNode");
         this._mirrorTransformNode.parent = this._transformNode;
+        this._mirrorTransformNode.position = new Vector3(0,5,0);
         this._lifeSaverTransformNode.parent = this._transformNode;
+        this._lifeSaverTransformNode.position = new Vector3(0,-2,0);
 
         this._targetRotationInDegrees = this.currentRotationInDegrees();
 
