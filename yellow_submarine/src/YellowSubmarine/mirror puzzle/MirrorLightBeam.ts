@@ -8,7 +8,7 @@ export class MirrorLightBeam{
 
     constructor(private _mirror: Mirror) {
         this._transformNode = new TransformNode("lightBeamTransformNode");
-        this._transformNode.parent = this._mirror.transformNode;
+        this._transformNode.parent = this._mirror.mirrorTransformNode;
 
         this._lightBeamMesh = MeshBuilder.CreateCylinder("lightBeamMesh",{
             height: 5,

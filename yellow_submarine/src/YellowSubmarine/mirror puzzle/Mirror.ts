@@ -1,4 +1,13 @@
-import {AbstractMesh, Angle, ImportMeshAsync, MeshBuilder, Quaternion, TransformNode} from "@babylonjs/core";
+import {
+    AbstractMesh,
+    Angle,
+    ImportMeshAsync,
+    Mesh,
+    MeshBuilder,
+    Quaternion,
+    TransformNode,
+    VertexBuffer
+} from "@babylonjs/core";
 import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
@@ -16,7 +25,15 @@ export class Mirror implements IReceiveLight{
         return this._transformNode;
     }
 
-    private _mesh!: AbstractMesh;
+    private _mirrorTransformNode: TransformNode;
+    public get mirrorTransformNode(): TransformNode {
+        return this._mirrorTransformNode;
+    }
+
+    private _lifeSaverTransformNode: TransformNode;
+
+
+    private _mesh?: AbstractMesh;
     public get mesh() {
         return this._mesh;
     }
@@ -45,26 +62,32 @@ export class Mirror implements IReceiveLight{
     }
     public set nextLightReceiver(value: IReceiveLight) {
         this._nextLightReceiver = value;
-        this._transformNode.rotation.y = Angle.FromDegrees( (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360 ).radians();
+        this._mirrorTransformNode.rotation.y = Angle.FromDegrees( (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360 ).radians();
         this._targetRotationInDegrees = (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360;
     }
 
     constructor(private _initialNumberOfRotation: number){
-        this._transformNode = new TransformNode("mirrorTransformNode");
+        this._transformNode = new TransformNode("transformNode");
+        this._mirrorTransformNode = new TransformNode("mirrorTransformNode");
+        this._lifeSaverTransformNode = new TransformNode("lifeSaverTransformNode");
+        this._mirrorTransformNode.parent = this._transformNode;
+        this._lifeSaverTransformNode.parent = this._transformNode;
 
         this._targetRotationInDegrees = this.currentRotationInDegrees();
 
         Utils.loadMesh("models/objects/mirroir.glb").then((result) => {
-            console.log(result.meshes);
+
             this._mesh = result.meshes[0];
-            this._mesh.parent = this._transformNode;
+            result.meshes[1].parent = this._mirrorTransformNode;
+            result.meshes[2].parent = this._mirrorTransformNode;
+            result.meshes[3].parent = this._lifeSaverTransformNode;
+            result.meshes[4].parent = this._lifeSaverTransformNode;
+
+            if(this._mesh){
+                this._mesh.parent = this._transformNode;
+            }
+
         })
-        /*this._mesh = MeshBuilder.CreateBox("mirrorMesh",{
-            height: 2,
-            width: 2,
-            depth: 0.2
-        });
-        this._mesh.parent = this._transformNode;*/
 
         this._rotateMirrorInteraction = new RotateMirrorInteraction(this);
 
@@ -124,7 +147,7 @@ export class Mirror implements IReceiveLight{
     // ---------------------------------------------P R I V A T E-------------------------------------------------------
 
     private currentRotationInDegrees(): number {
-        const angle = Angle.FromRadians(this._transformNode.rotation.y).degrees();
+        const angle = Angle.FromRadians(this._mirrorTransformNode.rotation.y).degrees();
         return ((angle % 360) + 360) % 360;
     }
 
@@ -140,7 +163,7 @@ export class Mirror implements IReceiveLight{
 
         const newAngle = (current + step + 360) % 360;
 
-        this._transformNode.rotation.y = Angle.FromDegrees(newAngle).radians();
+        this._mirrorTransformNode.rotation.y = Angle.FromDegrees(newAngle).radians();
     }
 
     private shortestAngleBetween(from: number, to: number): number {
