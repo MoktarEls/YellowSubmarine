@@ -1,4 +1,4 @@
-import {AbstractMesh, Angle, MeshBuilder, Quaternion, TransformNode} from "@babylonjs/core";
+import {AbstractMesh, Angle, ImportMeshAsync, MeshBuilder, Quaternion, TransformNode} from "@babylonjs/core";
 import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
 import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
 import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
@@ -16,7 +16,7 @@ export class Mirror implements IReceiveLight{
         return this._transformNode;
     }
 
-    private _mesh: AbstractMesh;
+    private _mesh!: AbstractMesh;
     public get mesh() {
         return this._mesh;
     }
@@ -55,12 +55,17 @@ export class Mirror implements IReceiveLight{
         this._targetRotationInDegrees = this.currentRotationInDegrees();
         this._targetRotationInDegrees
 
-        this._mesh = MeshBuilder.CreateBox("mirrorMesh",{
+        Utils.loadMesh("models/objects/mirroir.glb").then((result) => {
+            console.log(result.meshes);
+            this._mesh = result.meshes[0];
+            this._mesh.parent = this._transformNode;
+        })
+        /*this._mesh = MeshBuilder.CreateBox("mirrorMesh",{
             height: 2,
             width: 2,
             depth: 0.2
         });
-        this._mesh.parent = this._transformNode;
+        this._mesh.parent = this._transformNode;*/
 
         this._rotateMirrorInteraction = new RotateMirrorInteraction(this);
 
