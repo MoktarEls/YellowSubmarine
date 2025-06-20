@@ -5,7 +5,7 @@ import {BrokenMirror} from "@/YellowSubmarine/mirror puzzle/BrokenMirror";
 
 export class MirrorPuzzle {
 
-    private _onPuzzleSolvedObservable: Observable<void> =  new Observable<void>();
+    private _onPuzzleSolvedObservable: Observable<void>;
     public get onPuzzleSolvedObservable() {
         return this._onPuzzleSolvedObservable;
     }
@@ -13,10 +13,6 @@ export class MirrorPuzzle {
     private _lightReactor: LightReactor;
 
     constructor() {
-        this._lightReactor = new LightReactor();
-        this._lightReactor.onLightReceivedObservable.add(() => {
-            this._onPuzzleSolvedObservable.notifyObservers();
-        })
 
         const mirror1 = new Mirror(5);
         mirror1.transformNode.position = new Vector3(10,2,0);
@@ -32,6 +28,12 @@ export class MirrorPuzzle {
 
         const mirror5 = new Mirror(2);
         mirror5.transformNode.position = new Vector3(0,2,-10);
+
+        this._lightReactor = new LightReactor();
+        this._onPuzzleSolvedObservable = new Observable<void>();
+        this._lightReactor.onLightReceivedObservable.add(() => {
+            this._onPuzzleSolvedObservable.notifyObservers();
+        })
 
         mirror1.nextLightReceiver = mirror2;
         mirror2.nextLightReceiver = mirror5;
