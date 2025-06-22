@@ -15,7 +15,7 @@ export class BrokenMirror extends Mirror implements IDialogueProvider{
 
     constructor(){
         super(0);
-        this._dialogue = DialogueNodeChainingBuilder.createNewDialogueBuilder(SimpleDialogueNode, new BBTextBuilder().addText("Ce mirroir semble cassé !!", BoldTag, ColorTag, "red").build()).setDialogueProvider(this).build();
+        this._dialogue = DialogueNodeChainingBuilder.createNewDialogueBuilder(SimpleDialogueNode, new BBTextBuilder().addText("Ce mirroir semble cassé !!", BoldTag, ColorTag, "red").build()).build();
     }
 
     async rotate(): Promise<void> {

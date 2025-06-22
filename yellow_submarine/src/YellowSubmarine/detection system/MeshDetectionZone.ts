@@ -14,7 +14,8 @@ export class MeshDetectionZone {
 
     constructor(zone : AbstractMesh, debug ?: boolean) {
         this._zone = zone;
-        this._zone.visibility = debug ? 0.5 : 0;
+        // this._zone.visibility = debug ? 0.5 : 0;
+        this._zone.visibility = 0;
         this._meshToDetect = new Map<AbstractMesh, boolean>();
         this.onMeshEnter = new Observable<AbstractMesh>();
         this.onMeshExit = new Observable<AbstractMesh>();
