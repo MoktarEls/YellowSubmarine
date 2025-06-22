@@ -1,5 +1,5 @@
 import {
-    AbstractMesh, Color3, KeyboardEventTypes,
+    AbstractMesh, Angle, Color3, KeyboardEventTypes,
     Mesh, MeshBuilder, Observable, PBRMaterial, PhysicsAggregate, PhysicsMotionType, PhysicsShapeType,
     Scene,
     SceneLoader, SpotLight, StandardMaterial, Texture,
@@ -13,6 +13,9 @@ import {Grappler} from "@/YellowSubmarine/grappling system/Grappler";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
 import { ParticleSystem, TransformNode, Color4 } from "@babylonjs/core";
+import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
+import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
+import {Mirror} from "@/YellowSubmarine/mirror puzzle/Mirror";
 
 
 export class Submarine {
@@ -112,12 +115,6 @@ export class Submarine {
             }
         });
 
-        Game.scene.onKeyboardObservable.add( (eventData) => {
-            const state = eventData.type === KeyboardEventTypes.KEYDOWN;
-            if(eventData.event.key === "l" && state){
-                this._spotLight?.setEnabled(!this._spotLight?.isEnabled())
-            }
-        });
     }
 
     public get templeBall(): TempleBall | undefined {
@@ -237,8 +234,7 @@ export class Submarine {
         Game.scene.onKeyboardObservable.add((eventData) => {
             const state = eventData.type === KeyboardEventTypes.KEYDOWN;
             if (eventData.event.key === "l" && state) {
-                const enabled = !this._spotLight?.isEnabled();
-                this._spotLight?.setEnabled(enabled);
+                this._spotLight?.setEnabled(!this._spotLight?.isEnabled());
             }
         });
 

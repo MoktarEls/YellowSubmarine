@@ -79,10 +79,10 @@ export class TempleBall {
         });
         this._detectionZone.onMeshEnter.add(() => {
             if(Grappler.instance.hasAnObjectGrappled || this._socle) return
-            World.instance.worldInteractionManager.addToAvailableInteraction(this._grappleInteraction)
+            World.instance.worldInteractionManager.addToAvailableInteractions(this._grappleInteraction)
         })
         this._detectionZone.onMeshExit.add(() => {
-            World.instance.worldInteractionManager.removeFromAvailableInteraction(this._grappleInteraction)
+            World.instance.worldInteractionManager.removeFromAvailableInteractions(this._grappleInteraction)
         })
     }
 

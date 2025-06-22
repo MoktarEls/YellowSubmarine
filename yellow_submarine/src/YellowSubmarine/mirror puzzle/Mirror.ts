@@ -1,0 +1,213 @@
+import {
+    AbstractMesh,
+    Angle,
+    ImportMeshAsync,
+    Mesh,
+    MeshBuilder,
+    Quaternion, StandardMaterial,
+    TransformNode, Vector3,
+    VertexBuffer
+} from "@babylonjs/core";
+import {RotateMirrorInteraction} from "@/YellowSubmarine/mirror puzzle/interaction/RotateMirrorInteraction";
+import {SphericalDetectionZone} from "@/YellowSubmarine/detection system/SphericalDetectionZone";
+import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectionZone";
+import {Submarine} from "@/YellowSubmarine/Submarine";
+import {World} from "@/YellowSubmarine/World";
+import {Game} from "@/YellowSubmarine/Game";
+import {Utils} from "@/YellowSubmarine/Utils";
+import {MirrorLightBeam} from "@/YellowSubmarine/mirror puzzle/MirrorLightBeam";
+import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
+
+export class Mirror implements IReceiveLight{
+
+    private _transformNode: TransformNode;
+    public get transformNode(): TransformNode {
+        return this._transformNode;
+    }
+
+    private _mirrorTransformNode: TransformNode;
+    public get mirrorTransformNode(): TransformNode {
+        return this._mirrorTransformNode;
+    }
+
+    private _lifeSaverTransformNode: TransformNode;
+
+
+    private _mesh?: AbstractMesh;
+    public get mesh() {
+        return this._mesh;
+    }
+
+    private _rotateMirrorInteraction: RotateMirrorInteraction;
+
+    private _playerDetectionZone: MeshDetectionZone;
+
+    private static DEGREES_PER_ROTATION = 45;
+    private _rotationSpeedInDegreesPerSeconds = 45;
+    private _targetRotationInDegrees;
+
+    private _linkedMirror: Mirror | undefined;
+    public get linkedMirror(): Mirror | undefined {
+        return this._linkedMirror;
+    }
+    public set linkedMirror(value: Mirror | undefined) {
+        this._linkedMirror = value;
+    }
+
+    private _lightBeam: MirrorLightBeam;
+
+    private _nextLightReceiver!: IReceiveLight;
+    public get nextLightReceiver(): IReceiveLight {
+        return this._nextLightReceiver;
+    }
+    public set nextLightReceiver(value: IReceiveLight) {
+        this._nextLightReceiver = value;
+        this._mirrorTransformNode.rotation.y = Angle.FromDegrees( (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360 ).radians();
+        this._targetRotationInDegrees = (this.computeCorrectAngleInDegrees() + this._initialNumberOfRotation * Mirror.DEGREES_PER_ROTATION) % 360;
+    }
+
+    constructor(private _initialNumberOfRotation: number){
+        this._transformNode = new TransformNode("transformNode");
+        this._transformNode.position = new Vector3(0,0,0);
+        this._mirrorTransformNode = new TransformNode("mirrorTransformNode");
+        this._lifeSaverTransformNode = new TransformNode("lifeSaverTransformNode");
+        this._mirrorTransformNode.parent = this._transformNode;
+        this._mirrorTransformNode.position = new Vector3(0,5,0);
+        this._lifeSaverTransformNode.parent = this._transformNode;
+        this._lifeSaverTransformNode.position = new Vector3(0,-2,0);
+
+        this._targetRotationInDegrees = this.currentRotationInDegrees();
+
+        Utils.loadMesh("models/objects/mirroir.glb").then((result) => {
+
+            this._mesh = result.meshes[0];
+            result.meshes[1].parent = this._mirrorTransformNode;
+            result.meshes[2].parent = this._mirrorTransformNode;
+            result.meshes[2].material = new StandardMaterial("innerMirrorMaterial")
+            result.meshes[3].parent = this._lifeSaverTransformNode;
+            result.meshes[4].parent = this._lifeSaverTransformNode;
+
+            if(this._mesh){
+                this._mesh.parent = this._transformNode;
+            }
+
+        })
+
+        this._rotateMirrorInteraction = new RotateMirrorInteraction(this);
+
+        this._playerDetectionZone = new SphericalDetectionZone({
+            diameter: 20
+        }, false);
+        this._playerDetectionZone.zone.parent = this._transformNode;
+        Submarine.instance.meshCreationPromise.then(mesh => {
+            this._playerDetectionZone.addMeshToDetect(mesh);
+        })
+        this._playerDetectionZone.onMeshEnter.add(() => {
+            World.instance.worldInteractionManager.addToAvailableInteractions(this._rotateMirrorInteraction);
+        })
+        this._playerDetectionZone.onMeshExit.add(() => {
+            World.instance.worldInteractionManager.removeFromAvailableInteractions(this._rotateMirrorInteraction);
+        })
+
+        Game.scene.onBeforeRenderObservable.add(() => {
+            const deltaInSeconds = Game.engine.getDeltaTime() / 1000;
+            this.updateMirrorRotation(deltaInSeconds);
+            this.updateLightBeam();
+        })
+
+        this._lightBeam = new MirrorLightBeam(this);
+
+        // TODO : This is for testing, but by default, light beams aren't on
+        this._lightBeam.turnOn();
+    }
+
+    public async rotate(){
+        this._targetRotationInDegrees = (this._targetRotationInDegrees + Mirror.DEGREES_PER_ROTATION) % 360;
+
+        while(!this.rotationIsCaughtUp()){
+            await Utils.sleep(500);
+        }
+    }
+
+    public receiveLight(): void {
+        this._lightBeam.turnOn();
+        if(this.isRotationCorrect()){
+            this.nextLightReceiver.receiveLight();
+        }
+        else{
+            this.nextLightReceiver.stopReceivingLight();
+        }
+    }
+
+    public stopReceivingLight(): void {
+        this._lightBeam.turnOff();
+        this.nextLightReceiver.stopReceivingLight();
+    }
+
+    public lightReceiverTransformNode(): TransformNode {
+        return this._transformNode;
+    }
+
+    // ---------------------------------------------P R I V A T E-------------------------------------------------------
+
+    private currentRotationInDegrees(): number {
+        const angle = Angle.FromRadians(this._mirrorTransformNode.rotation.y).degrees();
+        return ((angle % 360) + 360) % 360;
+    }
+
+    private updateMirrorRotation(deltaInSeconds: number){
+        const current = this.currentRotationInDegrees();
+        const target = this._targetRotationInDegrees;
+
+        const maxStep = this._rotationSpeedInDegreesPerSeconds * deltaInSeconds;
+
+        const delta = this.shortestAngleBetween(current, target);
+
+        const step = Math.min(Math.abs(delta), maxStep) * Math.sign(delta);
+
+        const newAngle = (current + step + 360) % 360;
+
+        this._mirrorTransformNode.rotation.y = Angle.FromDegrees(newAngle).radians();
+    }
+
+    private shortestAngleBetween(from: number, to: number): number {
+        const diff = ((to - from + 540) % 360) - 180;
+        return diff;
+    }
+
+    private rotationIsCaughtUp(){
+        return Math.abs(this.currentRotationInDegrees() - this._targetRotationInDegrees) <= 0.01;
+    }
+
+    private isRotationCorrect(): boolean{
+        const currentAngleInDegrees = this.currentRotationInDegrees();
+        return Math.abs(this.computeCorrectAngleInDegrees() - currentAngleInDegrees) <= 0.01;
+    }
+
+    private updateLightBeam() {
+        if(this._lightBeam.isOn()){
+            if(this.isRotationCorrect()){
+                this.nextLightReceiver.receiveLight();
+            }
+            else{
+                this.nextLightReceiver.stopReceivingLight();
+            }
+        }
+        else{
+            this.nextLightReceiver.stopReceivingLight();
+        }
+    }
+
+    private directionToNextLightReceiver() {
+        const lightReceiverTransformNode = this.nextLightReceiver.lightReceiverTransformNode();
+        const fromThisToNextLightReceiverDirection = lightReceiverTransformNode.absolutePosition.subtract(this.transformNode.absolutePosition).normalizeToNew();
+        return fromThisToNextLightReceiverDirection;
+    }
+
+    private computeCorrectAngleInDegrees(): number {
+        const direction = this.directionToNextLightReceiver();
+        const angleRadians = Math.atan2(direction.x, direction.z);
+        return Angle.FromRadians(angleRadians).degrees();
+    }
+
+}

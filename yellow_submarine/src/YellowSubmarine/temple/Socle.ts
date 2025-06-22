@@ -117,19 +117,19 @@ export class Socle{
     }
 
     private makeInteractionAvailable(){
-        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._placeTempleBallInteraction);
-        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._removeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteractions(this._placeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteractions(this._removeTempleBallInteraction);
         if(this._currentBall && !Submarine.instance.templeBall){
-            World.instance.worldInteractionManager.addToAvailableInteraction(this._removeTempleBallInteraction);
+            World.instance.worldInteractionManager.addToAvailableInteractions(this._removeTempleBallInteraction);
         }
         else if(!this._currentBall && Submarine.instance.templeBall){
-            World.instance.worldInteractionManager.addToAvailableInteraction(this._placeTempleBallInteraction);
+            World.instance.worldInteractionManager.addToAvailableInteractions(this._placeTempleBallInteraction);
         }
     }
 
     private makeInteractionUnavailable(){
-        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._placeTempleBallInteraction);
-        World.instance.worldInteractionManager.removeFromAvailableInteraction(this._removeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteractions(this._placeTempleBallInteraction);
+        World.instance.worldInteractionManager.removeFromAvailableInteractions(this._removeTempleBallInteraction);
     }
 
 }

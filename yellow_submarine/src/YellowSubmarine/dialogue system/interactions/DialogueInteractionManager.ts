@@ -16,10 +16,10 @@ export class DialogueInteractionManager extends InteractionManager<DialogueInter
         super();
         this._advanceDialogueInteraction = new AdvanceDialogueInteraction(this._dialogue);
         this._dialogue.onDialogueStartedObservable.add(() => {
-            this.addToAvailableInteraction(this._advanceDialogueInteraction);
+            this.addToAvailableInteractions(this._advanceDialogueInteraction);
         })
         this._dialogue.onDialogueEndedObservable.add(() => {
-            this.removeFromAvailableInteraction(this._advanceDialogueInteraction);
+            this.removeFromAvailableInteractions(this._advanceDialogueInteraction);
         })
         Game.player.onAnyKeyIsPressedObservable.add((keyboardInfo) => {
             if(

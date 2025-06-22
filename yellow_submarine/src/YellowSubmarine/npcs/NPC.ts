@@ -84,13 +84,13 @@ export class NPC implements IDialogueProvider {
         if(this._playerDetectionZone){
             this._playerDetectionZone.onMeshEnter.add( () => {
                 if(this._startDialogueInteraction && !this._dialogue?.isInProgress()){
-                    World.instance.worldInteractionManager.addToAvailableInteraction(this._startDialogueInteraction);
+                    World.instance.worldInteractionManager.addToAvailableInteractions(this._startDialogueInteraction);
                 }
             } );
 
             this._playerDetectionZone.onMeshExit.add( () => {
                 if(this._startDialogueInteraction){
-                    World.instance.worldInteractionManager.removeFromAvailableInteraction(this._startDialogueInteraction);
+                    World.instance.worldInteractionManager.removeFromAvailableInteractions(this._startDialogueInteraction);
                 }
             } );
 

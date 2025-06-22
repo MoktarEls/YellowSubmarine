@@ -23,6 +23,7 @@ import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 import {CellMaterial} from "@babylonjs/materials";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
 
 export class KeyZoneFactory {
 
@@ -384,6 +385,7 @@ export class KeyZoneFactory {
     }
 
     public static async createPhare(){
+        // TODO : Create a rotating light for the phare
         const phareTransform: TransformNode = new TransformNode("phare transform");
         const phare = new KeyZone();
 
@@ -424,7 +426,9 @@ export class KeyZoneFactory {
             mergedMesh.parent = phareTransform;
             phare.mesh = mergedMesh;
             phareTransform.position = this._pharePosition;
-            //phareTransform.rotate(Vector3.Up(), Angle.FromDegrees(180).radians(), Space.WORLD);
+
+            const mirrorPuzzle = new MirrorPuzzle();
+            mirrorPuzzle.transformNode.parent = phareTransform;
 
             const physicsBody = new PhysicsBody(mergedMesh, PhysicsMotionType.STATIC, false, Game.scene);
             const physicsShape = new PhysicsShape({
@@ -441,15 +445,9 @@ export class KeyZoneFactory {
             NPCFactory.createGirl().then( (girl) => {
                 girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
                 girl.transformNode.parent = phareTransform;
-                const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(-30,20,-30)), Color3.Blue());
-                const callBack = girl.dialogue?.onDialogueEndedObservable.add(() => {
-                    if(!Submarine.instance.templeBall){
-                        Submarine.instance.grabBall(ball);
-                        girl.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
-                    }
-                });
                 phare.addConversationProvider(girl);
             });
+
         }
 
 
