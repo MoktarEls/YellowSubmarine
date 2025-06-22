@@ -445,13 +445,6 @@ export class KeyZoneFactory {
             NPCFactory.createGirl().then( (girl) => {
                 girl.transformNode.position = new Vector3(1.2, 1.26, -16.90);
                 girl.transformNode.parent = phareTransform;
-                const ball = new TempleBall(girl.transformNode.absolutePosition.add(new Vector3(-30,20,-30)), Color3.Blue());
-                const callBack = girl.dialogue?.onDialogueEndedObservable.add(() => {
-                    if(!Submarine.instance.templeBall){
-                        Submarine.instance.grabBall(ball);
-                        girl.dialogue?.onDialogueEndedObservable.remove(callBack ?? null);
-                    }
-                });
                 phare.addConversationProvider(girl);
             });
 

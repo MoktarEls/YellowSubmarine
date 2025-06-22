@@ -5,6 +5,11 @@ import {BrokenMirror} from "@/YellowSubmarine/mirror puzzle/BrokenMirror";
 
 export class MirrorPuzzle {
 
+    private _hasBeenSolved = false;
+    public get hasBeenSolved(){
+        return this._hasBeenSolved;
+    }
+
     private static _instance: MirrorPuzzle;
     public static get instance(){
         return this._instance;
@@ -46,6 +51,7 @@ export class MirrorPuzzle {
         this._lightReactor = new LightReactor();
         this._lightReactor.transformNode.parent = this._transformNode;
         this._onPuzzleSolvedObservable = new Observable<void>();
+        this._onPuzzleSolvedObservable.addOnce(() => this._hasBeenSolved = true);
         this._lightReactor.onLightReceivedObservable.add(() => {
             this._onPuzzleSolvedObservable.notifyObservers();
         })

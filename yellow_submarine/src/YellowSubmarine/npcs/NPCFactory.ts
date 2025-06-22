@@ -2,7 +2,7 @@
 import {Utils} from "@/YellowSubmarine/Utils";
 import {CylindricalDetectionZone} from "@/YellowSubmarine/detection system/CylindricalDetectionZone";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Angle, PBRMaterial, Vector3} from "@babylonjs/core";
+import {Angle, Color3, PBRMaterial, Vector3} from "@babylonjs/core";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {DialogueNodeChainingBuilder} from "@/YellowSubmarine/dialogue system/DialogueNodeChainingBuilder";
 import {JournalUI} from "@/YellowSubmarine/quest system/ui/JournalUI";
@@ -14,6 +14,10 @@ import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 import {FirstTimeDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/FirstTimeDialogueNode";
 import {ItalicTag} from "@/YellowSubmarine/BBCode/tags/ItalicTag";
 import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
+import {ConditionalDialogueNode} from "@/YellowSubmarine/dialogue system/nodes/ConditionalDialogueNode";
+import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
+import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
+import {Submarine} from "@/YellowSubmarine/Submarine";
 
 export class NPCFactory {
 
@@ -132,9 +136,21 @@ export class NPCFactory {
         }, true);
 
 
-        scientific.dialogue = DialogueNodeChainingBuilder
-            .createNewDialogueBuilder(SimpleDialogueNode, "Si je suis la trajectoire de cette étoile, alors je peux peut-être réussir à démontrer que e = m6 !")
+        const dialogueBuilder = DialogueNodeChainingBuilder
+            .createNewDialogueBuilder(ConditionalDialogueNode, () => MirrorPuzzle.instance.hasBeenSolved)
+
+        const beforeQuestIsDone = dialogueBuilder
+            .chainNode(SimpleDialogueNode, false,"Si je suis la trajectoire de cette étoile, alors je peux peut-être réussir à démontrer que e = m6 !")
             .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Oh salut toi ! T'as un sacré sous-marin !").addText("J'adore",ItalicTag).addText("les sous-marins tu tombes à pic !").build())
+            .chainNode(SimpleDialogueNode,"j'ai besoin de ton aide pour résoudre réparer mon phare.")
+            .chainNode(SimpleDialogueNode,"Tout ce que tu as à faire c'est tourner les mirroirs pour que la lumière les atteint tous puis revient au phare.")
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Par contre tu verras le mécanisme est curieux.").build())
+            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Tourner un mirroir ").addText("peut ou non en faire tourner un autre", BoldTag).build())
+            .chainNode(SimpleDialogueNode,"Mais bon je suis sûre que tu y arriveras.")
+            .chainNode(SimpleDialogueNode,"Reviens me voir quand c'est fait d'accord. J'ai une récompense pour toi !")
+
+        const afterQuestIsDone = dialogueBuilder
+            .chainNode(SimpleDialogueNode, true, "Merci bcp. tu m'as vraiment sauvé sur ce coup la.")
             .chainNode(SimpleDialogueNode,"Pour la peine, je vais te présenter les conclusions de mon expérience, prépare toi à en prendre plein la vue !")
             .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("J'ai trouvé").addText("une boule de couleurs avec deux parchemins.",ColorTag,"blue").addText("Commençons par les FAITS !").build())
             .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Fait numéro 1 : la boule est").addText("d'une couleur spécifique...",BoldTag).addText("Hmmmm...... Ok soit.").build())
@@ -146,15 +162,24 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode,"Théorie numéro 1 : une boule de couleur a une position unique. Mais où ??? AHHH Je ne comprends pas....")
             .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Théorie numéro 2 : Si la théorie 1 est correcte, alors la solution du puzzle doit dépendre de ses boules et ").addText("EST UNIQUE.",BoldTag).build())
             .chainNode(SimpleDialogueNode,"Et voilà c'est un peu tout ce que j'ai, je suis dans une sacrée impasse. Je vais sûrement rater le prix Nobel cette année...")
-            .chainNode(SimpleDialogueNode,"Allez j'te laisse la boule, je suis passé à autre chose ! Tu me diras une prochaine fois si ça t'a été utile !")
+            .chainNode(FirstTimeDialogueNode)
+            .chainNode(ActionDialogueNode,true, "Allez j'te laisse la boule, je suis passé à autre chose ! Tu me diras une prochaine fois si ça t'a été utile !", () => {
+                const ball = new TempleBall(scientific.transformNode.absolutePosition.add(new Vector3(-30,20,-30)), Color3.Blue());
+
+                if(!Submarine.instance.templeBall){
+                    Submarine.instance.grabBall(ball);
+                }
+            }, false)
             .chainNode(SimpleDialogueNode,"À la revoyure !")
-            .chainNode(ActionDialogueNode,"Mise à jour de la quête", () => {
+            .chainNode(ActionDialogueNode, "Mise à jour de la quête", () => {
                 JournalUI.instance.addEntryToQuest(QuestManager.instance.getQuest("dreamland"), ("Rosa a trouvée ces deux phrases :" +
                     "\n Bluella, la plus téméraire, ouvrait la marche, portant un chapeau violet" +
                     "\n Greina, la plus sage, veillait sur ses soeurs sans faillire à sa tâche"));
-            }, undefined).setDialogueProvider(scientific).build();
 
 
+            }, undefined)
+
+        scientific.dialogue = dialogueBuilder.setDialogueProvider(scientific).build();
 
         scientific.cameraConfiguration = new CameraConfiguration();
         scientific.cameraConfiguration.target = scientific.transformNode;
