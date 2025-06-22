@@ -14,7 +14,6 @@ import {
     TransformNode,
     Vector3
 } from "@babylonjs/core";
-import {Utils} from "@/YellowSubmarine/Utils";
 import {NPCFactory} from "@/YellowSubmarine/npcs/NPCFactory";
 import {CartoonShaderMaterial} from "@/YellowSubmarine/shader material/CartoonShaderMaterial";
 import {Game} from "@/YellowSubmarine/Game";

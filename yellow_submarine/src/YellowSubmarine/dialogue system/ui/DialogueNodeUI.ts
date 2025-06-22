@@ -7,7 +7,7 @@ import {UI} from "@/YellowSubmarine/ui system/UI";
 import {BBTextBlock} from "@/YellowSubmarine/BBCode/custom node/BBTextBlock";
 import {Game} from "@/YellowSubmarine/Game";
 import {SoundManager} from "@/YellowSubmarine/sound system/SoundManager";
-import {sleep} from "@/YellowSubmarine/Utils";
+import {Sleep} from "@/YellowSubmarine/Utils";
 
 export class DialogueNodeUI extends UI{
     // TODO : Put in there all the logic that is shared across any dialogue node ui
@@ -134,7 +134,7 @@ export class DialogueNodeUI extends UI{
         })
 
         while(!doneAnimatingText){
-            await sleep(500);
+            await Sleep(500);
         }
         this._triangle.isVisible = true;
         if(SoundManager.instance) SoundManager.instance.stopSFX("text");
@@ -168,9 +168,9 @@ export class DialogueNodeUI extends UI{
         // eslint-disable-next-line no-constant-condition
         while (true) {
             this._triangle.alpha = 1;
-            await sleep(this.TRIANGLE_BLINK_INTERVAL);
+            await Sleep(this.TRIANGLE_BLINK_INTERVAL);
             this._triangle.alpha = 0;
-            await sleep(this.TRIANGLE_BLINK_INTERVAL);
+            await Sleep(this.TRIANGLE_BLINK_INTERVAL);
         }
 
     }

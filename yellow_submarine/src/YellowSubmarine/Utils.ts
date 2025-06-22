@@ -20,6 +20,6 @@ export function loadMesh(path: string, scene?: Scene,  options?: ImportMeshOptio
     return ImportMeshAsync(path, scene??Game.scene, options);
 }
 
-export function sleep(ms: number) {
+export function Sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

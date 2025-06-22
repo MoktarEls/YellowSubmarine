@@ -9,7 +9,7 @@ import {
     TransformNode,
     Vector3
 } from "@babylonjs/core";
-import {Utils} from "@/YellowSubmarine/Utils";
+import {loadMesh} from "@/YellowSubmarine/Utils";
 
 export class MirrorLightBeam{
 
@@ -21,7 +21,7 @@ export class MirrorLightBeam{
         this._transformNode = new TransformNode("lightBeamTransformNode");
         this._transformNode.parent = this._mirror.mirrorTransformNode;
 
-        Utils.loadMesh("models/objects/light.glb").then((result) => {
+        loadMesh("models/objects/light.glb").then((result) => {
             this._lightBeamMesh = result.meshes[1];
             this._lightBeamMesh.parent = this._transformNode.parent;
             this._lightBeamMesh.position = new Vector3(0,4,0)

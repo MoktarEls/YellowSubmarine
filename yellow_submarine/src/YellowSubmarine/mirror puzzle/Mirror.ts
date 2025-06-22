@@ -14,9 +14,9 @@ import {MeshDetectionZone} from "@/YellowSubmarine/detection system/MeshDetectio
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {World} from "@/YellowSubmarine/World";
 import {Game} from "@/YellowSubmarine/Game";
-import {Utils} from "@/YellowSubmarine/Utils";
 import {MirrorLightBeam} from "@/YellowSubmarine/mirror puzzle/MirrorLightBeam";
 import {IReceiveLight} from "@/YellowSubmarine/mirror puzzle/IReceiveLight";
+import {loadMesh, Sleep} from "@/YellowSubmarine/Utils";
 
 export class Mirror implements IReceiveLight{
 
@@ -78,7 +78,7 @@ export class Mirror implements IReceiveLight{
 
         this._targetRotationInDegrees = this.currentRotationInDegrees();
 
-        Utils.loadMesh("models/objects/mirroir.glb").then((result) => {
+        loadMesh("models/objects/mirroir.glb").then((result) => {
 
             this._mesh = result.meshes[0];
             result.meshes[1].parent = this._mirrorTransformNode;
@@ -125,7 +125,7 @@ export class Mirror implements IReceiveLight{
         this._targetRotationInDegrees = (this._targetRotationInDegrees + Mirror.DEGREES_PER_ROTATION) % 360;
 
         while(!this.rotationIsCaughtUp()){
-            await Utils.sleep(500);
+            await Sleep(500);
         }
     }
 

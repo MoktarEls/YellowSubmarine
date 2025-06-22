@@ -6,8 +6,8 @@ import {BoldTag} from "@/YellowSubmarine/BBCode/tags/BoldTag";
 import {ColorTag} from "@/YellowSubmarine/BBCode/tags/ColorTag";
 import {IDialogueProvider} from "@/YellowSubmarine/dialogue system/IDialogueProvider";
 import {CameraConfiguration} from "@/YellowSubmarine/camera system/CameraConfiguration";
-import {Utils} from "@/YellowSubmarine/Utils";
 import {BBTextBuilder} from "@/YellowSubmarine/BBCode/builders/BBTextBuilder";
+import {Sleep} from "@/YellowSubmarine/Utils";
 
 export class BrokenMirror extends Mirror implements IDialogueProvider{
 
@@ -24,7 +24,7 @@ export class BrokenMirror extends Mirror implements IDialogueProvider{
         this._dialogue.startDialogue();
 
         while(!isDialogueDone){
-            await Utils.sleep(500);
+            await Sleep(500);
         }
     }
 
