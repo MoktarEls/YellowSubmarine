@@ -16,14 +16,10 @@ export type CtorArgsChain<
         : [ new (...args: unknown[]) => unknown, ...unknown[] ]
     : T
 
-export class Utils {
+export function loadMesh(path: string, scene?: Scene,  options?: ImportMeshOptions) {
+    return ImportMeshAsync(path, scene??Game.scene, options);
+}
 
-    public static loadMesh(path: string, scene?: Scene,  options?: ImportMeshOptions) {
-        return ImportMeshAsync(path, scene??Game.scene, options);
-    }
-
-    public static sleep(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
+export function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

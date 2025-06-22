@@ -23,6 +23,7 @@ import {TemplePuzzle} from "@/YellowSubmarine/temple/TemplePuzzle";
 import {CellMaterial} from "@babylonjs/materials";
 import {TempleBall} from "@/YellowSubmarine/temple/TempleBall";
 import {Submarine} from "@/YellowSubmarine/Submarine";
+import {loadMesh} from "@/YellowSubmarine/Utils";
 import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
 
 export class KeyZoneFactory {
@@ -43,7 +44,7 @@ export class KeyZoneFactory {
             diameter : 200
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/dolphinIsland.glb");
+        const result = await loadMesh("models/scenes/dolphinIsland.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = _transformIsland;
@@ -104,7 +105,7 @@ export class KeyZoneFactory {
             diameter : 260,
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/temple.glb");
+        const result = await loadMesh("models/scenes/temple.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = templeTransform;
@@ -171,7 +172,7 @@ export class KeyZoneFactory {
             diameter : 200,
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/banquise.glb");
+        const result = await loadMesh("models/scenes/banquise.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = banquiseTransform;
@@ -247,7 +248,7 @@ export class KeyZoneFactory {
             diameter : 200,
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/archipel.glb");
+        const result = await loadMesh("models/scenes/archipel.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = archipelTransform;
@@ -321,7 +322,7 @@ export class KeyZoneFactory {
             diameter : 200,
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/poulpe.glb");
+        const result = await loadMesh("models/scenes/poulpe.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = poulpeTransform;
@@ -385,7 +386,6 @@ export class KeyZoneFactory {
     }
 
     public static async createPhare(){
-        // TODO : Create a rotating light for the phare
         const phareTransform: TransformNode = new TransformNode("phare transform");
         const phare = new KeyZone();
 
@@ -394,7 +394,7 @@ export class KeyZoneFactory {
             diameter : 200,
         }, true);
 
-        const result = await Utils.loadMesh("models/scenes/phare.glb");
+        const result = await loadMesh("models/scenes/phare.glb");
         const rootMesh = result.meshes[0];
         rootMesh.position = Vector3.Zero();
         rootMesh.parent = phareTransform;

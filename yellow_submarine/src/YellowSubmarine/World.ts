@@ -2,11 +2,13 @@ import {Sea} from "@/YellowSubmarine/Sea";
 import {Submarine} from "@/YellowSubmarine/Submarine";
 import {Sky} from "@/YellowSubmarine/sky system/Sky";
 import {KeyZoneFactory} from "@/YellowSubmarine/keyzone system/KeyZoneFactory";
-import {GlowLayer} from "@babylonjs/core";
+import {GlowLayer, Vector3} from "@babylonjs/core";
 import {Game} from "@/YellowSubmarine/Game";
 import {WorldInteraction} from "@/YellowSubmarine/world interaction system/interaction/WorldInteraction";
 import {InteractionManager} from "@/YellowSubmarine/interaction system/InteractionManager";
 import {WorldInteractionManager} from "@/YellowSubmarine/world interaction system/interaction/WorldInteractionManager";
+import {SchoolOfFish} from "@/YellowSubmarine/entity system/SchoolOfFish";
+import {Whale} from "@/YellowSubmarine/entity system/Whale";
 import {MirrorPuzzle} from "@/YellowSubmarine/mirror puzzle/MirrorPuzzle";
 export class World {
 
@@ -34,6 +36,8 @@ export class World {
         this._submarine = new Submarine();
         this._worldInteractionManager = new WorldInteractionManager();
         this._sky = new Sky();
+        new SchoolOfFish(new Vector3(0, 20, 0));
+        new Whale();
         const glowLayer = new GlowLayer("", Game.scene);
         glowLayer.intensity = 0.3;
     }

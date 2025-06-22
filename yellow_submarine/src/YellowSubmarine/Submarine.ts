@@ -22,6 +22,11 @@ export class Submarine {
 
     private static _onMeshCreated: Observable<AbstractMesh> = new Observable<AbstractMesh>();
     private static _isMeshCreated = false;
+    private _telescopeTarget!: TransformNode;
+
+    public get telescopeTarget(): TransformNode {
+        return this._telescopeTarget;
+    }
 
     public static get onMeshCreated(): Observable<AbstractMesh> {
         return this._onMeshCreated;
@@ -65,7 +70,6 @@ export class Submarine {
             const mapLimit = 1024;
             Game.scene.onBeforeRenderObservable.add(() => {
                 if (!this._physicsAggregate) return;
-
                 const body = this._physicsAggregate.body;
                 const pos = body.transformNode.position.clone();
 
@@ -77,7 +81,6 @@ export class Submarine {
         });
         Game.scene.onBeforeRenderObservable.add(() => {
             this.update(/*Game.engine.getDeltaTime() / 1000*/);
-
         });
 
         const keysDown = new Set<string>();
@@ -165,6 +168,9 @@ export class Submarine {
             this._mesh.position = new Vector3(0, 0, 0);
         }
         this.mesh.receiveShadows = true;
+        this._telescopeTarget = new TransformNode("cameraTarget", Game.scene);
+        this._telescopeTarget.parent = this._mesh;
+        this._telescopeTarget.position = new Vector3(0, 1.8, 100);
         return this._mesh;
     }
 
