@@ -62,9 +62,9 @@ export class MirrorPuzzle {
         mirror4.nextLightReceiver = mirror3;
         mirror3.nextLightReceiver = this._lightReactor;
 
-        mirror1.linkedMirror = mirror3;
+        /*mirror1.linkedMirror = mirror3;
         mirror4.linkedMirror = mirror5;
-        mirror5.linkedMirror = mirror1;
+        mirror5.linkedMirror = mirror1;*/
     }
 
 

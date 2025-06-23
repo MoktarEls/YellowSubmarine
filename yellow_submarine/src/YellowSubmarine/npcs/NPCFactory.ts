@@ -144,8 +144,6 @@ export class NPCFactory {
             .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Oh salut toi ! T'as un sacré sous-marin !").addText("J'adore",ItalicTag).addText("les sous-marins tu tombes à pic !").build())
             .chainNode(SimpleDialogueNode,"j'ai besoin de ton aide pour résoudre réparer mon phare.")
             .chainNode(SimpleDialogueNode,"Tout ce que tu as à faire c'est tourner les mirroirs pour que la lumière les atteint tous puis revient au phare.")
-            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Par contre tu verras le mécanisme est curieux.").build())
-            .chainNode(SimpleDialogueNode,new BBTextBuilder().addText("Tourner un mirroir ").addText("peut ou non en faire tourner un autre", BoldTag).build())
             .chainNode(SimpleDialogueNode,"Mais bon je suis sûre que tu y arriveras.")
             .chainNode(SimpleDialogueNode,"Reviens me voir quand c'est fait d'accord. J'ai une récompense pour toi !")
 
